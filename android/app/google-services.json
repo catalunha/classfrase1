@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "402048970695",
+    "project_id": "classfrase",
+    "storage_bucket": "classfrase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402048970695:android:2927b4d164ed126b31f3e2",
+        "android_client_info": {
+          "package_name": "education.brintec.classfrase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402048970695-rr67n2fq83qmt7itqvm291p6ouprr8q8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "education.brintec.classfrase",
+            "certificate_hash": "35898efbfbfa958a56085cceb57d93a0e8bd4cf7"
+          }
+        },
+        {
+          "client_id": "402048970695-4840fkrtot4iv9k7qabauor1i3g14h4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0REa_8MBpCY6U_WnS0uh2nhT-DSt_rgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402048970695-4840fkrtot4iv9k7qabauor1i3g14h4t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
