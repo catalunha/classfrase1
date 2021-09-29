@@ -32,8 +32,8 @@ class PhraseCard extends StatelessWidget {
                 tooltip: 'Classificar esta frase',
                 icon: Icon(AppIconData.letter),
                 onPressed: () async {
-                  // Navigator.pushNamed(context, '/resource_addedit',
-                  //     arguments: resourceModel.id);
+                  Navigator.pushNamed(context, '/classifying',
+                      arguments: phrase.id);
                 },
               ),
               IconButton(

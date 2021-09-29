@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ObserverList extends StatelessWidget {
-  const ObserverList({Key? key}) : super(key: key);
+class ObserverPage extends StatelessWidget {
+  const ObserverPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

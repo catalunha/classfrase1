@@ -260,18 +260,12 @@ class HomePage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-    // Map<String, ResourceModel> map = Map.fromIterable(
-    //   resourceModelList,
-    //   key: (element) => element.id,
-    //   value: (element) => element,
-    // );
+
     for (var phrase in phraseList) {
-      // if (map[index] != null) {
       list.add(Container(
         key: ValueKey(phrase),
         child: PhraseCard(phrase: phrase),
       ));
-      // }
     }
     if (list.isEmpty) {
       list.add(ListTile(

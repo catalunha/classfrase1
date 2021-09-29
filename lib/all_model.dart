@@ -31,7 +31,7 @@
 //   // uuid: Semântica
 //   late final Map<String, Group> group; // uuid:Type
 
-//   late final Map<String, Classification> classification; // uuid:Category
+//   late final Map<String, Classification> Category; // uuid:Category
 
 // }
 
@@ -40,7 +40,7 @@
 //   late final String? url;
 // }
 
-// class Classification {
+// class Category {
 //   late final String type;
 //   late final String title;
 //   late final String? url;

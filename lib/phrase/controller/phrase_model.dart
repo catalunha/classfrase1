@@ -58,24 +58,27 @@ class PhraseModel extends FirestoreModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'userId': userId,
-      'phrase': phrase,
-      'font': font,
-      'description': description,
-      'isArchived': isArchived,
-      'isPublic': isPublic,
-      'observer': observer,
-      'classification': classification,
-      'isDeleted': isDeleted,
-    };
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data["classification"] = Map<String, dynamic>();
+    for (var item in classification!.entries) {
+      data["classification"][item.key] = item.value;
+    }
+    data['userId'] = userId;
+    data['phrase'] = phrase;
+    data['font'] = font;
+    data['description'] = description;
+    data['isArchived'] = isArchived;
+    data['isPublic'] = isPublic;
+    data['observer'] = observer;
+    data['isDeleted'] = isDeleted;
+    return data;
   }
 
   factory PhraseModel.fromMap(String id, Map<String, dynamic> map) {
     var classificationMapTemp = Map<String, String>();
     if (map["classification"] is Map && map["classification"] != null) {
       for (var item in map["classification"].entries) {
-        classificationMapTemp[item.key] = item.value.cast<String>();
+        classificationMapTemp[item.key] = item.value;
       }
     }
     var temp = PhraseModel(
