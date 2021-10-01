@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 
-import 'classification/controller/classification_state.dart';
 import 'classifying/controller/classifying_state.dart';
 import 'login/controller/login_state.dart';
 import 'phrase/controller/phrase_state.dart';
@@ -12,7 +11,7 @@ class AppState {
   final UserState userState;
   final PhraseState phraseState;
   final ClassifyingState classifyingState;
-  final ClassificationState classificationState;
+  // final ClassificationState classificationState;
 
   AppState({
     required this.wait,
@@ -20,7 +19,7 @@ class AppState {
     required this.userState,
     required this.phraseState,
     required this.classifyingState,
-    required this.classificationState,
+    // required this.classificationState,
   });
 
   static AppState initialState() => AppState(
@@ -29,7 +28,7 @@ class AppState {
         userState: UserState.initialState(),
         phraseState: PhraseState.initialState(),
         classifyingState: ClassifyingState.initialState(),
-        classificationState: ClassificationState.initialState(),
+        // classificationState: ClassificationState.initialState(),
       );
   AppState copyWith({
     Wait? wait,
@@ -37,7 +36,7 @@ class AppState {
     UserState? userState,
     PhraseState? phraseState,
     ClassifyingState? classifyingState,
-    ClassificationState? classificationState,
+    // ClassificationState? classificationState,
   }) {
     return AppState(
       wait: wait ?? this.wait,
@@ -45,7 +44,7 @@ class AppState {
       userState: userState ?? this.userState,
       phraseState: phraseState ?? this.phraseState,
       classifyingState: classifyingState ?? this.classifyingState,
-      classificationState: classificationState ?? this.classificationState,
+      // classificationState: classificationState ?? this.classificationState,
     );
   }
 
@@ -54,7 +53,7 @@ class AppState {
     if (identical(this, other)) return true;
 
     return other is AppState &&
-        other.classificationState == classificationState &&
+        // other.classificationState == classificationState &&
         other.classifyingState == classifyingState &&
         other.phraseState == phraseState &&
         other.loginState == loginState &&
@@ -65,7 +64,7 @@ class AppState {
   @override
   int get hashCode {
     return phraseState.hashCode ^
-        classificationState.hashCode ^
+        // classificationState.hashCode ^
         classifyingState.hashCode ^
         loginState.hashCode ^
         userState.hashCode ^

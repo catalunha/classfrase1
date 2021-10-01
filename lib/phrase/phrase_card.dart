@@ -36,13 +36,8 @@ class PhraseCard extends StatelessWidget {
                       arguments: phrase.id);
                 },
               ),
-              IconButton(
-                tooltip: 'Ver classificação desta frase',
-                icon: Icon(AppIconData.eye),
-                onPressed: () async {
-                  // Navigator.pushNamed(context, '/resource_addedit',
-                  //     arguments: resourceModel.id);
-                },
+              SizedBox(
+                width: 50,
               ),
               IconButton(
                 tooltip: 'Editar esta frase',

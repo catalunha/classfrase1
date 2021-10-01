@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'classifying/classifying_page.dart';
+import 'classifying/controller/classifications_connector.dart';
 import 'classifying/controller/classifying_connector.dart';
 import 'home/coffee.dart';
 import 'home/controller/home_page_connector.dart';
@@ -27,6 +28,9 @@ class Routes {
     '/observer_list': (BuildContext context) => ObserverPage(),
     '/classifying': (BuildContext context) => ClassifyingConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/classifications': (BuildContext context) => ClassificationsConnector(
+          groupId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
   };
 }

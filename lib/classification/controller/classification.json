@@ -1,0 +1,25 @@
+{
+    "group": {
+        "5uJjfUNL8Z8SgHeayNiT": {
+            "title": "Morfometria",
+            "url": ""
+        },
+        "UXFWGGbU2KLPH3eqca4N": {
+            "title": "Sintática",
+            "url": ""
+        }
+    },
+    "category":{
+        "HW95WkQQmfD3tmNLYi0Q":{
+            "title":"Substantivo",
+            "url":"",
+            "type":"5uJjfUNL8Z8SgHeayNiT"
+        },
+        "wrojgevrQyKiv9fQMJf3":{
+            "title":"Sujeito",
+            "url":"",
+            "type":"UXFWGGbU2KLPH3eqca4N"
+        }
+
+    }
+}

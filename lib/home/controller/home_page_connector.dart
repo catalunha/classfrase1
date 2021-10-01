@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:classfrase/classification/controller/classification_action.dart';
 import 'package:classfrase/login/controller/login_action.dart';
 import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
@@ -15,7 +16,10 @@ class HomePageConnector extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, HomeViewModel>(
       vm: () => HomeViewModelFactory(this),
-      onInit: (store) => store.dispatch(StreamDocsPhraseAction()),
+      onInit: (store) {
+        store.dispatch(StreamDocsPhraseAction());
+        store.dispatch(ReadDocClassificationAction());
+      },
       builder: (context, vm) => HomePage(
         signOut: vm.signOut,
         photoUrl: vm.photoUrl,

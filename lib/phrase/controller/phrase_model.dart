@@ -16,7 +16,7 @@ class PhraseModel extends FirestoreModel {
   final bool isPublic;
   final String? observer;
 
-  final Map<String, String>? classification;
+  final Map<String, Classification> classifications;
   final bool isDeleted;
   PhraseModel(
     String id, {
@@ -28,7 +28,7 @@ class PhraseModel extends FirestoreModel {
     this.isArchived = false,
     this.isPublic = false,
     this.observer = '',
-    this.classification,
+    required this.classifications,
     this.isDeleted = false,
   }) : super(id);
 
@@ -40,7 +40,7 @@ class PhraseModel extends FirestoreModel {
     bool? isArchived,
     bool? isPublic,
     String? observer,
-    Map<String, String>? classification,
+    Map<String, Classification>? classifications,
     bool? isDeleted,
   }) {
     return PhraseModel(
@@ -52,16 +52,16 @@ class PhraseModel extends FirestoreModel {
       isArchived: isArchived ?? this.isArchived,
       isPublic: isPublic ?? this.isPublic,
       observer: observer ?? this.observer,
-      classification: classification ?? this.classification,
+      classifications: classifications ?? this.classifications,
       isDeleted: isDeleted ?? this.isDeleted,
     );
   }
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data["classification"] = Map<String, dynamic>();
-    for (var item in classification!.entries) {
-      data["classification"][item.key] = item.value;
+    data["classifications"] = Map<String, dynamic>();
+    for (var item in classifications.entries) {
+      data["classifications"][item.key] = item.value.toMap();
     }
     data['userId'] = userId;
     data['phrase'] = phrase;
@@ -81,6 +81,14 @@ class PhraseModel extends FirestoreModel {
         classificationMapTemp[item.key] = item.value;
       }
     }
+    var classificationsMapTemp = Map<String, Classification>();
+    if (map["classifications"] is Map && map["classifications"] != null) {
+      for (var item in map["classifications"].entries) {
+        print('item: ${item.key}');
+        print('item: ${item.value}');
+        classificationsMapTemp[item.key] = Classification.fromMap(item.value);
+      }
+    }
     var temp = PhraseModel(
       id,
       userId: map['userId'],
@@ -91,7 +99,7 @@ class PhraseModel extends FirestoreModel {
       isArchived: map['isArchived'],
       isPublic: map['isPublic'],
       observer: map['observer'],
-      classification: classificationMapTemp,
+      classifications: classificationsMapTemp,
       isDeleted: map['isDeleted'],
     );
     temp.setPhraseList();
@@ -109,7 +117,7 @@ class PhraseModel extends FirestoreModel {
 
   @override
   String toString() {
-    return 'PhraseModel(userId: $userId, phrase: $phrase, font: $font, description: $description, isArchived: $isArchived, isPublic: $isPublic, observer: $observer, classification: $classification, isDeleted: $isDeleted)';
+    return 'PhraseModel(userId: $userId, phrase: $phrase, font: $font, description: $description, isArchived: $isArchived, isPublic: $isPublic, observer: $observer,  isDeleted: $isDeleted)';
   }
 
   @override
@@ -124,7 +132,7 @@ class PhraseModel extends FirestoreModel {
         other.isArchived == isArchived &&
         other.isPublic == isPublic &&
         other.observer == observer &&
-        mapEquals(other.classification, classification) &&
+        mapEquals(other.classifications, classifications) &&
         other.isDeleted == isDeleted;
   }
 
@@ -137,7 +145,61 @@ class PhraseModel extends FirestoreModel {
         isArchived.hashCode ^
         isPublic.hashCode ^
         observer.hashCode ^
-        classification.hashCode ^
+        classifications.hashCode ^
         isDeleted.hashCode;
   }
+}
+
+class Classification {
+  final List<int> posPhraseList;
+  final List<String> categoryIdList;
+  Classification({
+    required this.posPhraseList,
+    required this.categoryIdList,
+  });
+
+  Classification copyWith({
+    List<int>? posPhraseList,
+    List<String>? categoryIdList,
+  }) {
+    return Classification(
+      posPhraseList: posPhraseList ?? this.posPhraseList,
+      categoryIdList: categoryIdList ?? this.categoryIdList,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'posPhraseList': posPhraseList,
+      'categoryIdList': categoryIdList,
+    };
+  }
+
+  factory Classification.fromMap(Map<String, dynamic> map) {
+    return Classification(
+      posPhraseList: List<int>.from(map['posPhraseList']),
+      categoryIdList: List<String>.from(map['categoryIdList']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Classification.fromJson(String source) =>
+      Classification.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'Classification(posPhraseList: $posPhraseList, categoryIdList: $categoryIdList)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Classification &&
+        listEquals(other.posPhraseList, posPhraseList) &&
+        listEquals(other.categoryIdList, categoryIdList);
+  }
+
+  @override
+  int get hashCode => posPhraseList.hashCode ^ categoryIdList.hashCode;
 }

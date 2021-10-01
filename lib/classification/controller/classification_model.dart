@@ -6,9 +6,15 @@ import 'package:classfrase/firestore/firestore_model.dart';
 
 class ClassificationModel extends FirestoreModel {
   static final String collection = 'classifications';
-  final Map<String, Group> group; // uuid:Type
 
-  final Map<String, Category> category; // uuid:Category
+  /// final String title;
+  /// final String? url;
+  final Map<String, ClassGroup> group; // uuid:Type
+  /// final String type;
+  /// final String title;
+  /// final String? url;
+  final Map<String, ClassCategory> category; // uuid:Category
+
   ClassificationModel(
     String id, {
     required this.group,
@@ -16,8 +22,8 @@ class ClassificationModel extends FirestoreModel {
   }) : super(id);
 
   ClassificationModel copyWith({
-    Map<String, Group>? group,
-    Map<String, Category>? category,
+    Map<String, ClassGroup>? group,
+    Map<String, ClassCategory>? category,
   }) {
     return ClassificationModel(
       id,
@@ -40,16 +46,18 @@ class ClassificationModel extends FirestoreModel {
   }
 
   factory ClassificationModel.fromMap(String id, Map<String, dynamic> map) {
-    var groupMapTemp = Map<String, Group>();
+    var groupMapTemp = Map<String, ClassGroup>();
     if (map["group"] is Map && map["group"] != null) {
       for (var item in map["group"].entries) {
-        groupMapTemp[item.key] = Group.fromMap(item.entries);
+        groupMapTemp[item.key] = ClassGroup.fromMap(item.value);
       }
     }
-    var categoryTemp = Map<String, Category>();
+    var categoryTemp = Map<String, ClassCategory>();
     if (map["category"] is Map && map["category"] != null) {
       for (var item in map["category"].entries) {
-        categoryTemp[item.key] = Category.fromMap(item.entries);
+        print('item: ${item.key}');
+        print('item: ${item.value}');
+        categoryTemp[item.key] = ClassCategory.fromMap(item.value);
       }
     }
     var temp = ClassificationModel(
@@ -82,19 +90,19 @@ class ClassificationModel extends FirestoreModel {
   int get hashCode => group.hashCode ^ category.hashCode;
 }
 
-class Group {
+class ClassGroup {
   final String title;
   final String? url;
-  Group({
+  ClassGroup({
     required this.title,
     this.url,
   });
 
-  Group copyWith({
+  ClassGroup copyWith({
     String? title,
     String? url,
   }) {
-    return Group(
+    return ClassGroup(
       title: title ?? this.title,
       url: url ?? this.url,
     );
@@ -107,8 +115,8 @@ class Group {
     };
   }
 
-  factory Group.fromMap(Map<String, dynamic> map) {
-    return Group(
+  factory ClassGroup.fromMap(Map<String, dynamic> map) {
+    return ClassGroup(
       title: map['title'],
       url: map['url'],
     );
@@ -116,7 +124,8 @@ class Group {
 
   String toJson() => json.encode(toMap());
 
-  factory Group.fromJson(String source) => Group.fromMap(json.decode(source));
+  factory ClassGroup.fromJson(String source) =>
+      ClassGroup.fromMap(json.decode(source));
 
   @override
   String toString() => 'Group(title: $title, url: $url)';
@@ -125,29 +134,29 @@ class Group {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Group && other.title == title && other.url == url;
+    return other is ClassGroup && other.title == title && other.url == url;
   }
 
   @override
   int get hashCode => title.hashCode ^ url.hashCode;
 }
 
-class Category {
+class ClassCategory {
   final String type;
   final String title;
   final String? url;
-  Category({
+  ClassCategory({
     required this.type,
     required this.title,
     this.url,
   });
 
-  Category copyWith({
+  ClassCategory copyWith({
     String? type,
     String? title,
     String? url,
   }) {
-    return Category(
+    return ClassCategory(
       type: type ?? this.type,
       title: title ?? this.title,
       url: url ?? this.url,
@@ -162,8 +171,8 @@ class Category {
     };
   }
 
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
+  factory ClassCategory.fromMap(Map<String, dynamic> map) {
+    return ClassCategory(
       type: map['type'],
       title: map['title'],
       url: map['url'],
@@ -172,8 +181,8 @@ class Category {
 
   String toJson() => json.encode(toMap());
 
-  factory Category.fromJson(String source) =>
-      Category.fromMap(json.decode(source));
+  factory ClassCategory.fromJson(String source) =>
+      ClassCategory.fromMap(json.decode(source));
 
   @override
   String toString() => 'Category(type: $type, title: $title, url: $url)';
@@ -182,7 +191,7 @@ class Category {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Category &&
+    return other is ClassCategory &&
         other.type == type &&
         other.title == title &&
         other.url == url;

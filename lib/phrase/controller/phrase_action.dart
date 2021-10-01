@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:classfrase/classification/controller/classification_action.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../app_state.dart';
@@ -69,6 +70,13 @@ class SetPhraseListPhraseAction extends ReduxAction<AppState> {
       ),
     );
   }
+
+  void after() {
+    if (state.phraseState.phraseCurrent != null) {
+      dispatch(SetPhraseCurrentPhraseAction(
+          id: state.phraseState.phraseCurrent!.id));
+    }
+  }
 }
 
 class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
@@ -83,7 +91,7 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
       '',
       userId: state.userState.userCurrent!.id,
       phrase: '',
-      classification: <String, String>{},
+      classifications: <String, Classification>{},
     );
     if (id.isNotEmpty) {
       phraseModel = state.phraseState.phraseList!
@@ -123,7 +131,12 @@ class UpdateDocPhraseAction extends ReduxAction<AppState> {
     DocumentReference docRef = firebaseFirestore
         .collection(PhraseModel.collection)
         .doc(phraseModel.id);
+    PhraseModel phraseModelOld = state.phraseState.phraseCurrent!;
     await docRef.update(phraseModel.toMap());
+    if (phraseModel.phrase != phraseModelOld.phrase) {
+      await docRef.update({'classifications': <String, dynamic>{}});
+    }
+
     return null;
   }
 }
