@@ -42,6 +42,54 @@ class SetObserverListObserverAction extends ReduxAction<AppState> {
       ),
     );
   }
+
+  void after() {
+    if (state.observerState.observerCurrent != null) {
+      dispatch(SetObserverCurrentObserverAction(
+          id: state.observerState.observerCurrent!.id));
+    }
+  }
+}
+
+class SetObserverCurrentObserverAction extends ReduxAction<AppState> {
+  final String id;
+  SetObserverCurrentObserverAction({
+    required this.id,
+  });
+  @override
+  AppState reduce() {
+    print('--> SetObserverCurrentObserverAction $id');
+    ObserverModel observerModel = ObserverModel(
+      '',
+      description: '',
+      phraseIdList: [],
+      isDeleted: false,
+    );
+    if (id.isNotEmpty) {
+      observerModel = state.observerState.observerList!
+          .firstWhere((element) => element.id == id);
+    }
+    return state.copyWith(
+      observerState: state.observerState.copyWith(
+        observerCurrent: observerModel,
+      ),
+    );
+  }
+}
+
+class CreateDocObserverAction extends ReduxAction<AppState> {
+  final ObserverModel observerModel;
+
+  CreateDocObserverAction({required this.observerModel});
+
+  @override
+  Future<AppState?> reduce() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    CollectionReference docRef =
+        firebaseFirestore.collection(ObserverModel.collection);
+    await docRef.add(observerModel.toMap());
+    return null;
+  }
 }
 
 class UpdateDocObserverAction extends ReduxAction<AppState> {

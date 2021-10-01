@@ -23,7 +23,7 @@ class ObserverCard extends StatelessWidget {
           ListTile(
             tileColor: Colors.black12,
             title: Text(
-              observer.descrition,
+              observer.description,
               style: AppTextStyles.buttonBoldHeading,
             ),
           ),

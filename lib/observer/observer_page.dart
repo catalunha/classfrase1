@@ -29,6 +29,16 @@ class ObserverPage extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(AppIconData.addInCloud),
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/observer_addedit',
+            arguments: '',
+          );
+        },
+      ),
     );
   }
 
@@ -43,16 +53,20 @@ class ObserverPage extends StatelessWidget {
           widgetList: [
             IconButton(
               tooltip: 'Ver lista de frases',
-              icon: Icon(AppIconData.unArchive),
+              icon: Icon(AppIconData.eye),
               onPressed: () {
                 // Navigator.pop(context);
               },
             ),
             IconButton(
               tooltip: 'Editar esta observação',
-              icon: Icon(AppIconData.unArchive),
+              icon: Icon(AppIconData.edit),
               onPressed: () {
-                // Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  '/observer_addedit',
+                  arguments: observer.id,
+                );
               },
             ),
           ],

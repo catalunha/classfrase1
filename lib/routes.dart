@@ -8,6 +8,7 @@ import 'home/controller/home_page_connector.dart';
 import 'home/information.dart';
 import 'home/orientations.dart';
 import 'login/controller/login_connector.dart';
+import 'observer/controller/observer_addedit_page_controller.dart';
 import 'observer/observer_page.dart';
 import 'phrase/controller/phrase_addedit_connector.dart';
 import 'phrase/controller/phrase_archived_page_connector.dart';
@@ -26,6 +27,9 @@ class Routes {
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
     '/observer_list': (BuildContext context) => ObserverPageConnector(),
+    '/observer_addedit': (BuildContext context) => ObserverAddEditPageConnector(
+          addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
     '/classifying': (BuildContext context) => ClassifyingConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
