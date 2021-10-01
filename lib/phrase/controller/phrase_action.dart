@@ -42,6 +42,7 @@ class ReadDocsPhraseAction extends ReduxAction<AppState> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await firebaseFirestore
         .collection(PhraseModel.collection)
+        .where('isDeleted', isEqualTo: false)
         .where('isArchived', isEqualTo: isArchived)
         .get();
     List<PhraseModel> phraseModelList = [];
@@ -53,7 +54,7 @@ class ReadDocsPhraseAction extends ReduxAction<AppState> {
           ),
         )
         .toList();
-    dispatch(SetPhraseListPhraseAction(phraseList: phraseModelList));
+    dispatch(SetPhraseArchivedListPhraseAction(phraseList: phraseModelList));
     return null;
   }
 }
@@ -76,6 +77,20 @@ class SetPhraseListPhraseAction extends ReduxAction<AppState> {
       dispatch(SetPhraseCurrentPhraseAction(
           id: state.phraseState.phraseCurrent!.id));
     }
+  }
+}
+
+class SetPhraseArchivedListPhraseAction extends ReduxAction<AppState> {
+  final List<PhraseModel> phraseList;
+
+  SetPhraseArchivedListPhraseAction({required this.phraseList});
+  @override
+  AppState reduce() {
+    return state.copyWith(
+      phraseState: state.phraseState.copyWith(
+        phraseArchivedList: phraseList,
+      ),
+    );
   }
 }
 
@@ -136,6 +151,23 @@ class UpdateDocPhraseAction extends ReduxAction<AppState> {
     if (phraseModel.phrase != phraseModelOld.phrase) {
       await docRef.update({'classifications': <String, dynamic>{}});
     }
+
+    return null;
+  }
+}
+
+class UnArchivePhraseAction extends ReduxAction<AppState> {
+  final String phraseId;
+
+  UnArchivePhraseAction({required this.phraseId});
+
+  @override
+  Future<AppState?> reduce() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentReference docRef =
+        firebaseFirestore.collection(PhraseModel.collection).doc(phraseId);
+
+    await docRef.update({'isArchived': false});
 
     return null;
   }

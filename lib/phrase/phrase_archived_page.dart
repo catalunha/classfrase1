@@ -1,22 +1,24 @@
+import 'package:classfrase/phrase/phrase_card.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/observer_model.dart';
-import 'observer_card.dart';
+import 'controller/phrase_model.dart';
 
-class ObserverPage extends StatelessWidget {
-  final List<ObserverModel> observerList;
+class PhraseArchivedPage extends StatelessWidget {
+  final List<PhraseModel> phraseList;
+  final Function(String) onUnArchivePhrase;
 
-  const ObserverPage({
+  const PhraseArchivedPage({
     Key? key,
-    required this.observerList,
+    required this.phraseList,
+    required this.onUnArchivePhrase,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Minhas observações'),
+        title: Text('Frases arquivadas'),
       ),
       body: Column(
         children: [
@@ -35,24 +37,18 @@ class ObserverPage extends StatelessWidget {
   List<Widget> buildItens(context) {
     List<Widget> list = [];
 
-    for (var observer in observerList) {
+    for (var phrase in phraseList) {
       list.add(Container(
-        key: ValueKey(observer),
-        child: ObserverCard(
-          observer: observer,
+        key: ValueKey(phrase),
+        child: PhraseCard(
+          phrase: phrase,
           widgetList: [
             IconButton(
-              tooltip: 'Ver lista de frases',
+              tooltip: 'Desarquivar esta frase',
               icon: Icon(AppIconData.unArchive),
               onPressed: () {
-                // Navigator.pop(context);
-              },
-            ),
-            IconButton(
-              tooltip: 'Editar esta observação',
-              icon: Icon(AppIconData.unArchive),
-              onPressed: () {
-                // Navigator.pop(context);
+                onUnArchivePhrase(phrase.id);
+                Navigator.pop(context);
               },
             ),
           ],
@@ -62,7 +58,7 @@ class ObserverPage extends StatelessWidget {
     if (list.isEmpty) {
       list.add(ListTile(
         leading: Icon(AppIconData.smile),
-        title: Text('Ops. Vc não esta observando nenhuma frase.'),
+        title: Text('Ops. Vc não arquivou nenhuma frase.'),
       ));
     }
     return list;

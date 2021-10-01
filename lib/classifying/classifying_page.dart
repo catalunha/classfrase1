@@ -89,6 +89,8 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
       );
       for (var i = 0; i < widget.phraseList.length; i++) {
         for (var phraseClassItem in widget.phraseClassifications.entries) {
+          // print('${phraseClassItem.key}');
+          // print('${phraseClassItem.value.categoryIdList}');
           List<int> phrasePosList = phraseClassItem.value.posPhraseList;
           if (i == phrasePosList[0]) {
             String phrase = '';
@@ -98,6 +100,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             List<String> phraseCategoryList =
                 phraseClassItem.value.categoryIdList;
             List<String> categoryTitleList = [];
+            // print('categoryItem: $phraseCategoryList');
             for (var categoryItem in phraseCategoryList) {
               ClassCategory categoryTemp = widget.category.putIfAbsent(
                   categoryItem, () => ClassCategory(title: '', type: ''));

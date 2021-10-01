@@ -264,7 +264,42 @@ class HomePage extends StatelessWidget {
     for (var phrase in phraseList) {
       list.add(Container(
         key: ValueKey(phrase),
-        child: PhraseCard(phrase: phrase),
+        child: PhraseCard(
+          phrase: phrase,
+          widgetList: [
+            IconButton(
+              tooltip: 'Classificar esta frase',
+              icon: Icon(AppIconData.letter),
+              onPressed: () async {
+                Navigator.pushNamed(context, '/classifying',
+                    arguments: phrase.id);
+              },
+            ),
+            SizedBox(
+              width: 25,
+            ),
+            phrase.observer!.isEmpty
+                ? Container(
+                    width: 0,
+                  )
+                : IconButton(
+                    tooltip: 'Frase sendo observada',
+                    icon: Icon(AppIconData.eye),
+                    onPressed: () {},
+                  ),
+            SizedBox(
+              width: 25,
+            ),
+            IconButton(
+              tooltip: 'Editar esta frase',
+              icon: Icon(AppIconData.edit),
+              onPressed: () async {
+                Navigator.pushNamed(context, '/phrase_addedit',
+                    arguments: phrase.id);
+              },
+            ),
+          ],
+        ),
       ));
     }
     if (list.isEmpty) {

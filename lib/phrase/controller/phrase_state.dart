@@ -4,21 +4,26 @@ import 'phrase_model.dart';
 class PhraseState {
   final PhraseModel? phraseCurrent;
   final List<PhraseModel>? phraseList;
+  final List<PhraseModel>? phraseArchivedList;
   PhraseState({
     this.phraseCurrent,
     this.phraseList,
+    this.phraseArchivedList,
   });
   factory PhraseState.initialState() => PhraseState(
         phraseCurrent: null,
         phraseList: [],
+        phraseArchivedList: [],
       );
   PhraseState copyWith({
     PhraseModel? phraseCurrent,
     List<PhraseModel>? phraseList,
+    List<PhraseModel>? phraseArchivedList,
   }) {
     return PhraseState(
       phraseCurrent: phraseCurrent ?? this.phraseCurrent,
       phraseList: phraseList ?? this.phraseList,
+      phraseArchivedList: phraseArchivedList ?? this.phraseArchivedList,
     );
   }
 
@@ -32,9 +37,13 @@ class PhraseState {
 
     return other is PhraseState &&
         other.phraseCurrent == phraseCurrent &&
-        listEquals(other.phraseList, phraseList);
+        listEquals(other.phraseList, phraseList) &&
+        listEquals(other.phraseArchivedList, phraseArchivedList);
   }
 
   @override
-  int get hashCode => phraseCurrent.hashCode ^ phraseList.hashCode;
+  int get hashCode =>
+      phraseCurrent.hashCode ^
+      phraseArchivedList.hashCode ^
+      phraseList.hashCode;
 }

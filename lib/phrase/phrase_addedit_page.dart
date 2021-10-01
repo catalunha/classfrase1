@@ -75,6 +75,14 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                     widget.formController.onChange(description: value);
                   },
                 ),
+                InputTitle(
+                  label: 'Observador desta frase',
+                  initialValue: widget.formController.phraseModel.observer,
+                  // validator: widget.formController.validateRequiredText,
+                  onChanged: (value) {
+                    widget.formController.onChange(observer: value);
+                  },
+                ),
                 formController.phraseModel.id.isEmpty
                     ? Container()
                     : InputCheckBox(

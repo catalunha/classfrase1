@@ -6,9 +6,11 @@ import 'controller/phrase_model.dart';
 
 class PhraseCard extends StatelessWidget {
   final PhraseModel phrase;
+  final List<Widget>? widgetList;
   const PhraseCard({
     Key? key,
     required this.phrase,
+    this.widgetList,
   }) : super(key: key);
 
   @override
@@ -26,28 +28,43 @@ class PhraseCard extends StatelessWidget {
               style: AppTextStyles.buttonBoldHeading,
             ),
           ),
+          // Wrap(
+          //   children: [
+          //     IconButton(
+          //       tooltip: 'Classificar esta frase',
+          //       icon: Icon(AppIconData.letter),
+          //       onPressed: () async {
+          //         Navigator.pushNamed(context, '/classifying',
+          //             arguments: phrase.id);
+          //       },
+          //     ),
+          //     SizedBox(
+          //       width: 25,
+          //     ),
+          //     phrase.observer!.isEmpty
+          //         ? Container(
+          //             width: 0,
+          //           )
+          //         : IconButton(
+          //             tooltip: 'Frase sendo observada',
+          //             icon: Icon(AppIconData.eye),
+          //             onPressed: () {},
+          //           ),
+          //     SizedBox(
+          //       width: 25,
+          //     ),
+          //     IconButton(
+          //       tooltip: 'Editar esta frase',
+          //       icon: Icon(AppIconData.edit),
+          //       onPressed: () async {
+          //         Navigator.pushNamed(context, '/phrase_addedit',
+          //             arguments: phrase.id);
+          //       },
+          //     ),
+          //   ],
+          // ),
           Wrap(
-            children: [
-              IconButton(
-                tooltip: 'Classificar esta frase',
-                icon: Icon(AppIconData.letter),
-                onPressed: () async {
-                  Navigator.pushNamed(context, '/classifying',
-                      arguments: phrase.id);
-                },
-              ),
-              SizedBox(
-                width: 50,
-              ),
-              IconButton(
-                tooltip: 'Editar esta frase',
-                icon: Icon(AppIconData.edit),
-                onPressed: () async {
-                  Navigator.pushNamed(context, '/phrase_addedit',
-                      arguments: phrase.id);
-                },
-              ),
-            ],
+            children: widgetList ?? [],
           )
         ],
       ),
