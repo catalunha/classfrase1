@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:classfrase/firestore/firestore_model.dart';
@@ -8,6 +9,7 @@ class PhraseModel extends FirestoreModel {
   static final String collection = 'phrases';
 
   final String userId;
+  final UserRef userRef;
   final String phrase;
   List<String>? phraseList;
   final String? font;
@@ -21,6 +23,7 @@ class PhraseModel extends FirestoreModel {
   PhraseModel(
     String id, {
     required this.userId,
+    required this.userRef,
     required this.phrase,
     // this.phraseList,
     this.font = '',
@@ -34,6 +37,7 @@ class PhraseModel extends FirestoreModel {
 
   PhraseModel copyWith({
     String? userId,
+    UserRef? userRef,
     String? phrase,
     String? font,
     String? description,
@@ -46,6 +50,7 @@ class PhraseModel extends FirestoreModel {
     return PhraseModel(
       id,
       userId: userId ?? this.userId,
+      userRef: userRef ?? this.userRef,
       phrase: phrase ?? this.phrase,
       font: font ?? this.font,
       description: description ?? this.description,
@@ -63,7 +68,9 @@ class PhraseModel extends FirestoreModel {
     for (var item in classifications.entries) {
       data["classifications"][item.key] = item.value.toMap();
     }
+
     data['userId'] = userId;
+    data['userRef'] = userRef.toMap();
     data['phrase'] = phrase;
     data['font'] = font;
     data['description'] = description;
@@ -92,6 +99,7 @@ class PhraseModel extends FirestoreModel {
     var temp = PhraseModel(
       id,
       userId: map['userId'],
+      userRef: UserRef.fromMap(map['userRef']),
       phrase: map['phrase'],
       // phraseList: map['phrase'].split(' '),
       font: map['font'],
@@ -126,6 +134,7 @@ class PhraseModel extends FirestoreModel {
 
     return other is PhraseModel &&
         other.userId == userId &&
+        other.userRef == userRef &&
         other.phrase == phrase &&
         other.font == font &&
         other.description == description &&
@@ -139,6 +148,7 @@ class PhraseModel extends FirestoreModel {
   @override
   int get hashCode {
     return userId.hashCode ^
+        userRef.hashCode ^
         phrase.hashCode ^
         font.hashCode ^
         description.hashCode ^

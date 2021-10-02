@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/classification/controller/classification_action.dart';
+import 'package:classfrase/user/controller/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../app_state.dart';
@@ -105,6 +106,11 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
     PhraseModel phraseModel = PhraseModel(
       '',
       userId: state.userState.userCurrent!.id,
+      userRef: UserRef.fromMap({
+        'id': state.userState.userCurrent!.id,
+        'photoURL': state.userState.userCurrent!.photoURL,
+        'displayName': state.userState.userCurrent!.displayName
+      }),
       phrase: '',
       classifications: <String, Classification>{},
     );

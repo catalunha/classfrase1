@@ -8,23 +8,27 @@ class ObserverModel extends FirestoreModel {
   final String description;
   final List<String> phraseIdList;
   final bool isDeleted;
+  final bool isBlocked;
   ObserverModel(
     String id, {
     required this.description,
     required this.phraseIdList,
     required this.isDeleted,
+    required this.isBlocked,
   }) : super(id);
 
   ObserverModel copyWith({
     String? description,
     List<String>? phraseIdList,
     bool? isDeleted,
+    bool? isBlocked,
   }) {
     return ObserverModel(
       id,
       description: description ?? this.description,
       phraseIdList: phraseIdList ?? this.phraseIdList,
       isDeleted: isDeleted ?? this.isDeleted,
+      isBlocked: isBlocked ?? this.isBlocked,
     );
   }
 
@@ -33,6 +37,7 @@ class ObserverModel extends FirestoreModel {
       'description': description,
       'phraseIdList': phraseIdList,
       'isDeleted': isDeleted,
+      'isBlocked': isBlocked,
     };
   }
 
@@ -42,6 +47,7 @@ class ObserverModel extends FirestoreModel {
       description: map['description'],
       phraseIdList: List<String>.from(map['phraseIdList']),
       isDeleted: map['isDeleted'],
+      isBlocked: map['isBlocked'],
     );
   }
 
@@ -59,6 +65,7 @@ class ObserverModel extends FirestoreModel {
     if (identical(this, other)) return true;
 
     return other is ObserverModel &&
+        other.isBlocked == isBlocked &&
         other.description == description &&
         listEquals(other.phraseIdList, phraseIdList) &&
         other.isDeleted == isDeleted;
@@ -66,5 +73,8 @@ class ObserverModel extends FirestoreModel {
 
   @override
   int get hashCode =>
-      description.hashCode ^ phraseIdList.hashCode ^ isDeleted.hashCode;
+      isBlocked.hashCode ^
+      description.hashCode ^
+      phraseIdList.hashCode ^
+      isDeleted.hashCode;
 }

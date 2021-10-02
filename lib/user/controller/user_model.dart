@@ -80,3 +80,64 @@ class UserModel extends FirestoreModel {
         photoURL.hashCode;
   }
 }
+
+class UserRef {
+  final String id;
+  final String? photoURL;
+  final String? displayName;
+  UserRef({
+    required this.id,
+    this.photoURL,
+    this.displayName,
+  });
+
+  UserRef copyWith({
+    String? id,
+    String? photoURL,
+    String? displayName,
+  }) {
+    return UserRef(
+      id: id ?? this.id,
+      photoURL: photoURL ?? this.photoURL,
+      displayName: displayName ?? this.displayName,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'photoURL': photoURL,
+      'displayName': displayName,
+    };
+  }
+
+  factory UserRef.fromMap(Map<String, dynamic> map) {
+    return UserRef(
+      id: map['id'],
+      photoURL: map['photoURL'],
+      displayName: map['displayName'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UserRef.fromJson(String source) =>
+      UserRef.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'UserRef(id: $id, photoURL: $photoURL, displayName: $displayName)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is UserRef &&
+        other.id == id &&
+        other.photoURL == photoURL &&
+        other.displayName == displayName;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ photoURL.hashCode ^ displayName.hashCode;
+}

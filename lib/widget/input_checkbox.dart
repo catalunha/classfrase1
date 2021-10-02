@@ -16,7 +16,7 @@ class InputCheckBox extends StatelessWidget {
       required this.onChanged,
       this.value,
       required this.subtitle,
-      this.icon = AppIconData.archived})
+      this.icon = AppIconData.undefined})
       : super(key: key);
 
   @override

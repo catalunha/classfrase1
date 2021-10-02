@@ -1,4 +1,5 @@
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/widget/input_checkbox.dart';
 import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_description.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,16 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
                   validator: widget.formControllerObserver.validateRequiredText,
                   onChanged: (value) {
                     widget.formControllerObserver.onChange(description: value);
+                  },
+                ),
+                InputCheckBox(
+                  title: 'Bloquear esta observação',
+                  subtitle: 'Bloquear esta observação',
+                  value: formControllerObserver.observerModel.isBlocked,
+                  icon: AppIconData.check,
+                  onChanged: (value) {
+                    formControllerObserver.onChange(isBlocked: value);
+                    setState(() {});
                   },
                 ),
                 formControllerObserver.observerModel.id.isEmpty

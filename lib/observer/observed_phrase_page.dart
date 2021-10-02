@@ -60,9 +60,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
             ),
           ),
-          Wrap(
-            children: buildGroup(context),
-          ),
+          // Wrap(
+          //   children: buildGroup(context),
+          // ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -138,9 +138,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         TextButton(
           onPressed: () {
             if (widget.selectedPhrasePosList.isNotEmpty) {
-              widget.onUpdateExistCategoryInPos(item.key);
-              Navigator.pushNamed(context, '/classifications',
-                  arguments: item.key);
+              // widget.onUpdateExistCategoryInPos(item.key);
+              // Navigator.pushNamed(context, '/classifications',
+              //     arguments: item.key);
             } else {
               final snackBar = SnackBar(
                 content: const Text('Oops. Selecone um trecho da frase.'),

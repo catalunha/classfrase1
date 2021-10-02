@@ -1,5 +1,6 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'controller/observer_model.dart';
 import 'observer_card.dart';
@@ -53,9 +54,27 @@ class ObserverPage extends StatelessWidget {
           widgetList: [
             IconButton(
               tooltip: 'Ver lista de frases',
-              icon: Icon(AppIconData.eye),
+              icon: Icon(AppIconData.people),
               onPressed: () {
-                // Navigator.pop(context);
+                Navigator.pushNamed(
+                  context,
+                  '/observer_phrase',
+                  arguments: observer.id,
+                );
+              },
+            ),
+            IconButton(
+              tooltip: 'Copiar ID desta observação.',
+              icon: Icon(AppIconData.copy),
+              onPressed: () {
+                Future<void> _copyToClipboard() async {
+                  await Clipboard.setData(ClipboardData(text: observer.id));
+                }
+
+                _copyToClipboard();
+                final snackBar = SnackBar(
+                    content: Text('Ok. O ID: ${observer.id} foi copiado'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),
             IconButton(
