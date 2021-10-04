@@ -50,16 +50,6 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
                     widget.formControllerObserver.onChange(description: value);
                   },
                 ),
-                InputCheckBox(
-                  title: 'Bloquear esta observação',
-                  subtitle: 'Bloquear esta observação',
-                  value: formControllerObserver.observerModel.isBlocked,
-                  icon: AppIconData.check,
-                  onChanged: (value) {
-                    formControllerObserver.onChange(isBlocked: value);
-                    setState(() {});
-                  },
-                ),
                 formControllerObserver.observerModel.id.isEmpty
                     ? Container()
                     : InputCheckBoxDelete(

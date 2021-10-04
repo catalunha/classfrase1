@@ -1,3 +1,4 @@
+import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,19 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 
-class ClassifyingPage extends StatefulWidget {
+import 'observer_phrase_card.dart';
+import 'observed_person_tile.dart';
+
+class ObservedPhrasePage extends StatefulWidget {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Map<String, ClassGroup> group;
   final Map<String, ClassCategory> category;
 
   final Map<String, Classification> phraseClassifications;
+  final PhraseModel observerPhraseCurrent;
 
   final Function(int) onSelectPhrase;
-  final Function(String) onUpdateExistCategoryInPos;
+  // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
-  const ClassifyingPage({
+  const ObservedPhrasePage({
     Key? key,
     required this.phraseList,
     required this.selectedPhrasePosList,
@@ -25,20 +30,21 @@ class ClassifyingPage extends StatefulWidget {
     required this.category,
     required this.phraseClassifications,
     required this.onSelectPhrase,
-    required this.onUpdateExistCategoryInPos,
+    // required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
+    required this.observerPhraseCurrent,
   }) : super(key: key);
 
   @override
-  _ClassifyingPageState createState() => _ClassifyingPageState();
+  _ObservedPhrasePageState createState() => _ObservedPhrasePageState();
 }
 
-class _ClassifyingPageState extends State<ClassifyingPage> {
+class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Classificando esta frase'),
+        title: Text('Observando esta classificação'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -60,9 +66,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
             ),
           ),
-          // Wrap(
-          //   children: buildGroup(context),
-          // ),
+          ObservedPersonTile(
+            phrase: widget.observerPhraseCurrent,
+          ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -103,9 +109,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             // print('categoryItem: $phraseCategoryList');
             for (var categoryItem in phraseCategoryList) {
               ClassCategory categoryTemp = widget.category.putIfAbsent(
-                  categoryItem, () => ClassCategory(title: '', type: ''));
+                  categoryItem, () => ClassCategory(title: '', group: ''));
               if (categoryTemp.title.isNotEmpty &&
-                  categoryTemp.type == groutItem.key) {
+                  categoryTemp.group == groutItem.key) {
                 categoryTitleList.add(categoryTemp.title);
               }
             }

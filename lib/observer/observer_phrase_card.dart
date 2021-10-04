@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'controller/observer_model.dart';
+import 'observed_person_tile.dart';
 
 class ObserverPhraseCard extends StatelessWidget {
   final PhraseModel phrase;
@@ -32,25 +33,8 @@ class ObserverPhraseCard extends StatelessWidget {
               style: AppTextStyles.trailingBold,
             ),
           ),
-          ListTile(
-            leading: phrase.userRef.photoURL == null
-                ? Icon(AppIconData.undefined)
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      phrase.userRef.photoURL!,
-                      height: 58,
-                      width: 58,
-                    ),
-                  ),
-            // tileColor: Colors.black12,
-            title: Text(
-              phrase.userRef.displayName ?? 'Pessoa sem nome.',
-              // style: AppTextStyles.buttonBoldHeading,
-            ),
-            // subtitle: Text(
-            //   phrase.phrase,
-            // ),
+          ObservedPersonTile(
+            phrase: phrase,
           ),
           Wrap(
             children: widgetList ?? [],

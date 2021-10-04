@@ -6,8 +6,8 @@ import 'classifying/controller/classifying_connector.dart';
 import 'home/coffee.dart';
 import 'home/controller/home_page_connector.dart';
 import 'home/information.dart';
-import 'home/orientations.dart';
 import 'login/controller/login_connector.dart';
+import 'observer/controller/observed_phrase_page_connector.dart';
 import 'observer/controller/observer_addedit_page_controller.dart';
 import 'observer/controller/observer_phrase_page_controller.dart';
 import 'observer/observer_page.dart';
@@ -21,7 +21,6 @@ class Routes {
     '/login': (BuildContext context) => LoginConnector(),
     '/home': (BuildContext context) => HomePageConnector(),
     '/information': (BuildContext context) => Information(),
-    '/orientations': (BuildContext context) => Orientations(),
     '/coffee': (BuildContext context) => Coffee(),
     '/phrase_archived': (BuildContext context) => PhraseArchivedPageConnector(),
     '/phrase_addedit': (BuildContext context) => PhraseAddEditConnector(
@@ -33,6 +32,9 @@ class Routes {
         ),
     '/observer_phrase': (BuildContext context) => ObserverPhrasePageConnector(
           observerId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/observed_phrase': (BuildContext context) => ObservedPhrasePageConnector(
+          phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
     '/classifying': (BuildContext context) => ClassifyingConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),

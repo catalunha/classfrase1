@@ -109,10 +109,10 @@ class UpdateDocWithGoogleAccountUserAction extends ReduxAction<AppState> {
     DocumentReference docRef =
         firebaseFirestore.collection(UserModel.collection).doc(id);
     Map<String, dynamic> googleUser = {};
-    googleUser['displayName'] = state.loginState.userFirebaseAuth!.displayName;
-    googleUser['photoURL'] = state.loginState.userFirebaseAuth!.photoURL;
+    googleUser['displayName'] = state.userState.userFirebaseAuth!.displayName;
+    googleUser['photoURL'] = state.userState.userFirebaseAuth!.photoURL;
     // googleUser['phoneNumber'] = state.loginState.userFirebaseAuth!.phoneNumber;
-    googleUser['email'] = state.loginState.userFirebaseAuth!.email;
+    googleUser['email'] = state.userState.userFirebaseAuth!.email;
     await docRef.update(googleUser);
     return null;
   }
@@ -128,12 +128,12 @@ class CreateDocWithGoogleAccountUserAction extends ReduxAction<AppState> {
     CollectionReference docRef =
         firebaseFirestore.collection(UserModel.collection);
     Map<String, dynamic> googleUser = {};
-    googleUser['uid'] = state.loginState.userFirebaseAuth!.uid;
-    googleUser['displayName'] = state.loginState.userFirebaseAuth!.displayName;
-    googleUser['photoURL'] = state.loginState.userFirebaseAuth!.photoURL;
-    // googleUser['phoneNumber'] = state.loginState.userFirebaseAuth!.phoneNumber;
-    googleUser['email'] = state.loginState.userFirebaseAuth!.email;
-    googleUser['isActive'] = false;
+    googleUser['uid'] = state.userState.userFirebaseAuth!.uid;
+    googleUser['displayName'] = state.userState.userFirebaseAuth!.displayName;
+    googleUser['photoURL'] = state.userState.userFirebaseAuth!.photoURL;
+    // googleUser['phoneNumber'] = state.userState.userFirebaseAuth!.phoneNumber;
+    googleUser['email'] = state.userState.userFirebaseAuth!.email;
+    googleUser['isActive'] = true;
     await docRef.add(googleUser);
     return null;
   }

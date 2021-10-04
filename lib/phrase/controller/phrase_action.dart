@@ -14,6 +14,7 @@ class StreamDocsPhraseAction extends ReduxAction<AppState> {
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
         .collection(PhraseModel.collection)
+        .where('userRef.id', isEqualTo: state.userState.userCurrent!.id)
         .where('isDeleted', isEqualTo: false)
         .where('isArchived', isEqualTo: false);
 
@@ -105,8 +106,7 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
     print('--> SetPhraseCurrentPhraseAction $id');
     PhraseModel phraseModel = PhraseModel(
       '',
-      userId: state.userState.userCurrent!.id,
-      userRef: UserRef.fromMap({
+      userFK: UserRef.fromMap({
         'id': state.userState.userCurrent!.id,
         'photoURL': state.userState.userCurrent!.photoURL,
         'displayName': state.userState.userCurrent!.displayName

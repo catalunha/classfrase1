@@ -7,77 +7,85 @@ import 'package:flutter/material.dart';
 
 import '../../classifying/classifying_page.dart';
 import '../../classifying/controller/classifying_action.dart';
+import '../observed_phrase_page.dart';
+import 'observer_action.dart';
 
-class ClassifyingConnector extends StatelessWidget {
+class ObservedPhrasePageConnector extends StatelessWidget {
   final String phraseId;
 
-  const ClassifyingConnector({
+  const ObservedPhrasePageConnector({
     Key? key,
     required this.phraseId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, ClassifyingVm>(
+    return StoreConnector<AppState, ObservedPhrasePageVm>(
       onInit: (store) {
-        store.dispatch(SetPhraseCurrentPhraseAction(id: phraseId));
-        store.dispatch(SetPhraseListClassifyingAction());
+        store.dispatch(SetObserverPhraseCurrentObserverAction(id: phraseId));
+        // store.dispatch(SetPhraseListObservedPhrasePageAction());
       },
-      vm: () => ClassifyingFactory(this),
-      builder: (context, vm) => ClassifyingPage(
+      vm: () => ObservedPhrasePageFactory(this),
+      builder: (context, vm) => ObservedPhrasePage(
           phraseList: vm.phraseList,
           selectedPhrasePosList: vm.selectedPhrasePosList,
           onSelectPhrase: vm.onSelectPhrase,
           group: vm.group,
           category: vm.category,
           phraseClassifications: vm.phraseClassifications,
-          onUpdateExistCategoryInPos: vm.onUpdateExistCategoryInPos,
+          observerPhraseCurrent: vm.observerPhraseCurrent,
+          // onUpdateExistCategoryInPos: vm.onUpdateExistCategoryInPos,
           onSetNullSelectedPhraseAndCategory:
               vm.onSetNullSelectedPhraseAndCategory),
     );
   }
 }
 
-class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
-  ClassifyingFactory(widget) : super(widget);
+class ObservedPhrasePageFactory
+    extends VmFactory<AppState, ObservedPhrasePageConnector> {
+  ObservedPhrasePageFactory(widget) : super(widget);
   @override
-  ClassifyingVm fromStore() => ClassifyingVm(
-        phraseList: state.classifyingState.phraseList!,
+  ObservedPhrasePageVm fromStore() => ObservedPhrasePageVm(
+        phraseList: state.observerState.observerPhraseCurrent!.phraseList!,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
-        group: state.classifyingState.classificationModel!.group,
-        category: state.classifyingState.classificationModel!.category,
+        group: state.classificationState.classificationCurrent!.group,
+        category: state.classificationState.classificationCurrent!.category,
         onSelectPhrase: (int phrasePos) {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
         },
-        phraseClassifications: state.phraseState.phraseCurrent!.classifications,
-        onUpdateExistCategoryInPos: (String groupId) {
-          dispatch(UpdateExistCategoryInPosClassifyingAction(groupId: groupId));
-        },
+        phraseClassifications:
+            state.observerState.observerPhraseCurrent!.classifications,
+        observerPhraseCurrent: state.observerState.observerPhraseCurrent!,
+        // onUpdateExistCategoryInPos: (String groupId) {
+        //   dispatch(UpdateExistCategoryInPosObservedPhrasePageAction(groupId: groupId));
+        // },
         onSetNullSelectedPhraseAndCategory: () {
-          dispatch(SetNullSelectedCategoryIdClassifyingAction());
+          // dispatch(SetNullSelectedCategoryIdObservedPhrasePageAction());
           dispatch(SetNullSelectedPhrasePosClassifyingAction());
         },
       );
 }
 
-class ClassifyingVm extends Vm {
+class ObservedPhrasePageVm extends Vm {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Function(int) onSelectPhrase;
   final Map<String, ClassGroup> group;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
-  final Function(String) onUpdateExistCategoryInPos;
+  final PhraseModel observerPhraseCurrent;
+  // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
-  ClassifyingVm({
+  ObservedPhrasePageVm({
     required this.phraseList,
     required this.selectedPhrasePosList,
     required this.group,
     required this.category,
     required this.onSelectPhrase,
     required this.phraseClassifications,
-    required this.onUpdateExistCategoryInPos,
+    required this.observerPhraseCurrent,
+    // required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
   }) : super(equals: [
           phraseList,
@@ -85,5 +93,6 @@ class ClassifyingVm extends Vm {
           group,
           category,
           phraseClassifications,
+          observerPhraseCurrent
         ]);
 }

@@ -69,12 +69,10 @@ class FormControllerObserver {
   void onChange({
     String? description,
     bool? isDeleted,
-    bool? isBlocked,
   }) {
     observerModel = observerModel.copyWith(
       description: description,
       isDeleted: isDeleted,
-      isBlocked: isBlocked,
     );
   }
 

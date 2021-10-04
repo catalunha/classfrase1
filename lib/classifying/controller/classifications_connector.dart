@@ -36,11 +36,11 @@ class ClassificationsFactory
   ClassificationsFactory(widget) : super(widget);
   @override
   ClassificationsVm fromStore() => ClassificationsVm(
-        phraseList: state.classifyingState.phraseList!,
+        phraseList: state.phraseState.phraseCurrent!.phraseList!,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
         groupId: widget!.groupId,
-        groupData:
-            state.classifyingState.classificationModel!.group[widget!.groupId]!,
+        groupData: state
+            .classificationState.classificationCurrent!.group[widget!.groupId]!,
         category: categoryFilter(),
         onSelectCategory: (String categoryId) {
           dispatch(
@@ -48,7 +48,7 @@ class ClassificationsFactory
         },
         selectedCategoryIdList: state.classifyingState.selectedCategoryIdList!,
         onSaveClassification: () {
-          dispatch(UpdateClassificationClassifyingAction());
+          dispatch(UpdateClassificationsPhraseClassifyingAction());
         },
         onSetNullSelectedCategoryIdOld: () {
           dispatch(SetNullSelectedCategoryIdClassifyingAction());
@@ -58,8 +58,8 @@ class ClassificationsFactory
   categoryFilter() {
     var categoryTemp = <String, ClassCategory>{};
     for (var category
-        in state.classifyingState.classificationModel!.category.entries) {
-      if (category.value.type == widget!.groupId) {
+        in state.classificationState.classificationCurrent!.category.entries) {
+      if (category.value.group == widget!.groupId) {
         categoryTemp.addAll({category.key: category.value});
       }
     }

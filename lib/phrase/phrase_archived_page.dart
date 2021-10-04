@@ -45,7 +45,7 @@ class PhraseArchivedPage extends StatelessWidget {
           widgetList: [
             IconButton(
               tooltip: 'Desarquivar esta frase',
-              icon: Icon(AppIconData.unArchive),
+              icon: Icon(AppIconData.outbox),
               onPressed: () {
                 onUnArchivePhrase(phrase.id);
                 Navigator.pop(context);

@@ -44,11 +44,6 @@ class HomePage extends StatelessWidget {
                   style: AppTextStyles.titleRegular,
                 ),
                 Spacer(),
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/coffee');
-                    },
-                    icon: Icon(AppIconData.coffee)),
                 PopupMenuButton(
                   child: Tooltip(
                     message: 'email: $email\nid: $id\nuid: $uid',
@@ -69,23 +64,6 @@ class HomePage extends StatelessWidget {
                         child: InkWell(
                           child: Row(
                             children: [
-                              Icon(AppIconData.rule),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('Orientações'),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, '/orientations');
-                          },
-                        ),
-                      ),
-                      PopupMenuItem(
-                        child: InkWell(
-                          child: Row(
-                            children: [
                               Icon(AppIconData.info),
                               SizedBox(
                                 width: 5,
@@ -96,6 +74,23 @@ class HomePage extends StatelessWidget {
                           onTap: () {
                             Navigator.pop(context);
                             Navigator.pushNamed(context, '/information');
+                          },
+                        ),
+                      ),
+                      PopupMenuItem(
+                        child: InkWell(
+                          child: Row(
+                            children: [
+                              Icon(AppIconData.coffee),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text('Contribua'),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/coffee');
                           },
                         ),
                       ),
@@ -208,7 +203,7 @@ class HomePage extends StatelessWidget {
                 flex: 5,
                 child: Container(
                   height: 30,
-                  color: Colors.yellowAccent,
+                  color: Colors.black12,
                   child: Row(
                     children: [
                       SizedBox(
@@ -232,7 +227,7 @@ class HomePage extends StatelessWidget {
                       color: Colors.white,
                       child: IconButton(
                         tooltip: 'Minhas frases arquivadas',
-                        icon: Icon(AppIconData.unArchive),
+                        icon: Icon(AppIconData.box),
                         onPressed: () {
                           Navigator.pushNamed(context, '/phrase_archived');
                         },
@@ -266,6 +261,7 @@ class HomePage extends StatelessWidget {
         key: ValueKey(phrase),
         child: PhraseCard(
           phrase: phrase,
+          trailing: phrase.observer!.isEmpty ? null : Icon(AppIconData.eye),
           widgetList: [
             IconButton(
               tooltip: 'Classificar esta frase',
@@ -276,19 +272,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             SizedBox(
-              width: 25,
-            ),
-            phrase.observer!.isEmpty
-                ? Container(
-                    width: 0,
-                  )
-                : IconButton(
-                    tooltip: 'Frase sendo observada',
-                    icon: Icon(AppIconData.eye),
-                    onPressed: () {},
-                  ),
-            SizedBox(
-              width: 25,
+              width: 50,
             ),
             IconButton(
               tooltip: 'Editar esta frase',

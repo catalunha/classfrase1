@@ -2,15 +2,57 @@
 
 A new Flutter project.
 
-## Getting Started
+# Web
 
-This project is a starting point for a Flutter application.
+flutter build web
+flutter build web --web-renderer html
+firebase deploy --only hosting:classfrase
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# use npm
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBvqGlhQwJzdzEqPDUNv89z_NmTGMKEvPA",
+  authDomain: "classfrase.firebaseapp.com",
+  projectId: "classfrase",
+  storageBucket: "classfrase.appspot.com",
+  messagingSenderId: "402048970695",
+  appId: "1:402048970695:web:25489253669cfe0731f3e2",
+  measurementId: "G-XZJZNYL9HC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+# use tag
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBvqGlhQwJzdzEqPDUNv89z_NmTGMKEvPA",
+    authDomain: "classfrase.firebaseapp.com",
+    projectId: "classfrase",
+    storageBucket: "classfrase.appspot.com",
+    messagingSenderId: "402048970695",
+    appId: "1:402048970695:web:25489253669cfe0731f3e2",
+    measurementId: "G-XZJZNYL9HC"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>

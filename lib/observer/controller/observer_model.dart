@@ -1,53 +1,55 @@
 import 'dart:convert';
 
 import 'package:classfrase/firestore/firestore_model.dart';
+import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class ObserverModel extends FirestoreModel {
   static final String collection = 'observers';
+  final UserRef userFK;
   final String description;
   final List<String> phraseIdList;
   final bool isDeleted;
-  final bool isBlocked;
   ObserverModel(
     String id, {
+    required this.userFK,
     required this.description,
     required this.phraseIdList,
     required this.isDeleted,
-    required this.isBlocked,
   }) : super(id);
 
   ObserverModel copyWith({
+    UserRef? userFK,
     String? description,
     List<String>? phraseIdList,
     bool? isDeleted,
-    bool? isBlocked,
   }) {
     return ObserverModel(
       id,
+      userFK: userFK ?? this.userFK,
       description: description ?? this.description,
       phraseIdList: phraseIdList ?? this.phraseIdList,
       isDeleted: isDeleted ?? this.isDeleted,
-      isBlocked: isBlocked ?? this.isBlocked,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'description': description,
-      'phraseIdList': phraseIdList,
-      'isDeleted': isDeleted,
-      'isBlocked': isBlocked,
-    };
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['userRef'] = userFK.toMap();
+    data['description'] = description;
+    data['phraseIdList'] = phraseIdList;
+    data['isDeleted'] = isDeleted;
+    return data;
   }
 
   factory ObserverModel.fromMap(String id, Map<String, dynamic> map) {
     return ObserverModel(
       id,
+      userFK: UserRef.fromMap(map['userRef']),
       description: map['description'],
       phraseIdList: List<String>.from(map['phraseIdList']),
       isDeleted: map['isDeleted'],
-      isBlocked: map['isBlocked'],
     );
   }
 
@@ -65,7 +67,7 @@ class ObserverModel extends FirestoreModel {
     if (identical(this, other)) return true;
 
     return other is ObserverModel &&
-        other.isBlocked == isBlocked &&
+        other.userFK == userFK &&
         other.description == description &&
         listEquals(other.phraseIdList, phraseIdList) &&
         other.isDeleted == isDeleted;
@@ -73,7 +75,7 @@ class ObserverModel extends FirestoreModel {
 
   @override
   int get hashCode =>
-      isBlocked.hashCode ^
+      userFK.hashCode ^
       description.hashCode ^
       phraseIdList.hashCode ^
       isDeleted.hashCode;

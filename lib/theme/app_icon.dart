@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 class AppIconData {
   static const undefined = Icons.help_outline_outlined;
-  static const archived = Icons.archive;
-  static const unArchive = Icons.upcoming;
+  static const box = Icons.inbox;
+  static const outbox = Icons.outbox;
+  static const inbox = Icons.move_to_inbox;
 
   static const coffee = Icons.coffee_outlined;
-  static const rule = Icons.rule;
   static const info = Icons.info_outline;
   static const exit = Icons.exit_to_app;
 
   static const phrase = Icons.format_shapes_sharp;
   static const eye = Icons.remove_red_eye_outlined;
   static const people = Icons.people_alt;
-  static const copy = Icons.copy_all;
+  static const copy = Icons.content_copy;
 
 // usados nos forms
   static const addInCloud = Icons.add;
@@ -24,7 +24,7 @@ class AppIconData {
   static const title = Icons.title;
   static const description = Icons.text_snippet_outlined;
   static const delete = Icons.delete_forever_outlined;
-  static const check = Icons.check;
+  static const check = Icons.rule;
 
 // nao usados
   static const letter = Icons.format_color_text;

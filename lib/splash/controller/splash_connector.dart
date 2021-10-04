@@ -1,7 +1,6 @@
 import 'package:classfrase/home/controller/home_page_connector.dart';
 import 'package:classfrase/login/controller/login_action.dart';
 import 'package:classfrase/login/controller/login_connector.dart';
-import 'package:classfrase/login/controller/login_state.dart';
 import 'package:classfrase/user/controller/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
@@ -49,13 +48,13 @@ class SplashViewModelFactory extends VmFactory<AppState, SplashConnector> {
   @override
   SplashViewModel fromStore() {
     return SplashViewModel(
-      isUnInitialized: state.loginState.statusFirebaseAuth ==
+      isUnInitialized: state.userState.statusFirebaseAuth ==
           StatusFirebaseAuth.unInitialized,
-      isAuthenticating: state.loginState.statusFirebaseAuth ==
+      isAuthenticating: state.userState.statusFirebaseAuth ==
           StatusFirebaseAuth.authenticating,
-      isAuthenticated: state.loginState.statusFirebaseAuth ==
+      isAuthenticated: state.userState.statusFirebaseAuth ==
           StatusFirebaseAuth.authenticated,
-      isUnAuthenticated: state.loginState.statusFirebaseAuth ==
+      isUnAuthenticated: state.userState.statusFirebaseAuth ==
           StatusFirebaseAuth.unAuthenticated,
       isUnInitializedFirestore: state.userState.statusFirestoreUser ==
           StatusFirestoreUser.unInitialized,

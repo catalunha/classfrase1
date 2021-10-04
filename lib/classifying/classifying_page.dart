@@ -103,9 +103,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             // print('categoryItem: $phraseCategoryList');
             for (var categoryItem in phraseCategoryList) {
               ClassCategory categoryTemp = widget.category.putIfAbsent(
-                  categoryItem, () => ClassCategory(title: '', type: ''));
+                  categoryItem, () => ClassCategory(title: '', group: ''));
               if (categoryTemp.title.isNotEmpty &&
-                  categoryTemp.type == groutItem.key) {
+                  categoryTemp.group == groutItem.key) {
                 categoryTitleList.add(categoryTemp.title);
               }
             }
@@ -161,6 +161,11 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           style: TextButton.styleFrom(
             textStyle: const TextStyle(fontSize: 20),
           ),
+        ),
+      );
+      list.add(
+        SizedBox(
+          width: 10,
         ),
       );
     }

@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
+import 'package:classfrase/user/controller/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../app_state.dart';
@@ -13,6 +14,7 @@ class StreamDocsObserverAction extends ReduxAction<AppState> {
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
         .collection(ObserverModel.collection)
+        .where('userRef.id', isEqualTo: state.userState.userCurrent!.id)
         .where('isDeleted', isEqualTo: false);
 
     Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
@@ -62,10 +64,14 @@ class SetObserverCurrentObserverAction extends ReduxAction<AppState> {
     print('--> SetObserverCurrentObserverAction $id');
     ObserverModel observerModel = ObserverModel(
       '',
+      userFK: UserRef.fromMap({
+        'id': state.userState.userCurrent!.id,
+        'photoURL': state.userState.userCurrent!.photoURL,
+        'displayName': state.userState.userCurrent!.displayName
+      }),
       description: '',
       phraseIdList: [],
       isDeleted: false,
-      isBlocked: false,
     );
     if (id.isNotEmpty) {
       observerModel = state.observerState.observerList!

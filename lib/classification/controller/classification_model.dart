@@ -142,11 +142,11 @@ class ClassGroup {
 }
 
 class ClassCategory {
-  final String type;
+  final String group;
   final String title;
   final String? url;
   ClassCategory({
-    required this.type,
+    required this.group,
     required this.title,
     this.url,
   });
@@ -157,7 +157,7 @@ class ClassCategory {
     String? url,
   }) {
     return ClassCategory(
-      type: type ?? this.type,
+      group: type ?? this.group,
       title: title ?? this.title,
       url: url ?? this.url,
     );
@@ -165,7 +165,7 @@ class ClassCategory {
 
   Map<String, dynamic> toMap() {
     return {
-      'type': type,
+      'type': group,
       'title': title,
       'url': url,
     };
@@ -173,7 +173,7 @@ class ClassCategory {
 
   factory ClassCategory.fromMap(Map<String, dynamic> map) {
     return ClassCategory(
-      type: map['type'],
+      group: map['type'],
       title: map['title'],
       url: map['url'],
     );
@@ -185,18 +185,18 @@ class ClassCategory {
       ClassCategory.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Category(type: $type, title: $title, url: $url)';
+  String toString() => 'Category(type: $group, title: $title, url: $url)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is ClassCategory &&
-        other.type == type &&
+        other.group == group &&
         other.title == title &&
         other.url == url;
   }
 
   @override
-  int get hashCode => type.hashCode ^ title.hashCode ^ url.hashCode;
+  int get hashCode => group.hashCode ^ title.hashCode ^ url.hashCode;
 }

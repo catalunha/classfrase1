@@ -43,10 +43,10 @@ class ObserverPhrasePage extends StatelessWidget {
           widgetList: [
             IconButton(
               tooltip: 'Observar esta frase',
-              icon: Icon(AppIconData.eye),
+              icon: Icon(AppIconData.letter),
               onPressed: () {
-                // onUnArchivePhrase(phrase.id);
-                // Navigator.pop(context);
+                Navigator.pushNamed(context, '/observed_phrase',
+                    arguments: phrase.id);
               },
             ),
           ],

@@ -7,18 +7,18 @@ import 'package:flutter/foundation.dart';
 import '../../app_state.dart';
 import 'package:uuid/uuid.dart';
 
-class SetPhraseListClassifyingAction extends ReduxAction<AppState> {
-  @override
-  AppState reduce() {
-    List<String> phraseList =
-        state.phraseState.phraseCurrent!.phrase.split(' ');
-    return state.copyWith(
-      classifyingState: state.classifyingState.copyWith(
-        phraseList: phraseList,
-      ),
-    );
-  }
-}
+// class SetPhraseListClassifyingAction extends ReduxAction<AppState> {
+//   @override
+//   AppState reduce() {
+//     List<String> phraseList =
+//         state.phraseState.phraseCurrent!.phrase.split(' ');
+//     return state.copyWith(
+//       classifyingState: state.classifyingState.copyWith(
+//         phraseList: phraseList,
+//       ),
+//     );
+//   }
+// }
 
 class SetSelectedPhrasePosClassifyingAction extends ReduxAction<AppState> {
   final int phrasePos;
@@ -64,7 +64,8 @@ class SetSelectedCategoryIdClassifyingAction extends ReduxAction<AppState> {
   }
 }
 
-class UpdateClassificationClassifyingAction extends ReduxAction<AppState> {
+class UpdateClassificationsPhraseClassifyingAction
+    extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     print(state.classifyingState.selectedPosPhraseList);

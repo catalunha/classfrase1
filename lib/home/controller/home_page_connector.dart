@@ -42,7 +42,7 @@ class HomeViewModelFactory extends VmFactory<AppState, HomePageConnector> {
         photoUrl: state.userState.userCurrent!.photoURL ?? '',
         displayName: state.userState.userCurrent!.displayName ?? '',
         email: state.userState.userCurrent!.email,
-        uid: state.loginState.userFirebaseAuth?.uid ?? '',
+        uid: state.userState.userFirebaseAuth?.uid ?? '',
         id: state.userState.userCurrent!.id,
         phraseList: state.phraseState.phraseList!,
       );

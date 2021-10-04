@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 50),
                   Image.asset(
-                    AppImages.person,
+                    AppImages.login,
                     width: 208,
                     height: 273,
                   ),

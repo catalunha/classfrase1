@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../app_state.dart';
-import 'login_state.dart';
 
 class ChangeStatusFirebaseAuthLoginAction extends ReduxAction<AppState> {
   final StatusFirebaseAuth statusFirebaseAuth;
@@ -14,7 +13,7 @@ class ChangeStatusFirebaseAuthLoginAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state.copyWith(
-        loginState: state.loginState.copyWith(
+        userState: state.userState.copyWith(
       statusFirebaseAuth: statusFirebaseAuth,
     ));
   }
@@ -27,7 +26,7 @@ class ChangeUserLoginAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state.copyWith(
-        loginState: state.loginState.copyWith(
+        userState: state.userState.copyWith(
       userFirebaseAuth: userFirebaseAuth,
     ));
   }
