@@ -3,6 +3,6 @@ class AppImages {
   // static const logomini = "assets/images/logomini.png";
   // static const union = "assets/images/union.png";
   static const qrcode = "assets/images/qrcode.png";
-  static const login = "assets/images/login.jpg";
+  static const login = "assets/images/login.png";
   static const google = "assets/images/google.png";
 }

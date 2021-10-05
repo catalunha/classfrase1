@@ -1,5 +1,4 @@
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:classfrase/widget/input_checkbox.dart';
 import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_description.dart';
 import 'package:flutter/material.dart';

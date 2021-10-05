@@ -19,7 +19,6 @@ class HomePageConnector extends StatelessWidget {
       onInit: (store) {
         store.dispatch(StreamDocsPhraseAction());
         store.dispatch(ReadDocClassificationAction());
-        print('home onInit');
       },
       builder: (context, vm) => HomePage(
         signOut: vm.signOut,

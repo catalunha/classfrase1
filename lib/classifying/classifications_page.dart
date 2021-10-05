@@ -1,8 +1,8 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:collection';
 
 class ClassificationsPage extends StatelessWidget {
   final List<String> phraseList;
@@ -64,7 +64,12 @@ class ClassificationsPage extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: buildCategories(context),
+                children: [
+                  ...buildCategories(context),
+                  SizedBox(
+                    height: 100,
+                  )
+                ],
               ),
             ),
           ),
@@ -105,21 +110,24 @@ class ClassificationsPage extends StatelessWidget {
 
   List<Widget> buildCategories(context) {
     List<Widget> list = [];
-
-    for (var item in category.entries) {
+    Map<String, ClassCategory> sorted = SplayTreeMap.from(category,
+        (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
+    for (var item in sorted.entries) {
       list.add(Row(
         children: [
           Expanded(
-            child: ListTile(
-              tileColor: selectedCategoryIdList.contains(item.key)
-                  ? Colors.yellow.shade200
+            child: Container(
+              color: selectedCategoryIdList.contains(item.key)
+                  ? Colors.yellow
                   : null,
-              title: Text('${item.value.title}'),
-              subtitle: Text('${item.key}'),
-              onTap: () {
-                print('${item.key}');
-                onSelectCategory(item.key);
-              },
+              child: ListTile(
+                title: Text('${item.value.title}'),
+                // subtitle: Text('${item.key}'),
+                onTap: () {
+                  //print('${item.key}');
+                  onSelectCategory(item.key);
+                },
+              ),
             ),
           ),
           Container(

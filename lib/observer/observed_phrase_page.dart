@@ -1,4 +1,5 @@
-import 'package:classfrase/theme/app_icon.dart';
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 
-import 'observer_phrase_card.dart';
 import 'observed_person_tile.dart';
 
 class ObservedPhrasePage extends StatefulWidget {
@@ -83,7 +83,11 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
 
   List<Widget> buildClassifications(context) {
     List<Widget> list = [];
-    for (var groutItem in widget.group.entries) {
+    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
+        widget.group,
+        (key1, key2) =>
+            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
+    for (var groutItem in groupSorted.entries) {
       list.add(
         Container(
           width: double.infinity,
@@ -95,8 +99,8 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
       );
       for (var i = 0; i < widget.phraseList.length; i++) {
         for (var phraseClassItem in widget.phraseClassifications.entries) {
-          // print('${phraseClassItem.key}');
-          // print('${phraseClassItem.value.categoryIdList}');
+          // //print('${phraseClassItem.key}');
+          // //print('${phraseClassItem.value.categoryIdList}');
           List<int> phrasePosList = phraseClassItem.value.posPhraseList;
           if (i == phrasePosList[0]) {
             String phrase = '';
@@ -106,7 +110,7 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
             List<String> phraseCategoryList =
                 phraseClassItem.value.categoryIdList;
             List<String> categoryTitleList = [];
-            // print('categoryItem: $phraseCategoryList');
+            // //print('categoryItem: $phraseCategoryList');
             for (var categoryItem in phraseCategoryList) {
               ClassCategory categoryTemp = widget.category.putIfAbsent(
                   categoryItem, () => ClassCategory(title: '', group: ''));
@@ -120,13 +124,14 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
 
             if (category.isNotEmpty) {
               list.add(
-                ListTile(
-                  tileColor:
-                      listEquals(widget.selectedPhrasePosList, phrasePosList)
-                          ? Colors.amber.shade100
-                          : null,
-                  title: Text('$phrase'),
-                  subtitle: Text('$category'),
+                Container(
+                  color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+                      ? Colors.yellow
+                      : null,
+                  child: ListTile(
+                    title: Text('$phrase'),
+                    subtitle: Text('$category'),
+                  ),
                 ),
               );
             }

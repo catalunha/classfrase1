@@ -23,7 +23,6 @@ class PhraseModel extends FirestoreModel {
     String id, {
     required this.userFK,
     required this.phrase,
-    // this.phraseList,
     this.font = '',
     this.description = '',
     this.isArchived = false,
@@ -86,8 +85,8 @@ class PhraseModel extends FirestoreModel {
     var classificationsMapTemp = Map<String, Classification>();
     if (map["classifications"] is Map && map["classifications"] != null) {
       for (var item in map["classifications"].entries) {
-        print('item: ${item.key}');
-        print('item: ${item.value}');
+        //print('item: ${item.key}');
+        //print('item: ${item.value}');
         classificationsMapTemp[item.key] = Classification.fromMap(item.value);
       }
     }
@@ -95,7 +94,6 @@ class PhraseModel extends FirestoreModel {
       id,
       userFK: UserRef.fromMap(map['userRef']),
       phrase: map['phrase'],
-      // phraseList: map['phrase'].split(' '),
       font: map['font'],
       description: map['description'],
       isArchived: map['isArchived'],

@@ -1,4 +1,3 @@
-import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:flutter/foundation.dart';
 
 class ClassifyingState {

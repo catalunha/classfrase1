@@ -9,7 +9,7 @@ import 'observer_model.dart';
 class StreamDocsObserverAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    print('--> StreamDocsObserverAction');
+    //print('--> StreamDocsObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -61,7 +61,7 @@ class SetObserverCurrentObserverAction extends ReduxAction<AppState> {
   });
   @override
   AppState reduce() {
-    print('--> SetObserverCurrentObserverAction $id');
+    //print('--> SetObserverCurrentObserverAction $id');
     ObserverModel observerModel = ObserverModel(
       '',
       userFK: UserRef.fromMap({
@@ -120,7 +120,7 @@ class UpdateDocObserverAction extends ReduxAction<AppState> {
 class StreamDocsPhraseObserverAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    print('--> StreamDocsPhraseObserverAction');
+    //print('--> StreamDocsPhraseObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -172,7 +172,7 @@ class SetObserverPhraseCurrentObserverAction extends ReduxAction<AppState> {
   SetObserverPhraseCurrentObserverAction({required this.id});
   @override
   AppState reduce() {
-    print('--> SetObserverPhraseCurrentObserverAction');
+    //print('--> SetObserverPhraseCurrentObserverAction');
     PhraseModel phraseModel;
     phraseModel = state.observerState.observerPhraseList!
         .firstWhere((element) => element.id == id);

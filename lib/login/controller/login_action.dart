@@ -40,20 +40,20 @@ class CheckLoginAction extends ReduxAction<AppState> {
     // await Future.delayed(Duration(seconds: 5));
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
-        print('---> User is currently signed out!');
+        //print('---> User is currently signed out!');
         dispatch(ChangeStatusFirebaseAuthLoginAction(
             statusFirebaseAuth: StatusFirebaseAuth.unAuthenticated));
       } else {
-        print('--->  User is signed in! ${user.uid}');
+        //print('--->  User is signed in! ${user.uid}');
         dispatch(ChangeUserLoginAction(userFirebaseAuth: user));
         dispatch(ChangeStatusFirebaseAuthLoginAction(
             statusFirebaseAuth: StatusFirebaseAuth.authenticated));
         // await Future.delayed(Duration(seconds: 5));
 
         await dispatch(GetDocGoogleAccountUserAction(uid: user.uid));
-        print('---> SignInLoginAction: verificado se tem users correspondente');
-        print('---> SignInLoginAction: ${state.userState.userCurrent}');
-        print('---> SignInLoginAction: state.userState.userCurrent != null');
+        //print('---> SignInLoginAction: verificado se tem users correspondente');
+        //print('---> SignInLoginAction: ${state.userState.userCurrent}');
+        //print('---> SignInLoginAction: state.userState.userCurrent != null');
       }
     });
 
@@ -67,9 +67,9 @@ class SignInLoginAction extends ReduxAction<AppState> {
     try {
       var google = GoogleSignInOrSignOut();
       bool done = await google.googleLogin();
-      print('---> SignInLoginAction: googleLogin $done');
+      //print('---> SignInLoginAction: googleLogin $done');
     } catch (e) {
-      print('--> google.googleLogin(): nao escolheu nada');
+      //print('--> google.googleLogin(): nao escolheu nada');
     }
 
     return null;
@@ -81,7 +81,7 @@ class SignOutLoginAction extends ReduxAction<AppState> {
   Future<AppState> reduce() async {
     var google = GoogleSignInOrSignOut();
     var done = await google.googleLogout();
-    print('---> SignOutLoginAction: googleLogout $done');
+    //print('---> SignOutLoginAction: googleLogout $done');
     return state.copyWith(
       userState: UserState.initialState(),
     );
@@ -97,12 +97,12 @@ class GoogleSignInOrSignOut {
   GoogleSignInAccount get user => _user!;
   Future<bool> googleLogin() async {
     try {
-      print('--> GoogleSignInOrSignOut.googleLogin(): 1');
+      //print('--> GoogleSignInOrSignOut.googleLogin(): 1');
       final googleUser = await googleSignIn.signIn();
-      print('--> GoogleSignInOrSignOut.googleLogin(): 2 $googleUser');
+      //print('--> GoogleSignInOrSignOut.googleLogin(): 2 $googleUser');
       if (googleUser == null) return false;
       _user = googleUser;
-      print('--> GoogleSignInOrSignOut.googleLogin(): 3');
+      //print('--> GoogleSignInOrSignOut.googleLogin(): 3');
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -116,9 +116,9 @@ class GoogleSignInOrSignOut {
         return true;
       }
     } catch (e) {
-      print('+++ Erro googleLogin +++');
-      print(e.toString());
-      print('--- Erro googleLogin ---');
+      //print('+++ Erro googleLogin +++');
+      //print(e.toString());
+      //print('--- Erro googleLogin ---');
       return false;
     }
   }

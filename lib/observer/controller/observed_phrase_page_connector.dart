@@ -1,11 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/app_state.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
-import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../classifying/classifying_page.dart';
 import '../../classifying/controller/classifying_action.dart';
 import '../observed_phrase_page.dart';
 import 'observer_action.dart';

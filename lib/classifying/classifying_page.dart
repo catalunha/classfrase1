@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +79,11 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
 
   List<Widget> buildClassifications(context) {
     List<Widget> list = [];
-    for (var groutItem in widget.group.entries) {
+    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
+        widget.group,
+        (key1, key2) =>
+            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
+    for (var groutItem in groupSorted.entries) {
       list.add(
         Container(
           width: double.infinity,
@@ -89,8 +95,8 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
       );
       for (var i = 0; i < widget.phraseList.length; i++) {
         for (var phraseClassItem in widget.phraseClassifications.entries) {
-          // print('${phraseClassItem.key}');
-          // print('${phraseClassItem.value.categoryIdList}');
+          // //print('${phraseClassItem.key}');
+          // //print('${phraseClassItem.value.categoryIdList}');
           List<int> phrasePosList = phraseClassItem.value.posPhraseList;
           if (i == phrasePosList[0]) {
             String phrase = '';
@@ -100,10 +106,14 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             List<String> phraseCategoryList =
                 phraseClassItem.value.categoryIdList;
             List<String> categoryTitleList = [];
-            // print('categoryItem: $phraseCategoryList');
+            // //print('categoryItem: $phraseCategoryList');
             for (var categoryItem in phraseCategoryList) {
               ClassCategory categoryTemp = widget.category.putIfAbsent(
                   categoryItem, () => ClassCategory(title: '', group: ''));
+              // if (widget.category.containsKey(categoryItem)) {
+              //   categoryTemp = widget.category[categoryItem]!;
+              // }
+
               if (categoryTemp.title.isNotEmpty &&
                   categoryTemp.group == groutItem.key) {
                 categoryTitleList.add(categoryTemp.title);
@@ -114,15 +124,42 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
 
             if (category.isNotEmpty) {
               list.add(
-                ListTile(
-                  tileColor:
-                      listEquals(widget.selectedPhrasePosList, phrasePosList)
-                          ? Colors.amber.shade100
-                          : null,
-                  title: Text('$phrase'),
-                  subtitle: Text('$category'),
+                Container(
+                  color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+                      ? Colors.yellow
+                      : null,
+                  child: ListTile(
+                    title: Text('$phrase'),
+                    subtitle: Text('$category'),
+                  ),
                 ),
               );
+              // list.add(Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Container(
+              //     width: double.infinity,
+              //     alignment: Alignment.bottomLeft,
+              //     color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+              //         ? Colors.amber.shade100
+              //         : null,
+              //     child: Column(
+              //       children: [
+              //         Container(
+              //             alignment: Alignment.bottomLeft,
+              //             child: Text(
+              //               '$phrase',
+              //               style: const TextStyle(fontSize: 20),
+              //             )),
+              //         Padding(
+              //           padding: const EdgeInsets.only(left: 20),
+              //           child: Container(
+              //               alignment: Alignment.bottomLeft,
+              //               child: Text('$category')),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ));
             }
           }
         }
@@ -133,7 +170,12 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
 
   List<Widget> buildGroup(context) {
     List<Widget> list = [];
-    for (var item in widget.group.entries) {
+    Map<String, ClassGroup> sorted = SplayTreeMap.from(
+        widget.group,
+        (key1, key2) =>
+            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
+
+    for (var item in sorted.entries) {
       list.add(
         TextButton(
           onPressed: () {

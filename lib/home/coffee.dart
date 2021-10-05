@@ -1,4 +1,3 @@
-import 'package:classfrase/theme/app_images.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +8,7 @@ class Coffee extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Orientações'),
+        title: Text('Se desejar pode contribuir'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -26,31 +25,32 @@ E esperamos que te ajude também.
 
 Contudo existem custos com hospedagem do aplicativo, consultores em lingua portuguesa, equipe de programação, designers, etc.
 
-Se você deseja nos ajudar a manter e ampliar este projeto considere contribuir com QUALQUER quantia.
+Se você deseja nos ajudar a manter e ampliar este projeto considere contribuir com QUALQUER quantia para este PIX de meu CPF: 91302315315
 
-Para o seguinte PIX: ricelly.catalunha@gmail.com
-
-Ou escaneie o QR Code abaixo
-      ''',
-                style: AppTextStyles.titleRegular,
-              ),
-            ),
-            Image.asset(
-              AppImages.qrcode,
-              width: 208,
-              height: 273,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                '''
 E já sou-lhe grata pelo carinho,
 
-Ricelly Catalunha.
+Família Catalunha.
       ''',
                 style: AppTextStyles.titleRegular,
               ),
             ),
+// Ou escaneie o QR Code abaixo
+            // Image.asset(
+            //   AppImages.qrcode,
+            //   width: 208,
+            //   height: 273,
+            // ),
+//             Padding(
+//               padding: const EdgeInsets.all(10.0),
+//               child: Text(
+//                 '''
+// E já sou-lhe grata pelo carinho,
+
+// Ricelly Catalunha.
+//       ''',
+//                 style: AppTextStyles.titleRegular,
+//               ),
+//             ),
           ],
         ),
       ),

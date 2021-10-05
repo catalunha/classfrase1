@@ -7,13 +7,8 @@ import 'package:classfrase/firestore/firestore_model.dart';
 class ClassificationModel extends FirestoreModel {
   static final String collection = 'classifications';
 
-  /// final String title;
-  /// final String? url;
-  final Map<String, ClassGroup> group; // uuid:Type
-  /// final String type;
-  /// final String title;
-  /// final String? url;
-  final Map<String, ClassCategory> category; // uuid:Category
+  final Map<String, ClassGroup> group; // uuid:group
+  final Map<String, ClassCategory> category; // uuid:category
 
   ClassificationModel(
     String id, {
@@ -49,17 +44,34 @@ class ClassificationModel extends FirestoreModel {
     var groupMapTemp = Map<String, ClassGroup>();
     if (map["group"] is Map && map["group"] != null) {
       for (var item in map["group"].entries) {
-        groupMapTemp[item.key] = ClassGroup.fromMap(item.value);
+        groupMapTemp[item.key] =
+            ClassGroup.fromMap(item.value).copyWith(id: item.key);
       }
     }
+    // Map<String, ClassGroup> groupMapSorted = SplayTreeMap.from(
+    //     groupMapTemp,
+    //     (key1, key2) =>
+    //         groupMapTemp[key1]!.title.compareTo(groupMapTemp[key2]!.title));
+
     var categoryTemp = Map<String, ClassCategory>();
     if (map["category"] is Map && map["category"] != null) {
       for (var item in map["category"].entries) {
-        print('item: ${item.key}');
-        print('item: ${item.value}');
-        categoryTemp[item.key] = ClassCategory.fromMap(item.value);
+        //print('item: ${item.key}');
+        //print('item: ${item.value}');
+        categoryTemp[item.key] =
+            ClassCategory.fromMap(item.value).copyWith(id: item.key);
       }
     }
+    // for (var item in categoryTemp.entries) {
+    //   //print('${item.key} - ${item.value.title}');
+    // }
+    // Map<String, ClassCategory> categoryMapSorted = SplayTreeMap.from(
+    //     categoryTemp,
+    //     (key1, key2) =>
+    //         categoryTemp[key1]!.title.compareTo(categoryTemp[key2]!.title));
+    // for (var item in categoryMapSorted.entries) {
+    //   //print('${item.key} - ${item.value.title}');
+    // }
     var temp = ClassificationModel(
       id,
       group: groupMapTemp,
@@ -91,18 +103,22 @@ class ClassificationModel extends FirestoreModel {
 }
 
 class ClassGroup {
+  final String? id;
   final String title;
   final String? url;
   ClassGroup({
+    this.id,
     required this.title,
     this.url,
   });
 
   ClassGroup copyWith({
+    String? id,
     String? title,
     String? url,
   }) {
     return ClassGroup(
+      id: id ?? this.id,
       title: title ?? this.title,
       url: url ?? this.url,
     );
@@ -134,30 +150,37 @@ class ClassGroup {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ClassGroup && other.title == title && other.url == url;
+    return other is ClassGroup &&
+        other.id == id &&
+        other.title == title &&
+        other.url == url;
   }
 
   @override
-  int get hashCode => title.hashCode ^ url.hashCode;
+  int get hashCode => id.hashCode ^ title.hashCode ^ url.hashCode;
 }
 
 class ClassCategory {
+  final String? id;
   final String group;
   final String title;
   final String? url;
   ClassCategory({
+    this.id,
     required this.group,
     required this.title,
     this.url,
   });
 
   ClassCategory copyWith({
-    String? type,
+    String? id,
+    String? group,
     String? title,
     String? url,
   }) {
     return ClassCategory(
-      group: type ?? this.group,
+      id: id ?? this.id,
+      group: group ?? this.group,
       title: title ?? this.title,
       url: url ?? this.url,
     );
@@ -165,7 +188,7 @@ class ClassCategory {
 
   Map<String, dynamic> toMap() {
     return {
-      'type': group,
+      'group': group,
       'title': title,
       'url': url,
     };
@@ -173,7 +196,7 @@ class ClassCategory {
 
   factory ClassCategory.fromMap(Map<String, dynamic> map) {
     return ClassCategory(
-      group: map['type'],
+      group: map['group'],
       title: map['title'],
       url: map['url'],
     );
@@ -185,18 +208,20 @@ class ClassCategory {
       ClassCategory.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Category(type: $group, title: $title, url: $url)';
+  String toString() => 'Category(group: $group, title: $title, url: $url)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is ClassCategory &&
+        other.id == id &&
         other.group == group &&
         other.title == title &&
         other.url == url;
   }
 
   @override
-  int get hashCode => group.hashCode ^ title.hashCode ^ url.hashCode;
+  int get hashCode =>
+      id.hashCode ^ group.hashCode ^ title.hashCode ^ url.hashCode;
 }

@@ -20,12 +20,12 @@ class SplashConnector extends StatelessWidget {
             vm.startLogin();
           }
           if (vm.isAuthenticated && vm.isInFirestore) {
-            print('--> vm.isAuthenticated && vm.isInFirestore : true');
+            //print('--> vm.isAuthenticated && vm.isInFirestore : true');
             return HomePageConnector();
           }
           if (vm.isUnAuthenticated && !vm.isAuthenticating) {
-            print(
-                '--> vm.isUnAuthenticated:true || !vm.isAuthenticating: true');
+            //print(
+            // '--> vm.isUnAuthenticated:true || !vm.isAuthenticating: true');
             return LoginConnector();
           }
           return SplashPage(

@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text('Contribua'),
+                              Text('Contribuir'),
                             ],
                           ),
                           onTap: () {
@@ -124,6 +124,21 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
+              ? Wrap(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/group',
+                        );
+                      },
+                      child: Text('UpdateClassificationsDocs'),
+                    ),
+                  ],
+                )
+              : Container(),
           Center(
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,

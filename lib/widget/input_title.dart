@@ -4,8 +4,9 @@ import 'package:classfrase/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class InputTitle extends StatelessWidget {
-  final String label;
   final IconData icon;
+  final String label;
+  final bool required;
   final String? initialValue;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -18,6 +19,7 @@ class InputTitle extends StatelessWidget {
     this.validator,
     this.controller,
     required this.onChanged,
+    this.required = false,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,15 @@ class InputTitle extends StatelessWidget {
           Container(
             width: double.infinity,
             alignment: Alignment.topCenter,
-            child: Text(label),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(label),
+              required
+                  ? Text(
+                      ' *',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Container(),
+            ]),
             color: Colors.black12,
           ),
           TextFormField(
