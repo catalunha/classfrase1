@@ -112,7 +112,33 @@ class PhraseModel extends FirestoreModel {
       PhraseModel.fromMap(id, json.decode(source));
 
   setPhraseList() {
-    phraseList = phrase.split(' ');
+    String word = '';
+    List<String> _phraseList = [];
+    for (var i = 0; i < phrase.length; i++) {
+      // print(
+      //     '${phrase[i]} ${phrase[i].contains(RegExp(r"/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/"))}');
+      // print(
+      //     '${phrase[i]} ${phrase[i].contains(RegExp(r"[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]"))}');
+      // print(
+      //     '${phrase[i]} ${phrase[i].contains(RegExp(r"[A-Za-z\u00C0-\u00FF]"))}');
+      if (phrase[i].contains(
+          RegExp(r"[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0123456789]"))) {
+        word += phrase[i];
+      } else {
+        print(word);
+        if (word.isNotEmpty) {
+          _phraseList.add(word);
+          word = '';
+        }
+        _phraseList.add(phrase[i]);
+      }
+    }
+    if (word.isNotEmpty) {
+      _phraseList.add(word);
+      word = '';
+    }
+    // print(phraseList);
+    phraseList = _phraseList;
   }
 
   @override

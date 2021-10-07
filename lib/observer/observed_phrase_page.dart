@@ -105,7 +105,9 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
           if (i == phrasePosList[0]) {
             String phrase = '';
             for (var pos in phrasePosList) {
-              phrase = phrase + widget.phraseList[pos] + ' ';
+              try {
+                phrase = phrase + widget.phraseList[pos] + ' ';
+              } catch (e) {}
             }
             List<String> phraseCategoryList =
                 phraseClassItem.value.categoryIdList;

@@ -84,21 +84,40 @@ class ClassificationsPage extends StatelessWidget {
   List<InlineSpan> buildPhrase(context) {
     List<InlineSpan> list = [];
     for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
-      list.add(
-        TextSpan(
+      if (phraseList[wordPos] != ' ') {
+        list.add(TextSpan(
           text: phraseList[wordPos],
           style: selectedPhrasePosList.contains(wordPos)
               ? TextStyle(color: Colors.red)
               : null,
-        ),
-      );
-      list.add(TextSpan(
-        text: ' ',
-      ));
+        ));
+      } else {
+        list.add(TextSpan(
+          text: phraseList[wordPos],
+        ));
+      }
     }
 
     return list;
   }
+  // List<InlineSpan> buildPhrase(context) {
+  //   List<InlineSpan> list = [];
+  //   for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
+  //     list.add(
+  //       TextSpan(
+  //         text: phraseList[wordPos],
+  //         style: selectedPhrasePosList.contains(wordPos)
+  //             ? TextStyle(color: Colors.red)
+  //             : null,
+  //       ),
+  //     );
+  //     list.add(TextSpan(
+  //       text: ' ',
+  //     ));
+  //   }
+
+  //   return list;
+  // }
 
   List<Widget> buildCategories(context) {
     List<Widget> list = [];

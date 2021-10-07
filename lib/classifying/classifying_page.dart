@@ -124,7 +124,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           if (i == phrasePosList[0]) {
             String phrase = '';
             for (var pos in phrasePosList) {
-              phrase = phrase + widget.phraseList[pos] + ' ';
+              try {
+                phrase = phrase + widget.phraseList[pos] + ' ';
+              } catch (e) {}
             }
             List<String> phraseCategoryList =
                 phraseClassItem.value.categoryIdList;
@@ -214,22 +216,46 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
   List<InlineSpan> buildPhrase(context) {
     List<InlineSpan> list = [];
     for (var wordPos = 0; wordPos < widget.phraseList.length; wordPos++) {
-      list.add(TextSpan(
-        text: widget.phraseList[wordPos],
-        style: widget.selectedPhrasePosList.contains(wordPos)
-            ? TextStyle(color: Colors.red)
-            : null,
-        recognizer: TapGestureRecognizer()
-          ..onTap = () {
-            setState(() {});
-            widget.onSelectPhrase(wordPos);
-          },
-      ));
-      list.add(TextSpan(
-        text: ' ',
-      ));
+      if (widget.phraseList[wordPos] != ' ') {
+        list.add(TextSpan(
+          text: widget.phraseList[wordPos],
+          style: widget.selectedPhrasePosList.contains(wordPos)
+              ? TextStyle(color: Colors.red)
+              : null,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              setState(() {});
+              widget.onSelectPhrase(wordPos);
+            },
+        ));
+      } else {
+        list.add(TextSpan(
+          text: widget.phraseList[wordPos],
+        ));
+      }
     }
 
     return list;
   }
+  // List<InlineSpan> buildPhrase(context) {
+  //   List<InlineSpan> list = [];
+  //   for (var wordPos = 0; wordPos < widget.phraseList.length; wordPos++) {
+  //     list.add(TextSpan(
+  //       text: widget.phraseList[wordPos],
+  //       style: widget.selectedPhrasePosList.contains(wordPos)
+  //           ? TextStyle(color: Colors.red)
+  //           : null,
+  //       recognizer: TapGestureRecognizer()
+  //         ..onTap = () {
+  //           setState(() {});
+  //           widget.onSelectPhrase(wordPos);
+  //         },
+  //     ));
+  //     list.add(TextSpan(
+  //       text: ' ',
+  //     ));
+  //   }
+
+  //   return list;
+  // }
 }
