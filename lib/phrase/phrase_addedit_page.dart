@@ -109,6 +109,11 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                         },
                       ),
                 RequiredInForm(),
+                Container(
+                  alignment: Alignment.bottomRight,
+                  child:
+                      Text('Frase id: ${widget.formController.phraseModel.id}'),
+                ),
               ],
             )),
       ),

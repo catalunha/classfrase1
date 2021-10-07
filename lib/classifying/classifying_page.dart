@@ -51,24 +51,41 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
       ),
       body: Column(
         children: [
-          Tooltip(
-            message: 'Clique em uma ou mais palavras para classificá-la.',
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(fontSize: 28, color: Colors.black),
-                    children: buildPhrase(context),
-                  ),
+          Container(
+            // width: double.infinity,
+            color: Colors.black12,
+            child: Center(
+              child: Text('Clique em uma ou mais palavras para selecioná-la.'),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(fontSize: 28, color: Colors.black),
+                  children: buildPhrase(context),
                 ),
               ),
             ),
           ),
-          Tooltip(
-            message: 'Clique num grupo para escolher uma classificação',
-            child: Wrap(
-              children: buildGroup(context),
+          Container(
+            // width: double.infinity,
+            color: Colors.black12,
+            child: Center(
+              child: Text('Clique num grupo para escolher uma classificação.'),
+            ),
+          ),
+          Wrap(
+            alignment: WrapAlignment.spaceEvenly,
+            spacing: 10.0,
+            children: buildGroup(context),
+          ),
+          Container(
+            // width: double.infinity,
+            color: Colors.black12,
+            child: Center(
+              child: Text('Sua classificação em:'),
             ),
           ),
           Expanded(
@@ -95,7 +112,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           width: double.infinity,
           color: Colors.black12,
           child: Center(
-            child: Text('Classificação ${groutItem.value.title}'),
+            child: Text('${groutItem.value.title}'),
           ),
         ),
       );
@@ -140,32 +157,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                   ),
                 ),
               );
-              // list.add(Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Container(
-              //     width: double.infinity,
-              //     alignment: Alignment.bottomLeft,
-              //     color: listEquals(widget.selectedPhrasePosList, phrasePosList)
-              //         ? Colors.amber.shade100
-              //         : null,
-              //     child: Column(
-              //       children: [
-              //         Container(
-              //             alignment: Alignment.bottomLeft,
-              //             child: Text(
-              //               '$phrase',
-              //               style: const TextStyle(fontSize: 20),
-              //             )),
-              //         Padding(
-              //           padding: const EdgeInsets.only(left: 20),
-              //           child: Container(
-              //               alignment: Alignment.bottomLeft,
-              //               child: Text('$category')),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ));
             }
           }
         }
@@ -191,7 +182,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                   arguments: item.key);
             } else {
               final snackBar = SnackBar(
-                content: const Text('Oops. Selecone um trecho da frase.'),
+                content: const Text('Oops. Selecione um trecho da frase.'),
                 // action: SnackBarAction(
                 //   label: 'Undo',
                 //   onPressed: () {
@@ -211,11 +202,11 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           ),
         ),
       );
-      list.add(
-        SizedBox(
-          width: 10,
-        ),
-      );
+      // list.add(
+      //   SizedBox(
+      //     width: 10,
+      //   ),
+      // );
     }
     return list;
   }

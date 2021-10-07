@@ -21,7 +21,7 @@ class Information extends StatelessWidget {
                 '''
 Olá,
 
-Este aplicativo nasceu da necessidade de nossa familia em estudar as classificações morfológicas, sintáticas e semânticas de algumas frases.
+Este aplicativo nasceu da necessidade de nossa família em estudar as classificações gramaticais de algumas frases.
 
 É gratuito e de livre uso. Contudo frases de cunho imoral ou similares terão seus usuários banidos do aplicativo.
 

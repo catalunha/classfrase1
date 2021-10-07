@@ -39,7 +39,7 @@ class ClassificationsPage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text('Análise ${groupData.title}'),
+        title: Text('Opções para ${groupData.title}'),
       ),
       body: Column(
         children: [
@@ -56,10 +56,7 @@ class ClassificationsPage extends StatelessWidget {
           ),
           Container(
             color: Colors.black12,
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Text('clique para escolher uma ou mais opções'),
-            ),
+            child: Text('clique para escolher uma ou mais opções'),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -93,11 +90,6 @@ class ClassificationsPage extends StatelessWidget {
           style: selectedPhrasePosList.contains(wordPos)
               ? TextStyle(color: Colors.red)
               : null,
-          // recognizer: TapGestureRecognizer()
-          //   ..onTap = () {
-          // setState(() {});
-          // setPhraseSelected(wordPos);
-          // },
         ),
       );
       list.add(TextSpan(

@@ -19,7 +19,7 @@ class Coffee extends StatelessWidget {
                 '''
 Olá,
 
-Este projeto nasceu da necessidade de nossa familia em estudar as classificações morfológicas, sintáticas e semânticas de algumas frases.
+Este projeto nasceu da necessidade de nossa família em estudar as classificações gramaticais de algumas frases.
 
 E esperamos que te ajude também.
 

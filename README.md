@@ -8,6 +8,7 @@ flutter build web --web-renderer html
 firebase deploy --only hosting:classfrase
 
 
+
 # use npm
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
