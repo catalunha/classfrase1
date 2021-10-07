@@ -270,13 +270,18 @@ class HomePage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-
+    // List<PhraseModel> phraseListSorted =
+    phraseList.sort((a, b) => a.phrase.compareTo(b.phrase));
     for (var phrase in phraseList) {
       list.add(Container(
         key: ValueKey(phrase),
         child: PhraseCard(
           phrase: phrase,
-          trailing: phrase.observer!.isEmpty ? null : Icon(AppIconData.eye),
+          trailing: phrase.observer!.isEmpty
+              ? null
+              : Tooltip(
+                  message: 'Esta frase esta sendo observada.',
+                  child: Icon(AppIconData.eye)),
           widgetList: [
             IconButton(
               tooltip: 'Classificar esta frase',

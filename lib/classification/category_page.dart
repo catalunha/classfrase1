@@ -63,6 +63,7 @@ class CategoryPage extends StatelessWidget {
 
     for (var item in categorySorted.entries) {
       if (item.value.group == groupCurrent.id) {
+        print('${item.value.id} | ${item.value.title}');
         list.add(
           ClassificationCard(
             id: item.value.id!,

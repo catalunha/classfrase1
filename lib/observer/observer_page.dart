@@ -31,6 +31,7 @@ class ObserverPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Adicionar uma observação.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
           Navigator.pushNamed(
@@ -53,7 +54,7 @@ class ObserverPage extends StatelessWidget {
           observer: observer,
           widgetList: [
             IconButton(
-              tooltip: 'Ver lista de frases',
+              tooltip: 'Ver lista de pessoas e frases',
               icon: Icon(AppIconData.people),
               onPressed: () {
                 Navigator.pushNamed(

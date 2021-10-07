@@ -17,11 +17,13 @@ class PhraseState {
       );
   PhraseState copyWith({
     PhraseModel? phraseCurrent,
+    bool phraseCurrentSetNull = false,
     List<PhraseModel>? phraseList,
     List<PhraseModel>? phraseArchivedList,
   }) {
     return PhraseState(
-      phraseCurrent: phraseCurrent ?? this.phraseCurrent,
+      phraseCurrent:
+          phraseCurrentSetNull ? null : phraseCurrent ?? this.phraseCurrent,
       phraseList: phraseList ?? this.phraseList,
       phraseArchivedList: phraseArchivedList ?? this.phraseArchivedList,
     );

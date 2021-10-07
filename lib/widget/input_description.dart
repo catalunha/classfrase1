@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 class InputDescription extends StatelessWidget {
   final String label;
+  final bool required;
+
   final IconData icon;
   final String? initialValue;
   final String? Function(String?)? validator;
@@ -18,6 +20,7 @@ class InputDescription extends StatelessWidget {
     this.validator,
     this.controller,
     required this.onChanged,
+    this.required = false,
   }) : super(key: key);
 
   @override
@@ -29,7 +32,15 @@ class InputDescription extends StatelessWidget {
           Container(
             width: double.infinity,
             alignment: Alignment.topCenter,
-            child: Text(label),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(label),
+              required
+                  ? Text(
+                      ' *',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Container(),
+            ]),
             color: Colors.black12,
           ),
           TextFormField(

@@ -1,6 +1,7 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_description.dart';
+import 'package:classfrase/widget/required_inform.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/observer_addedit_page_controller.dart';
@@ -42,6 +43,7 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
               children: [
                 InputDescription(
                   label: 'Informe uma descrição da observação',
+                  required: true,
                   initialValue:
                       widget.formControllerObserver.observerModel.description,
                   validator: widget.formControllerObserver.validateRequiredText,
@@ -62,13 +64,12 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
                           setState(() {});
                         },
                       ),
-                SizedBox(
-                  height: 20,
-                ),
+                RequiredInForm(),
               ],
             )),
       ),
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Salvar estes campos em núvem',
         child: Icon(AppIconData.saveInCloud),
         onPressed: () {
           widget.formControllerObserver.onCheckValidation();

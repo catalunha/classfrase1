@@ -125,10 +125,11 @@ class ClassGroup {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'url': url,
-    };
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['title'] = this.title;
+    if (url != null && url!.isNotEmpty) data['url'] = this.url;
+
+    return data;
   }
 
   factory ClassGroup.fromMap(Map<String, dynamic> map) {
@@ -187,11 +188,12 @@ class ClassCategory {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'group': group,
-      'title': title,
-      'url': url,
-    };
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['group'] = this.group;
+    data['title'] = this.title;
+    if (url != null && url!.isNotEmpty) data['url'] = this.url;
+
+    return data;
   }
 
   factory ClassCategory.fromMap(Map<String, dynamic> map) {

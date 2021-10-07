@@ -51,19 +51,25 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(fontSize: 28, color: Colors.black),
-                  children: buildPhrase(context),
+          Tooltip(
+            message: 'Clique em uma ou mais palavras para classificá-la.',
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                    children: buildPhrase(context),
+                  ),
                 ),
               ),
             ),
           ),
-          Wrap(
-            children: buildGroup(context),
+          Tooltip(
+            message: 'Clique num grupo para escolher uma classificação',
+            child: Wrap(
+              children: buildGroup(context),
+            ),
           ),
           Expanded(
             child: SingleChildScrollView(

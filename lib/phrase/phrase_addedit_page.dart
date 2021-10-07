@@ -3,6 +3,7 @@ import 'package:classfrase/widget/input_checkbox.dart';
 import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_description.dart';
 import 'package:classfrase/widget/input_title.dart';
+import 'package:classfrase/widget/required_inform.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/phrase_addedit_connector.dart';
@@ -44,6 +45,7 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
               children: [
                 InputDescription(
                   label: 'Informe a frase',
+                  required: true,
                   initialValue: widget.formController.phraseModel.phrase,
                   validator: widget.formController.validateRequiredText,
                   onChanged: (value) {
@@ -106,19 +108,18 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                           setState(() {});
                         },
                       ),
-                SizedBox(
-                  height: 20,
-                ),
+                RequiredInForm(),
               ],
             )),
       ),
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Salvar estes campos em núvem',
         child: Icon(AppIconData.saveInCloud),
         onPressed: () {
           widget.formController.onCheckValidation();
           if (widget.formController.isFormValid) {
-            widget.onSave(widget.formController.phraseModel);
             Navigator.pop(context);
+            widget.onSave(widget.formController.phraseModel.copyWith());
           }
         },
       ),

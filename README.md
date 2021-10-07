@@ -4,7 +4,6 @@ A new Flutter project.
 
 # Web
 
-flutter build web
 flutter build web --web-renderer html
 firebase deploy --only hosting:classfrase
 

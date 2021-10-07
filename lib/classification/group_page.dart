@@ -49,6 +49,8 @@ class GroupPage extends StatelessWidget {
     Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
         (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
     for (var item in groupSorted.entries) {
+      print('${item.value.id} | ${item.value.title}');
+
       list.add(
         ClassificationCard(
           id: item.value.id!,

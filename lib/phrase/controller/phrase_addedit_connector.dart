@@ -35,11 +35,11 @@ class PhraseAddEditFactory extends VmFactory<AppState, PhraseAddEditConnector> {
   PhraseAddEditVm fromStore() => PhraseAddEditVm(
         formController:
             FormController(phraseModel: state.phraseState.phraseCurrent!),
-        onSave: (PhraseModel phraseModel) {
+        onSave: (PhraseModel phraseModel) async {
           if (widget!.addOrEditId.isEmpty) {
             dispatch(CreateDocPhraseAction(phraseModel: phraseModel));
           } else {
-            dispatch(UpdateDocPhraseAction(phraseModel: phraseModel));
+            await dispatch(UpdateDocPhraseAction(phraseModel: phraseModel));
           }
         },
       );

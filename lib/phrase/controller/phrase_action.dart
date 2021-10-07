@@ -43,6 +43,7 @@ class ReadDocsPhraseAction extends ReduxAction<AppState> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await firebaseFirestore
         .collection(PhraseModel.collection)
+        .where('userRef.id', isEqualTo: state.userState.userCurrent!.id)
         .where('isDeleted', isEqualTo: false)
         .where('isArchived', isEqualTo: isArchived)
         .get();
@@ -152,6 +153,8 @@ class UpdateDocPhraseAction extends ReduxAction<AppState> {
         .collection(PhraseModel.collection)
         .doc(phraseModel.id);
     PhraseModel phraseModelOld = state.phraseState.phraseCurrent!;
+    dispatch(SetPhraseCurrentPhraseAction(id: ''));
+
     await docRef.update(phraseModel.toMap());
     if (phraseModel.phrase != phraseModelOld.phrase) {
       await docRef.update({'classifications': <String, dynamic>{}});
