@@ -65,6 +65,9 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
                         },
                       ),
                 RequiredInForm(),
+                SizedBox(
+                  height: 80,
+                ),
               ],
             )),
       ),

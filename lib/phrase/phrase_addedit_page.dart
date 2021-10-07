@@ -114,6 +114,9 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                   child:
                       Text('Frase id: ${widget.formController.phraseModel.id}'),
                 ),
+                SizedBox(
+                  height: 80,
+                ),
               ],
             )),
       ),
