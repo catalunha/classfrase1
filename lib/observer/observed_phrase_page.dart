@@ -183,20 +183,23 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
   List<InlineSpan> buildPhrase(context) {
     List<InlineSpan> list = [];
     for (var wordPos = 0; wordPos < widget.phraseList.length; wordPos++) {
-      list.add(TextSpan(
-        text: widget.phraseList[wordPos],
-        style: widget.selectedPhrasePosList.contains(wordPos)
-            ? TextStyle(color: Colors.red)
-            : null,
-        recognizer: TapGestureRecognizer()
-          ..onTap = () {
-            setState(() {});
-            widget.onSelectPhrase(wordPos);
-          },
-      ));
-      list.add(TextSpan(
-        text: ' ',
-      ));
+      if (widget.phraseList[wordPos] != ' ') {
+        list.add(TextSpan(
+          text: widget.phraseList[wordPos],
+          style: widget.selectedPhrasePosList.contains(wordPos)
+              ? TextStyle(color: Colors.red)
+              : null,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              setState(() {});
+              widget.onSelectPhrase(wordPos);
+            },
+        ));
+      } else {
+        list.add(TextSpan(
+          text: widget.phraseList[wordPos],
+        ));
+      }
     }
 
     return list;

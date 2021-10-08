@@ -164,6 +164,9 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         }
       }
     }
+    list.add(SizedBox(
+      height: 20,
+    ));
     return list;
   }
 
@@ -237,25 +240,4 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
 
     return list;
   }
-  // List<InlineSpan> buildPhrase(context) {
-  //   List<InlineSpan> list = [];
-  //   for (var wordPos = 0; wordPos < widget.phraseList.length; wordPos++) {
-  //     list.add(TextSpan(
-  //       text: widget.phraseList[wordPos],
-  //       style: widget.selectedPhrasePosList.contains(wordPos)
-  //           ? TextStyle(color: Colors.red)
-  //           : null,
-  //       recognizer: TapGestureRecognizer()
-  //         ..onTap = () {
-  //           setState(() {});
-  //           widget.onSelectPhrase(wordPos);
-  //         },
-  //     ));
-  //     list.add(TextSpan(
-  //       text: ' ',
-  //     ));
-  //   }
-
-  //   return list;
-  // }
 }

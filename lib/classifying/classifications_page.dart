@@ -1,5 +1,6 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:collection';
@@ -64,7 +65,7 @@ class ClassificationsPage extends StatelessWidget {
                 children: [
                   ...buildCategories(context),
                   SizedBox(
-                    height: 100,
+                    height: 60,
                   )
                 ],
               ),
@@ -100,24 +101,6 @@ class ClassificationsPage extends StatelessWidget {
 
     return list;
   }
-  // List<InlineSpan> buildPhrase(context) {
-  //   List<InlineSpan> list = [];
-  //   for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
-  //     list.add(
-  //       TextSpan(
-  //         text: phraseList[wordPos],
-  //         style: selectedPhrasePosList.contains(wordPos)
-  //             ? TextStyle(color: Colors.red)
-  //             : null,
-  //       ),
-  //     );
-  //     list.add(TextSpan(
-  //       text: ' ',
-  //     ));
-  //   }
-
-  //   return list;
-  // }
 
   List<Widget> buildCategories(context) {
     List<Widget> list = [];
@@ -141,18 +124,9 @@ class ClassificationsPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: item.value.url != null && item.value.url!.isNotEmpty
-                ? IconButton(
-                    onPressed: () async {
-                      bool can = await canLaunch(item.value.url!);
-                      if (can) {
-                        await launch(item.value.url!);
-                      }
-                    },
-                    icon: Icon(AppIconData.linkOn))
-                : IconButton(onPressed: null, icon: Icon(AppIconData.linkOff)),
-          )
+          AppLink(
+            url: item.value.url,
+          ),
         ],
       ));
     }
