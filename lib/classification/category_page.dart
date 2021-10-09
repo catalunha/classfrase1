@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +17,7 @@ class CategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categorias deste grupo'),
+        title: Text('Categorias deste grupo - ${category.length}'),
       ),
       body: Column(
         children: [
@@ -53,31 +51,31 @@ class CategoryPage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-    Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
-        (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
+    // Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
+    //     (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
 
-    for (var item in categorySorted.entries) {
-      if (item.value.group == groupCurrent.id) {
-        print('${item.value.id} | ${item.value.title}');
-        list.add(
-          ClassificationCard(
-            id: item.value.id!,
-            title: item.value.title,
-            url: item.value.url,
-            widgetList: [
-              IconButton(
-                tooltip: 'Editar esta categoria',
-                icon: Icon(AppIconData.edit),
-                onPressed: () => Navigator.pushNamed(
-                  context,
-                  '/category_addedit',
-                  arguments: item.value.id,
-                ),
+    for (var item in category.entries) {
+      // if (item.value.group == groupCurrent.id) {
+      print('${item.value.id} | ${item.value.title}');
+      list.add(
+        ClassificationCard(
+          id: item.value.id!,
+          title: item.value.title,
+          url: item.value.url,
+          widgetList: [
+            IconButton(
+              tooltip: 'Editar esta categoria',
+              icon: Icon(AppIconData.edit),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/category_addedit',
+                arguments: item.value.id,
               ),
-            ],
-          ),
-        );
-      }
+            ),
+          ],
+        ),
+      );
+      // }
     }
     if (list.isEmpty) {
       list.add(ListTile(

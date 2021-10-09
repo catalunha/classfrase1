@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +32,24 @@ class CategoryPageVmFactory extends VmFactory<AppState, CategoryPageConnector> {
   CategoryPageVmFactory(widget) : super(widget);
   @override
   CategoryPageVm fromStore() => CategoryPageVm(
-        category: state.classificationState.classificationCurrent!.category,
+        category: categoryFilter(),
         groupCurrent: state.classificationState.groupCurrent!,
       );
+
+  Map<String, ClassCategory> categoryFilter() {
+    Map<String, ClassCategory> category =
+        state.classificationState.classificationCurrent!.category;
+    Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
+        (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
+
+    Map<String, ClassCategory> temp = <String, ClassCategory>{};
+    for (var item in categorySorted.entries) {
+      if (item.value.group == widget!.groupId) {
+        temp[item.key] = item.value;
+      }
+    }
+    return temp;
+  }
 }
 
 class CategoryPageVm extends Vm {

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +29,17 @@ class GroupPageVmFactory extends VmFactory<AppState, GroupPageConnector> {
   GroupPageVmFactory(widget) : super(widget);
   @override
   GroupPageVm fromStore() => GroupPageVm(
-        group: state.classificationState.classificationCurrent!.group,
+        group: groupSorted(),
       );
+
+  Map<String, ClassGroup> groupSorted() {
+    Map<String, ClassGroup> group =
+        state.classificationState.classificationCurrent!.group;
+    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
+        (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
+
+    return groupSorted;
+  }
 }
 
 class GroupPageVm extends Vm {

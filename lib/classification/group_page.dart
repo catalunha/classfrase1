@@ -17,7 +17,7 @@ class GroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Grupos de classificação'),
+        title: Text('Grupos de classificação - ${group.length}'),
       ),
       body: Column(
         children: [
@@ -45,9 +45,9 @@ class GroupPage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
-        (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
-    for (var item in groupSorted.entries) {
+    // Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
+    //     (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
+    for (var item in group.entries) {
       print('${item.value.id} | ${item.value.title}');
 
       list.add(

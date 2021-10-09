@@ -103,9 +103,9 @@ class ClassificationsPage extends StatelessWidget {
 
   List<Widget> buildCategories(context) {
     List<Widget> list = [];
-    Map<String, ClassCategory> sorted = SplayTreeMap.from(category,
-        (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
-    for (var item in sorted.entries) {
+    // Map<String, ClassCategory> sorted = SplayTreeMap.from(category,
+    //     (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
+    for (var item in category.entries) {
       list.add(Row(
         children: [
           Expanded(

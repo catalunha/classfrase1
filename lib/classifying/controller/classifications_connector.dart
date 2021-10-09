@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/app_state.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
@@ -63,7 +65,11 @@ class ClassificationsFactory
         categoryTemp.addAll({category.key: category.value});
       }
     }
-    return categoryTemp;
+    Map<String, ClassCategory> categoryTempSorted = SplayTreeMap.from(
+        categoryTemp,
+        (key1, key2) =>
+            categoryTemp[key1]!.title.compareTo(categoryTemp[key2]!.title));
+    return categoryTempSorted;
   }
 }
 
