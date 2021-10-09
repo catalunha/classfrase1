@@ -36,7 +36,7 @@ class ClassificationsFactory
   ClassificationsFactory(widget) : super(widget);
   @override
   ClassificationsVm fromStore() => ClassificationsVm(
-        phraseList: state.phraseState.phraseCurrent!.phraseList!,
+        phraseList: state.phraseState.phraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
         groupId: widget!.groupId,
         groupData: state

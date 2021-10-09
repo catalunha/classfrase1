@@ -5,15 +5,18 @@ import 'classifying/controller/classifying_state.dart';
 import 'observer/controller/observer_state.dart';
 import 'phrase/controller/phrase_state.dart';
 import 'user/controller/user_state.dart';
+import 'users/controller/users_state.dart';
 
 class AppState {
   final Wait wait;
   // final LoginState loginState;
   final UserState userState;
   final PhraseState phraseState;
-  final ClassificationState classificationState;
   final ClassifyingState classifyingState;
   final ObserverState observerState;
+
+  final ClassificationState classificationState;
+  final UsersState usersState;
 
   AppState({
     required this.wait,
@@ -23,6 +26,7 @@ class AppState {
     required this.classificationState,
     required this.classifyingState,
     required this.observerState,
+    required this.usersState,
   });
 
   static AppState initialState() => AppState(
@@ -33,6 +37,7 @@ class AppState {
         classificationState: ClassificationState.initialState(),
         classifyingState: ClassifyingState.initialState(),
         observerState: ObserverState.initialState(),
+        usersState: UsersState.initialState(),
       );
   AppState copyWith({
     Wait? wait,
@@ -42,6 +47,7 @@ class AppState {
     ClassificationState? classificationState,
     ClassifyingState? classifyingState,
     ObserverState? observerState,
+    UsersState? usersState,
   }) {
     return AppState(
       wait: wait ?? this.wait,
@@ -51,6 +57,7 @@ class AppState {
       classificationState: classificationState ?? this.classificationState,
       classifyingState: classifyingState ?? this.classifyingState,
       observerState: observerState ?? this.observerState,
+      usersState: usersState ?? this.usersState,
     );
   }
 
@@ -63,7 +70,7 @@ class AppState {
         other.classificationState == classificationState &&
         other.classifyingState == classifyingState &&
         other.phraseState == phraseState &&
-        // // other.loginState == loginState &&
+        other.usersState == usersState &&
         other.userState == userState &&
         other.wait == wait;
   }
@@ -74,7 +81,7 @@ class AppState {
         observerState.hashCode ^
         classificationState.hashCode ^
         classifyingState.hashCode ^
-        // loginState.hashCode ^
+        usersState.hashCode ^
         userState.hashCode ^
         wait.hashCode;
   }

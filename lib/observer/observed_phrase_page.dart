@@ -93,7 +93,7 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
           width: double.infinity,
           color: Colors.black12,
           child: Center(
-            child: Text('Classificação ${groutItem.value.title}'),
+            child: Text('Classificações em ${groutItem.value.title}'),
           ),
         ),
       );

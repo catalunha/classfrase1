@@ -134,7 +134,16 @@ class HomePage extends StatelessWidget {
                           '/group',
                         );
                       },
-                      child: Text('UpdateClassificationsDocs'),
+                      child: Text('seeClassificationsDocs'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/users',
+                        );
+                      },
+                      child: Text('seeUsersDocs'),
                     ),
                   ],
                 )
@@ -174,106 +183,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          // Wrap(
-          //   children: [
-          //     Row(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         // Icon(
-          //         //   AppIconData.phrase,
-          //         //   size: 30.0,
-          //         // ),
-          //         // SizedBox(width: 5),
-          //         Text('Criar frase', style: AppTextStyles.titleRegular)
-          //       ],
-          //     ),
-          //     SizedBox(width: 25),
-          //     Row(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         Icon(
-          //           AppIconData.phrase,
-          //           size: 30.0,
-          //         ),
-          //         SizedBox(width: 5),
-          //         Text('Observar frase', style: AppTextStyles.titleRegular)
-          //       ],
-          //     ),
-          //   ],
-          // ),
-
-          // Center(
-          //   child: Wrap(
-          //     crossAxisAlignment: WrapCrossAlignment.center,
-          //     children: [
-          //       Container(
-          //         width: 180,
-          //         child: Card(
-          //           elevation: 10,
-          //           margin: EdgeInsets.all(20),
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: InkWell(
-          //               onTap: () => Navigator.pushNamed(
-          //                 context,
-          //                 '/phrase_addedit',
-          //                 arguments: '',
-          //               ),
-          //               child: Column(
-          //                 mainAxisSize: MainAxisSize.min,
-          //                 children: [
-          //                   SizedBox(height: 10),
-          //                   Icon(
-          //                     AppIconData.phrase,
-          //                     size: 50.0,
-          //                   ),
-          //                   SizedBox(height: 10),
-          //                   Text(
-          //                     'Criar\nFrase',
-          //                     textAlign: TextAlign.center,
-          //                     style: AppTextStyles.titleRegular,
-          //                   )
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //       Container(
-          //         width: 180,
-          //         child: Card(
-          //           elevation: 10,
-          //           margin: EdgeInsets.all(20),
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: InkWell(
-          //               onTap: () => Navigator.pushNamed(
-          //                 context,
-          //                 '/observer_list',
-          //               ),
-          //               child: Column(
-          //                 mainAxisSize: MainAxisSize.min,
-          //                 children: [
-          //                   SizedBox(height: 10),
-          //                   Icon(
-          //                     AppIconData.eye,
-          //                     size: 50.0,
-          //                   ),
-          //                   SizedBox(height: 10),
-          //                   Text(
-          //                     'Observar\nFrases',
-          //                     textAlign: TextAlign.center,
-          //                     style: AppTextStyles.titleRegular,
-          //                   )
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -340,11 +249,11 @@ class HomePage extends StatelessWidget {
         key: ValueKey(phrase),
         child: PhraseCard(
           phrase: phrase,
-          trailing: phrase.observer!.isEmpty
-              ? null
-              : Tooltip(
+          trailing: phrase.observer != null && phrase.observer!.isNotEmpty
+              ? Tooltip(
                   message: 'Esta frase esta sendo observada.',
-                  child: Icon(AppIconData.eye)),
+                  child: Icon(AppIconData.eye))
+              : null,
           widgetList: [
             IconButton(
               tooltip: 'Classificar esta frase',

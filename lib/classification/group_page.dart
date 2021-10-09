@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 import 'classification_card.dart';
 import 'controller/classification_model.dart';
@@ -52,32 +51,35 @@ class GroupPage extends StatelessWidget {
       print('${item.value.id} | ${item.value.title}');
 
       list.add(
-        ClassificationCard(
-          id: item.value.id!,
-          title: item.value.title,
-          url: item.value.url,
-          widgetList: [
-            IconButton(
-              tooltip: 'Editar este grupo',
-              icon: Icon(AppIconData.edit),
-              onPressed: () => Navigator.pushNamed(
-                context,
-                '/group_addedit',
-                arguments: item.value.id,
-              ),
-            ),
-            IconButton(
-              tooltip: 'Categorias deste grupo',
-              icon: Icon(AppIconData.letter),
-              onPressed: () {
-                Navigator.pushNamed(
+        Container(
+          key: ValueKey(item.value),
+          child: ClassificationCard(
+            id: item.value.id!,
+            title: item.value.title,
+            url: item.value.url,
+            widgetList: [
+              IconButton(
+                tooltip: 'Editar este grupo',
+                icon: Icon(AppIconData.edit),
+                onPressed: () => Navigator.pushNamed(
                   context,
-                  '/category',
+                  '/group_addedit',
                   arguments: item.value.id,
-                );
-              },
-            ),
-          ],
+                ),
+              ),
+              IconButton(
+                tooltip: 'Categorias deste grupo',
+                icon: Icon(AppIconData.letter),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/category',
+                    arguments: item.value.id,
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       );
     }

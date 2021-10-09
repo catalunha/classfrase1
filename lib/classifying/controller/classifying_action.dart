@@ -68,18 +68,13 @@ class UpdateClassificationsPhraseClassifyingAction
     extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print(state.classifyingState.selectedPosPhraseList);
-    //print(state.classifyingState.selectedCategoryIdList);
     Map<String, Classification> classifications =
         state.phraseState.phraseCurrent!.classifications;
-    // //print(classification);
     List<int> posPhraseListNow = state.classifyingState.selectedPosPhraseList!;
     posPhraseListNow.sort();
-    // String phrasePos = phrasePosList.join(',');
     List<String> categoryIdListNow =
         state.classifyingState.selectedCategoryIdList!;
     String classificationsId = Uuid().v4();
-    //print(classificationsId);
     for (var classificationsItem in classifications.entries) {
       if (listEquals(
           classificationsItem.value.posPhraseList, posPhraseListNow)) {
@@ -91,7 +86,6 @@ class UpdateClassificationsPhraseClassifyingAction
     DocumentReference docRef = firebaseFirestore
         .collection(PhraseModel.collection)
         .doc(state.phraseState.phraseCurrent!.id);
-    //print(state.phraseState.phraseCurrent!.id);
 
     Classification classificationNew = Classification(
         posPhraseList: posPhraseListNow, categoryIdList: categoryIdListNow);

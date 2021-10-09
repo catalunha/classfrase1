@@ -1,4 +1,5 @@
 import 'package:classfrase/observer/controller/observer_page_controller.dart';
+import 'package:classfrase/users/controller/users_page_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'classification/controller/category_addedit_page_controller.dart';
@@ -45,6 +46,7 @@ class Routes {
     '/classifications': (BuildContext context) => ClassificationsConnector(
           groupId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    '/users': (BuildContext context) => UsersPageConnector(),
     '/group': (BuildContext context) => GroupPageConnector(),
     '/group_addedit': (BuildContext context) => GroupAddEditPageConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),

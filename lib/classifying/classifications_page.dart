@@ -2,7 +2,6 @@ import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:collection';
 
 class ClassificationsPage extends StatelessWidget {

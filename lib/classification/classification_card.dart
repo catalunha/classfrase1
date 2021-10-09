@@ -20,31 +20,51 @@ class ClassificationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: ValueKey(id),
-      child: Card(
-        elevation: 10,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ListTile(
-              tileColor: color,
-              title: Text(
-                title,
-                style: AppTextStyles.buttonBoldHeading,
-              ),
-              subtitle: Text(
-                id,
-              ),
-              trailing: AppLink(url: url),
+    return Card(
+      elevation: 10,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ListTile(
+            tileColor: color,
+            title: Text(
+              title,
+              style: AppTextStyles.trailingBold,
             ),
-            Wrap(
-              children: widgetList ?? [],
-            )
-          ],
-        ),
+            subtitle: Text(
+              id,
+            ),
+            trailing: AppLink(url: url),
+          ),
+          Wrap(
+            children: widgetList ?? [],
+          )
+        ],
       ),
     );
+    // return Card(
+    //   elevation: 10,
+    //   child: Column(
+    //     mainAxisSize: MainAxisSize.min,
+    //     mainAxisAlignment: MainAxisAlignment.start,
+    //     children: [
+    //       ListTile(
+    //         tileColor: color,
+    //         title: Text(
+    //           title,
+    //           style: AppTextStyles.buttonBoldHeading,
+    //         ),
+    //         subtitle: Text(
+    //           id,
+    //         ),
+    //         trailing: AppLink(url: url),
+    //       ),
+    //       Wrap(
+    //         children: widgetList ?? [],
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 }

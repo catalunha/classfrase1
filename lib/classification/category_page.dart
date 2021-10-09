@@ -1,13 +1,8 @@
 import 'dart:collection';
 
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../observer/controller/observer_model.dart';
-import '../observer/observer_card.dart';
 import 'classification_card.dart';
 import 'controller/classification_model.dart';
 

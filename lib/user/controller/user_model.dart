@@ -7,11 +7,13 @@ class UserModel extends FirestoreModel {
   final String? photoURL;
   final String? displayName;
   final String email;
+  final String uid;
   final bool isActive;
 
   UserModel(
     String id, {
     required this.email,
+    required this.uid,
     required this.isActive,
     this.displayName,
     this.photoURL,
@@ -20,6 +22,7 @@ class UserModel extends FirestoreModel {
   UserModel copyWith({
     String? displayName,
     String? email,
+    String? uid,
     String? photoURL,
     bool? isActive,
   }) {
@@ -27,6 +30,7 @@ class UserModel extends FirestoreModel {
       id,
       displayName: displayName ?? this.displayName,
       email: email ?? this.email,
+      uid: uid ?? this.uid,
       photoURL: photoURL ?? this.photoURL,
       isActive: isActive ?? this.isActive,
     );
@@ -37,6 +41,7 @@ class UserModel extends FirestoreModel {
       id,
       displayName: map['displayName'],
       email: map['email'],
+      uid: map['uid'],
       photoURL: map['photoURL'],
       isActive: map['isActive'],
     );
@@ -49,6 +54,7 @@ class UserModel extends FirestoreModel {
     return {
       'displayName': displayName,
       'email': email,
+      'uid': uid,
       'photoURL': photoURL,
       'isActive': isActive,
     };
@@ -69,6 +75,7 @@ class UserModel extends FirestoreModel {
         other.isActive == isActive &&
         other.displayName == displayName &&
         other.email == email &&
+        other.uid == uid &&
         other.photoURL == photoURL;
   }
 
@@ -77,6 +84,7 @@ class UserModel extends FirestoreModel {
     return displayName.hashCode ^
         isActive.hashCode ^
         email.hashCode ^
+        uid.hashCode ^
         photoURL.hashCode;
   }
 }

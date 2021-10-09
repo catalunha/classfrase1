@@ -106,12 +106,13 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
     //print('--> SetPhraseCurrentPhraseAction $id');
     PhraseModel phraseModel = PhraseModel(
       '',
-      userFK: UserRef.fromMap({
+      userRef: UserRef.fromMap({
         'id': state.userState.userCurrent!.id,
         'photoURL': state.userState.userCurrent!.photoURL,
         'displayName': state.userState.userCurrent!.displayName
       }),
       phrase: '',
+      phraseList: [],
       classifications: <String, Classification>{},
     );
     if (id.isNotEmpty) {
@@ -136,7 +137,9 @@ class CreateDocPhraseAction extends ReduxAction<AppState> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     CollectionReference docRef =
         firebaseFirestore.collection(PhraseModel.collection);
-    await docRef.add(phraseModel.toMap());
+    PhraseModel phraseModelNew = phraseModel.copyWith(
+        phraseList: PhraseModel.setPhraseList(phraseModel.phrase));
+    await docRef.add(phraseModelNew.toMap());
     return null;
   }
 }
@@ -152,13 +155,15 @@ class UpdateDocPhraseAction extends ReduxAction<AppState> {
     DocumentReference docRef = firebaseFirestore
         .collection(PhraseModel.collection)
         .doc(phraseModel.id);
+    PhraseModel phraseModelNew = phraseModel.copyWith();
     PhraseModel phraseModelOld = state.phraseState.phraseCurrent!;
-    dispatch(SetPhraseCurrentPhraseAction(id: ''));
-
-    await docRef.update(phraseModel.toMap());
-    if (phraseModel.phrase != phraseModelOld.phrase) {
-      await docRef.update({'classifications': <String, dynamic>{}});
+    if (phraseModelNew.phrase != phraseModelOld.phrase) {
+      phraseModelNew = phraseModel.copyWith(
+          classifications: {},
+          phraseList: PhraseModel.setPhraseList(phraseModel.phrase));
     }
+    dispatch(SetPhraseCurrentPhraseAction(id: ''));
+    await docRef.update(phraseModelNew.toMap());
 
     return null;
   }

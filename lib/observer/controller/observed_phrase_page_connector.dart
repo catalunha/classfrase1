@@ -44,7 +44,7 @@ class ObservedPhrasePageFactory
   ObservedPhrasePageFactory(widget) : super(widget);
   @override
   ObservedPhrasePageVm fromStore() => ObservedPhrasePageVm(
-        phraseList: state.observerState.observerPhraseCurrent!.phraseList!,
+        phraseList: state.observerState.observerPhraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
         group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,

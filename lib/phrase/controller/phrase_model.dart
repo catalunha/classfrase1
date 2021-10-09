@@ -8,33 +8,35 @@ import 'package:classfrase/firestore/firestore_model.dart';
 class PhraseModel extends FirestoreModel {
   static final String collection = 'phrases';
 
-  final UserRef userFK;
+  final UserRef userRef;
   final String phrase;
-  List<String>? phraseList;
+  final Map<String, Classification> classifications;
+  List<String> phraseList;
   final String? font;
   final String? description;
-  final bool isArchived;
-  final bool isPublic;
   final String? observer;
 
-  final Map<String, Classification> classifications;
+  final bool isArchived;
+  final bool isPublic;
   final bool isDeleted;
   PhraseModel(
     String id, {
-    required this.userFK,
+    required this.userRef,
     required this.phrase,
-    this.font = '',
-    this.description = '',
+    required this.classifications,
+    required this.phraseList,
     this.isArchived = false,
     this.isPublic = false,
-    this.observer = '',
-    required this.classifications,
     this.isDeleted = false,
+    this.font,
+    this.description,
+    this.observer,
   }) : super(id);
 
   PhraseModel copyWith({
     UserRef? userRef,
     String? phrase,
+    List<String>? phraseList,
     String? font,
     String? description,
     bool? isArchived,
@@ -45,8 +47,9 @@ class PhraseModel extends FirestoreModel {
   }) {
     return PhraseModel(
       id,
-      userFK: userRef ?? this.userFK,
+      userRef: userRef ?? this.userRef,
       phrase: phrase ?? this.phrase,
+      phraseList: phraseList ?? this.phraseList,
       font: font ?? this.font,
       description: description ?? this.description,
       isArchived: isArchived ?? this.isArchived,
@@ -59,50 +62,47 @@ class PhraseModel extends FirestoreModel {
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data["classifications"] = Map<String, dynamic>();
+    data['userRef'] = userRef.toMap();
+    data['phrase'] = phrase;
+    data['phraseList'] = phraseList.cast<dynamic>();
+
+    data["classifications"] = <String, dynamic>{};
     for (var item in classifications.entries) {
       data["classifications"][item.key] = item.value.toMap();
     }
-
-    data['userRef'] = userFK.toMap();
-    data['phrase'] = phrase;
-    data['font'] = font;
-    data['description'] = description;
     data['isArchived'] = isArchived;
     data['isPublic'] = isPublic;
-    data['observer'] = observer;
     data['isDeleted'] = isDeleted;
+    if (font != null) data['font'] = font;
+    if (description != null) data['description'] = description;
+    if (observer != null) data['observer'] = observer;
     return data;
   }
 
   factory PhraseModel.fromMap(String id, Map<String, dynamic> map) {
-    var classificationMapTemp = Map<String, String>();
-    if (map["classification"] is Map && map["classification"] != null) {
-      for (var item in map["classification"].entries) {
-        classificationMapTemp[item.key] = item.value;
-      }
-    }
-    var classificationsMapTemp = Map<String, Classification>();
-    if (map["classifications"] is Map && map["classifications"] != null) {
+    Map<String, Classification>? _classifications = <String, Classification>{};
+    if (map["classifications"] != null && map["classifications"] is Map) {
+      _classifications = <String, Classification>{};
       for (var item in map["classifications"].entries) {
-        //print('item: ${item.key}');
-        //print('item: ${item.value}');
-        classificationsMapTemp[item.key] = Classification.fromMap(item.value);
+        _classifications[item.key] = Classification.fromMap(item.value);
       }
     }
+
     var temp = PhraseModel(
       id,
-      userFK: UserRef.fromMap(map['userRef']),
+      userRef: UserRef.fromMap(map['userRef']),
       phrase: map['phrase'],
-      font: map['font'],
-      description: map['description'],
+      classifications: _classifications,
+      phraseList: map['phraseList'] == null
+          ? setPhraseList(map['phrase'])
+          : map['phraseList'].cast<String>(),
       isArchived: map['isArchived'],
       isPublic: map['isPublic'],
-      observer: map['observer'],
-      classifications: classificationsMapTemp,
       isDeleted: map['isDeleted'],
+      font: map['font'],
+      description: map['description'],
+      observer: map['observer'],
     );
-    temp.setPhraseList();
     return temp;
   }
 
@@ -110,7 +110,9 @@ class PhraseModel extends FirestoreModel {
 
   factory PhraseModel.fromJson(String id, String source) =>
       PhraseModel.fromMap(id, json.decode(source));
-  setPhraseList() {
+
+  static List<String> setPhraseList(String phrase) {
+    print('-> Executando setPhraseList');
     String word = '';
     List<String> _phraseList = [];
     for (var i = 0; i < phrase.length; i++) {
@@ -131,7 +133,7 @@ class PhraseModel extends FirestoreModel {
       word = '';
     }
     // print(phraseList);
-    phraseList = _phraseList;
+    return _phraseList;
   }
 
   @override
@@ -144,8 +146,9 @@ class PhraseModel extends FirestoreModel {
     if (identical(this, other)) return true;
 
     return other is PhraseModel &&
-        other.userFK == userFK &&
+        other.userRef == userRef &&
         other.phrase == phrase &&
+        other.phraseList == phraseList &&
         other.font == font &&
         other.description == description &&
         other.isArchived == isArchived &&
@@ -157,8 +160,9 @@ class PhraseModel extends FirestoreModel {
 
   @override
   int get hashCode {
-    return userFK.hashCode ^
+    return userRef.hashCode ^
         phrase.hashCode ^
+        phraseList.hashCode ^
         font.hashCode ^
         description.hashCode ^
         isArchived.hashCode ^

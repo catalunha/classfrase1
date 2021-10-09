@@ -67,9 +67,9 @@ class SignInLoginAction extends ReduxAction<AppState> {
     try {
       var google = GoogleSignInOrSignOut();
       bool done = await google.googleLogin();
-      //print('---> SignInLoginAction: googleLogin $done');
+      print('---> SignInLoginAction: googleLogin $done');
     } catch (e) {
-      //print('--> google.googleLogin(): nao escolheu nada');
+      print('--> google.googleLogin(): nao escolheu nada');
     }
 
     return null;
@@ -81,7 +81,7 @@ class SignOutLoginAction extends ReduxAction<AppState> {
   Future<AppState> reduce() async {
     var google = GoogleSignInOrSignOut();
     var done = await google.googleLogout();
-    //print('---> SignOutLoginAction: googleLogout $done');
+    print('---> SignOutLoginAction: googleLogout $done');
     return state.copyWith(
       userState: UserState.initialState(),
     );

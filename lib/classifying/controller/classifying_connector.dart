@@ -42,7 +42,7 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
   ClassifyingFactory(widget) : super(widget);
   @override
   ClassifyingVm fromStore() => ClassifyingVm(
-        phraseList: state.phraseState.phraseCurrent!.phraseList!,
+        phraseList: state.phraseState.phraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
         group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,
