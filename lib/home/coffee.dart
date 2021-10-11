@@ -21,11 +21,9 @@ Olá,
 
 Este projeto nasceu da necessidade de nossa família em estudar as classificações gramaticais de algumas frases.
 
-E esperamos que te ajude também.
+Muitas pessoas tem nos ajudado, e temos recebido muitas sugestões de aperfeiçoamento. Somos muito gratos a todos.
 
-Contudo existem custos com hospedagem do aplicativo, consultores em lingua portuguesa, equipe de programação, designers, etc.
-
-Se você deseja nos ajudar a manter e ampliar este projeto considere contribuir com QUALQUER quantia para este PIX de meu CPF: 91302315315
+Se você deseja nos ajudar a manter (pois temos custos com hospedagem do aplicativo, Métricas de Armazenamento/Acessos, Serviços em tempo real, etc) e ampliar (buscando consultores, programadores, designers, etc) este projeto considere contribuir com QUALQUER quantia para este PIX de CPF: 91302315315
 
 E já sou-lhe grata pelo carinho,
 
@@ -34,23 +32,6 @@ Família Catalunha.
                 style: AppTextStyles.titleRegular,
               ),
             ),
-// Ou escaneie o QR Code abaixo
-            // Image.asset(
-            //   AppImages.qrcode,
-            //   width: 208,
-            //   height: 273,
-            // ),
-//             Padding(
-//               padding: const EdgeInsets.all(10.0),
-//               child: Text(
-//                 '''
-// E já sou-lhe grata pelo carinho,
-
-// Ricelly Catalunha.
-//       ''',
-//                 style: AppTextStyles.titleRegular,
-//               ),
-//             ),
           ],
         ),
       ),

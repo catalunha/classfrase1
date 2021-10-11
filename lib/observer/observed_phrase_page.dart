@@ -187,7 +187,11 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
         list.add(TextSpan(
           text: widget.phraseList[wordPos],
           style: widget.selectedPhrasePosList.contains(wordPos)
-              ? TextStyle(color: Colors.red)
+              ? TextStyle(
+                  color: Colors.orange.shade900,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.wavy,
+                )
               : null,
           recognizer: TapGestureRecognizer()
             ..onTap = () {

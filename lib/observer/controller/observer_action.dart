@@ -70,7 +70,6 @@ class SetObserverCurrentObserverAction extends ReduxAction<AppState> {
         'displayName': state.userState.userCurrent!.displayName
       }),
       description: '',
-      phraseIdList: [],
       isDeleted: false,
     );
     if (id.isNotEmpty) {

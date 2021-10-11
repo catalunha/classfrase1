@@ -8,13 +8,11 @@ class ObserverModel extends FirestoreModel {
   static final String collection = 'observers';
   final UserRef userFK;
   final String description;
-  final List<String> phraseIdList;
   final bool isDeleted;
   ObserverModel(
     String id, {
     required this.userFK,
     required this.description,
-    required this.phraseIdList,
     required this.isDeleted,
   }) : super(id);
 
@@ -28,7 +26,6 @@ class ObserverModel extends FirestoreModel {
       id,
       userFK: userFK ?? this.userFK,
       description: description ?? this.description,
-      phraseIdList: phraseIdList ?? this.phraseIdList,
       isDeleted: isDeleted ?? this.isDeleted,
     );
   }
@@ -37,7 +34,6 @@ class ObserverModel extends FirestoreModel {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['userRef'] = userFK.toMap();
     data['description'] = description;
-    data['phraseIdList'] = phraseIdList;
     data['isDeleted'] = isDeleted;
     return data;
   }
@@ -47,7 +43,6 @@ class ObserverModel extends FirestoreModel {
       id,
       userFK: UserRef.fromMap(map['userRef']),
       description: map['description'],
-      phraseIdList: List<String>.from(map['phraseIdList']),
       isDeleted: map['isDeleted'],
     );
   }
@@ -59,7 +54,7 @@ class ObserverModel extends FirestoreModel {
 
   @override
   String toString() =>
-      'ObserverModel(description: $description, phraseIdList: $phraseIdList, isDeleted: $isDeleted)';
+      'ObserverModel(description: $description, isDeleted: $isDeleted)';
 
   @override
   bool operator ==(Object other) {
@@ -68,14 +63,10 @@ class ObserverModel extends FirestoreModel {
     return other is ObserverModel &&
         other.userFK == userFK &&
         other.description == description &&
-        listEquals(other.phraseIdList, phraseIdList) &&
         other.isDeleted == isDeleted;
   }
 
   @override
   int get hashCode =>
-      userFK.hashCode ^
-      description.hashCode ^
-      phraseIdList.hashCode ^
-      isDeleted.hashCode;
+      userFK.hashCode ^ description.hashCode ^ isDeleted.hashCode;
 }

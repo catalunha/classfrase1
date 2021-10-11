@@ -1,6 +1,8 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
+// https://medium.com/@ankith159/flutter-firebase-auth-an-easy-guide-to-persist-user-state-c90c2e53f9df
+
 class SplashPage extends StatelessWidget {
   final bool isUnInitialized;
   final bool isAuthenticating;

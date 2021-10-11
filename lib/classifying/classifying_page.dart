@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -36,6 +37,7 @@ class ClassifyingPage extends StatefulWidget {
 }
 
 class _ClassifyingPageState extends State<ClassifyingPage> {
+  bool isHorizontal = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +52,13 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         ),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             // width: double.infinity,
             color: Colors.black12,
             child: Center(
-              child: Text('Clique em uma ou mais palavras para selecioná-la.'),
+              child: Text('Selecione uma ou mais partes da frase.'),
             ),
           ),
           Padding(
@@ -76,28 +79,179 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               child: Text('Clique num grupo para escolher uma classificação.'),
             ),
           ),
-          Wrap(
-            alignment: WrapAlignment.spaceEvenly,
-            spacing: 10.0,
-            children: buildGroup(context),
-          ),
-          Container(
-            // width: double.infinity,
-            color: Colors.black12,
-            child: Center(
-              child: Text('Sua classificação em:'),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: buildGroup(context),
             ),
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: buildClassifications(context),
-              ),
+          // Wrap(
+          //   alignment: WrapAlignment.spaceEvenly,
+          //   spacing: 5.0,
+          //   children: buildGroup(context),
+          // ),
+          Tooltip(
+            message: 'Clique no box de seleção para mudar modo de visão',
+            child: CheckboxListTile(
+              title: isHorizontal
+                  ? Container(
+                      // width: double.infinity,
+                      color: Colors.black12,
+                      child: Center(
+                        child: Text('Sua classificação por seleção.'),
+                      ),
+                    )
+                  : Container(
+                      // width: double.infinity,
+                      color: Colors.black12,
+                      child: Center(
+                        child: Text('Sua classificação por grupos.'),
+                      ),
+                    ),
+              onChanged: (value) {
+                setState(() {
+                  isHorizontal = value!;
+                });
+              },
+              value: isHorizontal,
             ),
           ),
+          isHorizontal
+              ? Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: buildClassificationsHorizontal(context),
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: buildClassifications(context),
+                    ),
+                  ),
+                ),
         ],
       ),
     );
+  }
+
+  List<Widget> buildClassificationsHorizontal(context) {
+    List<Widget> list = [];
+
+    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
+        widget.group,
+        (key1, key2) =>
+            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
+
+    Map<String, Classification> classificationsSorted = SplayTreeMap.from(
+        widget.phraseClassifications,
+        (key1, key2) => widget.phraseClassifications[key1]!.posPhraseList[0]
+            .compareTo(widget.phraseClassifications[key2]!.posPhraseList[0]));
+
+    for (var phraseClassItem in classificationsSorted.entries) {
+      List<int> phrasePosList = phraseClassItem.value.posPhraseList;
+      String phrase = '';
+      for (var pos in phrasePosList) {
+        try {
+          phrase = phrase + widget.phraseList[pos] + ' ';
+        } catch (e) {}
+      }
+      List<Widget> categoryWidgetList = [];
+      for (var groutItem in groupSorted.entries) {
+        List<String> categoryIdList = phraseClassItem.value.categoryIdList;
+        List<String> categoryTitleList = [];
+        for (var id in categoryIdList) {
+          if (widget.category.containsKey(id)) {
+            if (widget.category[id]!.group == groutItem.key) {
+              categoryTitleList.add(widget.category[id]!.title);
+            }
+          }
+        }
+        if (categoryTitleList.isNotEmpty) {
+          categoryWidgetList.add(Text(
+            '* ${groutItem.value.title}:',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ));
+          categoryTitleList.sort();
+          for (var categoryTitle in categoryTitleList) {
+            categoryWidgetList.add(Text(
+              '    ~$categoryTitle',
+            ));
+          }
+        }
+      }
+      list.add(
+        Container(
+          width: 200,
+          padding: EdgeInsets.only(left: 10),
+          // height: double.infinity,
+          alignment: Alignment.topLeft,
+          color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+              ? Colors.yellow
+              : null,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$phrase',
+                style: TextStyle(fontSize: 28, color: Colors.black),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  // scrollDirection: Axis.horizontal,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: categoryWidgetList,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ),
+      );
+
+/*
+list.add(
+        Container(
+          width: 200,
+          padding: EdgeInsets.only(left: 10),
+          // height: double.infinity,
+          alignment: Alignment.topLeft,
+          color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+              ? Colors.yellow
+              : null,
+          child: SingleChildScrollView(
+            // scrollDirection: Axis.horizontal,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$phrase',
+                  style: TextStyle(fontSize: 28, color: Colors.black),
+                ),
+                ...categoryWidgetList,
+              ],
+            ),
+          ),
+        ),
+      );
+*/
+
+    }
+
+    return list;
   }
 
   List<Widget> buildClassifications(context) {
@@ -197,7 +351,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           },
           child: Text('${item.value.title}'),
           style: TextButton.styleFrom(
-            textStyle: const TextStyle(fontSize: 20),
+            textStyle: const TextStyle(fontSize: 18),
           ),
         ),
       );
@@ -217,7 +371,11 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         list.add(TextSpan(
           text: widget.phraseList[wordPos],
           style: widget.selectedPhrasePosList.contains(wordPos)
-              ? TextStyle(color: Colors.red)
+              ? TextStyle(
+                  color: Colors.orange.shade900,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.solid,
+                )
               : null,
           recognizer: TapGestureRecognizer()
             ..onTap = () {

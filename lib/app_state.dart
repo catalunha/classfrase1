@@ -9,18 +9,15 @@ import 'users/controller/users_state.dart';
 
 class AppState {
   final Wait wait;
-  // final LoginState loginState;
   final UserState userState;
   final PhraseState phraseState;
   final ClassifyingState classifyingState;
   final ObserverState observerState;
-
   final ClassificationState classificationState;
   final UsersState usersState;
 
   AppState({
     required this.wait,
-    // required this.loginState,
     required this.userState,
     required this.phraseState,
     required this.classificationState,
@@ -31,7 +28,6 @@ class AppState {
 
   static AppState initialState() => AppState(
         wait: Wait(),
-        // loginState: LoginState.initialState(),
         userState: UserState.initialState(),
         phraseState: PhraseState.initialState(),
         classificationState: ClassificationState.initialState(),
@@ -41,7 +37,6 @@ class AppState {
       );
   AppState copyWith({
     Wait? wait,
-    // LoginState? loginState,
     UserState? userState,
     PhraseState? phraseState,
     ClassificationState? classificationState,
@@ -51,7 +46,6 @@ class AppState {
   }) {
     return AppState(
       wait: wait ?? this.wait,
-      // // // loginState: loginState ?? this.loginState,
       userState: userState ?? this.userState,
       phraseState: phraseState ?? this.phraseState,
       classificationState: classificationState ?? this.classificationState,

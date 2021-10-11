@@ -88,7 +88,11 @@ class ClassificationsPage extends StatelessWidget {
         list.add(TextSpan(
           text: phraseList[wordPos],
           style: selectedPhrasePosList.contains(wordPos)
-              ? TextStyle(color: Colors.red)
+              ? TextStyle(
+                  color: Colors.orange.shade900,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.wavy,
+                )
               : null,
         ));
       } else {

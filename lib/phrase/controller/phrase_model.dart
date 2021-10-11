@@ -10,14 +10,18 @@ class PhraseModel extends FirestoreModel {
 
   final UserRef userRef;
   final String phrase;
-  final Map<String, Classification> classifications;
   List<String> phraseList;
+
+  /// [String] uuid
+  /// [Classification]
+  ///   List<int> posPhraseList;
+  ///   List<String> categoryIdList;
+  final Map<String, Classification> classifications;
   final String? font;
   final String? description;
   final String? observer;
 
   final bool isArchived;
-  final bool isPublic;
   final bool isDeleted;
   PhraseModel(
     String id, {
@@ -26,7 +30,6 @@ class PhraseModel extends FirestoreModel {
     required this.classifications,
     required this.phraseList,
     this.isArchived = false,
-    this.isPublic = false,
     this.isDeleted = false,
     this.font,
     this.description,
@@ -40,7 +43,6 @@ class PhraseModel extends FirestoreModel {
     String? font,
     String? description,
     bool? isArchived,
-    bool? isPublic,
     String? observer,
     Map<String, Classification>? classifications,
     bool? isDeleted,
@@ -53,7 +55,6 @@ class PhraseModel extends FirestoreModel {
       font: font ?? this.font,
       description: description ?? this.description,
       isArchived: isArchived ?? this.isArchived,
-      isPublic: isPublic ?? this.isPublic,
       observer: observer ?? this.observer,
       classifications: classifications ?? this.classifications,
       isDeleted: isDeleted ?? this.isDeleted,
@@ -71,7 +72,6 @@ class PhraseModel extends FirestoreModel {
       data["classifications"][item.key] = item.value.toMap();
     }
     data['isArchived'] = isArchived;
-    data['isPublic'] = isPublic;
     data['isDeleted'] = isDeleted;
     if (font != null) data['font'] = font;
     if (description != null) data['description'] = description;
@@ -97,7 +97,6 @@ class PhraseModel extends FirestoreModel {
           ? setPhraseList(map['phrase'])
           : map['phraseList'].cast<String>(),
       isArchived: map['isArchived'],
-      isPublic: map['isPublic'],
       isDeleted: map['isDeleted'],
       font: map['font'],
       description: map['description'],
@@ -138,7 +137,7 @@ class PhraseModel extends FirestoreModel {
 
   @override
   String toString() {
-    return 'PhraseModel( phrase: $phrase, font: $font, description: $description, isArchived: $isArchived, isPublic: $isPublic, observer: $observer,  isDeleted: $isDeleted)';
+    return 'PhraseModel( phrase: $phrase, font: $font, description: $description, isArchived: $isArchived, observer: $observer,  isDeleted: $isDeleted)';
   }
 
   @override
@@ -152,7 +151,6 @@ class PhraseModel extends FirestoreModel {
         other.font == font &&
         other.description == description &&
         other.isArchived == isArchived &&
-        other.isPublic == isPublic &&
         other.observer == observer &&
         mapEquals(other.classifications, classifications) &&
         other.isDeleted == isDeleted;
@@ -166,7 +164,6 @@ class PhraseModel extends FirestoreModel {
         font.hashCode ^
         description.hashCode ^
         isArchived.hashCode ^
-        isPublic.hashCode ^
         observer.hashCode ^
         classifications.hashCode ^
         isDeleted.hashCode;
