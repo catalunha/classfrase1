@@ -17,6 +17,13 @@ class ObserverPhrasePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Observando as frases'),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     widget.onSetNullSelectedPhraseAndCategory();
+        //     Navigator.pop(context);
+        //   },
+        // ),
       ),
       body: Column(
         children: [

@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'observer_model.dart';
 
 class ObserverState {
-  final ObserverModel? observerCurrent;
   final List<ObserverModel>? observerList;
+  final ObserverModel? observerCurrent;
   final PhraseModel? observerPhraseCurrent;
   final List<PhraseModel>? observerPhraseList;
   ObserverState({
@@ -23,14 +23,19 @@ class ObserverState {
     ObserverModel? observerCurrent,
     List<ObserverModel>? observerList,
     PhraseModel? observerPhraseCurrent,
+    bool observerPhraseCurrentSetNull = false,
     List<PhraseModel>? observerPhraseList,
+    bool observerPhraseListSetNull = false,
   }) {
     return ObserverState(
       observerCurrent: observerCurrent ?? this.observerCurrent,
       observerList: observerList ?? this.observerList,
-      observerPhraseCurrent:
-          observerPhraseCurrent ?? this.observerPhraseCurrent,
-      observerPhraseList: observerPhraseList ?? this.observerPhraseList,
+      observerPhraseCurrent: observerPhraseCurrentSetNull
+          ? null
+          : observerPhraseCurrent ?? this.observerPhraseCurrent,
+      observerPhraseList: observerPhraseListSetNull
+          ? []
+          : observerPhraseList ?? this.observerPhraseList,
     );
   }
 

@@ -90,31 +90,32 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           //   spacing: 5.0,
           //   children: buildGroup(context),
           // ),
-          Tooltip(
-            message: 'Clique no box de seleção para mudar modo de visão',
-            child: CheckboxListTile(
-              title: isHorizontal
-                  ? Container(
-                      // width: double.infinity,
-                      color: Colors.black12,
-                      child: Center(
-                        child: Text('Sua classificação por seleção.'),
-                      ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              isHorizontal
+                  ? Expanded(
+                      child: Container(
+                          color: Colors.black12,
+                          child: Center(
+                              child: Text('Sua classificação por SELEÇÃO.'))),
                     )
-                  : Container(
-                      // width: double.infinity,
-                      color: Colors.black12,
-                      child: Center(
-                        child: Text('Sua classificação por grupos.'),
-                      ),
+                  : Expanded(
+                      child: Container(
+                          color: Colors.black12,
+                          child: Center(
+                              child: Text('Sua classificação por GRUPO.'))),
                     ),
-              onChanged: (value) {
-                setState(() {
-                  isHorizontal = value!;
-                });
-              },
-              value: isHorizontal,
-            ),
+              IconButton(
+                tooltip: 'Alterar modo de visualização',
+                onPressed: () {
+                  setState(() {
+                    isHorizontal = !isHorizontal;
+                  });
+                },
+                icon: Icon(Icons.change_circle_outlined),
+              ),
+            ],
           ),
           isHorizontal
               ? Expanded(
@@ -146,113 +147,174 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         (key1, key2) =>
             widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
 
-    Map<String, Classification> classificationsSorted = SplayTreeMap.from(
-        widget.phraseClassifications,
-        (key1, key2) => widget.phraseClassifications[key1]!.posPhraseList[0]
-            .compareTo(widget.phraseClassifications[key2]!.posPhraseList[0]));
+    for (var i = 0; i < widget.phraseList.length; i++) {
+      for (var phraseClassItem in widget.phraseClassifications.entries) {
+        List<int> phrasePosList = phraseClassItem.value.posPhraseList;
+        // if (phrasePosList.contains(i)) {
+        if (i == phrasePosList[0]) {
+          print('$i ${phraseClassItem.key} ${phrasePosList}');
+          String phrase = '';
+          for (var pos in phrasePosList) {
+            try {
+              phrase = phrase + widget.phraseList[pos] + ' ';
+            } catch (e) {}
+          }
 
-    for (var phraseClassItem in classificationsSorted.entries) {
-      List<int> phrasePosList = phraseClassItem.value.posPhraseList;
-      String phrase = '';
-      for (var pos in phrasePosList) {
-        try {
-          phrase = phrase + widget.phraseList[pos] + ' ';
-        } catch (e) {}
-      }
-      List<Widget> categoryWidgetList = [];
-      for (var groutItem in groupSorted.entries) {
-        List<String> categoryIdList = phraseClassItem.value.categoryIdList;
-        List<String> categoryTitleList = [];
-        for (var id in categoryIdList) {
-          if (widget.category.containsKey(id)) {
-            if (widget.category[id]!.group == groutItem.key) {
-              categoryTitleList.add(widget.category[id]!.title);
+          List<Widget> categoryWidgetList = [];
+          for (var groutItem in groupSorted.entries) {
+            List<String> categoryIdList = phraseClassItem.value.categoryIdList;
+            List<String> categoryTitleList = [];
+            for (var id in categoryIdList) {
+              if (widget.category.containsKey(id)) {
+                if (widget.category[id]!.group == groutItem.key) {
+                  categoryTitleList.add(widget.category[id]!.title);
+                }
+              }
+            }
+            if (categoryTitleList.isNotEmpty) {
+              categoryWidgetList.add(Text(
+                '* ${groutItem.value.title}:',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ));
+              categoryTitleList.sort();
+              for (var categoryTitle in categoryTitleList) {
+                categoryWidgetList.add(Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    '    ~$categoryTitle',
+                  ),
+                ));
+              }
             }
           }
-        }
-        if (categoryTitleList.isNotEmpty) {
-          categoryWidgetList.add(Text(
-            '* ${groutItem.value.title}:',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black,
+          list.add(
+            Container(
+              width: 200,
+              padding: EdgeInsets.only(left: 10),
+              // height: double.infinity,
+              alignment: Alignment.topLeft,
+              color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+                  ? Colors.yellow
+                  : null,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '$phrase',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      // scrollDirection: Axis.horizontal,
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: categoryWidgetList,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
             ),
-          ));
-          categoryTitleList.sort();
-          for (var categoryTitle in categoryTitleList) {
-            categoryWidgetList.add(Text(
-              '    ~$categoryTitle',
-            ));
-          }
+          );
         }
       }
-      list.add(
-        Container(
-          width: 200,
-          padding: EdgeInsets.only(left: 10),
-          // height: double.infinity,
-          alignment: Alignment.topLeft,
-          color: listEquals(widget.selectedPhrasePosList, phrasePosList)
-              ? Colors.yellow
-              : null,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '$phrase',
-                style: TextStyle(fontSize: 28, color: Colors.black),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  // scrollDirection: Axis.horizontal,
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: categoryWidgetList,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        ),
-      );
-
-/*
-list.add(
-        Container(
-          width: 200,
-          padding: EdgeInsets.only(left: 10),
-          // height: double.infinity,
-          alignment: Alignment.topLeft,
-          color: listEquals(widget.selectedPhrasePosList, phrasePosList)
-              ? Colors.yellow
-              : null,
-          child: SingleChildScrollView(
-            // scrollDirection: Axis.horizontal,
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '$phrase',
-                  style: TextStyle(fontSize: 28, color: Colors.black),
-                ),
-                ...categoryWidgetList,
-              ],
-            ),
-          ),
-        ),
-      );
-*/
-
     }
 
     return list;
   }
+  // List<Widget> buildClassificationsHorizontal(context) {
+  //   List<Widget> list = [];
+
+  //   Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
+  //       widget.group,
+  //       (key1, key2) =>
+  //           widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
+
+  //   for (var i = 0; i < widget.phraseList.length; i++) {
+  //     for (var phraseClassItem in widget.phraseClassifications.entries) {
+  //       List<int> phrasePosList = phraseClassItem.value.posPhraseList;
+  //       // if (i == phrasePosList[0]) {
+  //       String phrase = '';
+  //       for (var pos in phrasePosList) {
+  //         try {
+  //           phrase = phrase + widget.phraseList[pos] + ' ';
+  //         } catch (e) {}
+  //       }
+
+  //       List<Widget> categoryWidgetList = [];
+  //       for (var groutItem in groupSorted.entries) {
+  //         List<String> categoryIdList = phraseClassItem.value.categoryIdList;
+  //         List<String> categoryTitleList = [];
+  //         for (var id in categoryIdList) {
+  //           if (widget.category.containsKey(id)) {
+  //             if (widget.category[id]!.group == groutItem.key) {
+  //               categoryTitleList.add(widget.category[id]!.title);
+  //             }
+  //           }
+  //         }
+  //         if (categoryTitleList.isNotEmpty) {
+  //           categoryWidgetList.add(Text(
+  //             '* ${groutItem.value.title}:',
+  //             style: TextStyle(
+  //               fontSize: 16,
+  //               color: Colors.black,
+  //             ),
+  //           ));
+  //           categoryTitleList.sort();
+  //           for (var categoryTitle in categoryTitleList) {
+  //             categoryWidgetList.add(Text(
+  //               '  ~$categoryTitle',
+  //             ));
+  //           }
+  //         }
+  //       }
+  //       list.add(
+  //         Container(
+  //           width: 200,
+  //           padding: EdgeInsets.only(left: 10),
+  //           // height: double.infinity,
+  //           alignment: Alignment.topLeft,
+  //           color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+  //               ? Colors.yellow
+  //               : null,
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Text(
+  //                 '$phrase',
+  //                 style: TextStyle(fontSize: 28, color: Colors.black),
+  //               ),
+  //               Expanded(
+  //                 child: SingleChildScrollView(
+  //                   // scrollDirection: Axis.horizontal,
+  //                   child: Column(
+  //                     // mainAxisAlignment: MainAxisAlignment.start,
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: categoryWidgetList,
+  //                   ),
+  //                 ),
+  //               ),
+  //               SizedBox(
+  //                 height: 10,
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     }
+  //   }
+
+  //   return list;
+  // }
 
   List<Widget> buildClassifications(context) {
     List<Widget> list = [];
@@ -279,34 +341,36 @@ list.add(
               try {
                 phrase = phrase + widget.phraseList[pos] + ' ';
               } catch (e) {}
-            }
-            List<String> phraseCategoryList =
-                phraseClassItem.value.categoryIdList;
-            List<String> categoryTitleList = [];
-            for (var categoryItem in phraseCategoryList) {
-              ClassCategory categoryTemp = widget.category.putIfAbsent(
-                  categoryItem, () => ClassCategory(title: '', group: ''));
+              // }
+              List<String> phraseCategoryList =
+                  phraseClassItem.value.categoryIdList;
+              List<String> categoryTitleList = [];
+              for (var categoryItem in phraseCategoryList) {
+                ClassCategory categoryTemp = widget.category.putIfAbsent(
+                    categoryItem, () => ClassCategory(title: '', group: ''));
 
-              if (categoryTemp.title.isNotEmpty &&
-                  categoryTemp.group == groutItem.key) {
-                categoryTitleList.add(categoryTemp.title);
+                if (categoryTemp.title.isNotEmpty &&
+                    categoryTemp.group == groutItem.key) {
+                  categoryTitleList.add(categoryTemp.title);
+                }
               }
-            }
-            categoryTitleList.sort();
-            String category = categoryTitleList.join(', ');
+              categoryTitleList.sort();
+              String category = categoryTitleList.join(', ');
 
-            if (category.isNotEmpty) {
-              list.add(
-                Container(
-                  color: listEquals(widget.selectedPhrasePosList, phrasePosList)
-                      ? Colors.yellow
-                      : null,
-                  child: ListTile(
-                    title: Text('$phrase'),
-                    subtitle: Text('$category'),
+              if (category.isNotEmpty) {
+                list.add(
+                  Container(
+                    color:
+                        listEquals(widget.selectedPhrasePosList, phrasePosList)
+                            ? Colors.yellow
+                            : null,
+                    child: ListTile(
+                      title: Text('$phrase'),
+                      subtitle: Text('$category'),
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             }
           }
         }

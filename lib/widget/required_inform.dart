@@ -13,9 +13,9 @@ class RequiredInForm extends StatelessWidget {
         style: TextStyle(color: Colors.red),
       ),
       Text(' tem preenchimento obrigatório.'),
-      // SizedBox(
-      //   height: 20,
-      // ),
+      SizedBox(
+        height: 80,
+      ),
     ]));
   }
 }

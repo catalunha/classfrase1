@@ -82,6 +82,22 @@ class SetObserverCurrentObserverAction extends ReduxAction<AppState> {
       ),
     );
   }
+
+  void after() {
+    dispatch(SetNulPhraseObserverAction());
+  }
+}
+
+class SetNulPhraseObserverAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state.copyWith(
+      observerState: state.observerState.copyWith(
+        observerPhraseCurrentSetNull: true,
+        observerPhraseListSetNull: true,
+      ),
+    );
+  }
 }
 
 class CreateDocObserverAction extends ReduxAction<AppState> {

@@ -8,6 +8,10 @@ import 'classification/controller/group_addedit_page_controller.dart';
 import 'classification/controller/group_page_controller.dart';
 import 'classifying/controller/classifications_connector.dart';
 import 'classifying/controller/classifying_connector.dart';
+import 'follow/controller/follow_addedit_page_controller.dart';
+import 'follow/controller/follow_page_connector.dart';
+import 'follow/controller/follow_user_add_page_controller.dart';
+import 'follow/controller/following_users_page_controller.dart';
 import 'home/coffee.dart';
 import 'home/controller/home_page_connector.dart';
 import 'home/information.dart';
@@ -26,10 +30,18 @@ class Routes {
     '/home': (BuildContext context) => HomePageConnector(),
     '/information': (BuildContext context) => Information(),
     '/coffee': (BuildContext context) => Coffee(),
+    //+++ Phrase
     '/phrase_archived': (BuildContext context) => PhraseArchivedPageConnector(),
     '/phrase_addedit': (BuildContext context) => PhraseAddEditConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    '/classifying': (BuildContext context) => ClassifyingConnector(
+          phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/classifications': (BuildContext context) => ClassificationsConnector(
+          groupId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    //+++ Observer
     '/observer_list': (BuildContext context) => ObserverPageConnector(),
     '/observer_addedit': (BuildContext context) => ObserverAddEditPageConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
@@ -40,12 +52,23 @@ class Routes {
     '/observed_phrase': (BuildContext context) => ObservedPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/classifying': (BuildContext context) => ClassifyingConnector(
+    //+++ Follow People
+    '/follow': (BuildContext context) => FollowPageConnector(),
+    '/follow_addedit': (BuildContext context) => FollowAddEditPageConnector(
+          addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/following_users': (BuildContext context) => FollowingUsersPageConnector(
+          followId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/follow_user_add': (BuildContext context) => FollowUserAddPageConnector(),
+    '/follow_phrases': (BuildContext context) => ObserverPhrasePageConnector(
+          observerId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/follow_phrase': (BuildContext context) => ObservedPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/classifications': (BuildContext context) => ClassificationsConnector(
-          groupId: ModalRoute.of(context)!.settings.arguments.toString(),
-        ),
+
+    // +++ admin
     '/users': (BuildContext context) => UsersPageConnector(),
     '/group': (BuildContext context) => GroupPageConnector(),
     '/group_addedit': (BuildContext context) => GroupAddEditPageConnector(

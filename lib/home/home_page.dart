@@ -180,6 +180,17 @@ class HomePage extends StatelessWidget {
                     '/observer_list',
                   ),
                 ),
+                TextButton(
+                  child: Text('Seguir pessoa.'),
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(
+                        fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    '/follow',
+                  ),
+                ),
               ],
             ),
           ),

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:classfrase/firestore/firestore_model.dart';
 import 'package:classfrase/user/controller/user_model.dart';
-import 'package:flutter/foundation.dart';
 
 class ObserverModel extends FirestoreModel {
   static final String collection = 'observers';
