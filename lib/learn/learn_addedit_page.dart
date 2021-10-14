@@ -5,40 +5,40 @@ import 'package:classfrase/widget/input_title.dart';
 import 'package:classfrase/widget/required_inform.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/follow_addedit_page_controller.dart';
-import 'controller/follow_model.dart';
+import 'controller/learn_addedit_page_controller.dart';
+import 'controller/learn_model.dart';
 
-class FollowAddEditPage extends StatefulWidget {
-  final FormControllerFollow formControllerFollow;
-  final Function(FollowModel) onSave;
+class LearnAddEditPage extends StatefulWidget {
+  final FormControllerLearn formControllerLearn;
+  final Function(LearnModel) onSave;
 
-  const FollowAddEditPage({
+  const LearnAddEditPage({
     Key? key,
-    required this.formControllerFollow,
+    required this.formControllerLearn,
     required this.onSave,
   }) : super(key: key);
 
   @override
-  _FollowAddEditPageState createState() =>
-      _FollowAddEditPageState(formControllerFollow);
+  _LearnAddEditPageState createState() =>
+      _LearnAddEditPageState(formControllerLearn);
 }
 
-class _FollowAddEditPageState extends State<FollowAddEditPage> {
-  final FormControllerFollow formControllerFollow;
+class _LearnAddEditPageState extends State<LearnAddEditPage> {
+  final FormControllerLearn formControllerLearn;
 
-  _FollowAddEditPageState(this.formControllerFollow);
+  _LearnAddEditPageState(this.formControllerLearn);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.formControllerFollow.followModel.id.isEmpty
+        title: Text(widget.formControllerLearn.learnModel.id.isEmpty
             ? 'Adicionar um grupo'
             : 'Editar este grupo'),
       ),
       body: SingleChildScrollView(
         child: Form(
-            key: widget.formControllerFollow.formKey,
+            key: widget.formControllerLearn.formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -46,22 +46,20 @@ class _FollowAddEditPageState extends State<FollowAddEditPage> {
                   label: 'Informe o título deste grupo',
                   required: true,
                   initialValue:
-                      widget.formControllerFollow.followModel.description,
-                  validator: widget.formControllerFollow.validateRequiredText,
+                      widget.formControllerLearn.learnModel.description,
+                  validator: widget.formControllerLearn.validateRequiredText,
                   onChanged: (value) {
-                    widget.formControllerFollow.onChange(description: value);
+                    widget.formControllerLearn.onChange(description: value);
                   },
                 ),
-                formControllerFollow.followModel.id.isEmpty
+                formControllerLearn.learnModel.id.isEmpty
                     ? Container()
                     : InputCheckBoxDelete(
                         title: 'Apagar este grupo',
                         subtitle: 'Remover permanentemente',
-                        value:
-                            widget.formControllerFollow.followModel.isDeleted,
+                        value: widget.formControllerLearn.learnModel.isDeleted,
                         onChanged: (value) {
-                          widget.formControllerFollow
-                              .onChange(isDeleted: value);
+                          widget.formControllerLearn.onChange(isDeleted: value);
                           setState(() {});
                         },
                       ),
@@ -76,9 +74,9 @@ class _FollowAddEditPageState extends State<FollowAddEditPage> {
         tooltip: 'Salvar estes campos em núvem',
         child: Icon(AppIconData.saveInCloud),
         onPressed: () {
-          widget.formControllerFollow.onCheckValidation();
-          if (widget.formControllerFollow.isFormValid) {
-            widget.onSave(widget.formControllerFollow.followModel);
+          widget.formControllerLearn.onCheckValidation();
+          if (widget.formControllerLearn.isFormValid) {
+            widget.onSave(widget.formControllerLearn.learnModel);
             Navigator.pop(context);
           }
         },

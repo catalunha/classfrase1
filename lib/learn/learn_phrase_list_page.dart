@@ -3,14 +3,14 @@ import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
-import 'follow_phrase_card.dart';
+import 'learn_phrase_card.dart';
 import 'person_tile.dart';
 
-class FollowPhraseListPage extends StatelessWidget {
+class LearnPhraseListPage extends StatelessWidget {
   final List<PhraseModel> phraseList;
   final UserRef userRefCurrent;
 
-  const FollowPhraseListPage({
+  const LearnPhraseListPage({
     Key? key,
     required this.phraseList,
     required this.userRefCurrent,
@@ -53,14 +53,14 @@ class FollowPhraseListPage extends StatelessWidget {
     for (var phrase in phraseList) {
       list.add(Container(
         key: ValueKey(phrase),
-        child: FollowPhraseCard(
+        child: LearnPhraseCard(
           phraseModel: phrase,
           widgetList: [
             IconButton(
               tooltip: 'Ver esta frase',
               icon: Icon(AppIconData.letter),
               onPressed: () {
-                Navigator.pushNamed(context, '/follow_phrase',
+                Navigator.pushNamed(context, '/learn_phrase',
                     arguments: phrase.id);
               },
             ),

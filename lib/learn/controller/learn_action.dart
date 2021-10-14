@@ -4,65 +4,65 @@ import 'package:classfrase/user/controller/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../app_state.dart';
-import 'follow_model.dart';
+import 'learn_model.dart';
 
-class StreamDocsFollowAction extends ReduxAction<AppState> {
+class StreamDocsLearnAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     //print('--> StreamDocsObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
-        .collection(FollowModel.collection)
+        .collection(LearnModel.collection)
         .where('userRef.id', isEqualTo: state.userState.userCurrent!.id)
         .where('isDeleted', isEqualTo: false);
 
     Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
         collRef.snapshots();
 
-    Stream<List<FollowModel>> streamList = streamQuerySnapshot.map(
+    Stream<List<LearnModel>> streamList = streamQuerySnapshot.map(
         (querySnapshot) => querySnapshot.docs
             .map((docSnapshot) =>
-                FollowModel.fromMap(docSnapshot.id, docSnapshot.data()))
+                LearnModel.fromMap(docSnapshot.id, docSnapshot.data()))
             .toList());
-    streamList.listen((List<FollowModel> followModelList) {
-      dispatch(SetFollowListFollowAction(followList: followModelList));
+    streamList.listen((List<LearnModel> learnModelList) {
+      dispatch(SetLearnListLearnAction(learnList: learnModelList));
     });
 
     return null;
   }
 }
 
-class SetFollowListFollowAction extends ReduxAction<AppState> {
-  final List<FollowModel> followList;
+class SetLearnListLearnAction extends ReduxAction<AppState> {
+  final List<LearnModel> learnList;
 
-  SetFollowListFollowAction({required this.followList});
+  SetLearnListLearnAction({required this.learnList});
   @override
   AppState reduce() {
     return state.copyWith(
-      followState: state.followState.copyWith(
-        followList: followList,
+      learnState: state.learnState.copyWith(
+        learnList: learnList,
       ),
     );
   }
 
   void after() {
-    if (state.followState.followCurrent != null) {
-      dispatch(SetFollowCurrentFollowAction(
-          id: state.followState.followCurrent!.id));
+    if (state.learnState.learnCurrent != null) {
+      dispatch(
+          SetLearnCurrentLearnAction(id: state.learnState.learnCurrent!.id));
     }
   }
 }
 
-class SetFollowCurrentFollowAction extends ReduxAction<AppState> {
+class SetLearnCurrentLearnAction extends ReduxAction<AppState> {
   final String id;
-  SetFollowCurrentFollowAction({
+  SetLearnCurrentLearnAction({
     required this.id,
   });
   @override
   AppState reduce() {
     //print('--> SetObserverCurrentObserverAction $id');
-    FollowModel followModel = FollowModel(
+    LearnModel learnModel = LearnModel(
       '',
       userRef: UserRef.fromMap({
         'id': state.userState.userCurrent!.id,
@@ -70,30 +70,30 @@ class SetFollowCurrentFollowAction extends ReduxAction<AppState> {
         'displayName': state.userState.userCurrent!.displayName
       }),
       description: '',
-      following: {},
+      learning: {},
       isDeleted: false,
     );
     if (id.isNotEmpty) {
-      followModel = state.followState.followList!
-          .firstWhere((element) => element.id == id);
+      learnModel =
+          state.learnState.learnList!.firstWhere((element) => element.id == id);
     }
     return state.copyWith(
-      followState: state.followState.copyWith(
-        followCurrent: followModel,
+      learnState: state.learnState.copyWith(
+        learnCurrent: learnModel,
       ),
     );
   }
 
   void after() {
-    dispatch(SetNullUserAndPhraseFollowAction());
+    dispatch(SetNullUserAndPhraseLearnAction());
   }
 }
 
-class SetNullUserAndPhraseFollowAction extends ReduxAction<AppState> {
+class SetNullUserAndPhraseLearnAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state.copyWith(
-      followState: state.followState.copyWith(
+      learnState: state.learnState.copyWith(
         userRefCurrentSetNull: true,
         phraseListSetNull: true,
         phraseCurrentSetNull: true,
@@ -102,41 +102,40 @@ class SetNullUserAndPhraseFollowAction extends ReduxAction<AppState> {
   }
 }
 
-class CreateDocFollowAction extends ReduxAction<AppState> {
-  final FollowModel followModel;
+class CreateDocLearnAction extends ReduxAction<AppState> {
+  final LearnModel learnModel;
 
-  CreateDocFollowAction({required this.followModel});
+  CreateDocLearnAction({required this.learnModel});
 
   @override
   Future<AppState?> reduce() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     CollectionReference docRef =
-        firebaseFirestore.collection(FollowModel.collection);
-    await docRef.add(followModel.toMap());
+        firebaseFirestore.collection(LearnModel.collection);
+    await docRef.add(learnModel.toMap());
     return null;
   }
 }
 
-class UpdateDocFollowAction extends ReduxAction<AppState> {
-  final FollowModel followModel;
+class UpdateDocLearnAction extends ReduxAction<AppState> {
+  final LearnModel learnModel;
 
-  UpdateDocFollowAction({required this.followModel});
+  UpdateDocLearnAction({required this.learnModel});
 
   @override
   Future<AppState?> reduce() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    DocumentReference docRef = firebaseFirestore
-        .collection(FollowModel.collection)
-        .doc(followModel.id);
-    await docRef.update(followModel.toMap());
+    DocumentReference docRef =
+        firebaseFirestore.collection(LearnModel.collection).doc(learnModel.id);
+    await docRef.update(learnModel.toMap());
 
     return null;
   }
 }
 
-class SearchingEmailFollowAction extends ReduxAction<AppState> {
+class SearchingEmailLearnAction extends ReduxAction<AppState> {
   final String email;
-  SearchingEmailFollowAction({required this.email});
+  SearchingEmailLearnAction({required this.email});
 
   @override
   Future<AppState?> reduce() async {
@@ -154,7 +153,7 @@ class SearchingEmailFollowAction extends ReduxAction<AppState> {
               ))
           .toList();
 
-      dispatch(AddFollowingUserFollowAction(userModel: userModelList[0]));
+      dispatch(AddLearningUserLearnAction(userModel: userModelList[0]));
     } else {
       print('Email não encontrado.');
     }
@@ -162,68 +161,67 @@ class SearchingEmailFollowAction extends ReduxAction<AppState> {
   }
 }
 
-class AddFollowingUserFollowAction extends ReduxAction<AppState> {
+class AddLearningUserLearnAction extends ReduxAction<AppState> {
   final UserModel userModel;
 
-  AddFollowingUserFollowAction({required this.userModel});
+  AddLearningUserLearnAction({required this.userModel});
 
   @override
   Future<AppState?> reduce() async {
-    FollowModel followModel = state.followState.followCurrent!;
-    bool userCadastrado = followModel.following.containsKey(userModel.id);
+    LearnModel learnModel = state.learnState.learnCurrent!;
+    bool userCadastrado = learnModel.learning.containsKey(userModel.id);
     if (userCadastrado) {
       print('Email já tem na lista');
     } else {
-      print('Cadastrar pois email não esta em follows');
+      print('Cadastrar pois email não esta em learns');
       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       DocumentReference docRef = firebaseFirestore
-          .collection(FollowModel.collection)
-          .doc(followModel.id);
+          .collection(LearnModel.collection)
+          .doc(learnModel.id);
       UserRef userRef = UserRef(
           id: userModel.id,
           photoURL: userModel.photoURL,
           displayName: userModel.displayName);
-      // followModel.following.addAll({userModel.id: userRef});
-      // await docRef.update(followModel.toMap());
-      await docRef.update({'following.${userModel.id}': userRef.toMap()});
+      // learnModel.learning.addAll({userModel.id: userRef});
+      // await docRef.update(learnModel.toMap());
+      await docRef.update({'learning.${userModel.id}': userRef.toMap()});
     }
 
     return null;
   }
 }
 
-class DeleteFollowingUserFollowAction extends ReduxAction<AppState> {
+class DeleteLearningUserLearnAction extends ReduxAction<AppState> {
   final String userId;
 
-  DeleteFollowingUserFollowAction({required this.userId});
+  DeleteLearningUserLearnAction({required this.userId});
 
   @override
   Future<AppState?> reduce() async {
-    FollowModel followModel = state.followState.followCurrent!;
+    LearnModel learnModel = state.learnState.learnCurrent!;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    DocumentReference docRef = firebaseFirestore
-        .collection(FollowModel.collection)
-        .doc(followModel.id);
-    await docRef.update({'following.$userId': FieldValue.delete()});
+    DocumentReference docRef =
+        firebaseFirestore.collection(LearnModel.collection).doc(learnModel.id);
+    await docRef.update({'learning.$userId': FieldValue.delete()});
 
     return null;
   }
 }
 
-class SetUserCurrentFollowAction extends ReduxAction<AppState> {
+class SetUserCurrentLearnAction extends ReduxAction<AppState> {
   final String id;
-  SetUserCurrentFollowAction({
+  SetUserCurrentLearnAction({
     required this.id,
   });
   @override
   AppState? reduce() {
     UserRef userRef;
-    if (state.followState.followCurrent!.following.containsKey(id)) {
-      userRef = state.followState.followCurrent!.following[id]!;
+    if (state.learnState.learnCurrent!.learning.containsKey(id)) {
+      userRef = state.learnState.learnCurrent!.learning[id]!;
 
       return state.copyWith(
-        followState: state.followState.copyWith(
+        learnState: state.learnState.copyWith(
           userRefCurrent: userRef,
         ),
       );
@@ -232,15 +230,15 @@ class SetUserCurrentFollowAction extends ReduxAction<AppState> {
   }
 
   void after() {
-    dispatch(SetNullPhraseFollowAction());
+    dispatch(SetNullPhraseLearnAction());
   }
 }
 
-class SetNullPhraseFollowAction extends ReduxAction<AppState> {
+class SetNullPhraseLearnAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state.copyWith(
-      followState: state.followState.copyWith(
+      learnState: state.learnState.copyWith(
         phraseListSetNull: true,
         phraseCurrentSetNull: true,
       ),
@@ -248,7 +246,7 @@ class SetNullPhraseFollowAction extends ReduxAction<AppState> {
   }
 }
 
-class GetDocsPhraseFollowAction extends ReduxAction<AppState> {
+class GetDocsPhraseLearnAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     //print('--> StreamDocsObserverAction');
@@ -256,7 +254,7 @@ class GetDocsPhraseFollowAction extends ReduxAction<AppState> {
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
         .collection(PhraseModel.collection)
-        .where('userRef.id', isEqualTo: state.followState.userRefCurrent!.id)
+        .where('userRef.id', isEqualTo: state.learnState.userRefCurrent!.id)
         .where('isPublic', isEqualTo: true);
 
     var futureQuerySnapshot = await collRef.get();
@@ -264,20 +262,20 @@ class GetDocsPhraseFollowAction extends ReduxAction<AppState> {
         .map((docSnapshot) =>
             PhraseModel.fromMap(docSnapshot.id, docSnapshot.data()))
         .toList();
-    dispatch(SetPhraseListFollowAction(phraseList: phraseList));
+    dispatch(SetPhraseListLearnAction(phraseList: phraseList));
 
     return null;
   }
 }
 
-class SetPhraseListFollowAction extends ReduxAction<AppState> {
+class SetPhraseListLearnAction extends ReduxAction<AppState> {
   final List<PhraseModel> phraseList;
 
-  SetPhraseListFollowAction({required this.phraseList});
+  SetPhraseListLearnAction({required this.phraseList});
   @override
   AppState reduce() {
     return state.copyWith(
-      followState: state.followState.copyWith(
+      learnState: state.learnState.copyWith(
         phraseList: phraseList,
       ),
     );
@@ -291,18 +289,18 @@ class SetPhraseListFollowAction extends ReduxAction<AppState> {
   // }
 }
 
-class SetPhraseCurrentFollowAction extends ReduxAction<AppState> {
+class SetPhraseCurrentLearnAction extends ReduxAction<AppState> {
   final String id;
-  SetPhraseCurrentFollowAction({
+  SetPhraseCurrentLearnAction({
     required this.id,
   });
   @override
   AppState reduce() {
     PhraseModel phraseModel;
     phraseModel =
-        state.followState.phraseList!.firstWhere((element) => element.id == id);
+        state.learnState.phraseList!.firstWhere((element) => element.id == id);
     return state.copyWith(
-      followState: state.followState.copyWith(
+      learnState: state.learnState.copyWith(
         phraseCurrent: phraseModel,
       ),
     );

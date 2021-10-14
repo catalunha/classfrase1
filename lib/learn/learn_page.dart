@@ -1,15 +1,15 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/follow_model.dart';
-import 'follow_card.dart';
+import 'controller/learn_model.dart';
+import 'learn_card.dart';
 
-class FollowPage extends StatelessWidget {
-  final List<FollowModel> followList;
+class LearnPage extends StatelessWidget {
+  final List<LearnModel> learnList;
 
-  const FollowPage({
+  const LearnPage({
     Key? key,
-    required this.followList,
+    required this.learnList,
   }) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class FollowPage extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(
             context,
-            '/follow_addedit',
+            '/learn_addedit',
             arguments: '',
           );
         },
@@ -46,11 +46,11 @@ class FollowPage extends StatelessWidget {
   List<Widget> buildItens(context) {
     List<Widget> list = [];
 
-    for (var follow in followList) {
+    for (var learn in learnList) {
       list.add(Container(
-        key: ValueKey(follow),
-        child: FollowCard(
-          follow: follow,
+        key: ValueKey(learn),
+        child: LearnCard(
+          learn: learn,
           widgetList: [
             IconButton(
               tooltip: 'Ver lista de pessoas',
@@ -58,8 +58,8 @@ class FollowPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  '/following_users',
-                  arguments: follow.id,
+                  '/learning_users',
+                  arguments: learn.id,
                 );
               },
             ),
@@ -69,8 +69,8 @@ class FollowPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  '/follow_addedit',
-                  arguments: follow.id,
+                  '/learn_addedit',
+                  arguments: learn.id,
                 );
               },
             ),

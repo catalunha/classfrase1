@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'person_tile.dart';
 
-class FollowPhrasePage extends StatefulWidget {
+class LearnPhrasePage extends StatefulWidget {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Map<String, ClassGroup> group;
@@ -22,7 +22,7 @@ class FollowPhrasePage extends StatefulWidget {
   // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
-  const FollowPhrasePage({
+  const LearnPhrasePage({
     Key? key,
     required this.phraseList,
     required this.selectedPhrasePosList,
@@ -36,10 +36,10 @@ class FollowPhrasePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FollowPhrasePageState createState() => _FollowPhrasePageState();
+  _LearnPhrasePageState createState() => _LearnPhrasePageState();
 }
 
-class _FollowPhrasePageState extends State<FollowPhrasePage> {
+class _LearnPhrasePageState extends State<LearnPhrasePage> {
   bool isHorizontal = true;
 
   @override

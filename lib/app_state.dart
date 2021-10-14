@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 
 import 'classification/controller/classification_state.dart';
 import 'classifying/controller/classifying_state.dart';
-import 'follow/controller/follow_state.dart';
+import 'learn/controller/learn_state.dart';
 import 'observer/controller/observer_state.dart';
 import 'phrase/controller/phrase_state.dart';
 import 'user/controller/user_state.dart';
@@ -16,7 +16,7 @@ class AppState {
   final ObserverState observerState;
   final ClassificationState classificationState;
   final UsersState usersState;
-  final FollowState followState;
+  final LearnState learnState;
 
   AppState({
     required this.wait,
@@ -26,7 +26,7 @@ class AppState {
     required this.classifyingState,
     required this.observerState,
     required this.usersState,
-    required this.followState,
+    required this.learnState,
   });
 
   static AppState initialState() => AppState(
@@ -37,7 +37,7 @@ class AppState {
         classifyingState: ClassifyingState.initialState(),
         observerState: ObserverState.initialState(),
         usersState: UsersState.initialState(),
-        followState: FollowState.initialState(),
+        learnState: LearnState.initialState(),
       );
   AppState copyWith({
     Wait? wait,
@@ -47,7 +47,7 @@ class AppState {
     ClassifyingState? classifyingState,
     ObserverState? observerState,
     UsersState? usersState,
-    FollowState? followState,
+    LearnState? learnState,
   }) {
     return AppState(
       wait: wait ?? this.wait,
@@ -57,7 +57,7 @@ class AppState {
       classifyingState: classifyingState ?? this.classifyingState,
       observerState: observerState ?? this.observerState,
       usersState: usersState ?? this.usersState,
-      followState: followState ?? this.followState,
+      learnState: learnState ?? this.learnState,
     );
   }
 
@@ -66,7 +66,7 @@ class AppState {
     if (identical(this, other)) return true;
 
     return other is AppState &&
-        other.followState == followState &&
+        other.learnState == learnState &&
         other.observerState == observerState &&
         other.classificationState == classificationState &&
         other.classifyingState == classifyingState &&

@@ -1,21 +1,21 @@
-import 'package:classfrase/follow/users_card.dart';
+import 'package:classfrase/learn/users_card.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/follow_model.dart';
+import 'controller/learn_model.dart';
 
-class FollowingUsersPage extends StatelessWidget {
-  final FollowModel follow;
-  final Map<String, UserRef> following;
+class LearningUsersPage extends StatelessWidget {
+  final LearnModel learn;
+  final Map<String, UserRef> learning;
   final Function(String) userDelete;
 
-  const FollowingUsersPage({
+  const LearningUsersPage({
     Key? key,
-    required this.following,
+    required this.learning,
     required this.userDelete,
-    required this.follow,
+    required this.learn,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class FollowingUsersPage extends StatelessWidget {
             width: double.infinity,
             color: Colors.black12,
             child: Text(
-              follow.description,
+              learn.description,
               style: AppTextStyles.buttonBoldHeading,
             ),
 
@@ -53,7 +53,7 @@ class FollowingUsersPage extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(
             context,
-            '/follow_user_add',
+            '/learn_user_add',
             // arguments: '',
           );
         },
@@ -64,7 +64,7 @@ class FollowingUsersPage extends StatelessWidget {
   List<Widget> buildItens(context) {
     List<Widget> list = [];
 
-    for (var person in following.entries) {
+    for (var person in learning.entries) {
       list.add(
         Container(
           key: ValueKey(person),
@@ -76,7 +76,7 @@ class FollowingUsersPage extends StatelessWidget {
                 tooltip: 'Ver frases desta pessoa',
                 icon: Icon(AppIconData.list),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/follow_phrase_list',
+                  Navigator.pushNamed(context, '/learn_phrase_list',
                       arguments: person.key);
                 },
               ),

@@ -2,10 +2,10 @@ import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
-class FollowPhraseCard extends StatelessWidget {
+class LearnPhraseCard extends StatelessWidget {
   final PhraseModel phraseModel;
   final List<Widget>? widgetList;
-  const FollowPhraseCard({
+  const LearnPhraseCard({
     Key? key,
     required this.phraseModel,
     this.widgetList,

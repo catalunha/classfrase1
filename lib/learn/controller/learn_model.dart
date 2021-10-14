@@ -3,35 +3,35 @@ import 'package:flutter/foundation.dart';
 
 import 'package:classfrase/user/controller/user_model.dart';
 
-class FollowModel extends FirestoreModel {
-  static final String collection = 'follows';
+class LearnModel extends FirestoreModel {
+  static final String collection = 'learns';
   final UserRef userRef;
   final String description;
 
   /// [String] é UserId
   ///
   /// UserId:{id:UserId,photoUrl:'',displayName:''}
-  final Map<String, UserRef> following;
+  final Map<String, UserRef> learning;
   final bool isDeleted;
-  FollowModel(
+  LearnModel(
     String id, {
     required this.description,
     required this.userRef,
-    required this.following,
+    required this.learning,
     required this.isDeleted,
   }) : super(id);
 
-  FollowModel copyWith({
+  LearnModel copyWith({
     UserRef? userRef,
     String? description,
-    Map<String, UserRef>? following,
+    Map<String, UserRef>? learning,
     bool? isDeleted,
   }) {
-    return FollowModel(
+    return LearnModel(
       id,
       userRef: userRef ?? this.userRef,
       description: description ?? this.description,
-      following: following ?? this.following,
+      learning: learning ?? this.learning,
       isDeleted: isDeleted ?? this.isDeleted,
     );
   }
@@ -42,9 +42,9 @@ class FollowModel extends FirestoreModel {
     data['userRef'] = userRef.toMap();
     data['description'] = description;
 
-    data["following"] = Map<String, dynamic>();
-    for (var item in following.entries) {
-      data["following"][item.key] = item.value.toMap();
+    data["learning"] = Map<String, dynamic>();
+    for (var item in learning.entries) {
+      data["learning"][item.key] = item.value.toMap();
     }
 
     if (isDeleted != null) data['isDeleted'] = isDeleted;
@@ -52,33 +52,33 @@ class FollowModel extends FirestoreModel {
     return data;
   }
 
-  factory FollowModel.fromMap(String id, Map<String, dynamic> map) {
-    var followingTemp = Map<String, UserRef>();
-    for (var item in map["following"].entries) {
-      followingTemp[item.key] = UserRef.fromMap(item.value);
+  factory LearnModel.fromMap(String id, Map<String, dynamic> map) {
+    var learningTemp = Map<String, UserRef>();
+    for (var item in map["learning"].entries) {
+      learningTemp[item.key] = UserRef.fromMap(item.value);
     }
 
-    return FollowModel(
+    return LearnModel(
       id,
       userRef: UserRef.fromMap(map['userRef']),
       description: map['description'],
-      following: followingTemp,
+      learning: learningTemp,
       isDeleted: map['isDeleted'] ?? false,
     );
   }
 
   @override
   String toString() =>
-      'FollowModel(userRef: $userRef, following: $following, isDeleted: $isDeleted)';
+      'LearnModel(userRef: $userRef, learning: $learning, isDeleted: $isDeleted)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is FollowModel &&
+    return other is LearnModel &&
         other.userRef == userRef &&
         other.description == description &&
-        mapEquals(other.following, following) &&
+        mapEquals(other.learning, learning) &&
         other.isDeleted == isDeleted;
   }
 
@@ -86,6 +86,6 @@ class FollowModel extends FirestoreModel {
   int get hashCode =>
       description.hashCode ^
       userRef.hashCode ^
-      following.hashCode ^
+      learning.hashCode ^
       isDeleted.hashCode;
 }

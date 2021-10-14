@@ -5,25 +5,25 @@ import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_state.dart';
-import '../follow_phrase_page.dart';
-import 'follow_action.dart';
+import '../learn_phrase_page.dart';
+import 'learn_action.dart';
 
-class FollowPhrasePageConnector extends StatelessWidget {
+class LearnPhrasePageConnector extends StatelessWidget {
   final String phraseId;
 
-  const FollowPhrasePageConnector({
+  const LearnPhrasePageConnector({
     Key? key,
     required this.phraseId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, FollowPhrasePageVm>(
+    return StoreConnector<AppState, LearnPhrasePageVm>(
       onInit: (store) {
-        store.dispatch(SetPhraseCurrentFollowAction(id: phraseId));
+        store.dispatch(SetPhraseCurrentLearnAction(id: phraseId));
       },
-      vm: () => FollowPhrasePageFactory(this),
-      builder: (context, vm) => FollowPhrasePage(
+      vm: () => LearnPhrasePageFactory(this),
+      builder: (context, vm) => LearnPhrasePage(
           phraseList: vm.phraseList,
           selectedPhrasePosList: vm.selectedPhrasePosList,
           onSelectPhrase: vm.onSelectPhrase,
@@ -38,31 +38,31 @@ class FollowPhrasePageConnector extends StatelessWidget {
   }
 }
 
-class FollowPhrasePageFactory
-    extends VmFactory<AppState, FollowPhrasePageConnector> {
-  FollowPhrasePageFactory(widget) : super(widget);
+class LearnPhrasePageFactory
+    extends VmFactory<AppState, LearnPhrasePageConnector> {
+  LearnPhrasePageFactory(widget) : super(widget);
   @override
-  FollowPhrasePageVm fromStore() => FollowPhrasePageVm(
-        phraseList: state.followState.phraseCurrent!.phraseList,
+  LearnPhrasePageVm fromStore() => LearnPhrasePageVm(
+        phraseList: state.learnState.phraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
         group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,
         onSelectPhrase: (int phrasePos) {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
         },
-        phraseClassifications: state.followState.phraseCurrent!.classifications,
-        phraseCurrent: state.followState.phraseCurrent!,
+        phraseClassifications: state.learnState.phraseCurrent!.classifications,
+        phraseCurrent: state.learnState.phraseCurrent!,
         // onUpdateExistCategoryInPos: (String groupId) {
-        //   dispatch(UpdateExistCategoryInPosFollowPhrasePageAction(groupId: groupId));
+        //   dispatch(UpdateExistCategoryInPosLearnPhrasePageAction(groupId: groupId));
         // },
         onSetNullSelectedPhraseAndCategory: () {
-          // dispatch(SetNullSelectedCategoryIdFollowPhrasePageAction());
+          // dispatch(SetNullSelectedCategoryIdLearnPhrasePageAction());
           dispatch(SetNullSelectedPhrasePosClassifyingAction());
         },
       );
 }
 
-class FollowPhrasePageVm extends Vm {
+class LearnPhrasePageVm extends Vm {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Function(int) onSelectPhrase;
@@ -73,7 +73,7 @@ class FollowPhrasePageVm extends Vm {
   // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
-  FollowPhrasePageVm({
+  LearnPhrasePageVm({
     required this.phraseList,
     required this.selectedPhrasePosList,
     required this.group,

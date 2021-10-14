@@ -179,7 +179,7 @@ class HomePage extends StatelessWidget {
                 ElevatedButton.icon(
                   onPressed: () => Navigator.pushNamed(
                     context,
-                    '/follow',
+                    '/learn',
                   ),
                   icon: Icon(AppIconData.learn),
                   label: Text('Aprender com Frases.'),
@@ -215,7 +215,7 @@ class HomePage extends StatelessWidget {
                 //   ),
                 //   onPressed: () => Navigator.pushNamed(
                 //     context,
-                //     '/follow',
+                //     '/learn',
                 //   ),
                 // ),
               ],

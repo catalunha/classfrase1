@@ -8,12 +8,12 @@ import 'classification/controller/group_addedit_page_controller.dart';
 import 'classification/controller/group_page_controller.dart';
 import 'classifying/controller/classifications_connector.dart';
 import 'classifying/controller/classifying_connector.dart';
-import 'follow/controller/follow_addedit_page_controller.dart';
-import 'follow/controller/follow_page_connector.dart';
-import 'follow/controller/follow_phrase_list_page_controller.dart';
-import 'follow/controller/follow_phrase_page_controller.dart';
-import 'follow/controller/follow_user_add_page_controller.dart';
-import 'follow/controller/following_users_page_controller.dart';
+import 'learn/controller/learn_addedit_page_controller.dart';
+import 'learn/controller/learn_page_connector.dart';
+import 'learn/controller/learn_phrase_list_page_controller.dart';
+import 'learn/controller/learn_phrase_page_controller.dart';
+import 'learn/controller/learn_user_add_page_controller.dart';
+import 'learn/controller/learning_users_page_controller.dart';
 import 'home/coffee.dart';
 import 'home/controller/home_page_connector.dart';
 import 'home/information.dart';
@@ -54,20 +54,20 @@ class Routes {
     '/observed_phrase': (BuildContext context) => ObservedPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    //+++ Follow People
-    '/follow': (BuildContext context) => FollowPageConnector(),
-    '/follow_addedit': (BuildContext context) => FollowAddEditPageConnector(
+    //+++ Learn People
+    '/learn': (BuildContext context) => LearnPageConnector(),
+    '/learn_addedit': (BuildContext context) => LearnAddEditPageConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/following_users': (BuildContext context) => FollowingUsersPageConnector(
-          followId: ModalRoute.of(context)!.settings.arguments.toString(),
+    '/learning_users': (BuildContext context) => LearningUsersPageConnector(
+          learnId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/follow_user_add': (BuildContext context) => FollowUserAddPageConnector(),
-    '/follow_phrase_list': (BuildContext context) =>
-        FollowPhraseListPageConnector(
+    '/learn_user_add': (BuildContext context) => LearnUserAddPageConnector(),
+    '/learn_phrase_list': (BuildContext context) =>
+        LearnPhraseListPageConnector(
           userId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/follow_phrase': (BuildContext context) => FollowPhrasePageConnector(
+    '/learn_phrase': (BuildContext context) => LearnPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
 
