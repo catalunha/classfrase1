@@ -113,13 +113,13 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
                       child: Container(
                           color: Colors.black12,
                           child: Center(
-                              child: Text('Sua classificação por SELEÇÃO.'))),
+                              child: Text('Classificação por SELEÇÃO.'))),
                     )
                   : Expanded(
                       child: Container(
                           color: Colors.black12,
-                          child: Center(
-                              child: Text('Sua classificação por GRUPO.'))),
+                          child:
+                              Center(child: Text('Classificação por GRUPO.'))),
                     ),
               IconButton(
                 tooltip: 'Alterar modo de visualização',

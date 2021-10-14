@@ -16,7 +16,7 @@ class FollowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meus grupos de pessoas'),
+        title: Text('Meus grupos de aprendizado'),
       ),
       body: Column(
         children: [

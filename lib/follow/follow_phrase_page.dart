@@ -1,26 +1,28 @@
 import 'dart:collection';
-import 'dart:math';
 
+import 'package:classfrase/classification/controller/classification_model.dart';
+import 'package:classfrase/phrase/controller/phrase_model.dart';
+import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:classfrase/classification/controller/classification_model.dart';
-import 'package:classfrase/phrase/controller/phrase_model.dart';
+import 'person_tile.dart';
 
-class ClassifyingPage extends StatefulWidget {
+class FollowPhrasePage extends StatefulWidget {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Map<String, ClassGroup> group;
   final Map<String, ClassCategory> category;
 
   final Map<String, Classification> phraseClassifications;
+  final PhraseModel phraseCurrent;
 
   final Function(int) onSelectPhrase;
-  final Function(String) onUpdateExistCategoryInPos;
+  // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
-  const ClassifyingPage({
+  const FollowPhrasePage({
     Key? key,
     required this.phraseList,
     required this.selectedPhrasePosList,
@@ -28,21 +30,23 @@ class ClassifyingPage extends StatefulWidget {
     required this.category,
     required this.phraseClassifications,
     required this.onSelectPhrase,
-    required this.onUpdateExistCategoryInPos,
+    // required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
+    required this.phraseCurrent,
   }) : super(key: key);
 
   @override
-  _ClassifyingPageState createState() => _ClassifyingPageState();
+  _FollowPhrasePageState createState() => _FollowPhrasePageState();
 }
 
-class _ClassifyingPageState extends State<ClassifyingPage> {
+class _FollowPhrasePageState extends State<FollowPhrasePage> {
   bool isHorizontal = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Classificando esta frase'),
+        title: Text('Classificação'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -52,15 +56,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         ),
       ),
       body: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            // width: double.infinity,
-            color: Colors.black12,
-            child: Center(
-              child: Text('Selecione uma ou mais partes da frase.'),
-            ),
-          ),
           Padding(
             padding: EdgeInsets.all(10),
             child: Center(
@@ -72,23 +68,42 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
             ),
           ),
-          Container(
-            // width: double.infinity,
-            color: Colors.black12,
-            child: Center(
-              child: Text('Clique num grupo para escolher uma classificação.'),
-            ),
+          PersonTile(
+            displayName: widget.phraseCurrent.userRef.displayName,
+            photoURL: widget.phraseCurrent.userRef.photoURL,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: buildGroup(context),
-            ),
-          ),
-          // Wrap(
-          //   alignment: WrapAlignment.spaceEvenly,
-          //   spacing: 5.0,
-          //   children: buildGroup(context),
+          // Expanded(
+          //   child: SingleChildScrollView(
+          //     child: Column(
+          //       children: buildClassifications(context),
+          //     ),
+          //   ),
+          // ),
+          // Tooltip(
+          //   message: 'Clique no box de seleção para mudar modo de visão',
+          //   child: CheckboxListTile(
+          //     title: isHorizontal
+          //         ? Container(
+          //             // width: double.infinity,
+          //             color: Colors.black12,
+          //             child: Center(
+          //               child: Text('Sua classificação por seleção.'),
+          //             ),
+          //           )
+          //         : Container(
+          //             // width: double.infinity,
+          //             color: Colors.black12,
+          //             child: Center(
+          //               child: Text('Sua classificação por grupos.'),
+          //             ),
+          //           ),
+          //     onChanged: (value) {
+          //       setState(() {
+          //         isHorizontal = value!;
+          //       });
+          //     },
+          //     value: isHorizontal,
+          //   ),
           // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -113,7 +128,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                     isHorizontal = !isHorizontal;
                   });
                 },
-                icon: Icon(Icons.change_circle_outlined),
+                icon: Icon(AppIconData.change),
               ),
             ],
           ),
@@ -184,7 +199,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                 categoryWidgetList.add(Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
-                    '    ~$categoryTitle',
+                    '~$categoryTitle',
                   ),
                 ));
               }
@@ -230,91 +245,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
 
     return list;
   }
-  // List<Widget> buildClassificationsHorizontal(context) {
-  //   List<Widget> list = [];
-
-  //   Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
-  //       widget.group,
-  //       (key1, key2) =>
-  //           widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
-
-  //   for (var i = 0; i < widget.phraseList.length; i++) {
-  //     for (var phraseClassItem in widget.phraseClassifications.entries) {
-  //       List<int> phrasePosList = phraseClassItem.value.posPhraseList;
-  //       // if (i == phrasePosList[0]) {
-  //       String phrase = '';
-  //       for (var pos in phrasePosList) {
-  //         try {
-  //           phrase = phrase + widget.phraseList[pos] + ' ';
-  //         } catch (e) {}
-  //       }
-
-  //       List<Widget> categoryWidgetList = [];
-  //       for (var groutItem in groupSorted.entries) {
-  //         List<String> categoryIdList = phraseClassItem.value.categoryIdList;
-  //         List<String> categoryTitleList = [];
-  //         for (var id in categoryIdList) {
-  //           if (widget.category.containsKey(id)) {
-  //             if (widget.category[id]!.group == groutItem.key) {
-  //               categoryTitleList.add(widget.category[id]!.title);
-  //             }
-  //           }
-  //         }
-  //         if (categoryTitleList.isNotEmpty) {
-  //           categoryWidgetList.add(Text(
-  //             '* ${groutItem.value.title}:',
-  //             style: TextStyle(
-  //               fontSize: 16,
-  //               color: Colors.black,
-  //             ),
-  //           ));
-  //           categoryTitleList.sort();
-  //           for (var categoryTitle in categoryTitleList) {
-  //             categoryWidgetList.add(Text(
-  //               '  ~$categoryTitle',
-  //             ));
-  //           }
-  //         }
-  //       }
-  //       list.add(
-  //         Container(
-  //           width: 200,
-  //           padding: EdgeInsets.only(left: 10),
-  //           // height: double.infinity,
-  //           alignment: Alignment.topLeft,
-  //           color: listEquals(widget.selectedPhrasePosList, phrasePosList)
-  //               ? Colors.yellow
-  //               : null,
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               Text(
-  //                 '$phrase',
-  //                 style: TextStyle(fontSize: 28, color: Colors.black),
-  //               ),
-  //               Expanded(
-  //                 child: SingleChildScrollView(
-  //                   // scrollDirection: Axis.horizontal,
-  //                   child: Column(
-  //                     // mainAxisAlignment: MainAxisAlignment.start,
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: categoryWidgetList,
-  //                   ),
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 10,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     }
-  //   }
-
-  //   return list;
-  // }
 
   List<Widget> buildClassifications(context) {
     List<Widget> list = [];
@@ -341,36 +271,34 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               try {
                 phrase = phrase + widget.phraseList[pos] + ' ';
               } catch (e) {}
-              // }
-              List<String> phraseCategoryList =
-                  phraseClassItem.value.categoryIdList;
-              List<String> categoryTitleList = [];
-              for (var categoryItem in phraseCategoryList) {
-                ClassCategory categoryTemp = widget.category.putIfAbsent(
-                    categoryItem, () => ClassCategory(title: '', group: ''));
+            }
+            List<String> phraseCategoryList =
+                phraseClassItem.value.categoryIdList;
+            List<String> categoryTitleList = [];
+            for (var categoryItem in phraseCategoryList) {
+              ClassCategory categoryTemp = widget.category.putIfAbsent(
+                  categoryItem, () => ClassCategory(title: '', group: ''));
 
-                if (categoryTemp.title.isNotEmpty &&
-                    categoryTemp.group == groutItem.key) {
-                  categoryTitleList.add(categoryTemp.title);
-                }
+              if (categoryTemp.title.isNotEmpty &&
+                  categoryTemp.group == groutItem.key) {
+                categoryTitleList.add(categoryTemp.title);
               }
-              categoryTitleList.sort();
-              String category = categoryTitleList.join(', ');
+            }
+            categoryTitleList.sort();
+            String category = categoryTitleList.join(', ');
 
-              if (category.isNotEmpty) {
-                list.add(
-                  Container(
-                    color:
-                        listEquals(widget.selectedPhrasePosList, phrasePosList)
-                            ? Colors.yellow
-                            : null,
-                    child: ListTile(
-                      title: Text('$phrase'),
-                      subtitle: Text('$category'),
-                    ),
+            if (category.isNotEmpty) {
+              list.add(
+                Container(
+                  color: listEquals(widget.selectedPhrasePosList, phrasePosList)
+                      ? Colors.yellow
+                      : null,
+                  child: ListTile(
+                    title: Text('$phrase'),
+                    subtitle: Text('$category'),
                   ),
-                );
-              }
+                ),
+              );
             }
           }
         }
@@ -379,52 +307,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
     list.add(SizedBox(
       height: 20,
     ));
-    return list;
-  }
-
-  List<Widget> buildGroup(context) {
-    List<Widget> list = [];
-    Map<String, ClassGroup> sorted = SplayTreeMap.from(
-        widget.group,
-        (key1, key2) =>
-            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
-
-    for (var item in sorted.entries) {
-      list.add(
-        TextButton(
-          onPressed: () {
-            if (widget.selectedPhrasePosList.isNotEmpty) {
-              widget.onUpdateExistCategoryInPos(item.key);
-              Navigator.pushNamed(context, '/classifications',
-                  arguments: item.key);
-            } else {
-              final snackBar = SnackBar(
-                content: const Text('Oops. Selecione um trecho da frase.'),
-                // action: SnackBarAction(
-                //   label: 'Undo',
-                //   onPressed: () {
-                //     // Some code to undo the change.
-                //   },
-                // ),
-              );
-
-              // Find the ScaffoldMessenger in the widget tree
-              // and use it to show a SnackBar.
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }
-          },
-          child: Text('${item.value.title}'),
-          style: TextButton.styleFrom(
-            textStyle: const TextStyle(fontSize: 18),
-          ),
-        ),
-      );
-      // list.add(
-      //   SizedBox(
-      //     width: 10,
-      //   ),
-      // );
-    }
     return list;
   }
 

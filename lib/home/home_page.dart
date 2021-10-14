@@ -149,48 +149,75 @@ class HomePage extends StatelessWidget {
                 )
               : Container(),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(0.0),
             child: Wrap(
               alignment: WrapAlignment.spaceEvenly,
-              spacing: 20.0,
-              runSpacing: 20.0,
+              // spacing: 20.0,
+              // runSpacing: 20.0,
               // runAlignment: WrapAlignment.spaceAround,
               // crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                TextButton(
-                  child: Text('Criar Frase.'),
+                ElevatedButton.icon(
                   onPressed: () => Navigator.pushNamed(
                     context,
                     '/phrase_addedit',
                     arguments: '',
                   ),
-                  style: TextButton.styleFrom(
-                    textStyle: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
+                  icon: Icon(AppIconData.phrase),
+                  label: Text('Criar Frase.'),
                 ),
-                TextButton(
-                  child: Text('Observar Frase.'),
-                  style: TextButton.styleFrom(
-                    textStyle: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
+                SizedBox(width: 10),
+                ElevatedButton.icon(
                   onPressed: () => Navigator.pushNamed(
                     context,
                     '/observer_list',
                   ),
+                  icon: Icon(AppIconData.eye),
+                  label: Text('Observar Frase.'),
                 ),
-                TextButton(
-                  child: Text('Seguir pessoa.'),
-                  style: TextButton.styleFrom(
-                    textStyle: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
+                SizedBox(width: 10),
+                ElevatedButton.icon(
                   onPressed: () => Navigator.pushNamed(
                     context,
                     '/follow',
                   ),
+                  icon: Icon(AppIconData.learn),
+                  label: Text('Aprender com Frases.'),
                 ),
+                // TextButton(
+                //   child: Text('Criar Frase.'),
+                //   onPressed: () => Navigator.pushNamed(
+                //     context,
+                //     '/phrase_addedit',
+                //     arguments: '',
+                //   ),
+                //   style: TextButton.styleFrom(
+                //     textStyle: const TextStyle(
+                //         fontSize: 25, fontWeight: FontWeight.bold),
+                //   ),
+                // ),
+                // TextButton(
+                //   child: Text('Observar Frase.'),
+                //   style: TextButton.styleFrom(
+                //     textStyle: const TextStyle(
+                //         fontSize: 25, fontWeight: FontWeight.bold),
+                //   ),
+                //   onPressed: () => Navigator.pushNamed(
+                //     context,
+                //     '/observer_list',
+                //   ),
+                // ),
+                // TextButton(
+                //   child: Text('Aprender com frases.'),
+                //   style: TextButton.styleFrom(
+                //     textStyle: const TextStyle(
+                //         fontSize: 25, fontWeight: FontWeight.bold),
+                //   ),
+                //   onPressed: () => Navigator.pushNamed(
+                //     context,
+                //     '/follow',
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -260,11 +287,30 @@ class HomePage extends StatelessWidget {
         key: ValueKey(phrase),
         child: PhraseCard(
           phrase: phrase,
-          trailing: phrase.observer != null && phrase.observer!.isNotEmpty
-              ? Tooltip(
-                  message: 'Esta frase esta sendo observada.',
-                  child: Icon(AppIconData.eye))
-              : null,
+          trailing: Wrap(
+            spacing: 5,
+            children: [
+              phrase.observer != null && phrase.observer!.isNotEmpty
+                  ? Tooltip(
+                      message: 'Esta frase esta sendo observada.',
+                      child: Icon(AppIconData.eye))
+                  : Container(
+                      width: 1,
+                    ),
+              phrase.isPublic
+                  ? Tooltip(
+                      message: 'Esta frase é pública.',
+                      child: Icon(AppIconData.public))
+                  : Container(
+                      width: 1,
+                    ),
+            ],
+          ),
+          // trailing: phrase.observer != null && phrase.observer!.isNotEmpty
+          //     ? Tooltip(
+          //         message: 'Esta frase esta sendo observada.',
+          //         child: Icon(AppIconData.eye))
+          //     : null,
           widgetList: [
             IconButton(
               tooltip: 'Classificar esta frase',

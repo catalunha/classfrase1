@@ -10,6 +10,8 @@ import 'classifying/controller/classifications_connector.dart';
 import 'classifying/controller/classifying_connector.dart';
 import 'follow/controller/follow_addedit_page_controller.dart';
 import 'follow/controller/follow_page_connector.dart';
+import 'follow/controller/follow_phrase_list_page_controller.dart';
+import 'follow/controller/follow_phrase_page_controller.dart';
 import 'follow/controller/follow_user_add_page_controller.dart';
 import 'follow/controller/following_users_page_controller.dart';
 import 'home/coffee.dart';
@@ -19,7 +21,7 @@ import 'login/controller/login_connector.dart';
 import 'observer/controller/observed_phrase_page_connector.dart';
 import 'observer/controller/observer_addedit_page_controller.dart';
 import 'observer/controller/observer_phrase_page_controller.dart';
-import 'phrase/controller/phrase_addedit_connector.dart';
+import 'phrase/controller/phrase_addedit_page_connector.dart';
 import 'phrase/controller/phrase_archived_page_connector.dart';
 import 'login/controller/splash_connector.dart';
 
@@ -61,10 +63,11 @@ class Routes {
           followId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
     '/follow_user_add': (BuildContext context) => FollowUserAddPageConnector(),
-    '/follow_phrases': (BuildContext context) => ObserverPhrasePageConnector(
-          observerId: ModalRoute.of(context)!.settings.arguments.toString(),
+    '/follow_phrase_list': (BuildContext context) =>
+        FollowPhraseListPageConnector(
+          userId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/follow_phrase': (BuildContext context) => ObservedPhrasePageConnector(
+    '/follow_phrase': (BuildContext context) => FollowPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
 

@@ -1,6 +1,7 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_description.dart';
+import 'package:classfrase/widget/input_title.dart';
 import 'package:classfrase/widget/required_inform.dart';
 import 'package:flutter/material.dart';
 
@@ -41,8 +42,8 @@ class _FollowAddEditPageState extends State<FollowAddEditPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                InputDescription(
-                  label: 'Informe uma descrição deste grupo',
+                InputTitle(
+                  label: 'Informe o título deste grupo',
                   required: true,
                   initialValue:
                       widget.formControllerFollow.followModel.description,

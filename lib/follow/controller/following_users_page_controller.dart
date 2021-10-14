@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:classfrase/follow/controller/follow_model.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,9 @@ class FollowingUsersPageConnector extends StatelessWidget {
         store.dispatch(SetFollowCurrentFollowAction(id: followId));
       },
       builder: (context, vm) => FollowingUsersPage(
+        follow: vm.follow,
         following: vm.following,
+        userDelete: vm.userDelete,
       ),
     );
   }
@@ -31,14 +34,22 @@ class FollowingUsersPageVmFactory
   FollowingUsersPageVmFactory(widget) : super(widget);
   @override
   FollowingUsersPageVm fromStore() => FollowingUsersPageVm(
+        follow: state.followState.followCurrent!,
         following: state.followState.followCurrent!.following,
+        userDelete: (String userId) {
+          dispatch(DeleteFollowingUserFollowAction(userId: userId));
+        },
       );
 }
 
 class FollowingUsersPageVm extends Vm {
+  final FollowModel follow;
   final Map<String, UserRef> following;
+  final Function(String) userDelete;
   FollowingUsersPageVm({
+    required this.follow,
     required this.following,
+    required this.userDelete,
   }) : super(equals: [
           following,
         ]);

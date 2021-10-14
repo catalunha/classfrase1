@@ -22,6 +22,9 @@ class PhraseAddEditConnector extends StatelessWidget {
       },
       vm: () => PhraseAddEditFactory(this),
       builder: (context, vm) => PhraseAddEditPage(
+        phraseCurrentIsPublic: vm.phraseCurrentIsPublic,
+        publicPhraseQuota: vm.publicPhraseQuota,
+        publicPhraseAmount: vm.publicPhraseAmount,
         formController: vm.formController,
         onSave: vm.onSave,
       ),
@@ -42,17 +45,29 @@ class PhraseAddEditFactory extends VmFactory<AppState, PhraseAddEditConnector> {
             await dispatch(UpdateDocPhraseAction(phraseModel: phraseModel));
           }
         },
+        publicPhraseQuota: state.userState.userCurrent!.publicPhraseQuota,
+        publicPhraseAmount: state.phraseState.publicPhraseAmount!,
+        phraseCurrentIsPublic: state.phraseState.phraseCurrent!.isPublic,
       );
 }
 
 class PhraseAddEditVm extends Vm {
+  final bool phraseCurrentIsPublic;
+  final int publicPhraseQuota;
+  final int publicPhraseAmount;
   final FormController formController;
   final Function(PhraseModel) onSave;
 
   PhraseAddEditVm({
+    required this.phraseCurrentIsPublic,
+    required this.publicPhraseQuota,
+    required this.publicPhraseAmount,
     required this.formController,
     required this.onSave,
   }) : super(equals: [
+          phraseCurrentIsPublic,
+          publicPhraseQuota,
+          publicPhraseAmount,
           formController,
         ]);
 }
@@ -72,6 +87,7 @@ class FormController {
     String? description,
     String? observer,
     bool? isArchived,
+    bool? isPublic,
     bool? isDeleted,
   }) {
     phraseModel = phraseModel.copyWith(
@@ -80,6 +96,7 @@ class FormController {
       description: description,
       observer: observer,
       isArchived: isArchived,
+      isPublic: isPublic,
       isDeleted: isDeleted,
     );
   }

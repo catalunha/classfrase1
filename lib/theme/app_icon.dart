@@ -15,6 +15,9 @@ class AppIconData {
   static const people = Icons.people_alt;
   static const copy = Icons.content_copy;
   static const change = Icons.change_circle_outlined;
+  static const list = Icons.list_alt;
+  static const public = Icons.public;
+  static const learn = Icons.people_alt_outlined;
 
 // usados nos forms
   static const addInCloud = Icons.add;

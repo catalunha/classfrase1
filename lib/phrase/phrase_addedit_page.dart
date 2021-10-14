@@ -2,14 +2,18 @@ import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/widget/input_checkbox.dart';
 import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_description.dart';
+import 'package:classfrase/widget/input_empty_box.dart';
 import 'package:classfrase/widget/input_title.dart';
 import 'package:classfrase/widget/required_inform.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/phrase_addedit_connector.dart';
+import 'controller/phrase_addedit_page_connector.dart';
 import 'controller/phrase_model.dart';
 
 class PhraseAddEditPage extends StatefulWidget {
+  final bool phraseCurrentIsPublic;
+  final int publicPhraseQuota;
+  final int publicPhraseAmount;
   final FormController formController;
   final Function(PhraseModel) onSave;
 
@@ -17,6 +21,9 @@ class PhraseAddEditPage extends StatefulWidget {
     Key? key,
     required this.formController,
     required this.onSave,
+    required this.publicPhraseAmount,
+    required this.publicPhraseQuota,
+    required this.phraseCurrentIsPublic,
   }) : super(key: key);
 
   @override
@@ -35,7 +42,7 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
       appBar: AppBar(
         title: Text(widget.formController.phraseModel.id.isEmpty
             ? 'Adicionar uma frase'
-            : 'Editar esta frase'),
+            : 'Editar esta frase ${widget.publicPhraseAmount}/${widget.publicPhraseQuota}'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -85,6 +92,26 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                     widget.formController.onChange(observer: value);
                   },
                 ),
+                formController.phraseModel.id.isNotEmpty &&
+                        (widget.phraseCurrentIsPublic == true ||
+                            widget.publicPhraseAmount <
+                                widget.publicPhraseQuota)
+                    ? InputCheckBox(
+                        title: 'Publicar esta frase',
+                        subtitle: 'Tornar esta frase pública',
+                        icon: AppIconData.check,
+                        value: formController.phraseModel.isPublic,
+                        onChanged: (value) {
+                          formController.onChange(isPublic: value);
+                          setState(() {});
+                        },
+                      )
+                    : InputEmptyBox(
+                        title: 'Publicar esta frase',
+                        icon: AppIconData.check,
+                        widget: Text(
+                            'Sua cota de frases pública já acabou. Arquive ou desmarque como pública algumas frases.'),
+                      ),
                 formController.phraseModel.id.isEmpty
                     ? Container()
                     : InputCheckBox(

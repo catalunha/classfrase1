@@ -23,7 +23,9 @@ Olá,
 
 Este aplicativo nasceu da necessidade de nossa família em estudar as classificações gramaticais de algumas frases.
 
-É gratuito e de livre uso. Contudo frases de cunho imoral ou similares terão seus usuários banidos do aplicativo.
+É gratuito, com certas cotas para amplo uso. Registro e Copyright em andamento. 
+
+Contudo frases de cunho imoral ou similares terão seus usuários banidos do aplicativo.
 
 Esperamos te ajudar em seus estudos.
 

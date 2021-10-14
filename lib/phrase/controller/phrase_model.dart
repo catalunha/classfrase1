@@ -23,6 +23,7 @@ class PhraseModel extends FirestoreModel {
 
   final bool isArchived;
   final bool isDeleted;
+  final bool isPublic;
   PhraseModel(
     String id, {
     required this.userRef,
@@ -31,6 +32,7 @@ class PhraseModel extends FirestoreModel {
     required this.phraseList,
     this.isArchived = false,
     this.isDeleted = false,
+    this.isPublic = false,
     this.font,
     this.description,
     this.observer,
@@ -43,6 +45,7 @@ class PhraseModel extends FirestoreModel {
     String? font,
     String? description,
     bool? isArchived,
+    bool? isPublic,
     String? observer,
     Map<String, Classification>? classifications,
     bool? isDeleted,
@@ -58,6 +61,7 @@ class PhraseModel extends FirestoreModel {
       observer: observer ?? this.observer,
       classifications: classifications ?? this.classifications,
       isDeleted: isDeleted ?? this.isDeleted,
+      isPublic: isPublic ?? this.isPublic,
     );
   }
 
@@ -73,6 +77,7 @@ class PhraseModel extends FirestoreModel {
     }
     data['isArchived'] = isArchived;
     data['isDeleted'] = isDeleted;
+    data['isPublic'] = isPublic;
     if (font != null) data['font'] = font;
     if (description != null) data['description'] = description;
     if (observer != null) data['observer'] = observer;
@@ -98,6 +103,7 @@ class PhraseModel extends FirestoreModel {
           : map['phraseList'].cast<String>(),
       isArchived: map['isArchived'],
       isDeleted: map['isDeleted'],
+      isPublic: map['isPublic'] ?? false,
       font: map['font'],
       description: map['description'],
       observer: map['observer'],
@@ -151,6 +157,7 @@ class PhraseModel extends FirestoreModel {
         other.font == font &&
         other.description == description &&
         other.isArchived == isArchived &&
+        other.isPublic == isPublic &&
         other.observer == observer &&
         mapEquals(other.classifications, classifications) &&
         other.isDeleted == isDeleted;
@@ -164,6 +171,7 @@ class PhraseModel extends FirestoreModel {
         font.hashCode ^
         description.hashCode ^
         isArchived.hashCode ^
+        isPublic.hashCode ^
         observer.hashCode ^
         classifications.hashCode ^
         isDeleted.hashCode;

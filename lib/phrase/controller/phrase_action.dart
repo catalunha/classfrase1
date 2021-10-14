@@ -67,9 +67,16 @@ class SetPhraseListPhraseAction extends ReduxAction<AppState> {
   SetPhraseListPhraseAction({required this.phraseList});
   @override
   AppState reduce() {
+    int amount = 0;
+    for (var phrase in phraseList) {
+      if (phrase.isPublic) {
+        amount++;
+      }
+    }
     return state.copyWith(
       phraseState: state.phraseState.copyWith(
         phraseList: phraseList,
+        publicPhraseAmount: amount,
       ),
     );
   }
@@ -161,6 +168,12 @@ class UpdateDocPhraseAction extends ReduxAction<AppState> {
       phraseModelNew = phraseModel.copyWith(
           classifications: {},
           phraseList: PhraseModel.setPhraseList(phraseModel.phrase));
+    }
+    if (phraseModelNew.isArchived) {
+      phraseModelNew = phraseModel.copyWith(isPublic: false);
+    }
+    if (phraseModelNew.isDeleted) {
+      phraseModelNew = phraseModel.copyWith(isPublic: false);
     }
     dispatch(SetPhraseCurrentPhraseAction(id: ''));
     await docRef.update(phraseModelNew.toMap());

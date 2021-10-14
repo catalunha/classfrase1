@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -84,16 +85,15 @@ class SetFollowCurrentFollowAction extends ReduxAction<AppState> {
   }
 
   void after() {
-    dispatch(SetNulUserAndPhraseFollowAction());
+    dispatch(SetNullUserAndPhraseFollowAction());
   }
 }
 
-class SetNulUserAndPhraseFollowAction extends ReduxAction<AppState> {
+class SetNullUserAndPhraseFollowAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state.copyWith(
       followState: state.followState.copyWith(
-        // userRefListSetNull: true,
         userRefCurrentSetNull: true,
         phraseListSetNull: true,
         phraseCurrentSetNull: true,
@@ -154,7 +154,7 @@ class SearchingEmailFollowAction extends ReduxAction<AppState> {
               ))
           .toList();
 
-      dispatch(UpdateFollowingUserFollowAction(userModel: userModelList[0]));
+      dispatch(AddFollowingUserFollowAction(userModel: userModelList[0]));
     } else {
       print('Email não encontrado.');
     }
@@ -162,10 +162,10 @@ class SearchingEmailFollowAction extends ReduxAction<AppState> {
   }
 }
 
-class UpdateFollowingUserFollowAction extends ReduxAction<AppState> {
+class AddFollowingUserFollowAction extends ReduxAction<AppState> {
   final UserModel userModel;
 
-  UpdateFollowingUserFollowAction({required this.userModel});
+  AddFollowingUserFollowAction({required this.userModel});
 
   @override
   Future<AppState?> reduce() async {
@@ -189,5 +189,122 @@ class UpdateFollowingUserFollowAction extends ReduxAction<AppState> {
     }
 
     return null;
+  }
+}
+
+class DeleteFollowingUserFollowAction extends ReduxAction<AppState> {
+  final String userId;
+
+  DeleteFollowingUserFollowAction({required this.userId});
+
+  @override
+  Future<AppState?> reduce() async {
+    FollowModel followModel = state.followState.followCurrent!;
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentReference docRef = firebaseFirestore
+        .collection(FollowModel.collection)
+        .doc(followModel.id);
+    await docRef.update({'following.$userId': FieldValue.delete()});
+
+    return null;
+  }
+}
+
+class SetUserCurrentFollowAction extends ReduxAction<AppState> {
+  final String id;
+  SetUserCurrentFollowAction({
+    required this.id,
+  });
+  @override
+  AppState? reduce() {
+    UserRef userRef;
+    if (state.followState.followCurrent!.following.containsKey(id)) {
+      userRef = state.followState.followCurrent!.following[id]!;
+
+      return state.copyWith(
+        followState: state.followState.copyWith(
+          userRefCurrent: userRef,
+        ),
+      );
+    }
+    return null;
+  }
+
+  void after() {
+    dispatch(SetNullPhraseFollowAction());
+  }
+}
+
+class SetNullPhraseFollowAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state.copyWith(
+      followState: state.followState.copyWith(
+        phraseListSetNull: true,
+        phraseCurrentSetNull: true,
+      ),
+    );
+  }
+}
+
+class GetDocsPhraseFollowAction extends ReduxAction<AppState> {
+  @override
+  Future<AppState?> reduce() async {
+    //print('--> StreamDocsObserverAction');
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    Query<Map<String, dynamic>> collRef;
+    collRef = firebaseFirestore
+        .collection(PhraseModel.collection)
+        .where('userRef.id', isEqualTo: state.followState.userRefCurrent!.id)
+        .where('isPublic', isEqualTo: true);
+
+    var futureQuerySnapshot = await collRef.get();
+    var phraseList = futureQuerySnapshot.docs
+        .map((docSnapshot) =>
+            PhraseModel.fromMap(docSnapshot.id, docSnapshot.data()))
+        .toList();
+    dispatch(SetPhraseListFollowAction(phraseList: phraseList));
+
+    return null;
+  }
+}
+
+class SetPhraseListFollowAction extends ReduxAction<AppState> {
+  final List<PhraseModel> phraseList;
+
+  SetPhraseListFollowAction({required this.phraseList});
+  @override
+  AppState reduce() {
+    return state.copyWith(
+      followState: state.followState.copyWith(
+        phraseList: phraseList,
+      ),
+    );
+  }
+
+  // void after() {
+  //   if (state.phraseState.phraseCurrent != null) {
+  //     dispatch(SetPhraseCurrentPhraseAction(
+  //         id: state.phraseState.phraseCurrent!.id));
+  //   }
+  // }
+}
+
+class SetPhraseCurrentFollowAction extends ReduxAction<AppState> {
+  final String id;
+  SetPhraseCurrentFollowAction({
+    required this.id,
+  });
+  @override
+  AppState reduce() {
+    PhraseModel phraseModel;
+    phraseModel =
+        state.followState.phraseList!.firstWhere((element) => element.id == id);
+    return state.copyWith(
+      followState: state.followState.copyWith(
+        phraseCurrent: phraseModel,
+      ),
+    );
   }
 }

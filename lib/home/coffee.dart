@@ -25,7 +25,7 @@ Muitas pessoas tem nos ajudado, e temos recebido muitas sugestões de aperfeiço
 
 Se você deseja nos ajudar a manter (pois temos custos com hospedagem do aplicativo, Métricas de Armazenamento/Acessos, Serviços em tempo real, etc) e ampliar (buscando consultores, programadores, designers, etc) este projeto considere contribuir com QUALQUER quantia para este PIX de CPF: 91302315315
 
-E já sou-lhe grata pelo carinho,
+E já somos gratos pelo carinho,
 
 Família Catalunha.
       ''',
