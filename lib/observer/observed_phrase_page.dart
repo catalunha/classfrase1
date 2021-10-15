@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:classfrase/classifying/controller/classification_type.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -41,7 +42,7 @@ class ObservedPhrasePage extends StatefulWidget {
 }
 
 class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
-  bool isHorizontal = true;
+  ClassBy classBy = ClassBy.grupo;
 
   @override
   Widget build(BuildContext context) {
@@ -75,50 +76,175 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              isHorizontal
-                  ? Expanded(
-                      child: Container(
-                          color: Colors.black12,
-                          child: Center(
-                              child: Text('Classificação por SELEÇÃO.'))),
-                    )
-                  : Expanded(
-                      child: Container(
-                          color: Colors.black12,
-                          child:
-                              Center(child: Text('Classificação por GRUPO.'))),
-                    ),
+              if (classBy == ClassBy.grupo)
+                Expanded(
+                  child: Container(
+                      color: Colors.black12,
+                      child: Center(child: Text(ClassBy.grupo.name))),
+                ),
+              if (classBy == ClassBy.selecao)
+                Expanded(
+                  child: Container(
+                      color: Colors.black12,
+                      child: Center(child: Text(ClassBy.selecao.name))),
+                ),
+              if (classBy == ClassBy.linha)
+                Expanded(
+                  child: Container(
+                      color: Colors.black12,
+                      child: Center(child: Text(ClassBy.linha.name))),
+                ),
               IconButton(
-                tooltip: 'Alterar modo de visualização',
+                tooltip: ClassBy.grupo.name,
+                icon: Icon(Icons.view_day),
                 onPressed: () {
                   setState(() {
-                    isHorizontal = !isHorizontal;
+                    classBy = ClassBy.grupo;
                   });
                 },
-                icon: Icon(AppIconData.change),
               ),
+              IconButton(
+                tooltip: ClassBy.selecao.name,
+                icon: Icon(Icons.view_array_rounded),
+                onPressed: () {
+                  setState(() {
+                    classBy = ClassBy.selecao;
+                  });
+                },
+              ),
+              IconButton(
+                tooltip: ClassBy.linha.name,
+                icon: Icon(Icons.view_headline_rounded),
+                onPressed: () {
+                  setState(() {
+                    classBy = ClassBy.linha;
+                  });
+                },
+              )
             ],
           ),
-          isHorizontal
-              ? Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: buildClassificationsHorizontal(context),
-                    ),
-                  ),
-                )
-              : Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: buildClassifications(context),
-                    ),
+          if (classBy == ClassBy.grupo)
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: buildClassifications(context),
+                ),
+              ),
+            ),
+          if (classBy == ClassBy.selecao)
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: buildClassificationsHorizontal(context),
+                ),
+              ),
+            ),
+          if (classBy == ClassBy.linha)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: buildClassByLine(context),
                   ),
                 ),
+              ),
+            ),
         ],
       ),
     );
+  }
+
+  List<Widget> buildClassByLine(context) {
+    List<Widget> lineList = [];
+    List<Widget> list = [];
+
+    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
+        widget.group,
+        (key1, key2) =>
+            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
+    for (var i = 0; i < widget.phraseList.length; i++) {
+      for (var classification in widget.phraseClassifications.entries) {
+        List<int> phrasePosList = classification.value.posPhraseList;
+        if (i == phrasePosList[0]) {
+          List<InlineSpan> listSpan = [];
+          for (var i = 0; i < widget.phraseList.length; i++) {
+            listSpan.add(TextSpan(
+              text: widget.phraseList[i],
+              style: widget.phraseList[i] != ' ' &&
+                      classification.value.posPhraseList.contains(i)
+                  ? TextStyle(
+                      color: Colors.orange.shade900,
+                      decoration: TextDecoration.underline,
+                      decorationStyle: TextDecorationStyle.solid,
+                    )
+                  : null,
+            ));
+          }
+          RichText richText = RichText(
+            text: TextSpan(
+              style: TextStyle(fontSize: 28, color: Colors.black),
+              children: listSpan,
+            ),
+          );
+
+          List<Widget> categoryWidgetList = [];
+          for (var groutItem in groupSorted.entries) {
+            List<String> categoryIdList = classification.value.categoryIdList;
+            List<String> categoryTitleList = [];
+            for (var id in categoryIdList) {
+              if (widget.category.containsKey(id)) {
+                if (widget.category[id]!.group == groutItem.key) {
+                  categoryTitleList.add(widget.category[id]!.title);
+                }
+              }
+            }
+            if (categoryTitleList.isNotEmpty) {
+              categoryWidgetList.add(Text(
+                '* ${groutItem.value.title} *',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ));
+              categoryTitleList.sort();
+              for (var categoryTitle in categoryTitleList) {
+                categoryWidgetList.add(Text(
+                  '$categoryTitle',
+                ));
+              }
+            }
+          }
+
+          lineList.add(
+            Card(
+              elevation: 25,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [richText],
+                      ),
+                    ),
+                    ...categoryWidgetList,
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      }
+    }
+
+    return lineList;
   }
 
   List<Widget> buildClassificationsHorizontal(context) {
