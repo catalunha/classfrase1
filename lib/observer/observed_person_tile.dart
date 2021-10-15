@@ -26,7 +26,7 @@ class ObservedPersonTile extends StatelessWidget {
         // style: AppTextStyles.buttonBoldHeading,
       ),
       // subtitle: Text(
-      //   phrase.phrase,
+      //   'Classificador(a).',
       // ),
     );
   }

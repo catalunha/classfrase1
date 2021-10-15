@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'app_state.dart';
@@ -18,12 +19,23 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
         title: 'ClassFrase',
         theme: ThemeData(
           primaryColor: AppColors.primary,

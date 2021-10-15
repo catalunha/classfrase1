@@ -46,7 +46,8 @@ class HomePage extends StatelessWidget {
                 Spacer(),
                 PopupMenuButton(
                   child: Tooltip(
-                    message: 'email: $email\nid: $id\nuid: $uid',
+                    message:
+                        'Clique aqui para outras opções.\nemail: $email\nid: ${id.substring(0, 3)} uid: ${uid.substring(0, 3)}',
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
@@ -124,102 +125,93 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
-              ? Wrap(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
+          // uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
+          //     ? Wrap(
+          //         children: [
+          //           TextButton(
+          //             onPressed: () {
+          //               Navigator.pushNamed(
+          //                 context,
+          //                 '/group',
+          //               );
+          //             },
+          //             child: Text('seeClassificationsDocs'),
+          //           ),
+          //           TextButton(
+          //             onPressed: () {
+          //               Navigator.pushNamed(
+          //                 context,
+          //                 '/users',
+          //               );
+          //             },
+          //             child: Text('seeUsersDocs'),
+          //           ),
+          //         ],
+          //       )
+          //     : Container(),
+          Center(child: Text('Como deseja usar o ClassFrase ?')),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Center(
+              child: Row(
+                // alignment: WrapAlignment.spaceEvenly,
+                // spacing: 20.0,
+                // runSpacing: 20.0,
+                // runAlignment: WrapAlignment.spaceAround,
+                // crossAxisAlignment: WrapCrossAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Tooltip(
+                    message: 'Para criar uma frase e classificá-la.',
+                    child: Container(
+                      width: 130,
+                      child: ElevatedButton.icon(
+                        onPressed: () => Navigator.pushNamed(
                           context,
-                          '/group',
-                        );
-                      },
-                      child: Text('seeClassificationsDocs'),
+                          '/phrase_addedit',
+                          arguments: '',
+                        ),
+                        icon: Icon(AppIconData.phrase),
+                        label: Text('Criar.'),
+                      ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
+                  ),
+                  SizedBox(width: 10),
+                  Tooltip(
+                    message:
+                        'Para observar frases em classificação em tempo real.',
+                    child: Container(
+                      width: 130,
+                      child: ElevatedButton.icon(
+                        onPressed: () => Navigator.pushNamed(
                           context,
-                          '/users',
-                        );
-                      },
-                      child: Text('seeUsersDocs'),
+                          '/observer_list',
+                        ),
+                        icon: Icon(AppIconData.eye),
+                        label: Text('Observar.'),
+                      ),
                     ),
-                  ],
-                )
-              : Container(),
-          Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Wrap(
-              alignment: WrapAlignment.spaceEvenly,
-              // spacing: 20.0,
-              // runSpacing: 20.0,
-              // runAlignment: WrapAlignment.spaceAround,
-              // crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                SizedBox(width: 10),
-                ElevatedButton.icon(
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    '/phrase_addedit',
-                    arguments: '',
                   ),
-                  icon: Icon(AppIconData.phrase),
-                  label: Text('Criar Frase.'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton.icon(
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    '/observer_list',
+                  SizedBox(width: 10),
+                  Tooltip(
+                    message:
+                        'Para aprender com a classificação de outras pessoas.',
+                    child: Container(
+                      width: 130,
+                      child: ElevatedButton.icon(
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          '/learn',
+                        ),
+                        icon: Icon(AppIconData.learn),
+                        label: Text('Aprender.'),
+                      ),
+                    ),
                   ),
-                  icon: Icon(AppIconData.eye),
-                  label: Text('Observar Frase.'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton.icon(
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    '/learn',
-                  ),
-                  icon: Icon(AppIconData.learn),
-                  label: Text('Aprender com Frases.'),
-                ),
-                // TextButton(
-                //   child: Text('Criar Frase.'),
-                //   onPressed: () => Navigator.pushNamed(
-                //     context,
-                //     '/phrase_addedit',
-                //     arguments: '',
-                //   ),
-                //   style: TextButton.styleFrom(
-                //     textStyle: const TextStyle(
-                //         fontSize: 25, fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                // TextButton(
-                //   child: Text('Observar Frase.'),
-                //   style: TextButton.styleFrom(
-                //     textStyle: const TextStyle(
-                //         fontSize: 25, fontWeight: FontWeight.bold),
-                //   ),
-                //   onPressed: () => Navigator.pushNamed(
-                //     context,
-                //     '/observer_list',
-                //   ),
-                // ),
-                // TextButton(
-                //   child: Text('Aprender com frases.'),
-                //   style: TextButton.styleFrom(
-                //     textStyle: const TextStyle(
-                //         fontSize: 25, fontWeight: FontWeight.bold),
-                //   ),
-                //   onPressed: () => Navigator.pushNamed(
-                //     context,
-                //     '/learn',
-                //   ),
-                // ),
-              ],
+                ],
+              ),
             ),
           ),
           Row(
@@ -236,7 +228,7 @@ class HomePage extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        'Frases em classificação ',
+                        'Minhas frases em classificação ',
                         style: AppTextStyles.trailingBold,
                       ),
                     ],

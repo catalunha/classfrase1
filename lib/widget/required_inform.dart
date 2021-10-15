@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
 
 class RequiredInForm extends StatelessWidget {
-  const RequiredInForm({Key? key}) : super(key: key);
+  final String message;
+  final double sizedBoxHeight;
+  const RequiredInForm({Key? key, this.message = '', this.sizedBoxHeight = 80})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-      Text('Campos com '),
-      Text(
-        ' * ',
-        style: TextStyle(color: Colors.red),
+      alignment: Alignment.bottomRight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text('Campos com '),
+              Text(
+                ' * ',
+                style: TextStyle(color: Colors.red, fontSize: 16),
+              ),
+              Text(' tem preenchimento obrigatório.'),
+            ],
+          ),
+          Text(message),
+          SizedBox(
+            height: sizedBoxHeight,
+          ),
+        ],
       ),
-      Text(' tem preenchimento obrigatório.'),
-      SizedBox(
-        height: 80,
-      ),
-    ]));
+    );
   }
 }

@@ -167,7 +167,7 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
         List<int> phrasePosList = phraseClassItem.value.posPhraseList;
         // if (phrasePosList.contains(i)) {
         if (i == phrasePosList[0]) {
-          print('$i ${phraseClassItem.key} ${phrasePosList}');
+          // print('$i ${phraseClassItem.key} $phrasePosList');
           String phrase = '';
           for (var pos in phrasePosList) {
             try {

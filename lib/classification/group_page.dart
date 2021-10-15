@@ -46,6 +46,7 @@ class GroupPage extends StatelessWidget {
     List<Widget> list = [];
     // Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
     //     (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
+    print('+++');
     for (var item in group.entries) {
       print('${item.value.id} | ${item.value.title}');
 
@@ -96,6 +97,8 @@ class GroupPage extends StatelessWidget {
         ),
       );
     }
+    print('---');
+
     if (list.isEmpty) {
       list.add(ListTile(
         leading: Icon(AppIconData.smile),

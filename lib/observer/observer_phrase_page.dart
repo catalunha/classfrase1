@@ -6,10 +6,12 @@ import 'observer_phrase_card.dart';
 
 class ObserverPhrasePage extends StatelessWidget {
   final List<PhraseModel> observerPhraseList;
+  final Function(String) setNullObserverFieldPhrase;
 
   const ObserverPhrasePage({
     Key? key,
     required this.observerPhraseList,
+    required this.setNullObserverFieldPhrase,
   }) : super(key: key);
 
   @override
@@ -49,11 +51,21 @@ class ObserverPhrasePage extends StatelessWidget {
           phrase: phrase,
           widgetList: [
             IconButton(
-              tooltip: 'Observar esta frase',
+              tooltip: 'Ver classificação desta frase em tempo real.',
               icon: Icon(AppIconData.letter),
               onPressed: () {
                 Navigator.pushNamed(context, '/observed_phrase',
                     arguments: phrase.id);
+              },
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            IconButton(
+              tooltip: 'Remover esta frase de minhas observações.',
+              icon: Icon(AppIconData.delete),
+              onPressed: () {
+                setNullObserverFieldPhrase(phrase.id);
               },
             ),
           ],

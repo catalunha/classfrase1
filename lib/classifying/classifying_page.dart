@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -117,7 +116,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
             ],
           ),
-          // width: MediaQuery.of(context).size.width,
 
           isHorizontal
               ? Expanded(
@@ -157,7 +155,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
         List<int> phrasePosList = phraseClassItem.value.posPhraseList;
         // if (phrasePosList.contains(i)) {
         if (i == phrasePosList[0]) {
-          print('$i ${phraseClassItem.key} ${phrasePosList}');
+          // print('$i ${phraseClassItem.key} $phrasePosList');
           String phrase = '';
           for (var pos in phrasePosList) {
             try {

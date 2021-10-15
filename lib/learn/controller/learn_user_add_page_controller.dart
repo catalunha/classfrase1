@@ -2,10 +2,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_state.dart';
-import '../learn_addedit_page.dart';
 import '../learn_user_add_page.dart';
 import 'learn_action.dart';
-import 'learn_model.dart';
 
 class LearnUserAddPageConnector extends StatelessWidget {
   const LearnUserAddPageConnector({

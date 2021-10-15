@@ -47,7 +47,7 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Observando esta classificação'),
+        title: Text('Observando classificação online'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -72,39 +72,6 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
           ObservedPersonTile(
             phrase: widget.observerPhraseCurrent,
           ),
-          // Expanded(
-          //   child: SingleChildScrollView(
-          //     child: Column(
-          //       children: buildClassifications(context),
-          //     ),
-          //   ),
-          // ),
-          // Tooltip(
-          //   message: 'Clique no box de seleção para mudar modo de visão',
-          //   child: CheckboxListTile(
-          //     title: isHorizontal
-          //         ? Container(
-          //             // width: double.infinity,
-          //             color: Colors.black12,
-          //             child: Center(
-          //               child: Text('Sua classificação por seleção.'),
-          //             ),
-          //           )
-          //         : Container(
-          //             // width: double.infinity,
-          //             color: Colors.black12,
-          //             child: Center(
-          //               child: Text('Sua classificação por grupos.'),
-          //             ),
-          //           ),
-          //     onChanged: (value) {
-          //       setState(() {
-          //         isHorizontal = value!;
-          //       });
-          //     },
-          //     value: isHorizontal,
-          //   ),
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -167,7 +134,7 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
         List<int> phrasePosList = phraseClassItem.value.posPhraseList;
         // if (phrasePosList.contains(i)) {
         if (i == phrasePosList[0]) {
-          print('$i ${phraseClassItem.key} ${phrasePosList}');
+          // print('$i ${phraseClassItem.key} $phrasePosList');
           String phrase = '';
           for (var pos in phrasePosList) {
             try {

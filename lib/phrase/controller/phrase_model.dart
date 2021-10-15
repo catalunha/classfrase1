@@ -47,6 +47,7 @@ class PhraseModel extends FirestoreModel {
     bool? isArchived,
     bool? isPublic,
     String? observer,
+    bool observerSetNull = false,
     Map<String, Classification>? classifications,
     bool? isDeleted,
   }) {
@@ -58,7 +59,7 @@ class PhraseModel extends FirestoreModel {
       font: font ?? this.font,
       description: description ?? this.description,
       isArchived: isArchived ?? this.isArchived,
-      observer: observer ?? this.observer,
+      observer: observerSetNull ? null : observer ?? this.observer,
       classifications: classifications ?? this.classifications,
       isDeleted: isDeleted ?? this.isDeleted,
       isPublic: isPublic ?? this.isPublic,
@@ -80,7 +81,7 @@ class PhraseModel extends FirestoreModel {
     data['isPublic'] = isPublic;
     if (font != null) data['font'] = font;
     if (description != null) data['description'] = description;
-    if (observer != null) data['observer'] = observer;
+    data['observer'] = observer;
     return data;
   }
 

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class InputTitle extends StatelessWidget {
   final IconData icon;
   final String label;
+  final String messageTooltip;
   final bool required;
   final String? initialValue;
   final String? Function(String?)? validator;
@@ -20,6 +21,7 @@ class InputTitle extends StatelessWidget {
     this.controller,
     required this.onChanged,
     this.required = false,
+    this.messageTooltip = '',
   }) : super(key: key);
 
   @override
@@ -55,9 +57,12 @@ class InputTitle extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Icon(
-                      icon,
-                      color: AppColors.primary,
+                    child: Tooltip(
+                      message: messageTooltip,
+                      child: Icon(
+                        icon,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
                   Container(

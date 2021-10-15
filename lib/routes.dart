@@ -45,9 +45,9 @@ class Routes {
         ),
     //+++ Observer
     '/observer_list': (BuildContext context) => ObserverPageConnector(),
-    '/observer_addedit': (BuildContext context) => ObserverAddEditPageConnector(
-          addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
-        ),
+    // '/observer_addedit': (BuildContext context) => ObserverAddEditPageConnector(
+    //       addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
+    //     ),
     '/observer_phrase': (BuildContext context) => ObserverPhrasePageConnector(
           observerId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
@@ -56,13 +56,13 @@ class Routes {
         ),
     //+++ Learn People
     '/learn': (BuildContext context) => LearnPageConnector(),
-    '/learn_addedit': (BuildContext context) => LearnAddEditPageConnector(
-          addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
-        ),
+    // '/learn_addedit': (BuildContext context) => LearnAddEditPageConnector(
+    //       addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
+    //     ),
     '/learning_users': (BuildContext context) => LearningUsersPageConnector(
           learnId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/learn_user_add': (BuildContext context) => LearnUserAddPageConnector(),
+    // '/learn_user_add': (BuildContext context) => LearnUserAddPageConnector(),
     '/learn_phrase_list': (BuildContext context) =>
         LearnPhraseListPageConnector(
           userId: ModalRoute.of(context)!.settings.arguments.toString(),

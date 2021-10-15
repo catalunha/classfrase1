@@ -5,6 +5,7 @@ import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/learn_model.dart';
+import 'controller/learn_user_add_page_controller.dart';
 
 class LearningUsersPage extends StatelessWidget {
   final LearnModel learn;
@@ -51,11 +52,14 @@ class LearningUsersPage extends StatelessWidget {
         tooltip: 'Adicionar uma pessoa.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/learn_user_add',
-            // arguments: '',
-          );
+          // Navigator.pushNamed(
+          //   context,
+          //   '/learn_user_add',
+          //   // arguments: '',
+          // );
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => LearnUserAddPageConnector());
         },
       ),
     );
@@ -70,7 +74,7 @@ class LearningUsersPage extends StatelessWidget {
           key: ValueKey(person),
           child: UsersCard(
             userRef: person.value,
-            userDelete: userDelete,
+            // userDelete: userDelete,
             widgetList: [
               IconButton(
                 tooltip: 'Ver frases desta pessoa',
@@ -78,6 +82,16 @@ class LearningUsersPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/learn_phrase_list',
                       arguments: person.key);
+                },
+              ),
+              SizedBox(
+                width: 50,
+              ),
+              IconButton(
+                tooltip: 'Remover esta pessoa do grupo',
+                icon: Icon(AppIconData.delete),
+                onPressed: () {
+                  userDelete(person.key);
                 },
               ),
             ],

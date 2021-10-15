@@ -20,7 +20,7 @@ class LearnPhraseListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Frases para aprender'),
+        title: Text('Classificações para aprender'),
         // leading: IconButton(
         //   icon: Icon(Icons.arrow_back),
         //   onPressed: () {
@@ -57,7 +57,7 @@ class LearnPhraseListPage extends StatelessWidget {
           phraseModel: phrase,
           widgetList: [
             IconButton(
-              tooltip: 'Ver esta frase',
+              tooltip: 'Ver classificação desta frase.',
               icon: Icon(AppIconData.letter),
               onPressed: () {
                 Navigator.pushNamed(context, '/learn_phrase',

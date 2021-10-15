@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -126,7 +127,54 @@ class UpdateDocObserverAction extends ReduxAction<AppState> {
     DocumentReference docRef = firebaseFirestore
         .collection(ObserverModel.collection)
         .doc(observerModel.id);
+    if (observerModel.isDeleted) {
+      dispatch(GetDocsPhraseObservedAndSetNullObserverAction(
+          observerId: observerModel.id));
+    }
+    dispatch(SetObserverCurrentObserverAction(id: ''));
+
     await docRef.update(observerModel.toMap());
+
+    return null;
+  }
+}
+
+class GetDocsPhraseObservedAndSetNullObserverAction
+    extends ReduxAction<AppState> {
+  final String observerId;
+
+  GetDocsPhraseObservedAndSetNullObserverAction({required this.observerId});
+  @override
+  Future<AppState?> reduce() async {
+    print('--> GetDocsPhraseObservedAndSetNullObserverAction');
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    Query<Map<String, dynamic>> collRef;
+    collRef = firebaseFirestore
+        .collection(PhraseModel.collection)
+        .where('observer', isEqualTo: observerId);
+
+    var futureQuerySnapshot = await collRef.get();
+    var phraseIdList =
+        futureQuerySnapshot.docs.map((docSnapshot) => docSnapshot.id).toList();
+    for (var phraseId in phraseIdList) {
+      print(phraseId);
+      dispatch(SetNullObserverFieldPhraseObserverAction(phraseId: phraseId));
+    }
+    return null;
+  }
+}
+
+class SetNullObserverFieldPhraseObserverAction extends ReduxAction<AppState> {
+  final String phraseId;
+
+  SetNullObserverFieldPhraseObserverAction({required this.phraseId});
+
+  @override
+  Future<AppState?> reduce() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentReference docRef =
+        firebaseFirestore.collection(PhraseModel.collection).doc(phraseId);
+    await docRef.update({'observer': null});
 
     return null;
   }

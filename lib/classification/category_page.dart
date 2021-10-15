@@ -54,6 +54,7 @@ class CategoryPage extends StatelessWidget {
     // Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
     //     (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
 
+    print('+++ ${groupCurrent.title} +++');
     for (var item in category.entries) {
       // if (item.value.group == groupCurrent.id) {
       print('${item.value.id} | ${item.value.title}');
@@ -77,6 +78,8 @@ class CategoryPage extends StatelessWidget {
       );
       // }
     }
+    print('---');
+
     if (list.isEmpty) {
       list.add(ListTile(
         leading: Icon(AppIconData.smile),

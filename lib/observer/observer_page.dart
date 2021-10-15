@@ -2,6 +2,7 @@ import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'controller/observer_addedit_page_controller.dart';
 import 'controller/observer_model.dart';
 import 'observer_card.dart';
 
@@ -17,7 +18,7 @@ class ObserverPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Minhas observações'),
+        title: Text('Meus IDs de observador'),
       ),
       body: Column(
         children: [
@@ -34,11 +35,15 @@ class ObserverPage extends StatelessWidget {
         tooltip: 'Adicionar uma observação.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/observer_addedit',
-            arguments: '',
-          );
+          // Navigator.pushNamed(
+          //   context,
+          //   '/observer_addedit',
+          //   arguments: '',
+          // );
+          showDialog(
+              context: context,
+              builder: (BuildContext context) =>
+                  ObserverAddEditPageConnector(addOrEditId: ''));
         },
       ),
     );
@@ -54,7 +59,7 @@ class ObserverPage extends StatelessWidget {
           observer: observer,
           widgetList: [
             IconButton(
-              tooltip: 'Ver lista de pessoas e frases',
+              tooltip: 'Ver lista de pessoas e frases com este ID',
               icon: Icon(AppIconData.people),
               onPressed: () {
                 Navigator.pushNamed(
@@ -65,7 +70,8 @@ class ObserverPage extends StatelessWidget {
               },
             ),
             IconButton(
-              tooltip: 'Copiar ID desta observação.',
+              tooltip:
+                  'Copiar ID para ser adicionado em uma frase para que eu a observe.',
               icon: Icon(AppIconData.copy),
               onPressed: () {
                 Future<void> _copyToClipboard() async {
@@ -79,14 +85,18 @@ class ObserverPage extends StatelessWidget {
               },
             ),
             IconButton(
-              tooltip: 'Editar esta observação',
+              tooltip: 'Editar o título deste ID de observador',
               icon: Icon(AppIconData.edit),
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/observer_addedit',
-                  arguments: observer.id,
-                );
+                // Navigator.pushNamed(
+                //   context,
+                //   '/observer_addedit',
+                //   arguments: observer.id,
+                // );
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        ObserverAddEditPageConnector(addOrEditId: observer.id));
               },
             ),
           ],

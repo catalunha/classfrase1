@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class ObserverPhrasePageConnector extends StatelessWidget {
       },
       builder: (context, vm) => ObserverPhrasePage(
         observerPhraseList: vm.observerPhraseList,
+        setNullObserverFieldPhrase: vm.setNullObserverFieldPhrase,
       ),
     );
   }
@@ -33,13 +35,19 @@ class ObserverPhrasePageVmFactory
   @override
   ObserverPhrasePageVm fromStore() => ObserverPhrasePageVm(
         observerPhraseList: state.observerState.observerPhraseList!,
+        setNullObserverFieldPhrase: (String phraseId) {
+          dispatch(
+              SetNullObserverFieldPhraseObserverAction(phraseId: phraseId));
+        },
       );
 }
 
 class ObserverPhrasePageVm extends Vm {
   final List<PhraseModel> observerPhraseList;
+  final Function(String) setNullObserverFieldPhrase;
   ObserverPhrasePageVm({
     required this.observerPhraseList,
+    required this.setNullObserverFieldPhrase,
   }) : super(equals: [
           observerPhraseList,
         ]);

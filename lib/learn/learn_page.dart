@@ -1,6 +1,7 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 
+import 'controller/learn_addedit_page_controller.dart';
 import 'controller/learn_model.dart';
 import 'learn_card.dart';
 
@@ -33,11 +34,15 @@ class LearnPage extends StatelessWidget {
         tooltip: 'Adicionar um grupo.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/learn_addedit',
-            arguments: '',
-          );
+          // Navigator.pushNamed(
+          //   context,
+          //   '/learn_addedit',
+          //   arguments: '',
+          // );
+          showDialog(
+              context: context,
+              builder: (BuildContext context) =>
+                  LearnAddEditPageConnector(addOrEditId: ''));
         },
       ),
     );
@@ -67,11 +72,15 @@ class LearnPage extends StatelessWidget {
               tooltip: 'Editar este grupo',
               icon: Icon(AppIconData.edit),
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/learn_addedit',
-                  arguments: learn.id,
-                );
+                // Navigator.pushNamed(
+                //   context,
+                //   '/learn_addedit',
+                //   arguments: learn.id,
+                // );
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        LearnAddEditPageConnector(addOrEditId: learn.id));
               },
             ),
           ],

@@ -1,5 +1,4 @@
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
 class PersonTile extends StatelessWidget {
@@ -39,7 +38,7 @@ class PersonTile extends StatelessWidget {
         // style: AppTextStyles.buttonBoldHeading,
       ),
       // subtitle: Text(
-      //   userRef.userRef,
+      //   'Classificador(a).',
       // ),
       trailing: trailingIconButton,
     );

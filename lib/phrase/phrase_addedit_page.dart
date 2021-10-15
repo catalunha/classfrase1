@@ -86,19 +86,20 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                 ),
                 InputTitle(
                   label: 'Observador desta frase',
+                  messageTooltip:
+                      'Receba um ID (IDentificador) de alguêm que poderá observar sua classificação em tempo real.',
                   initialValue: widget.formController.phraseModel.observer,
                   // validator: widget.formController.validateRequiredText,
                   onChanged: (value) {
                     widget.formController.onChange(observer: value);
                   },
                 ),
-                formController.phraseModel.id.isNotEmpty &&
-                        (widget.phraseCurrentIsPublic == true ||
-                            widget.publicPhraseAmount <
-                                widget.publicPhraseQuota)
+                // formController.phraseModel.id.isNotEmpty &&
+                (widget.phraseCurrentIsPublic == true ||
+                        widget.publicPhraseAmount < widget.publicPhraseQuota)
                     ? InputCheckBox(
                         title: 'Publicar esta frase',
-                        subtitle: 'Tornar esta frase pública',
+                        subtitle: 'Marque para tornar esta frase pública.',
                         icon: AppIconData.check,
                         value: formController.phraseModel.isPublic,
                         onChanged: (value) {
@@ -116,7 +117,8 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                     ? Container()
                     : InputCheckBox(
                         title: 'Arquivar esta frase',
-                        subtitle: 'Arquivar esta frase',
+                        subtitle:
+                            'Marque para arquivar esta frase após salvá-la',
                         icon: AppIconData.inbox,
                         value: formController.phraseModel.isArchived,
                         onChanged: (value) {
@@ -135,14 +137,8 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                           setState(() {});
                         },
                       ),
-                RequiredInForm(),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  child:
-                      Text('Frase id: ${widget.formController.phraseModel.id}'),
-                ),
-                SizedBox(
-                  height: 80,
+                RequiredInForm(
+                  message: 'Frase id: ${widget.formController.phraseModel.id}',
                 ),
               ],
             )),

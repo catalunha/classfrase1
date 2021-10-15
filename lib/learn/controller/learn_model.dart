@@ -47,7 +47,7 @@ class LearnModel extends FirestoreModel {
       data["learning"][item.key] = item.value.toMap();
     }
 
-    if (isDeleted != null) data['isDeleted'] = isDeleted;
+    data['isDeleted'] = isDeleted;
 
     return data;
   }

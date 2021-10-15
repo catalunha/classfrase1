@@ -70,7 +70,7 @@ class GetCountPhrasesUsersAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-    var streamDocSnapshot = firebaseFirestore
+    await firebaseFirestore
         .collection(PhraseModel.collection)
         .get()
         .then((value) {

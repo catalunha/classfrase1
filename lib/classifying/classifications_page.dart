@@ -2,7 +2,6 @@ import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
-import 'dart:collection';
 
 class ClassificationsPage extends StatelessWidget {
   final List<String> phraseList;
@@ -91,7 +90,7 @@ class ClassificationsPage extends StatelessWidget {
               ? TextStyle(
                   color: Colors.orange.shade900,
                   decoration: TextDecoration.underline,
-                  decorationStyle: TextDecorationStyle.wavy,
+                  decorationStyle: TextDecorationStyle.solid,
                 )
               : null,
         ));
