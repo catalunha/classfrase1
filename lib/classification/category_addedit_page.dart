@@ -1,4 +1,5 @@
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_title.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ import 'controller/classification_model.dart';
 
 class CategoryAddEditPage extends StatefulWidget {
   final FormControllerCategory formControllerCategory;
-  final Function(ClassCategory) onSave;
+  final Function(ClassCategory, bool) onSave;
 
   const CategoryAddEditPage({
     Key? key,
@@ -49,11 +50,29 @@ class _CategoryAddEditPageState extends State<CategoryAddEditPage> {
                   },
                 ),
                 InputTitle(
+                  label: 'ID deste grupo',
+                  initialValue: widget.formControllerCategory.category.group,
+                  required: true,
+                  validator: widget.formControllerCategory.validateRequiredText,
+                  onChanged: (value) {
+                    widget.formControllerCategory.onChange(group: value);
+                  },
+                ),
+                InputTitle(
                   label: 'Informe o link do tutorial deste grupo',
                   icon: AppIconData.linkOn,
                   initialValue: widget.formControllerCategory.category.url,
                   onChanged: (value) {
                     widget.formControllerCategory.onChange(url: value);
+                  },
+                ),
+                InputCheckBoxDelete(
+                  title: 'Apagar este grupo',
+                  subtitle: 'Remover permanentemente',
+                  value: widget.formControllerCategory.delete,
+                  onChanged: (value) {
+                    widget.formControllerCategory.onChange(delete: value);
+                    setState(() {});
                   },
                 ),
               ],
@@ -64,7 +83,8 @@ class _CategoryAddEditPageState extends State<CategoryAddEditPage> {
         onPressed: () {
           widget.formControllerCategory.onCheckValidation();
           if (widget.formControllerCategory.isFormValid) {
-            widget.onSave(widget.formControllerCategory.category);
+            widget.onSave(widget.formControllerCategory.category,
+                widget.formControllerCategory.delete);
             Navigator.pop(context);
           }
         },

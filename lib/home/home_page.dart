@@ -157,6 +157,7 @@ class HomePage extends StatelessWidget {
               // runAlignment: WrapAlignment.spaceAround,
               // crossAxisAlignment: WrapCrossAlignment.center,
               children: [
+                SizedBox(width: 10),
                 ElevatedButton.icon(
                   onPressed: () => Navigator.pushNamed(
                     context,

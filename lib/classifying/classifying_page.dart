@@ -117,12 +117,17 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
             ],
           ),
+          // width: MediaQuery.of(context).size.width,
+
           isHorizontal
               ? Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
+                      // mainAxisSize: MainAxisSize.min,
                       // crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+
                       children: buildClassificationsHorizontal(context),
                     ),
                   ),

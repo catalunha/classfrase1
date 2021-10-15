@@ -42,7 +42,7 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
       appBar: AppBar(
         title: Text(widget.formController.phraseModel.id.isEmpty
             ? 'Adicionar uma frase'
-            : 'Editar esta frase ${widget.publicPhraseAmount}/${widget.publicPhraseQuota}'),
+            : 'Editar esta frase'),
       ),
       body: SingleChildScrollView(
         child: Form(

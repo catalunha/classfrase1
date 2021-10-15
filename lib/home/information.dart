@@ -23,7 +23,7 @@ Olá,
 
 Este aplicativo nasceu da necessidade de nossa família em estudar as classificações gramaticais de algumas frases.
 
-É gratuito, com certas cotas para amplo uso. Registro e Copyright em andamento. 
+É gratuito, com certas cotas para amplo uso. Registro em andamento. 
 
 Contudo frases de cunho imoral ou similares terão seus usuários banidos do aplicativo.
 

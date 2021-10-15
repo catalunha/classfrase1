@@ -1,5 +1,6 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'classification_card.dart';
 import 'controller/classification_model.dart';
 
@@ -64,6 +65,20 @@ class GroupPage extends StatelessWidget {
                   '/group_addedit',
                   arguments: item.value.id,
                 ),
+              ),
+              IconButton(
+                tooltip: 'Copiar ID desta observação.',
+                icon: Icon(AppIconData.copy),
+                onPressed: () {
+                  Future<void> _copyToClipboard() async {
+                    await Clipboard.setData(ClipboardData(text: item.value.id));
+                  }
+
+                  _copyToClipboard();
+                  final snackBar = SnackBar(
+                      content: Text('Ok. O ID: ${item.value.id} foi copiado'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
               ),
               IconButton(
                 tooltip: 'Categorias deste grupo',

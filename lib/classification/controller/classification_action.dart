@@ -26,9 +26,11 @@ class UpdateDocGroupClassificationAction extends ReduxAction<AppState> {
 
 class UpdateDocCategoryClassificationAction extends ReduxAction<AppState> {
   final ClassCategory classCategory;
+  final bool delete;
 
   UpdateDocCategoryClassificationAction({
     required this.classCategory,
+    this.delete = false,
   });
 
   @override
@@ -37,10 +39,15 @@ class UpdateDocCategoryClassificationAction extends ReduxAction<AppState> {
     DocumentReference docRef = firebaseFirestore
         .collection(ClassificationModel.collection)
         .doc(state.classificationState.classificationCurrent!.id);
-    ClassCategory classCategoryTemp = classCategory.copyWith(
-        group: state.classificationState.groupCurrent!.id);
-    await docRef.update(
-        {'category.${classCategoryTemp.id}': classCategoryTemp.toMap()});
+    // ClassCategory classCategoryTemp = classCategory.copyWith(
+    //     group: state.classificationState.groupCurrent!.id);
+    if (delete) {
+      await docRef
+          .update({'category.${classCategory.id}': FieldValue.delete()});
+    } else {
+      await docRef
+          .update({'category.${classCategory.id}': classCategory.toMap()});
+    }
 
     return null;
   }
@@ -145,7 +152,7 @@ class SetCategoryCurrentClassificationAction extends ReduxAction<AppState> {
     var v4 = uuid.v4();
     ClassCategory category = ClassCategory(
       id: v4,
-      group: '',
+      group: state.classificationState.groupCurrent!.id!,
       title: '',
     );
     if (id.isNotEmpty) {
