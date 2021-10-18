@@ -31,6 +31,7 @@ List<Widget> buildClassByLine2({
   required Map<String, ClassGroup> group,
   required Map<String, ClassCategory> category,
   required Map<String, Classification> phraseClassifications,
+  required List<String> classOrder,
   required List<String> phraseList,
 }) {
   List<Widget> lineList = [];
@@ -42,80 +43,83 @@ List<Widget> buildClassByLine2({
   //     (key1, key2) => phraseClassifications[key1]!.posPhraseList.join()
   //         .compareTo(
   //             phraseClassifications[key2]!.posPhraseList.length));
-  for (var i = 0; i < phraseList.length; i++) {
-    for (var classification in phraseClassifications.entries) {
-      List<int> phrasePosList = classification.value.posPhraseList;
-      if (i == phrasePosList[0]) {
-        List<InlineSpan> listSpan = [];
-        for (var i = 0; i < phraseList.length; i++) {
-          listSpan.add(TextSpan(
-            text: phraseList[i],
-            style: phraseList[i] != ' ' &&
-                    classification.value.posPhraseList.contains(i)
-                ? TextStyle(
-                    color: Colors.orange.shade900,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.solid,
-                  )
-                : null,
+  // for (var i = 0; i < phraseList.length; i++) {
+  //   for (var classification in phraseClassifications.entries) {
+  for (var classId in classOrder) {
+    Classification classification = phraseClassifications[classId]!;
+    // List<int> phrasePosList = classification.posPhraseList;
+    // if (i == phrasePosList[0]) {
+    List<InlineSpan> listSpan = [];
+    for (var i = 0; i < phraseList.length; i++) {
+      listSpan.add(TextSpan(
+        text: phraseList[i],
+        style: phraseList[i] != ' ' && classification.posPhraseList.contains(i)
+            ? TextStyle(
+                color: Colors.orange.shade900,
+                decoration: TextDecoration.underline,
+                decorationStyle: TextDecorationStyle.solid,
+              )
+            : null,
+      ));
+    }
+    RichText richText = RichText(
+      text: TextSpan(
+        style: TextStyle(fontSize: 28, color: Colors.black),
+        children: listSpan,
+      ),
+    );
+
+    List<Widget> categoryWidgetList = [];
+    for (var groutItem in groupSorted.entries) {
+      List<String> categoryIdList = classification.categoryIdList;
+      List<String> categoryTitleList = [];
+      for (var id in categoryIdList) {
+        if (category.containsKey(id)) {
+          if (category[id]!.group == groutItem.key) {
+            categoryTitleList.add(category[id]!.title);
+          }
+        }
+      }
+      if (categoryTitleList.isNotEmpty) {
+        categoryWidgetList.add(Text(
+          '* ${groutItem.value.title} *',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        ));
+        categoryTitleList.sort();
+        for (var categoryTitle in categoryTitleList) {
+          categoryWidgetList.add(Text(
+            '$categoryTitle',
           ));
         }
-        RichText richText = RichText(
-          text: TextSpan(
-            style: TextStyle(fontSize: 28, color: Colors.black),
-            children: listSpan,
-          ),
-        );
-
-        List<Widget> categoryWidgetList = [];
-        for (var groutItem in groupSorted.entries) {
-          List<String> categoryIdList = classification.value.categoryIdList;
-          List<String> categoryTitleList = [];
-          for (var id in categoryIdList) {
-            if (category.containsKey(id)) {
-              if (category[id]!.group == groutItem.key) {
-                categoryTitleList.add(category[id]!.title);
-              }
-            }
-          }
-          if (categoryTitleList.isNotEmpty) {
-            categoryWidgetList.add(Text(
-              '* ${groutItem.value.title} *',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ));
-            categoryTitleList.sort();
-            for (var categoryTitle in categoryTitleList) {
-              categoryWidgetList.add(Text(
-                '$categoryTitle',
-              ));
-            }
-          }
-        }
-
-        lineList.add(
-          Card(
-            elevation: 25,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [richText],
-                    ),
-                  ),
-                  ...categoryWidgetList,
-                ],
-              ),
-            ),
-          ),
-        );
       }
     }
+
+    lineList.add(
+      Container(
+        alignment: Alignment.topCenter,
+        key: ValueKey(classId),
+        child: Card(
+          elevation: 25,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [richText],
+                  ),
+                ),
+                ...categoryWidgetList,
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
   return lineList;
 }
@@ -222,6 +226,7 @@ List<Widget> buildClassifications2({
   required Map<String, ClassGroup> group,
   required Map<String, ClassCategory> category2,
   required Map<String, Classification> phraseClassifications,
+  required List<String> classOrder,
   required List<String> phraseList,
   required List<int> selectedPhrasePosList,
 }) {
@@ -238,54 +243,56 @@ List<Widget> buildClassifications2({
         ),
       ),
     );
-    for (var i = 0; i < phraseList.length; i++) {
-      for (var phraseClassItem in phraseClassifications.entries) {
-        List<int> phrasePosList = phraseClassItem.value.posPhraseList;
-        if (i == phrasePosList[0]) {
-          String phrase = '';
-          for (var pos in phrasePosList) {
-            try {
-              phrase = phrase + phraseList[pos] + ' ';
-            } catch (e) {}
-          }
-          List<String> phraseCategoryList =
-              phraseClassItem.value.categoryIdList;
-          List<String> categoryTitleList = [];
-          // for (var categoryItem in phraseCategoryList) {
-          //   ClassCategory categoryTemp = category.putIfAbsent(
-          //       categoryItem, () => ClassCategory(title: '', group: ''));
+    // for (var i = 0; i < phraseList.length; i++) {
+    //   for (var phraseClassItem in phraseClassifications.entries) {
+    for (var classId in classOrder) {
+      Classification classification = phraseClassifications[classId]!;
 
-          //   if (categoryTemp.title.isNotEmpty &&
-          //       categoryTemp.group == groutItem.key) {
-          //     categoryTitleList.add(categoryTemp.title);
-          //   }
-          // }
-          for (var id in phraseCategoryList) {
-            if (category2.containsKey(id)) {
-              if (category2[id]!.group == groutItem.key) {
-                categoryTitleList.add(category2[id]!.title);
-              }
-            }
-          }
-          categoryTitleList.sort();
-          String category = categoryTitleList.join(', ');
+      List<int> phrasePosList = classification.posPhraseList;
+      // if (i == phrasePosList[0]) {
+      String phrase = '';
+      for (var pos in phrasePosList) {
+        try {
+          phrase = phrase + phraseList[pos] + ' ';
+        } catch (e) {}
+      }
+      List<String> phraseCategoryList = classification.categoryIdList;
+      List<String> categoryTitleList = [];
+      // for (var categoryItem in phraseCategoryList) {
+      //   ClassCategory categoryTemp = category.putIfAbsent(
+      //       categoryItem, () => ClassCategory(title: '', group: ''));
 
-          if (category.isNotEmpty) {
-            list.add(
-              Container(
-                color: listEquals(selectedPhrasePosList, phrasePosList)
-                    ? Colors.yellow
-                    : null,
-                child: ListTile(
-                  title: Text('$phrase'),
-                  subtitle: Text('$category'),
-                ),
-              ),
-            );
+      //   if (categoryTemp.title.isNotEmpty &&
+      //       categoryTemp.group == groutItem.key) {
+      //     categoryTitleList.add(categoryTemp.title);
+      //   }
+      // }
+      for (var id in phraseCategoryList) {
+        if (category2.containsKey(id)) {
+          if (category2[id]!.group == groutItem.key) {
+            categoryTitleList.add(category2[id]!.title);
           }
         }
       }
+      categoryTitleList.sort();
+      String category = categoryTitleList.join(', ');
+
+      if (category.isNotEmpty) {
+        list.add(
+          Container(
+            color: listEquals(selectedPhrasePosList, phrasePosList)
+                ? Colors.yellow
+                : null,
+            child: ListTile(
+              title: Text('$phrase'),
+              subtitle: Text('$category'),
+            ),
+          ),
+        );
+      }
+      // }
     }
+    // }
   }
   list.add(SizedBox(
     height: 20,

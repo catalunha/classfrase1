@@ -17,6 +17,8 @@ class LearnPhrasePage extends StatefulWidget {
   final Map<String, ClassCategory> category;
 
   final Map<String, Classification> phraseClassifications;
+  final List<String> classOrder;
+
   final PhraseModel phraseCurrent;
 
   final Function(int) onSelectPhrase;
@@ -34,6 +36,7 @@ class LearnPhrasePage extends StatefulWidget {
     // required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
     required this.phraseCurrent,
+    required this.classOrder,
   }) : super(key: key);
 
   @override
@@ -41,7 +44,7 @@ class LearnPhrasePage extends StatefulWidget {
 }
 
 class _LearnPhrasePageState extends State<LearnPhrasePage> {
-  ClassBy classBy = ClassBy.grupo;
+  ClassBy classBy = ClassBy.selecao;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +164,16 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: buildClassifications(context),
+                  // children: buildClassifications(context),
+                  children: buildClassifications2(
+                    context: context,
+                    group: widget.group,
+                    category2: widget.category,
+                    phraseClassifications: widget.phraseClassifications,
+                    classOrder: widget.classOrder,
+                    phraseList: widget.phraseList,
+                    selectedPhrasePosList: widget.selectedPhrasePosList,
+                  ),
                 ),
               ),
             ),
@@ -185,7 +197,15 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
                   child: Column(
-                    children: buildClassByLine(context),
+                    // children: buildClassByLine(context),
+                    children: buildClassByLine2(
+                      context: context,
+                      group: widget.group,
+                      category: widget.category,
+                      phraseClassifications: widget.phraseClassifications,
+                      classOrder: widget.classOrder,
+                      phraseList: widget.phraseList,
+                    ),
                   ),
                 ),
               ),

@@ -25,15 +25,18 @@ class ClassifyingConnector extends StatelessWidget {
       },
       vm: () => ClassifyingFactory(this),
       builder: (context, vm) => ClassifyingPage(
-          phraseList: vm.phraseList,
-          selectedPhrasePosList: vm.selectedPhrasePosList,
-          onSelectPhrase: vm.onSelectPhrase,
-          group: vm.group,
-          category: vm.category,
-          phraseClassifications: vm.phraseClassifications,
-          onUpdateExistCategoryInPos: vm.onUpdateExistCategoryInPos,
-          onSetNullSelectedPhraseAndCategory:
-              vm.onSetNullSelectedPhraseAndCategory),
+        phraseList: vm.phraseList,
+        selectedPhrasePosList: vm.selectedPhrasePosList,
+        onSelectPhrase: vm.onSelectPhrase,
+        group: vm.group,
+        category: vm.category,
+        phraseClassifications: vm.phraseClassifications,
+        classOrder: vm.classOrder,
+        onChangeClassOrder: vm.onChangeClassOrder,
+        onUpdateExistCategoryInPos: vm.onUpdateExistCategoryInPos,
+        onSetNullSelectedPhraseAndCategory:
+            vm.onSetNullSelectedPhraseAndCategory,
+      ),
     );
   }
 }
@@ -50,6 +53,12 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
         },
         phraseClassifications: state.phraseState.phraseCurrent!.classifications,
+        classOrder: state.phraseState.phraseCurrent!.classOrder,
+        onChangeClassOrder: (List<String> classOrder) {
+          // PhraseModel phraseModel = state.phraseState.phraseCurrent!;
+          // phraseModel = phraseModel.copyWith(classOrder: classOrder);
+          dispatch(UpdateClassOrderPhraseAction(classOrder: classOrder));
+        },
         onUpdateExistCategoryInPos: (String groupId) {
           dispatch(UpdateExistCategoryInPosClassifyingAction(groupId: groupId));
         },
@@ -67,6 +76,9 @@ class ClassifyingVm extends Vm {
   final Map<String, ClassGroup> group;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
+  final List<String> classOrder;
+  final Function(List<String>) onChangeClassOrder;
+
   final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
@@ -77,6 +89,8 @@ class ClassifyingVm extends Vm {
     required this.category,
     required this.onSelectPhrase,
     required this.phraseClassifications,
+    required this.classOrder,
+    required this.onChangeClassOrder,
     required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
   }) : super(equals: [
@@ -85,5 +99,6 @@ class ClassifyingVm extends Vm {
           group,
           category,
           phraseClassifications,
+          classOrder,
         ]);
 }

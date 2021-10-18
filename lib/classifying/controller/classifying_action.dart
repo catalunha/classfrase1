@@ -163,7 +163,20 @@ class UpdateExistCategoryInPosClassifyingAction extends ReduxAction<AppState> {
   }
 }
 
+class UpdateClassOrderPhraseAction extends ReduxAction<AppState> {
+  final List<String> classOrder;
+  UpdateClassOrderPhraseAction({required this.classOrder});
 
+  @override
+  Future<AppState?> reduce() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentReference docRef = firebaseFirestore
+        .collection(PhraseModel.collection)
+        .doc(state.phraseState.phraseCurrent!.id);
+    await docRef.update({'classOrder': classOrder.cast<dynamic>()});
+    return null;
+  }
+}
 
 // class UpdateClassificationClassifyingAction extends ReduxAction<AppState> {
 //   @override
