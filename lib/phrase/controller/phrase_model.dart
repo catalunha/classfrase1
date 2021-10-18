@@ -13,10 +13,15 @@ class PhraseModel extends FirestoreModel {
   List<String> phraseList;
 
   /// [String] uuid
+  ///
   /// [Classification]
+  ///
   ///   List<int> posPhraseList;
+  ///
   ///   List<String> categoryIdList;
+  ///
   final Map<String, Classification> classifications;
+  List<String> classOrder;
   final String? font;
   final String? description;
   final String? observer;
@@ -28,8 +33,9 @@ class PhraseModel extends FirestoreModel {
     String id, {
     required this.userRef,
     required this.phrase,
-    required this.classifications,
     required this.phraseList,
+    required this.classifications,
+    required this.classOrder,
     this.isArchived = false,
     this.isDeleted = false,
     this.isPublic = false,
@@ -49,6 +55,7 @@ class PhraseModel extends FirestoreModel {
     String? observer,
     bool observerSetNull = false,
     Map<String, Classification>? classifications,
+    List<String>? classOrder,
     bool? isDeleted,
   }) {
     return PhraseModel(
@@ -61,6 +68,7 @@ class PhraseModel extends FirestoreModel {
       isArchived: isArchived ?? this.isArchived,
       observer: observerSetNull ? null : observer ?? this.observer,
       classifications: classifications ?? this.classifications,
+      classOrder: classOrder ?? this.classOrder,
       isDeleted: isDeleted ?? this.isDeleted,
       isPublic: isPublic ?? this.isPublic,
     );
@@ -76,6 +84,7 @@ class PhraseModel extends FirestoreModel {
     for (var item in classifications.entries) {
       data["classifications"][item.key] = item.value.toMap();
     }
+    data['classOrder'] = classOrder.cast<dynamic>();
     data['isArchived'] = isArchived;
     data['isDeleted'] = isDeleted;
     data['isPublic'] = isPublic;
@@ -94,11 +103,20 @@ class PhraseModel extends FirestoreModel {
       }
     }
 
+    List<String> _classOrder = [];
+    if (map["classOrder"] == null) {
+      for (var item in map["classifications"].entries) {
+        _classOrder.add(item.key);
+      }
+    } else {
+      _classOrder = map['classOrder'].cast<String>();
+    }
     var temp = PhraseModel(
       id,
       userRef: UserRef.fromMap(map['userRef']),
       phrase: map['phrase'],
       classifications: _classifications,
+      classOrder: _classOrder,
       phraseList: map['phraseList'] == null
           ? setPhraseList(map['phrase'])
           : map['phraseList'].cast<String>(),
@@ -159,6 +177,7 @@ class PhraseModel extends FirestoreModel {
         other.description == description &&
         other.isArchived == isArchived &&
         other.isPublic == isPublic &&
+        other.classOrder == classOrder &&
         other.observer == observer &&
         mapEquals(other.classifications, classifications) &&
         other.isDeleted == isDeleted;
@@ -174,6 +193,7 @@ class PhraseModel extends FirestoreModel {
         isArchived.hashCode ^
         isPublic.hashCode ^
         observer.hashCode ^
+        classOrder.hashCode ^
         classifications.hashCode ^
         isDeleted.hashCode;
   }

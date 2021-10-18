@@ -6,15 +6,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-enum ClassBy { grupo, selecao, linha }
+enum ClassBy { grupo, selecao }
 
 extension ClassByExtension on ClassBy {
   static const names = {
     ClassBy.grupo: 'Classificação por GRUPO.',
     ClassBy.selecao: 'Classificação por SELEÇÃO.',
-    ClassBy.linha: 'Classificação por LINHA.',
+    // ClassBy.linha: 'Classificação por LINHA.',
   };
   String get name => names[this]!;
+}
+
+extension ClassByExtensionIcon on ClassBy {
+  static const icons = {
+    ClassBy.grupo: Icons.view_array_rounded,
+    ClassBy.selecao: Icons.view_headline_rounded,
+    // ClassBy.linha: 'Classificação por LINHA.',
+  };
+  IconData get icon => icons[this]!;
 }
 
 List<Widget> buildClassByLine2({
@@ -25,7 +34,6 @@ List<Widget> buildClassByLine2({
   required List<String> phraseList,
 }) {
   List<Widget> lineList = [];
-  List<Widget> list = [];
 
   Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
       group, (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));

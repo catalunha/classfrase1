@@ -121,24 +121,15 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
                       color: Colors.black12,
                       child: Center(child: Text(ClassBy.selecao.name))),
                 ),
-              if (classBy == ClassBy.linha)
-                Expanded(
-                  child: Container(
-                      color: Colors.black12,
-                      child: Center(child: Text(ClassBy.linha.name))),
-                ),
-              IconButton(
-                tooltip: ClassBy.grupo.name,
-                icon: Icon(Icons.view_day),
-                onPressed: () {
-                  setState(() {
-                    classBy = ClassBy.grupo;
-                  });
-                },
-              ),
+              // if (classBy == ClassBy.linha)
+              //   Expanded(
+              //     child: Container(
+              //         color: Colors.black12,
+              //         child: Center(child: Text(ClassBy.linha.name))),
+              //   ),
               IconButton(
                 tooltip: ClassBy.selecao.name,
-                icon: Icon(Icons.view_array_rounded),
+                icon: Icon(ClassBy.selecao.icon),
                 onPressed: () {
                   setState(() {
                     classBy = ClassBy.selecao;
@@ -146,14 +137,24 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
                 },
               ),
               IconButton(
-                tooltip: ClassBy.linha.name,
-                icon: Icon(Icons.view_headline_rounded),
+                tooltip: ClassBy.grupo.name,
+                icon: Icon(ClassBy.grupo.icon),
                 onPressed: () {
                   setState(() {
-                    classBy = ClassBy.linha;
+                    classBy = ClassBy.grupo;
                   });
                 },
-              )
+              ),
+
+              // IconButton(
+              //   tooltip: ClassBy.linha.name,
+              //   icon: Icon(ClassBy.linha.icon),
+              //   onPressed: () {
+              //     setState(() {
+              //       classBy = ClassBy.linha;
+              //     });
+              //   },
+              // )
             ],
           ),
           if (classBy == ClassBy.grupo)
@@ -165,20 +166,20 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
               ),
             ),
 
-          if (classBy == ClassBy.selecao)
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  // mainAxisSize: MainAxisSize.min,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.center,
+          // if (classBy == ClassBy.selecao)
+          //   Expanded(
+          //     child: SingleChildScrollView(
+          //       scrollDirection: Axis.horizontal,
+          //       child: Row(
+          //         // mainAxisSize: MainAxisSize.min,
+          //         // crossAxisAlignment: CrossAxisAlignment.start,
+          //         // mainAxisAlignment: MainAxisAlignment.center,
 
-                  children: buildClassificationsHorizontal(context),
-                ),
-              ),
-            ),
-          if (classBy == ClassBy.linha)
+          //         children: buildClassificationsHorizontal(context),
+          //       ),
+          //     ),
+          //   ),
+          if (classBy == ClassBy.selecao)
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

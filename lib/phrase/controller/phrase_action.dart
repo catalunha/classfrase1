@@ -113,13 +113,16 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
     //print('--> SetPhraseCurrentPhraseAction $id');
     PhraseModel phraseModel = PhraseModel(
       '',
-      userRef: UserRef.fromMap({
-        'id': state.userState.userCurrent!.id,
-        'photoURL': state.userState.userCurrent!.photoURL,
-        'displayName': state.userState.userCurrent!.displayName
-      }),
+      userRef: UserRef.fromMap(
+        {
+          'id': state.userState.userCurrent!.id,
+          'photoURL': state.userState.userCurrent!.photoURL,
+          'displayName': state.userState.userCurrent!.displayName
+        },
+      ),
       phrase: '',
       phraseList: [],
+      classOrder: [],
       classifications: <String, Classification>{},
     );
     if (id.isNotEmpty) {

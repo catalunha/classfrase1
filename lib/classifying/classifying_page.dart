@@ -1,8 +1,6 @@
 import 'dart:collection';
 
-import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:classfrase/classification/controller/classification_model.dart';
@@ -51,7 +49,7 @@ class ClassifyingPage extends StatefulWidget {
 
 class _ClassifyingPageState extends State<ClassifyingPage> {
   bool isHorizontal = true;
-  ClassBy classBy = ClassBy.grupo;
+  ClassBy classBy = ClassBy.selecao;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,12 +123,12 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                       color: Colors.black12,
                       child: Center(child: Text(ClassBy.selecao.name))),
                 ),
-              if (classBy == ClassBy.linha)
-                Expanded(
-                  child: Container(
-                      color: Colors.black12,
-                      child: Center(child: Text(ClassBy.linha.name))),
-                ),
+              // if (classBy == ClassBy.linha)
+              //   Expanded(
+              //     child: Container(
+              //         color: Colors.black12,
+              //         child: Center(child: Text(ClassBy.linha.name))),
+              //   ),
               // isHorizontal
               //     ? Expanded(
               //         child: Container(
@@ -145,17 +143,8 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               //                 Center(child: Text('Classificação por GRUPO.'))),
               //       ),
               IconButton(
-                tooltip: ClassBy.grupo.name,
-                icon: Icon(Icons.view_day),
-                onPressed: () {
-                  setState(() {
-                    classBy = ClassBy.grupo;
-                  });
-                },
-              ),
-              IconButton(
                 tooltip: ClassBy.selecao.name,
-                icon: Icon(Icons.view_array_rounded),
+                icon: Icon(ClassBy.selecao.icon),
                 onPressed: () {
                   setState(() {
                     classBy = ClassBy.selecao;
@@ -163,14 +152,24 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                 },
               ),
               IconButton(
-                tooltip: ClassBy.linha.name,
-                icon: Icon(Icons.view_headline_rounded),
+                tooltip: ClassBy.grupo.name,
+                icon: Icon(ClassBy.grupo.icon),
                 onPressed: () {
                   setState(() {
-                    classBy = ClassBy.linha;
+                    classBy = ClassBy.grupo;
                   });
                 },
-              )
+              ),
+
+              // IconButton(
+              //   tooltip: ClassBy.linha.name,
+              //   icon: Icon(Icons.view_headline_rounded),
+              //   onPressed: () {
+              //     setState(() {
+              //       classBy = ClassBy.linha;
+              //     });
+              //   },
+              // )
               // PopupMenuButton(
               //   child: Icon(Icons.change_circle_outlined),
               //   shape: RoundedRectangleBorder(
@@ -253,27 +252,27 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
             ),
 
-          if (classBy == ClassBy.selecao)
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  // mainAxisSize: MainAxisSize.min,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.center,
+          // if (classBy == ClassBy.selecao)
+          //   Expanded(
+          //     child: SingleChildScrollView(
+          //       scrollDirection: Axis.horizontal,
+          //       child: Row(
+          //         // mainAxisSize: MainAxisSize.min,
+          //         // crossAxisAlignment: CrossAxisAlignment.start,
+          //         // mainAxisAlignment: MainAxisAlignment.center,
 
-                  children: buildClassificationsHorizontal2(
-                    context: context,
-                    group: widget.group,
-                    category: widget.category,
-                    phraseClassifications: widget.phraseClassifications,
-                    phraseList: widget.phraseList,
-                    selectedPhrasePosList: widget.selectedPhrasePosList,
-                  ),
-                ),
-              ),
-            ),
-          if (classBy == ClassBy.linha)
+          //         children: buildClassificationsHorizontal2(
+          //           context: context,
+          //           group: widget.group,
+          //           category: widget.category,
+          //           phraseClassifications: widget.phraseClassifications,
+          //           phraseList: widget.phraseList,
+          //           selectedPhrasePosList: widget.selectedPhrasePosList,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          if (classBy == ClassBy.selecao)
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
