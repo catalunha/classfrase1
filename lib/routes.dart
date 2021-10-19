@@ -1,4 +1,5 @@
 import 'package:classfrase/observer/controller/observer_page_controller.dart';
+import 'package:classfrase/pdf/pdf_page.dart';
 import 'package:classfrase/users/controller/users_page_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ import 'login/controller/login_connector.dart';
 import 'observer/controller/observed_phrase_page_connector.dart';
 import 'observer/controller/observer_addedit_page_controller.dart';
 import 'observer/controller/observer_phrase_page_controller.dart';
+import 'pdf/controller/pdf_connector.dart';
 import 'phrase/controller/phrase_addedit_page_connector.dart';
 import 'phrase/controller/phrase_archived_page_connector.dart';
 import 'login/controller/splash_connector.dart';
@@ -32,6 +34,10 @@ class Routes {
     '/home': (BuildContext context) => HomePageConnector(),
     '/information': (BuildContext context) => Information(),
     '/coffee': (BuildContext context) => Coffee(),
+    //pdf
+    '/pdf': (BuildContext context) => PdfConnector(
+          phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
     //+++ Phrase
     '/phrase_archived': (BuildContext context) => PhraseArchivedPageConnector(),
     '/phrase_addedit': (BuildContext context) => PhraseAddEditConnector(

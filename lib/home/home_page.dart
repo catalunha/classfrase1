@@ -1,9 +1,16 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/phrase/phrase_card.dart';
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
+import 'package:printing/printing.dart';
 
 class HomePage extends StatelessWidget {
   final String photoUrl;
@@ -24,6 +31,7 @@ class HomePage extends StatelessWidget {
     required this.id,
     required this.phraseList,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +157,7 @@ class HomePage extends StatelessWidget {
           //         ],
           //       )
           //     : Container(),
+
           Center(child: Text('Como deseja usar o ClassFrase ?')),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -323,6 +332,18 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/phrase_addedit',
                     arguments: phrase.id);
               },
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            IconButton(
+              tooltip: 'Imprimir a classificação desta frase.',
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/pdf',
+                arguments: phrase.id,
+              ),
+              icon: Icon(Icons.print),
             ),
           ],
         ),
