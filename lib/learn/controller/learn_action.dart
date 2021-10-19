@@ -255,6 +255,8 @@ class GetDocsPhraseLearnAction extends ReduxAction<AppState> {
     collRef = firebaseFirestore
         .collection(PhraseModel.collection)
         .where('userRef.id', isEqualTo: state.learnState.userRefCurrent!.id)
+        .where('isDeleted', isEqualTo: false)
+        .where('isArchived', isEqualTo: false)
         .where('isPublic', isEqualTo: true);
 
     var futureQuerySnapshot = await collRef.get();

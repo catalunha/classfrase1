@@ -19,6 +19,8 @@ class ClassifyingPage extends StatefulWidget {
   final Function(List<String>) onChangeClassOrder;
 
   final Function(int) onSelectPhrase;
+  final Function(bool?) onSelectAllPhrase;
+
   final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
@@ -34,6 +36,7 @@ class ClassifyingPage extends StatefulWidget {
     required this.onSetNullSelectedPhraseAndCategory,
     required this.classOrder,
     required this.onChangeClassOrder,
+    required this.onSelectAllPhrase,
   }) : super(key: key);
 
   @override
@@ -59,11 +62,45 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            color: Colors.black12,
-            child: Center(
-              child: Text('Selecione uma ou mais partes da frase.'),
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.black12,
+                  child: Center(
+                    child: Text('Selecione partes da frase.'),
+                  ),
+                ),
+              ),
+              IconButton(
+                tooltip: 'ou clique aqui para selecionar a frase toda.',
+                icon: Icon(Icons.check_circle_outline),
+                onPressed: () {
+                  setState(() {
+                    widget.onSelectAllPhrase(true);
+                  });
+                },
+              ),
+              IconButton(
+                tooltip: 'ou clique aqui para limpar toda seleção.',
+                icon: Icon(Icons.highlight_off),
+                onPressed: () {
+                  setState(() {
+                    widget.onSelectAllPhrase(false);
+                  });
+                },
+              ),
+              IconButton(
+                tooltip: 'ou clique aqui para inverter seleção.',
+                icon: Icon(Icons.change_circle_outlined),
+                onPressed: () {
+                  setState(() {
+                    widget.onSelectAllPhrase(null);
+                  });
+                },
+              ),
+            ],
           ),
           Padding(
             padding: EdgeInsets.all(10),
@@ -193,173 +230,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
     widget.onChangeClassOrder(classOrderTemp);
   }
 
-  // List<Widget> buildClassByLine(context) {
-  //   List<Widget> lineList = [];
-
-  //   Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
-  //       widget.group,
-  //       (key1, key2) =>
-  //           widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
-  //   // Map<String, Classification> classificationSorted = SplayTreeMap.from(
-  //   //     widget.phraseClassifications,
-  //   //     (key1, key2) => widget.phraseClassifications[key1]!.posPhraseList.join()
-  //   //         .compareTo(
-  //   //             widget.phraseClassifications[key2]!.posPhraseList.length));
-  //   // for (var i = 0; i < widget.phraseList.length; i++) {
-  //   //   for (var classification in widget.phraseClassifications.entries) {
-  //   for (var classId in widget.classOrder) {
-  //     Classification classification = widget.phraseClassifications[classId]!;
-  //     // List<int> phrasePosList = classification.posPhraseList;
-  //     // if (i == phrasePosList[0]) {
-  //     List<InlineSpan> listSpan = [];
-  //     for (var i = 0; i < widget.phraseList.length; i++) {
-  //       listSpan.add(TextSpan(
-  //         text: widget.phraseList[i],
-  //         style: widget.phraseList[i] != ' ' &&
-  //                 classification.posPhraseList.contains(i)
-  //             ? TextStyle(
-  //                 color: Colors.orange.shade900,
-  //                 decoration: TextDecoration.underline,
-  //                 decorationStyle: TextDecorationStyle.solid,
-  //               )
-  //             : null,
-  //       ));
-  //     }
-  //     RichText richText = RichText(
-  //       text: TextSpan(
-  //         style: TextStyle(fontSize: 28, color: Colors.black),
-  //         children: listSpan,
-  //       ),
-  //     );
-
-  //     List<Widget> categoryWidgetList = [];
-  //     for (var groutItem in groupSorted.entries) {
-  //       List<String> categoryIdList = classification.categoryIdList;
-  //       List<String> categoryTitleList = [];
-  //       for (var id in categoryIdList) {
-  //         if (widget.category.containsKey(id)) {
-  //           if (widget.category[id]!.group == groutItem.key) {
-  //             categoryTitleList.add(widget.category[id]!.title);
-  //           }
-  //         }
-  //       }
-  //       if (categoryTitleList.isNotEmpty) {
-  //         categoryWidgetList.add(Text(
-  //           '* ${groutItem.value.title} *',
-  //           style: TextStyle(
-  //             fontSize: 16,
-  //             color: Colors.black,
-  //           ),
-  //         ));
-  //         categoryTitleList.sort();
-  //         for (var categoryTitle in categoryTitleList) {
-  //           categoryWidgetList.add(Text(
-  //             '$categoryTitle',
-  //           ));
-  //         }
-  //       }
-  //     }
-
-  //     lineList.add(
-  //       Container(
-  //         alignment: Alignment.topCenter,
-
-  //         key: ValueKey(classId),
-  //         child: Card(
-  //           elevation: 25,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Column(
-  //               children: [
-  //                 SingleChildScrollView(
-  //                   scrollDirection: Axis.horizontal,
-  //                   child: Row(
-  //                     children: [richText],
-  //                   ),
-  //                 ),
-  //                 ...categoryWidgetList,
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   return lineList;
-  // }
-
-  // List<Widget> buildClassifications(context) {
-  //   List<Widget> list = [];
-  //   Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
-  //       widget.group,
-  //       (key1, key2) =>
-  //           widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
-  //   for (var groutItem in groupSorted.entries) {
-  //     list.add(
-  //       Container(
-  //         width: double.infinity,
-  //         color: Colors.black12,
-  //         child: Center(
-  //           child: Text('${groutItem.value.title}'),
-  //         ),
-  //       ),
-  //     );
-  //     // for (var i = 0; i < widget.phraseList.length; i++) {
-  //     //   for (var phraseClassItem in widget.phraseClassifications.entries) {
-  //     for (var classId in widget.classOrder) {
-  //       Classification classification = widget.phraseClassifications[classId]!;
-  //       List<int> phrasePosList = classification.posPhraseList;
-  //       // if (i == phrasePosList[0]) {
-  //       String phrase = '';
-  //       for (var pos in phrasePosList) {
-  //         try {
-  //           phrase = phrase + widget.phraseList[pos] + ' ';
-  //         } catch (e) {}
-  //       }
-  //       List<String> phraseCategoryList = classification.categoryIdList;
-  //       List<String> categoryTitleList = [];
-  //       // for (var categoryItem in phraseCategoryList) {
-  //       //   ClassCategory categoryTemp = widget.category.putIfAbsent(
-  //       //       categoryItem, () => ClassCategory(title: '', group: ''));
-
-  //       //   if (categoryTemp.title.isNotEmpty &&
-  //       //       categoryTemp.group == groutItem.key) {
-  //       //     categoryTitleList.add(categoryTemp.title);
-  //       //   }
-  //       // }
-  //       for (var id in phraseCategoryList) {
-  //         if (widget.category.containsKey(id)) {
-  //           if (widget.category[id]!.group == groutItem.key) {
-  //             categoryTitleList.add(widget.category[id]!.title);
-  //           }
-  //         }
-  //       }
-  //       categoryTitleList.sort();
-  //       String category = categoryTitleList.join(', ');
-
-  //       if (category.isNotEmpty) {
-  //         list.add(
-  //           Container(
-  //             color: listEquals(widget.selectedPhrasePosList, phrasePosList)
-  //                 ? Colors.yellow
-  //                 : null,
-  //             child: ListTile(
-  //               title: Text('$phrase'),
-  //               subtitle: Text('$category'),
-  //             ),
-  //           ),
-  //         );
-  //       }
-  //       // }
-  //     }
-  //     // }
-  //   }
-  //   list.add(SizedBox(
-  //     height: 20,
-  //   ));
-  //   return list;
-  // }
-
   List<Widget> buildGroup(context) {
     List<Widget> list = [];
     Map<String, ClassGroup> sorted = SplayTreeMap.from(
@@ -397,11 +267,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
           ),
         ),
       );
-      // list.add(
-      //   SizedBox(
-      //     width: 10,
-      //   ),
-      // );
     }
     return list;
   }
@@ -409,33 +274,4 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
   void setStateLocal() {
     setState(() {});
   }
-
-  // List<InlineSpan> buildPhrase(context) {
-  //   List<InlineSpan> list = [];
-  //   for (var wordPos = 0; wordPos < widget.phraseList.length; wordPos++) {
-  //     if (widget.phraseList[wordPos] != ' ') {
-  //       list.add(TextSpan(
-  //         text: widget.phraseList[wordPos],
-  //         style: widget.selectedPhrasePosList.contains(wordPos)
-  //             ? TextStyle(
-  //                 color: Colors.orange.shade900,
-  //                 decoration: TextDecoration.underline,
-  //                 decorationStyle: TextDecorationStyle.solid,
-  //               )
-  //             : null,
-  //         recognizer: TapGestureRecognizer()
-  //           ..onTap = () {
-  //             setState(() {});
-  //             widget.onSelectPhrase(wordPos);
-  //           },
-  //       ));
-  //     } else {
-  //       list.add(TextSpan(
-  //         text: widget.phraseList[wordPos],
-  //       ));
-  //     }
-  //   }
-
-  //   return list;
-  // }
 }

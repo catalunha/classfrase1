@@ -170,11 +170,12 @@ class UpdateDocPhraseAction extends ReduxAction<AppState> {
     if (phraseModelNew.phrase != phraseModelOld.phrase) {
       phraseModelNew = phraseModel.copyWith(
           classifications: {},
+          classOrder: [],
           phraseList: PhraseModel.setPhraseList(phraseModel.phrase));
     }
     if (phraseModelNew.isArchived || phraseModelNew.isDeleted) {
-      phraseModelNew = phraseModel.copyWith(isPublic: false);
-      phraseModelNew = phraseModel.copyWith(observerSetNull: true);
+      phraseModelNew = phraseModelNew.copyWith(isPublic: false);
+      phraseModelNew = phraseModelNew.copyWith(observerSetNull: true);
     }
 
     dispatch(SetPhraseCurrentPhraseAction(id: ''));

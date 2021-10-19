@@ -28,6 +28,7 @@ class ClassifyingConnector extends StatelessWidget {
         phraseList: vm.phraseList,
         selectedPhrasePosList: vm.selectedPhrasePosList,
         onSelectPhrase: vm.onSelectPhrase,
+        onSelectAllPhrase: vm.onSelectAllPhrase,
         group: vm.group,
         category: vm.category,
         phraseClassifications: vm.phraseClassifications,
@@ -52,6 +53,17 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
         onSelectPhrase: (int phrasePos) {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
         },
+        onSelectAllPhrase: (bool? option) {
+          if (option == true) {
+            dispatch(SetSelectedAllPhrasePosClassifyingAction());
+          }
+          if (option == false) {
+            dispatch(SetSelectedNonePhrasePosClassifyingAction());
+          }
+          if (option == null) {
+            dispatch(SetSelectedInversePhrasePosClassifyingAction());
+          }
+        },
         phraseClassifications: state.phraseState.phraseCurrent!.classifications,
         classOrder: state.phraseState.phraseCurrent!.classOrder,
         onChangeClassOrder: (List<String> classOrder) {
@@ -73,6 +85,7 @@ class ClassifyingVm extends Vm {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Function(int) onSelectPhrase;
+  final Function(bool?) onSelectAllPhrase;
   final Map<String, ClassGroup> group;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
@@ -88,6 +101,7 @@ class ClassifyingVm extends Vm {
     required this.group,
     required this.category,
     required this.onSelectPhrase,
+    required this.onSelectAllPhrase,
     required this.phraseClassifications,
     required this.classOrder,
     required this.onChangeClassOrder,

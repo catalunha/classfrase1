@@ -4,4 +4,8 @@
 void main() {
   // id();
   // splitPhrase();
+  List<String> list = ['a'];
+  for (var item in list) {
+    print(item);
+  }
 }

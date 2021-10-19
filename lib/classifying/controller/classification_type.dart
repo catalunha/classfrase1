@@ -100,6 +100,7 @@ List<Widget> buildClassByLine2({
     lineList.add(
       Container(
         alignment: Alignment.topCenter,
+        // width: double.infinity,
         key: ValueKey(classId),
         child: Card(
           elevation: 25,
@@ -122,103 +123,6 @@ List<Widget> buildClassByLine2({
     );
   }
   return lineList;
-}
-
-List<Widget> buildClassificationsHorizontal2({
-  required BuildContext context,
-  required Map<String, ClassGroup> group,
-  required Map<String, ClassCategory> category,
-  required Map<String, Classification> phraseClassifications,
-  required List<String> phraseList,
-  required List<int> selectedPhrasePosList,
-}) {
-  List<Widget> list = [];
-
-  Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
-      group, (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
-
-  for (var i = 0; i < phraseList.length; i++) {
-    for (var phraseClassItem in phraseClassifications.entries) {
-      List<int> phrasePosList = phraseClassItem.value.posPhraseList;
-      // if (phrasePosList.contains(i)) {
-      if (i == phrasePosList[0]) {
-        // print('$i ${phraseClassItem.key} $phrasePosList');
-        String phrase = '';
-        for (var pos in phrasePosList) {
-          try {
-            phrase = phrase + phraseList[pos] + ' ';
-          } catch (e) {}
-        }
-
-        List<Widget> categoryWidgetList = [];
-        for (var groutItem in groupSorted.entries) {
-          List<String> categoryIdList = phraseClassItem.value.categoryIdList;
-          List<String> categoryTitleList = [];
-          for (var id in categoryIdList) {
-            if (category.containsKey(id)) {
-              if (category[id]!.group == groutItem.key) {
-                categoryTitleList.add(category[id]!.title);
-              }
-            }
-          }
-          if (categoryTitleList.isNotEmpty) {
-            categoryWidgetList.add(Text(
-              '* ${groutItem.value.title}:',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ));
-            categoryTitleList.sort();
-            for (var categoryTitle in categoryTitleList) {
-              categoryWidgetList.add(Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '    ~$categoryTitle',
-                ),
-              ));
-            }
-          }
-        }
-        list.add(
-          Container(
-            width: 200,
-            padding: EdgeInsets.only(left: 10),
-            // height: double.infinity,
-            alignment: Alignment.topLeft,
-            color: listEquals(selectedPhrasePosList, phrasePosList)
-                ? Colors.yellow
-                : null,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '$phrase',
-                  style: TextStyle(fontSize: 28, color: Colors.black),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    // scrollDirection: Axis.horizontal,
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: categoryWidgetList,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    }
-  }
-
-  return list;
 }
 
 List<Widget> buildClassifications2({
@@ -330,6 +234,103 @@ List<InlineSpan> buildPhrase2({
       list.add(TextSpan(
         text: phraseList[wordPos],
       ));
+    }
+  }
+
+  return list;
+}
+
+List<Widget> buildClassificationsHorizontal2({
+  required BuildContext context,
+  required Map<String, ClassGroup> group,
+  required Map<String, ClassCategory> category,
+  required Map<String, Classification> phraseClassifications,
+  required List<String> phraseList,
+  required List<int> selectedPhrasePosList,
+}) {
+  List<Widget> list = [];
+
+  Map<String, ClassGroup> groupSorted = SplayTreeMap.from(
+      group, (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
+
+  for (var i = 0; i < phraseList.length; i++) {
+    for (var phraseClassItem in phraseClassifications.entries) {
+      List<int> phrasePosList = phraseClassItem.value.posPhraseList;
+      // if (phrasePosList.contains(i)) {
+      if (i == phrasePosList[0]) {
+        // print('$i ${phraseClassItem.key} $phrasePosList');
+        String phrase = '';
+        for (var pos in phrasePosList) {
+          try {
+            phrase = phrase + phraseList[pos] + ' ';
+          } catch (e) {}
+        }
+
+        List<Widget> categoryWidgetList = [];
+        for (var groutItem in groupSorted.entries) {
+          List<String> categoryIdList = phraseClassItem.value.categoryIdList;
+          List<String> categoryTitleList = [];
+          for (var id in categoryIdList) {
+            if (category.containsKey(id)) {
+              if (category[id]!.group == groutItem.key) {
+                categoryTitleList.add(category[id]!.title);
+              }
+            }
+          }
+          if (categoryTitleList.isNotEmpty) {
+            categoryWidgetList.add(Text(
+              '* ${groutItem.value.title}:',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ));
+            categoryTitleList.sort();
+            for (var categoryTitle in categoryTitleList) {
+              categoryWidgetList.add(Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  '    ~$categoryTitle',
+                ),
+              ));
+            }
+          }
+        }
+        list.add(
+          Container(
+            width: 200,
+            padding: EdgeInsets.only(left: 10),
+            // height: double.infinity,
+            alignment: Alignment.topLeft,
+            color: listEquals(selectedPhrasePosList, phrasePosList)
+                ? Colors.yellow
+                : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '$phrase',
+                  style: TextStyle(fontSize: 28, color: Colors.black),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    // scrollDirection: Axis.horizontal,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: categoryWidgetList,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     }
   }
 

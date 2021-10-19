@@ -33,12 +33,63 @@ class SetSelectedPhrasePosClassifyingAction extends ReduxAction<AppState> {
     } else {
       phraseSelectedList.add(phrasePos);
     }
-    //print(phraseSelectedList.length);
+    print(phraseSelectedList);
     return state.copyWith(
       classifyingState: state.classifyingState.copyWith(
         selectedPhrasePosList: phraseSelectedList,
       ),
     );
+  }
+}
+
+class SetSelectedAllPhrasePosClassifyingAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    List<String> phraseList = state.phraseState.phraseCurrent!.phraseList;
+    List<int> allPos = [];
+    for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
+      if (phraseList[wordPos] != ' ') {
+        allPos.add(wordPos);
+      }
+    }
+    // List<int> phraseSelectedList =
+    //     state.classifyingState.selectedPosPhraseList!;
+    // if (phraseSelectedList.contains(phrasePos)) {
+    //   phraseSelectedList.remove(phrasePos);
+    // } else {
+    // phraseSelectedList.add(phrasePos);
+    // }
+    // print(phraseSelectedList);
+    return state.copyWith(
+      classifyingState: state.classifyingState.copyWith(
+        selectedPhrasePosList: allPos,
+      ),
+    );
+  }
+}
+
+class SetSelectedNonePhrasePosClassifyingAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state.copyWith(
+      classifyingState: state.classifyingState.copyWith(
+        selectedPhrasePosListSetNull: true,
+      ),
+    );
+  }
+}
+
+class SetSelectedInversePhrasePosClassifyingAction
+    extends ReduxAction<AppState> {
+  @override
+  AppState? reduce() {
+    List<String> phraseList = state.phraseState.phraseCurrent!.phraseList;
+    for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
+      if (phraseList[wordPos] != ' ') {
+        dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: wordPos));
+      }
+    }
+    return null;
   }
 }
 
@@ -90,11 +141,15 @@ class UpdateClassificationsPhraseClassifyingAction
     Classification classificationNew = Classification(
         posPhraseList: posPhraseListNow, categoryIdList: categoryIdListNow);
     if (classificationNew.categoryIdList.isEmpty) {
-      await docRef
-          .update({'classifications.$classificationsId': FieldValue.delete()});
+      await docRef.update({
+        'classOrder': FieldValue.arrayRemove([classificationsId]),
+        'classifications.$classificationsId': FieldValue.delete()
+      });
     } else {
-      await docRef.update(
-          {'classifications.$classificationsId': classificationNew.toMap()});
+      await docRef.update({
+        'classOrder': FieldValue.arrayUnion([classificationsId]),
+        'classifications.$classificationsId': classificationNew.toMap()
+      });
     }
 
     return null;

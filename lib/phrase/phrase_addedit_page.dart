@@ -117,8 +117,7 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                     ? Container()
                     : InputCheckBox(
                         title: 'Arquivar esta frase',
-                        subtitle:
-                            'Marque para arquivar esta frase após salvá-la',
+                        subtitle: 'Marque para arquivar esta frase.',
                         icon: AppIconData.inbox,
                         value: formController.phraseModel.isArchived,
                         onChanged: (value) {
