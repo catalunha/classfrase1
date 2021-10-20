@@ -220,7 +220,7 @@ class PdfPage extends StatelessWidget {
       }
       pw.RichText richText = pw.RichText(
         text: pw.TextSpan(
-          style: pw.TextStyle(fontSize: 12, color: PdfColors.black),
+          style: pw.TextStyle(fontSize: 10, color: PdfColors.black),
           children: listSpan,
         ),
       );
@@ -244,6 +244,7 @@ class PdfPage extends StatelessWidget {
             pw.Bullet(
               text:
                   '${groutItem.value.title}: ${categoryTitleList.join(" | ")}',
+              style: pw.TextStyle(fontSize: 10, color: PdfColors.black),
             ),
           );
           // categoryWidgetList.add(
