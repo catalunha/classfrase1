@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -15,6 +16,8 @@ class PdfPage extends StatelessWidget {
 
   final Map<String, Classification> phraseClassifications;
   final List<String> classOrder;
+  final String authorDisplayName;
+  final String authorPhoto;
   PdfPage({
     Key? key,
     required this.phraseList,
@@ -22,6 +25,8 @@ class PdfPage extends StatelessWidget {
     required this.category,
     required this.phraseClassifications,
     required this.classOrder,
+    required this.authorDisplayName,
+    required this.authorPhoto,
   }) : super(key: key);
 
   @override
@@ -45,6 +50,23 @@ class PdfPage extends StatelessWidget {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     final font1 = await PdfGoogleFonts.openSansRegular();
     final font2 = await PdfGoogleFonts.openSansBold();
+    // List images = [];
+    // try {
+    //   final provider = await flutterImageProvider(NetworkImage(authorPhoto));
+    //   images.add(provider);
+    // } catch (e) {
+    //   print("****ERROR: $e****");
+    //   // return;
+    // }
+    var image;
+
+    try {
+      final provider = await flutterImageProvider(NetworkImage(authorPhoto));
+      image = provider;
+    } catch (e) {
+      print("****ERROR: $e****");
+      // return;
+    }
     pdf.addPage(
       pw.MultiPage(
         theme: pw.ThemeData.withFont(
@@ -82,7 +104,8 @@ class PdfPage extends StatelessWidget {
             alignment: pw.Alignment.centerRight,
             margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
             child: pw.Text(
-              'ClassFrase. Pág.: ${context.pageNumber} de ${context.pagesCount}',
+              'Feito com carinho pela Família Catalunha. ClassFrase (R) 2021. Ore por nós, que Deus te abençõe. Pág.: ${context.pageNumber} de ${context.pagesCount}',
+              style: pw.TextStyle(fontSize: 10),
               // style: pw.Theme.of(context)
               //     .defaultTextStyle
               //     .copyWith(color: PdfColors.grey),
@@ -99,6 +122,8 @@ class PdfPage extends StatelessWidget {
           //           pw.Text('ClassFrase', textScaleFactor: 2),
           //           pw.PdfLogo()
           //         ])),
+          pw.Header(level: 1, text: 'Frase:'),
+
           pw.Center(
             child: pw.Text(
               phraseList.join(),
@@ -111,6 +136,31 @@ class PdfPage extends StatelessWidget {
           // pw.Center(child: pw.Paragraph(text: phraseList.join())),
           // pw.Header(level: 1, text: 'Frase'),
           // pw.Center(child: pw.Paragraph(text: phraseList.join())),
+
+          // pw.Center(
+          //   child: pw.Padding(
+          //     padding: const pw.EdgeInsets.all(3),
+          //     child: pw.Image(
+          //       image,
+          //       width: 50,
+          //       height: 100,
+          //     ),
+          //   ),
+          // ),
+          pw.Header(level: 1, text: 'Classificador:'),
+          pw.Row(
+            mainAxisSize: pw.MainAxisSize.min,
+            children: [
+              pw.SizedBox(width: 20),
+              pw.Image(
+                image,
+                width: 50,
+                height: 100,
+              ),
+              pw.SizedBox(width: 20),
+              pw.Text(authorDisplayName),
+            ],
+          ),
           pw.Header(level: 1, text: 'Classificações:'),
           // pw.Paragraph(text: 'Jesus é o caminho, a verdade e a vida.'),
           // // pw.RichText(
@@ -189,18 +239,42 @@ class PdfPage extends StatelessWidget {
           }
         }
         if (categoryTitleList.isNotEmpty) {
-          categoryWidgetList.add(pw.Bullet(
-            text: '${groutItem.value.title}',
-          ));
           categoryTitleList.sort();
-          for (var categoryTitle in categoryTitleList) {
-            categoryWidgetList.add(pw.Bullet(
-              text: '$categoryTitle',
-              bulletShape: pw.BoxShape.rectangle,
-              margin: pw.EdgeInsets.only(left: 20),
-            ));
-          }
+          categoryWidgetList.add(
+            pw.Bullet(
+              text:
+                  '${groutItem.value.title}: ${categoryTitleList.join(" | ")}',
+            ),
+          );
+          // categoryWidgetList.add(
+          //   pw.Padding(
+          //     padding: pw.EdgeInsets.only(left: 20),
+          //     child: pw.Text(
+          //       '${groutItem.value.title}: ${categoryTitleList.join(" | ")}',
+          //     ),
+          //   ),
+          // );
+          // for (var categoryTitle in categoryTitleList) {
+          //   categoryWidgetList.add(pw.Bullet(
+          //     text: '$categoryTitle',
+          //     bulletShape: pw.BoxShape.rectangle,
+          //     margin: pw.EdgeInsets.only(left: 20),
+          //   ));
+          // }
         }
+        // if (categoryTitleList.isNotEmpty) {
+        //   categoryWidgetList.add(pw.Bullet(
+        //     text: '${groutItem.value.title}',
+        //   ));
+        //   categoryTitleList.sort();
+        //   for (var categoryTitle in categoryTitleList) {
+        //     categoryWidgetList.add(pw.Bullet(
+        //       text: '$categoryTitle',
+        //       bulletShape: pw.BoxShape.rectangle,
+        //       margin: pw.EdgeInsets.only(left: 20),
+        //     ));
+        //   }
+        // }
       }
       lineList.add(pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,

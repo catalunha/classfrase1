@@ -23,6 +23,8 @@ import 'observer/controller/observed_phrase_page_connector.dart';
 import 'observer/controller/observer_addedit_page_controller.dart';
 import 'observer/controller/observer_phrase_page_controller.dart';
 import 'pdf/controller/pdf_connector.dart';
+import 'pdf/controller/pdf_learn_connector.dart';
+import 'pdf/controller/pdf_observer_connector.dart';
 import 'phrase/controller/phrase_addedit_page_connector.dart';
 import 'phrase/controller/phrase_archived_page_connector.dart';
 import 'login/controller/splash_connector.dart';
@@ -38,6 +40,13 @@ class Routes {
     '/pdf': (BuildContext context) => PdfConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    '/pdf_observer': (BuildContext context) => PdfObserverConnector(
+          phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+    '/pdf_learn': (BuildContext context) => PdfLearnConnector(
+          phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
+
     //+++ Phrase
     '/phrase_archived': (BuildContext context) => PhraseArchivedPageConnector(),
     '/phrase_addedit': (BuildContext context) => PhraseAddEditConnector(

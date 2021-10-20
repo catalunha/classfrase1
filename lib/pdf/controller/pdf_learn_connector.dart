@@ -1,16 +1,18 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
+import 'package:classfrase/learn/controller/learn_action.dart';
 import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_state.dart';
+import '../pdf_learn_page.dart';
 import '../pdf_page.dart';
 
-class PdfConnector extends StatelessWidget {
+class PdfLearnConnector extends StatelessWidget {
   final String phraseId;
 
-  const PdfConnector({
+  const PdfLearnConnector({
     Key? key,
     required this.phraseId,
   }) : super(key: key);
@@ -19,7 +21,7 @@ class PdfConnector extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ClassifyingVm>(
       onInit: (store) {
-        store.dispatch(SetPhraseCurrentPhraseAction(id: phraseId));
+        store.dispatch(SetPhraseCurrentLearnAction(id: phraseId));
       },
       vm: () => ClassifyingFactory(this),
       builder: (context, vm) => PdfPage(
@@ -35,18 +37,18 @@ class PdfConnector extends StatelessWidget {
   }
 }
 
-class ClassifyingFactory extends VmFactory<AppState, PdfConnector> {
+class ClassifyingFactory extends VmFactory<AppState, PdfLearnConnector> {
   ClassifyingFactory(widget) : super(widget);
   @override
   ClassifyingVm fromStore() => ClassifyingVm(
-        phraseList: state.phraseState.phraseCurrent!.phraseList,
+        phraseList: state.learnState.phraseCurrent!.phraseList,
         group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,
-        phraseClassifications: state.phraseState.phraseCurrent!.classifications,
-        classOrder: state.phraseState.phraseCurrent!.classOrder,
+        phraseClassifications: state.learnState.phraseCurrent!.classifications,
+        classOrder: state.learnState.phraseCurrent!.classOrder,
         authorDisplayName:
-            state.phraseState.phraseCurrent!.userRef.displayName ?? '',
-        authorPhoto: state.phraseState.phraseCurrent!.userRef.photoURL ?? '',
+            state.learnState.phraseCurrent!.userRef.displayName ?? '',
+        authorPhoto: state.learnState.phraseCurrent!.userRef.photoURL ?? '',
       );
 }
 

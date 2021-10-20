@@ -1,16 +1,18 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
+import 'package:classfrase/observer/controller/observer_action.dart';
 import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_state.dart';
+import '../pdf_observer_page.dart';
 import '../pdf_page.dart';
 
-class PdfConnector extends StatelessWidget {
+class PdfObserverConnector extends StatelessWidget {
   final String phraseId;
 
-  const PdfConnector({
+  const PdfObserverConnector({
     Key? key,
     required this.phraseId,
   }) : super(key: key);
@@ -19,7 +21,7 @@ class PdfConnector extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ClassifyingVm>(
       onInit: (store) {
-        store.dispatch(SetPhraseCurrentPhraseAction(id: phraseId));
+        store.dispatch(SetObserverPhraseCurrentObserverAction(id: phraseId));
       },
       vm: () => ClassifyingFactory(this),
       builder: (context, vm) => PdfPage(
@@ -35,18 +37,21 @@ class PdfConnector extends StatelessWidget {
   }
 }
 
-class ClassifyingFactory extends VmFactory<AppState, PdfConnector> {
+class ClassifyingFactory extends VmFactory<AppState, PdfObserverConnector> {
   ClassifyingFactory(widget) : super(widget);
   @override
   ClassifyingVm fromStore() => ClassifyingVm(
-        phraseList: state.phraseState.phraseCurrent!.phraseList,
+        phraseList: state.observerState.observerPhraseCurrent!.phraseList,
         group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,
-        phraseClassifications: state.phraseState.phraseCurrent!.classifications,
-        classOrder: state.phraseState.phraseCurrent!.classOrder,
+        phraseClassifications:
+            state.observerState.observerPhraseCurrent!.classifications,
+        classOrder: state.observerState.observerPhraseCurrent!.classOrder,
         authorDisplayName:
-            state.phraseState.phraseCurrent!.userRef.displayName ?? '',
-        authorPhoto: state.phraseState.phraseCurrent!.userRef.photoURL ?? '',
+            state.observerState.observerPhraseCurrent!.userRef.displayName ??
+                '',
+        authorPhoto:
+            state.observerState.observerPhraseCurrent!.userRef.photoURL ?? '',
       );
 }
 
@@ -68,8 +73,6 @@ class ClassifyingVm extends Vm {
     required this.phraseClassifications,
     required this.classOrder,
   }) : super(equals: [
-          authorDisplayName,
-          authorPhoto,
           phraseList,
           group,
           category,

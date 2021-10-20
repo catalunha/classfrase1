@@ -21,7 +21,6 @@ class ObservedPhrasePageConnector extends StatelessWidget {
     return StoreConnector<AppState, ObservedPhrasePageVm>(
       onInit: (store) {
         store.dispatch(SetObserverPhraseCurrentObserverAction(id: phraseId));
-        // store.dispatch(SetPhraseListObservedPhrasePageAction());
       },
       vm: () => ObservedPhrasePageFactory(this),
       builder: (context, vm) => ObservedPhrasePage(

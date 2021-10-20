@@ -68,6 +68,18 @@ class ObserverPhrasePage extends StatelessWidget {
                 setNullObserverFieldPhrase(phrase.id);
               },
             ),
+            SizedBox(
+              width: 50,
+            ),
+            IconButton(
+              tooltip: 'Imprimir a classificação desta frase.',
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/pdf_observer',
+                arguments: phrase.id,
+              ),
+              icon: Icon(Icons.print),
+            ),
           ],
         ),
       ));
