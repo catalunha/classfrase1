@@ -8,7 +8,6 @@ import 'phrase_model.dart';
 class StreamDocsPhraseAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> StreamDocsResourceAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -39,7 +38,6 @@ class ReadDocsPhraseAction extends ReduxAction<AppState> {
   ReadDocsPhraseAction({required this.isArchived});
   @override
   Future<AppState?> reduce() async {
-    //print('--> ReadDocsPhraseAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await firebaseFirestore
         .collection(PhraseModel.collection)
@@ -110,7 +108,6 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
   });
   @override
   AppState reduce() {
-    //print('--> SetPhraseCurrentPhraseAction $id');
     PhraseModel phraseModel = PhraseModel(
       '',
       userRef: UserRef.fromMap(

@@ -71,7 +71,6 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                 InputTitle(
                   label: 'Fonte desta frase',
                   initialValue: widget.formController.phraseModel.font,
-                  // validator: widget.formController.validateRequiredText,
                   onChanged: (value) {
                     widget.formController.onChange(font: value);
                   },
@@ -79,7 +78,6 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                 InputTitle(
                   label: 'Descrição desta frase',
                   initialValue: widget.formController.phraseModel.description,
-                  // validator: widget.formController.validateRequiredText,
                   onChanged: (value) {
                     widget.formController.onChange(description: value);
                   },
@@ -89,12 +87,10 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                   messageTooltip:
                       'Receba um ID (IDentificador) de alguêm que poderá observar sua classificação em tempo real.',
                   initialValue: widget.formController.phraseModel.observer,
-                  // validator: widget.formController.validateRequiredText,
                   onChanged: (value) {
                     widget.formController.onChange(observer: value);
                   },
                 ),
-                // formController.phraseModel.id.isNotEmpty &&
                 (widget.phraseCurrentIsPublic == true ||
                         widget.publicPhraseAmount < widget.publicPhraseQuota)
                     ? InputCheckBox(

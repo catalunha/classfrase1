@@ -32,7 +32,6 @@ class ObservedPhrasePageConnector extends StatelessWidget {
           phraseClassifications: vm.phraseClassifications,
           classOrder: vm.classOrder,
           observerPhraseCurrent: vm.observerPhraseCurrent,
-          // onUpdateExistCategoryInPos: vm.onUpdateExistCategoryInPos,
           onSetNullSelectedPhraseAndCategory:
               vm.onSetNullSelectedPhraseAndCategory),
     );
@@ -54,13 +53,8 @@ class ObservedPhrasePageFactory
         phraseClassifications:
             state.observerState.observerPhraseCurrent!.classifications,
         classOrder: state.observerState.observerPhraseCurrent!.classOrder,
-
         observerPhraseCurrent: state.observerState.observerPhraseCurrent!,
-        // onUpdateExistCategoryInPos: (String groupId) {
-        //   dispatch(UpdateExistCategoryInPosObservedPhrasePageAction(groupId: groupId));
-        // },
         onSetNullSelectedPhraseAndCategory: () {
-          // dispatch(SetNullSelectedCategoryIdObservedPhrasePageAction());
           dispatch(SetNullSelectedPhrasePosClassifyingAction());
         },
       );
@@ -83,7 +77,6 @@ class ObservedPhrasePageVm extends Vm {
   final List<String> classOrder;
 
   final PhraseModel observerPhraseCurrent;
-  // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
   ObservedPhrasePageVm({
@@ -95,7 +88,6 @@ class ObservedPhrasePageVm extends Vm {
     required this.phraseClassifications,
     required this.classOrder,
     required this.observerPhraseCurrent,
-    // required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
   }) : super(equals: [
           phraseList,

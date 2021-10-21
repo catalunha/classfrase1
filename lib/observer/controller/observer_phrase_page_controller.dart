@@ -1,5 +1,4 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 

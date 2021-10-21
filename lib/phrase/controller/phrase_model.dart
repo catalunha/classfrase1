@@ -12,14 +12,6 @@ class PhraseModel extends FirestoreModel {
   final String phrase;
   List<String> phraseList;
 
-  /// [String] uuid
-  ///
-  /// [Classification]
-  ///
-  ///   List<int> posPhraseList;
-  ///
-  ///   List<String> categoryIdList;
-  ///
   final Map<String, Classification> classifications;
   List<String> classOrder;
   final String? font;
@@ -136,7 +128,6 @@ class PhraseModel extends FirestoreModel {
       PhraseModel.fromMap(id, json.decode(source));
 
   static List<String> setPhraseList(String phrase) {
-    print('-> Executando setPhraseList');
     String word = '';
     List<String> _phraseList = [];
     for (var i = 0; i < phrase.length; i++) {
@@ -144,7 +135,6 @@ class PhraseModel extends FirestoreModel {
           r"[A-Za-záàãâäÁÀÃÂÄéèêëÉÈÊËíìîïÍÌÎÏóòõôöÓÒÕÖÔúùûüÚÙÛÜçÇñÑ0123456789]"))) {
         word += phrase[i];
       } else {
-        // print(word);
         if (word.isNotEmpty) {
           _phraseList.add(word);
           word = '';
@@ -156,7 +146,6 @@ class PhraseModel extends FirestoreModel {
       _phraseList.add(word);
       word = '';
     }
-    // print(phraseList);
     return _phraseList;
   }
 

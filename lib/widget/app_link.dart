@@ -23,6 +23,5 @@ class AppLink extends StatelessWidget {
         : Container(
             width: 1,
           );
-    // : IconButton(onPressed: null, icon: Icon(AppIconData.linkOff));
   }
 }

@@ -3,9 +3,4 @@ abstract class FirestoreModel {
   final String id;
 
   FirestoreModel(this.id);
-  // Map<String, dynamic> toMap();
-  // @override
-  // String toString() {
-  //   return id + ':' + toMap().toString();
-  // }
 }

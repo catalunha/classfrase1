@@ -32,7 +32,6 @@ class LearnPhrasePageConnector extends StatelessWidget {
           phraseClassifications: vm.phraseClassifications,
           classOrder: vm.classOrder,
           phraseCurrent: vm.phraseCurrent,
-          // onUpdateExistCategoryInPos: vm.onUpdateExistCategoryInPos,
           onSetNullSelectedPhraseAndCategory:
               vm.onSetNullSelectedPhraseAndCategory),
     );
@@ -53,13 +52,8 @@ class LearnPhrasePageFactory
         },
         phraseClassifications: state.learnState.phraseCurrent!.classifications,
         classOrder: state.learnState.phraseCurrent!.classOrder,
-
         phraseCurrent: state.learnState.phraseCurrent!,
-        // onUpdateExistCategoryInPos: (String groupId) {
-        //   dispatch(UpdateExistCategoryInPosLearnPhrasePageAction(groupId: groupId));
-        // },
         onSetNullSelectedPhraseAndCategory: () {
-          // dispatch(SetNullSelectedCategoryIdLearnPhrasePageAction());
           dispatch(SetNullSelectedPhrasePosClassifyingAction());
         },
       );
@@ -82,7 +76,6 @@ class LearnPhrasePageVm extends Vm {
   final List<String> classOrder;
 
   final PhraseModel phraseCurrent;
-  // final Function(String) onUpdateExistCategoryInPos;
   final VoidCallback onSetNullSelectedPhraseAndCategory;
 
   LearnPhrasePageVm({
@@ -94,7 +87,6 @@ class LearnPhrasePageVm extends Vm {
     required this.phraseClassifications,
     required this.classOrder,
     required this.phraseCurrent,
-    // required this.onUpdateExistCategoryInPos,
     required this.onSetNullSelectedPhraseAndCategory,
   }) : super(equals: [
           phraseList,

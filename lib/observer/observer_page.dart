@@ -35,11 +35,6 @@ class ObserverPage extends StatelessWidget {
         tooltip: 'Adicionar uma observação.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   '/observer_addedit',
-          //   arguments: '',
-          // );
           showDialog(
               context: context,
               builder: (BuildContext context) =>
@@ -88,11 +83,6 @@ class ObserverPage extends StatelessWidget {
               tooltip: 'Editar o título deste ID de observador',
               icon: Icon(AppIconData.edit),
               onPressed: () {
-                // Navigator.pushNamed(
-                //   context,
-                //   '/observer_addedit',
-                //   arguments: observer.id,
-                // );
                 showDialog(
                     context: context,
                     builder: (BuildContext context) =>

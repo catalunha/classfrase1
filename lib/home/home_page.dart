@@ -1,16 +1,9 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/phrase/phrase_card.dart';
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart';
-import 'package:printing/printing.dart';
 
 class HomePage extends StatelessWidget {
   final String photoUrl;
@@ -39,7 +32,6 @@ class HomePage extends StatelessWidget {
         preferredSize: Size.fromHeight(100),
         child: SafeArea(
           child: Container(
-            // height: 80,
             color: AppColors.primary,
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -133,40 +125,35 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
-              ? Wrap(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/group',
-                        );
-                      },
-                      child: Text('seeClassificationsDocs'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/users',
-                        );
-                      },
-                      child: Text('seeUsersDocs'),
-                    ),
-                  ],
-                )
-              : Container(),
+          // uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
+          //     ? Wrap(
+          //         children: [
+          //           TextButton(
+          //             onPressed: () {
+          //               Navigator.pushNamed(
+          //                 context,
+          //                 '/group',
+          //               );
+          //             },
+          //             child: Text('seeClassificationsDocs'),
+          //           ),
+          //           TextButton(
+          //             onPressed: () {
+          //               Navigator.pushNamed(
+          //                 context,
+          //                 '/users',
+          //               );
+          //             },
+          //             child: Text('seeUsersDocs'),
+          //           ),
+          //         ],
+          //       )
+          //     : Container(),
           Center(child: Text('Como deseja usar o ClassFrase ?')),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Center(
               child: Row(
-                // alignment: WrapAlignment.spaceEvenly,
-                // spacing: 20.0,
-                // runSpacing: 20.0,
-                // runAlignment: WrapAlignment.spaceAround,
-                // crossAxisAlignment: WrapCrossAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -281,7 +268,6 @@ class HomePage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-    // List<PhraseModel> phraseListSorted =
     phraseList.sort((a, b) => a.phrase.compareTo(b.phrase));
     for (var phrase in phraseList) {
       list.add(Container(
@@ -307,11 +293,6 @@ class HomePage extends StatelessWidget {
                     ),
             ],
           ),
-          // trailing: phrase.observer != null && phrase.observer!.isNotEmpty
-          //     ? Tooltip(
-          //         message: 'Esta frase esta sendo observada.',
-          //         child: Icon(AppIconData.eye))
-          //     : null,
           widgetList: [
             IconButton(
               tooltip: 'Classificar esta frase',

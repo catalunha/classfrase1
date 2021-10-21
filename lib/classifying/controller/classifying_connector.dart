@@ -21,7 +21,6 @@ class ClassifyingConnector extends StatelessWidget {
     return StoreConnector<AppState, ClassifyingVm>(
       onInit: (store) {
         store.dispatch(SetPhraseCurrentPhraseAction(id: phraseId));
-        // store.dispatch(SetPhraseListClassifyingAction());
       },
       vm: () => ClassifyingFactory(this),
       builder: (context, vm) => ClassifyingPage(
@@ -49,7 +48,6 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
         phraseList: state.phraseState.phraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
         groupList: groupListSorted(),
-        // group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,
         onSelectPhrase: (int phrasePos) {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
@@ -68,8 +66,6 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
         phraseClassifications: state.phraseState.phraseCurrent!.classifications,
         classOrder: state.phraseState.phraseCurrent!.classOrder,
         onChangeClassOrder: (List<String> classOrder) {
-          // PhraseModel phraseModel = state.phraseState.phraseCurrent!;
-          // phraseModel = phraseModel.copyWith(classOrder: classOrder);
           dispatch(UpdateClassOrderPhraseAction(classOrder: classOrder));
         },
         onUpdateExistCategoryInPos: (String groupId) {

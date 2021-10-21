@@ -7,8 +7,8 @@ import 'package:classfrase/firestore/firestore_model.dart';
 class ClassificationModel extends FirestoreModel {
   static final String collection = 'classifications';
 
-  final Map<String, ClassGroup> group; // uuid:group
-  final Map<String, ClassCategory> category; // uuid:category
+  final Map<String, ClassGroup> group;
+  final Map<String, ClassCategory> category;
 
   ClassificationModel(
     String id, {

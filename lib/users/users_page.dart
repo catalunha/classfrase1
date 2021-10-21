@@ -40,7 +40,7 @@ class UsersPage extends StatelessWidget {
     usersListSorted.sort((a, b) => a.displayName!.compareTo(b.displayName!));
     print('+++');
     for (var user in usersListSorted) {
-      print('${user.displayName},${user.email}');
+      print('${user.displayName} | ${user.email} | ${user.id}');
     }
     print('---');
     for (var user in usersListSorted) {

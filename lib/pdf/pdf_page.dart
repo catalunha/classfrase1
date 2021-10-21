@@ -1,10 +1,7 @@
-import 'dart:collection';
 import 'dart:typed_data';
-
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -33,13 +30,6 @@ class PdfPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('ClassFrase em PDF')),
-      // body: IconButton(
-      //   icon: Icon(Icons.print),
-      //   onPressed: () async {
-      //     await Printing.layoutPdf(
-      //         onLayout: (format) => _generatePdf(format, title));
-      //   },
-      // ),
       body: PdfPreview(
         build: (format) => _generatePdf(format, 'ClassFrase em PDF'),
       ),
@@ -50,22 +40,13 @@ class PdfPage extends StatelessWidget {
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     final font1 = await PdfGoogleFonts.openSansRegular();
     final font2 = await PdfGoogleFonts.openSansBold();
-    // List images = [];
-    // try {
-    //   final provider = await flutterImageProvider(NetworkImage(authorPhoto));
-    //   images.add(provider);
-    // } catch (e) {
-    //   print("****ERROR: $e****");
-    //   // return;
-    // }
     var image;
 
     try {
       final provider = await flutterImageProvider(NetworkImage(authorPhoto));
       image = provider;
     } catch (e) {
-      print("****ERROR: $e****");
-      // return;
+      print("--> Erro em _generatePdf: $e");
     }
     pdf.addPage(
       pw.MultiPage(
@@ -73,7 +54,6 @@ class PdfPage extends StatelessWidget {
           base: font1,
           bold: font2,
         ),
-        // pageFormat: format.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
         pageFormat: format.copyWith(
           marginTop: 1.0 * PdfPageFormat.cm,
           marginLeft: 1.5 * PdfPageFormat.cm,
@@ -82,23 +62,6 @@ class PdfPage extends StatelessWidget {
         ),
         orientation: pw.PageOrientation.portrait,
         crossAxisAlignment: pw.CrossAxisAlignment.start,
-        // header: (pw.Context context) {
-        //   if (context.pageNumber == 1) {
-        //     return pw.SizedBox();
-        //   }
-        //   return pw.Container(
-        //       alignment: pw.Alignment.centerRight,
-        //       margin: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-        //       padding: const pw.EdgeInsets.only(bottom: 3.0 * PdfPageFormat.mm),
-        //       decoration: const pw.BoxDecoration(
-        //           border: pw.Border(
-        //               bottom:
-        //                   pw.BorderSide(width: 0.5, color: PdfColors.grey))),
-        //       child: pw.Text('ClassFrase',
-        //           style: pw.Theme.of(context)
-        //               .defaultTextStyle
-        //               .copyWith(color: PdfColors.grey)));
-        // },
         footer: (pw.Context context) {
           return pw.Container(
             alignment: pw.Alignment.centerRight,
@@ -106,24 +69,11 @@ class PdfPage extends StatelessWidget {
             child: pw.Text(
               'Feito com carinho pela Família Catalunha. ClassFrase (R) 2021. Ore por nós, que Deus te abençõe. Pág.: ${context.pageNumber} de ${context.pagesCount}',
               style: pw.TextStyle(fontSize: 10),
-              // style: pw.Theme.of(context)
-              //     .defaultTextStyle
-              //     .copyWith(color: PdfColors.grey),
             ),
           );
         },
         build: (pw.Context context) => <pw.Widget>[
-          // pw.Header(
-          //     level: 0,
-          //     title: 'ClassFrase',
-          //     child: pw.Row(
-          //         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-          //         children: <pw.Widget>[
-          //           pw.Text('ClassFrase', textScaleFactor: 2),
-          //           pw.PdfLogo()
-          //         ])),
           pw.Header(level: 1, text: 'Frase:'),
-
           pw.Center(
             child: pw.Text(
               phraseList.join(),
@@ -133,20 +83,6 @@ class PdfPage extends StatelessWidget {
               ),
             ),
           ),
-          // pw.Center(child: pw.Paragraph(text: phraseList.join())),
-          // pw.Header(level: 1, text: 'Frase'),
-          // pw.Center(child: pw.Paragraph(text: phraseList.join())),
-
-          // pw.Center(
-          //   child: pw.Padding(
-          //     padding: const pw.EdgeInsets.all(3),
-          //     child: pw.Image(
-          //       image,
-          //       width: 50,
-          //       height: 100,
-          //     ),
-          //   ),
-          // ),
           pw.Header(level: 1, text: 'Classificador:'),
           pw.Row(
             mainAxisSize: pw.MainAxisSize.min,
@@ -162,23 +98,6 @@ class PdfPage extends StatelessWidget {
             ],
           ),
           pw.Header(level: 1, text: 'Classificações:'),
-          // pw.Paragraph(text: 'Jesus é o caminho, a verdade e a vida.'),
-          // // pw.RichText(
-          // //   text: pw.TextSpan(
-          // //       style: pw.TextStyle(
-          // //         fontSize: 16,
-          // //         color: PdfColors.black,
-          // //       ),
-          // //       children: buildPhrase(context)),
-          // // ),
-          // pw.Bullet(text: 'Adjetivo.'),
-          // pw.Bullet(
-          //   text: 'Adverbio',
-          //   bulletShape: pw.BoxShape.rectangle,
-          //   margin: pw.EdgeInsets.only(left: 20),
-          // ),
-          // pw.Bullet(text: 'Verbo'),
-
           ...buildClassByLine(context),
           pw.Header(level: 1, text: 'Diagramas:'),
         ],
@@ -188,19 +107,11 @@ class PdfPage extends StatelessWidget {
     return pdf.save();
   }
 
-  // List<pw.Widget> buildClassByLine2(context) {
-  //   List<pw.Widget> list = [];
-
-  //   list.add(pw.Paragraph(text: 'Jesus é o caminho, a verdade e a vida.'));
-  //   return list;
-  // }
-
   List<pw.Widget> buildClassByLine(context) {
     List<pw.Widget> lineList = [];
 
     for (var classId in classOrder) {
       Classification classification = phraseClassifications[classId]!;
-      //+++ montando a frase com a seleção
       List<pw.InlineSpan> listSpan = [];
       for (var i = 0; i < phraseList.length; i++) {
         listSpan.add(pw.TextSpan(
@@ -221,9 +132,7 @@ class PdfPage extends StatelessWidget {
           children: listSpan,
         ),
       );
-      //--- montando a frase com a seleção
 
-      //+++ montando a classificação se houver
       List<pw.Widget> categoryWidgetList = [];
       for (var group in groupList) {
         List<String> categoryIdList = classification.categoryIdList;
@@ -243,35 +152,7 @@ class PdfPage extends StatelessWidget {
               style: pw.TextStyle(fontSize: 10, color: PdfColors.black),
             ),
           );
-          // categoryWidgetList.add(
-          //   pw.Padding(
-          //     padding: pw.EdgeInsets.only(left: 20),
-          //     child: pw.Text(
-          //       '${groutItem.value.title}: ${categoryTitleList.join(" | ")}',
-          //     ),
-          //   ),
-          // );
-          // for (var categoryTitle in categoryTitleList) {
-          //   categoryWidgetList.add(pw.Bullet(
-          //     text: '$categoryTitle',
-          //     bulletShape: pw.BoxShape.rectangle,
-          //     margin: pw.EdgeInsets.only(left: 20),
-          //   ));
-          // }
         }
-        // if (categoryTitleList.isNotEmpty) {
-        //   categoryWidgetList.add(pw.Bullet(
-        //     text: '${groutItem.value.title}',
-        //   ));
-        //   categoryTitleList.sort();
-        //   for (var categoryTitle in categoryTitleList) {
-        //     categoryWidgetList.add(pw.Bullet(
-        //       text: '$categoryTitle',
-        //       bulletShape: pw.BoxShape.rectangle,
-        //       margin: pw.EdgeInsets.only(left: 20),
-        //     ));
-        //   }
-        // }
       }
       lineList.add(pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -279,30 +160,6 @@ class PdfPage extends StatelessWidget {
             richText,
             ...categoryWidgetList,
           ]));
-      // lineList.add(
-      //   Container(
-      //     alignment: Alignment.topCenter,
-      //     // width: double.infinity,
-      //     key: ValueKey(classId),
-      //     child: Card(
-      //       elevation: 25,
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Column(
-      //           children: [
-      //             SingleChildScrollView(
-      //               scrollDirection: Axis.horizontal,
-      //               child: Row(
-      //                 children: [richText],
-      //               ),
-      //             ),
-      //             ...categoryWidgetList,
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // );
     }
     return lineList;
   }

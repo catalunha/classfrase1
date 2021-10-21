@@ -8,9 +8,6 @@ class LearnModel extends FirestoreModel {
   final UserRef userRef;
   final String description;
 
-  /// [String] é UserId
-  ///
-  /// UserId:{id:UserId,photoUrl:'',displayName:''}
   final Map<String, UserRef> learning;
   final bool isDeleted;
   LearnModel(

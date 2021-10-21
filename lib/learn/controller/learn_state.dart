@@ -7,14 +7,12 @@ import 'package:classfrase/user/controller/user_model.dart';
 class LearnState {
   final List<LearnModel>? learnList;
   final LearnModel? learnCurrent;
-  // final List<UserRef>? userRefList;
   final UserRef? userRefCurrent;
   final List<PhraseModel>? phraseList;
   final PhraseModel? phraseCurrent;
   LearnState({
     this.learnList,
     this.learnCurrent,
-    // this.userRefList,
     this.userRefCurrent,
     this.phraseList,
     this.phraseCurrent,
@@ -22,7 +20,6 @@ class LearnState {
   factory LearnState.initialState() => LearnState(
         learnList: [],
         learnCurrent: null,
-        // userRefList: [],
         userRefCurrent: null,
         phraseList: [],
         phraseCurrent: null,
@@ -31,8 +28,6 @@ class LearnState {
   LearnState copyWith({
     List<LearnModel>? learnList,
     LearnModel? learnCurrent,
-    // List<UserRef>? userRefList,
-    // bool userRefListSetNull = false,
     UserRef? userRefCurrent,
     bool userRefCurrentSetNull = false,
     List<PhraseModel>? phraseList,
@@ -43,7 +38,6 @@ class LearnState {
     return LearnState(
       learnList: learnList ?? this.learnList,
       learnCurrent: learnCurrent ?? this.learnCurrent,
-      // // userRefList: userRefListSetNull ? [] : userRefList ?? this.userRefList,
       userRefCurrent:
           userRefCurrentSetNull ? null : userRefCurrent ?? this.userRefCurrent,
       phraseList: phraseListSetNull ? [] : phraseList ?? this.phraseList,
@@ -59,7 +53,6 @@ class LearnState {
     return other is LearnState &&
         listEquals(other.learnList, learnList) &&
         other.learnCurrent == learnCurrent &&
-        // listEquals(other.userRefList, userRefList) &&
         other.userRefCurrent == userRefCurrent &&
         listEquals(other.phraseList, phraseList) &&
         other.phraseCurrent == phraseCurrent;
@@ -69,7 +62,6 @@ class LearnState {
   int get hashCode {
     return learnList.hashCode ^
         learnCurrent.hashCode ^
-        // userRefList.hashCode ^
         userRefCurrent.hashCode ^
         phraseList.hashCode ^
         phraseCurrent.hashCode;

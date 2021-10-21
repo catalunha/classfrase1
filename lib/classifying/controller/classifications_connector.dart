@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/app_state.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';

@@ -43,28 +43,5 @@ class ClassificationCard extends StatelessWidget {
         ],
       ),
     );
-    // return Card(
-    //   elevation: 10,
-    //   child: Column(
-    //     mainAxisSize: MainAxisSize.min,
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     children: [
-    //       ListTile(
-    //         tileColor: color,
-    //         title: Text(
-    //           title,
-    //           style: AppTextStyles.buttonBoldHeading,
-    //         ),
-    //         subtitle: Text(
-    //           id,
-    //         ),
-    //         trailing: AppLink(url: url),
-    //       ),
-    //       Wrap(
-    //         children: widgetList ?? [],
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 }

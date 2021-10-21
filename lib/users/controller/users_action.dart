@@ -106,7 +106,6 @@ class DeletePhrasesDeletedUsersAction extends ReduxAction<AppState> {
         .get()
         .then((value) {
       for (var docChange in value.docChanges) {
-        print('Deletando frase: ${docChange.doc.id}');
         firebaseFirestore
             .collection(PhraseModel.collection)
             .doc(docChange.doc.id)
@@ -129,7 +128,6 @@ class DeleteObserverDeletedUsersAction extends ReduxAction<AppState> {
         .get()
         .then((value) {
       for (var docChange in value.docChanges) {
-        print('Deletando observação: ${docChange.doc.id}');
         firebaseFirestore
             .collection(ObserverModel.collection)
             .doc(docChange.doc.id)

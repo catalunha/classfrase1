@@ -75,11 +75,6 @@ class InputTitle extends StatelessWidget {
               border: InputBorder.none,
             ),
           ),
-          // Divider(
-          //   height: 1,
-          //   thickness: 1,
-          //   color: AppColors.stroke,
-          // ),
         ],
       ),
     );

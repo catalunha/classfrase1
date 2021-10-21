@@ -1,5 +1,4 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +9,6 @@ import 'observer_model.dart';
 class StreamDocsObserverAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> StreamDocsObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -62,7 +60,6 @@ class SetObserverCurrentObserverAction extends ReduxAction<AppState> {
   });
   @override
   AppState reduce() {
-    //print('--> SetObserverCurrentObserverAction $id');
     ObserverModel observerModel = ObserverModel(
       '',
       userFK: UserRef.fromMap({
@@ -146,7 +143,6 @@ class GetDocsPhraseObservedAndSetNullObserverAction
   GetDocsPhraseObservedAndSetNullObserverAction({required this.observerId});
   @override
   Future<AppState?> reduce() async {
-    print('--> GetDocsPhraseObservedAndSetNullObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -157,7 +153,6 @@ class GetDocsPhraseObservedAndSetNullObserverAction
     var phraseIdList =
         futureQuerySnapshot.docs.map((docSnapshot) => docSnapshot.id).toList();
     for (var phraseId in phraseIdList) {
-      print(phraseId);
       dispatch(SetNullObserverFieldPhraseObserverAction(phraseId: phraseId));
     }
     return null;
@@ -183,7 +178,6 @@ class SetNullObserverFieldPhraseObserverAction extends ReduxAction<AppState> {
 class StreamDocsPhraseObserverAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> StreamDocsPhraseObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -235,7 +229,6 @@ class SetObserverPhraseCurrentObserverAction extends ReduxAction<AppState> {
   SetObserverPhraseCurrentObserverAction({required this.id});
   @override
   AppState reduce() {
-    //print('--> SetObserverPhraseCurrentObserverAction');
     PhraseModel phraseModel;
     phraseModel = state.observerState.observerPhraseList!
         .firstWhere((element) => element.id == id);

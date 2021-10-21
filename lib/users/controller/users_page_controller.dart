@@ -15,8 +15,6 @@ class UsersPageConnector extends StatelessWidget {
       vm: () => UsersPageVmFactory(this),
       onInit: (store) async {
         await store.dispatch(StreamDocsUsersAction());
-        // await store.dispatch(DeletePhrasesDeletedUsersAction());
-        // await store.dispatch(DeleteObserverDeletedUsersAction());
         await store.dispatch(GetCountPhrasesUsersAction());
       },
       builder: (context, vm) => UsersPage(

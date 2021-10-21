@@ -36,8 +36,6 @@ class LearningUsersPage extends StatelessWidget {
               learn.description,
               style: AppTextStyles.buttonBoldHeading,
             ),
-
-            // subtitle: Text('Grupo selecionado'),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -52,11 +50,6 @@ class LearningUsersPage extends StatelessWidget {
         tooltip: 'Adicionar uma pessoa.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   '/learn_user_add',
-          //   // arguments: '',
-          // );
           showDialog(
               context: context,
               builder: (BuildContext context) => LearnUserAddPageConnector());
@@ -74,7 +67,6 @@ class LearningUsersPage extends StatelessWidget {
           key: ValueKey(person),
           child: UsersCard(
             userRef: person.value,
-            // userDelete: userDelete,
             widgetList: [
               IconButton(
                 tooltip: 'Ver frases desta pessoa',

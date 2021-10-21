@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -120,7 +118,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             ),
           ),
           Container(
-            // width: double.infinity,
             color: Colors.black12,
             child: Center(
               child: Text('Clique num grupo para escolher uma classificação.'),
@@ -179,7 +176,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  // children: buildClassifications(context),
                   children: buildClassifications2(
                     context: context,
                     groupList: widget.groupList,
@@ -198,8 +194,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ReorderableListView(
                   onReorder: _onReorder,
-
-                  // children: buildClassByLine(context),
                   children: buildClassByLine2(
                     context: context,
                     groupList: widget.groupList,
@@ -208,7 +202,6 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                     classOrder: widget.classOrder,
                     phraseList: widget.phraseList,
                   ),
-                  // ),
                 ),
               ),
             ),
@@ -244,16 +237,8 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             } else {
               final snackBar = SnackBar(
                 content: const Text('Oops. Selecione um trecho da frase.'),
-                // action: SnackBarAction(
-                //   label: 'Undo',
-                //   onPressed: () {
-                //     // Some code to undo the change.
-                //   },
-                // ),
               );
 
-              // Find the ScaffoldMessenger in the widget tree
-              // and use it to show a SnackBar.
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },

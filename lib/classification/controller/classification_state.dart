@@ -1,15 +1,10 @@
-// import '../../app_state.dart';
 import 'classification_model.dart';
 
-// import 'package:flutter/foundation.dart';
-// import 'package:collection/collection.dart';
 class ClassificationState {
   final ClassificationModel? classificationCurrent;
   final ClassGroup? groupCurrent;
   final ClassCategory? categoryCurrent;
-  // static ClassCategory? selectCategory(AppState state, String categoryId) =>
-  //   state.classificationState.categoryCurrent!
-  //       .firstWhereOrNull((element) => element.id == categoryId);
+
   ClassificationState({
     this.classificationCurrent,
     this.groupCurrent,

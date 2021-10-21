@@ -15,8 +15,6 @@ class PhraseArchivedPageConnector extends StatelessWidget {
     return StoreConnector<AppState, PhraseArchivedPageVm>(
       vm: () => PhraseArchivedPageVmFactory(this),
       onInit: (store) {
-        // gambiara feia aqui. apagar
-        // store.dispatch(CreateDocClassificationAction());
         store.dispatch(ReadDocsPhraseAction(isArchived: true));
       },
       builder: (context, vm) => PhraseArchivedPage(

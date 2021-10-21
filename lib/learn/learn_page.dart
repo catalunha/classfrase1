@@ -34,11 +34,6 @@ class LearnPage extends StatelessWidget {
         tooltip: 'Adicionar um grupo.',
         child: Icon(AppIconData.addInCloud),
         onPressed: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   '/learn_addedit',
-          //   arguments: '',
-          // );
           showDialog(
               context: context,
               builder: (BuildContext context) =>
@@ -72,11 +67,6 @@ class LearnPage extends StatelessWidget {
               tooltip: 'Editar este grupo',
               icon: Icon(AppIconData.edit),
               onPressed: () {
-                // Navigator.pushNamed(
-                //   context,
-                //   '/learn_addedit',
-                //   arguments: learn.id,
-                // );
                 showDialog(
                     context: context,
                     builder: (BuildContext context) =>

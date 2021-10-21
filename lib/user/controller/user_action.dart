@@ -26,8 +26,6 @@ class GetDocGoogleAccountUserAction extends ReduxAction<AppState> {
   GetDocGoogleAccountUserAction({required this.uid});
   @override
   Future<AppState?> reduce() async {
-    print('+++ GetDocGoogleAccountUserAction');
-
     dispatch(ChangeStatusFirestoreUserUserAction(
         statusFirestoreUser: StatusFirestoreUser.checkingInFirestore));
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -39,16 +37,9 @@ class GetDocGoogleAccountUserAction extends ReduxAction<AppState> {
         .map((queryDocumentSnapshot) =>
             {'${queryDocumentSnapshot.id}': queryDocumentSnapshot.data()})
         .toList();
-    //print('--> GetDocUserAsyncUserAction: $documentListMapIdData');
     if (documentListMapIdData.length == 0) {
       await dispatch(CreateDocWithGoogleAccountUserAction());
       return null;
-      // dispatch(SignOutLoginAction());
-      // return state.copyWith(
-      //   userState: state.userState.copyWith(
-      //     statusFirestoreUser: StatusFirestoreUser.inFirestore,
-      //   ),
-      // );
     } else if (documentListMapIdData.length == 1) {
       Map<String, Map<String, dynamic>> documentMapIdData =
           documentListMapIdData.first;
@@ -76,13 +67,6 @@ class GetDocGoogleAccountUserAction extends ReduxAction<AppState> {
       print(
           '--> GetDocGoogleAccountUserAction: Foi encontrado mais de um usuário.');
       print('documentListMapIdData.length: ${documentListMapIdData.length}');
-      // await dispatch(CreateDocWithGoogleAccountUserAction());
-      // dispatch(SignOutLoginAction());
-      // return state.copyWith(
-      //   userState: state.userState.copyWith(
-      //     statusFirestoreUser: StatusFirestoreUser.outFirestore,
-      //   ),
-      // );
       return null;
     }
   }
@@ -125,7 +109,6 @@ class UpdateDocWithGoogleAccountUserAction extends ReduxAction<AppState> {
     Map<String, dynamic> googleUser = {};
     googleUser['displayName'] = state.userState.userFirebaseAuth!.displayName;
     googleUser['photoURL'] = state.userState.userFirebaseAuth!.photoURL;
-    // googleUser['phoneNumber'] = state.loginState.userFirebaseAuth!.phoneNumber;
     googleUser['email'] = state.userState.userFirebaseAuth!.email;
     await docRef.update(googleUser);
     return null;
@@ -145,7 +128,6 @@ class CreateDocWithGoogleAccountUserAction extends ReduxAction<AppState> {
     googleUser['uid'] = state.userState.userFirebaseAuth!.uid;
     googleUser['displayName'] = state.userState.userFirebaseAuth!.displayName;
     googleUser['photoURL'] = state.userState.userFirebaseAuth!.photoURL;
-    // googleUser['phoneNumber'] = state.userState.userFirebaseAuth!.phoneNumber;
     googleUser['email'] = state.userState.userFirebaseAuth!.email;
     googleUser['isActive'] = true;
     googleUser['publicPhraseQuota'] = 7;
@@ -159,8 +141,4 @@ class CreateDocWithGoogleAccountUserAction extends ReduxAction<AppState> {
       ),
     );
   }
-
-  // void after() {
-  //   dispatch(SignOutLoginAction());
-  // }
 }

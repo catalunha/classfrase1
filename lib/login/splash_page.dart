@@ -1,8 +1,6 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-// https://medium.com/@ankith159/flutter-firebase-auth-an-easy-guide-to-persist-user-state-c90c2e53f9df
-
 class SplashPage extends StatelessWidget {
   final bool isUnInitialized;
   final bool isAuthenticating;
@@ -31,35 +29,9 @@ class SplashPage extends StatelessWidget {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          // Center(child: Image.asset(AppImages.union)),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // isUnInitialized
-              //     ? Text('unInitialized: true')
-              //     : Text('unInitialized: false'),
-              // isAuthenticating
-              //     ? Text('authenticating: true')
-              //     : Text('authenticating: false'),
-              // isAuthenticated
-              //     ? Text('authenticated: true')
-              //     : Text('authenticated: false'),
-              // isUnAuthenticated
-              //     ? Text('unAuthenticated: true')
-              //     : Text('unAuthenticated: false'),
-              // isUnInitializedFirestore
-              //     ? Text('unInitializedFirestore: true')
-              //     : Text('unInitializedFirestore: false'),
-              // isCheckingInFirestore
-              //     ? Text('checkingInFirestore: true')
-              //     : Text('checkingInFirestore: false'),
-              // isInFirestore
-              //     ? Text('inFirestore: true')
-              //     : Text('inFirestore: false'),
-              // isOutFirestore
-              //     ? Text('outFirestore: true')
-              //     : Text('outFirestore: false'),
-            ],
+            children: [],
           ),
         ],
       ),

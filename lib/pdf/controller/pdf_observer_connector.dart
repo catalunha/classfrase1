@@ -1,12 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/observer/controller/observer_action.dart';
-import 'package:classfrase/phrase/controller/phrase_action.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_state.dart';
-import '../pdf_observer_page.dart';
 import '../pdf_page.dart';
 
 class PdfObserverConnector extends StatelessWidget {

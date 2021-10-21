@@ -20,12 +20,9 @@ class SplashConnector extends StatelessWidget {
             vm.startLogin();
           }
           if (vm.isAuthenticated && vm.isInFirestore) {
-            //print('--> vm.isAuthenticated && vm.isInFirestore : true');
             return HomePageConnector();
           }
           if (vm.isUnAuthenticated && !vm.isAuthenticating) {
-            //print(
-            // '--> vm.isUnAuthenticated:true || !vm.isAuthenticating: true');
             return LoginConnector();
           }
           return SplashPage(
@@ -65,7 +62,6 @@ class SplashViewModelFactory extends VmFactory<AppState, SplashConnector> {
       isOutFirestore: state.userState.statusFirestoreUser ==
           StatusFirestoreUser.outFirestore,
       startLogin: () async {
-        // await Future.delayed(Duration(seconds: 5));
         dispatch(CheckLoginAction());
       },
     );

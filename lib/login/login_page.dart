@@ -46,14 +46,6 @@ class LoginPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 20, right: 20),
-                  //   child: Text(
-                  //     'Coordenador',
-                  //     style: AppTextStyles.titleHome,
-                  //     textAlign: TextAlign.center,
-                  //   ),
-                  // ),
                   SizedBox(height: 30),
                   GoogleLoginButton(
                     onTap: signIn,

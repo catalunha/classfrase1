@@ -7,19 +7,6 @@ import 'package:flutter/foundation.dart';
 import '../../app_state.dart';
 import 'package:uuid/uuid.dart';
 
-// class SetPhraseListClassifyingAction extends ReduxAction<AppState> {
-//   @override
-//   AppState reduce() {
-//     List<String> phraseList =
-//         state.phraseState.phraseCurrent!.phrase.split(' ');
-//     return state.copyWith(
-//       classifyingState: state.classifyingState.copyWith(
-//         phraseList: phraseList,
-//       ),
-//     );
-//   }
-// }
-
 class SetSelectedPhrasePosClassifyingAction extends ReduxAction<AppState> {
   final int phrasePos;
 
@@ -33,7 +20,6 @@ class SetSelectedPhrasePosClassifyingAction extends ReduxAction<AppState> {
     } else {
       phraseSelectedList.add(phrasePos);
     }
-    print(phraseSelectedList);
     return state.copyWith(
       classifyingState: state.classifyingState.copyWith(
         selectedPhrasePosList: phraseSelectedList,
@@ -52,14 +38,6 @@ class SetSelectedAllPhrasePosClassifyingAction extends ReduxAction<AppState> {
         allPos.add(wordPos);
       }
     }
-    // List<int> phraseSelectedList =
-    //     state.classifyingState.selectedPosPhraseList!;
-    // if (phraseSelectedList.contains(phrasePos)) {
-    //   phraseSelectedList.remove(phrasePos);
-    // } else {
-    // phraseSelectedList.add(phrasePos);
-    // }
-    // print(phraseSelectedList);
     return state.copyWith(
       classifyingState: state.classifyingState.copyWith(
         selectedPhrasePosList: allPos,
@@ -106,7 +84,6 @@ class SetSelectedCategoryIdClassifyingAction extends ReduxAction<AppState> {
     } else {
       categorySelectedList.add(categoryId);
     }
-    //print(categoryId.length);
     return state.copyWith(
       classifyingState: state.classifyingState.copyWith(
         selectedCategoryIdList: categorySelectedList,
@@ -190,7 +167,6 @@ class UpdateExistCategoryInPosClassifyingAction extends ReduxAction<AppState> {
   UpdateExistCategoryInPosClassifyingAction({required this.groupId});
   @override
   AppState reduce() {
-    //print('UpdateExistCategoryInPosClassifyingAction');
     Map<String, Classification> classifications =
         state.phraseState.phraseCurrent!.classifications;
     List<int> posPhraseListNow = state.classifyingState.selectedPosPhraseList!;
@@ -199,17 +175,12 @@ class UpdateExistCategoryInPosClassifyingAction extends ReduxAction<AppState> {
     for (var classificationsItem in classifications.entries) {
       if (listEquals(
           classificationsItem.value.posPhraseList, posPhraseListNow)) {
-        // Map<String, ClassCategory> categoryMap =
-        //     state.classifyingState.classificationCurrent!.category;
         for (var categoryId in classificationsItem.value.categoryIdList) {
-          // if (categoryMap[categoryId]!.type == groupId) {
           categoryIdListNow.add(categoryId);
-          // }
         }
         break;
       }
     }
-    //print('categoryIdListNow $categoryIdListNow');
     return state.copyWith(
       classifyingState: state.classifyingState.copyWith(
         selectedCategoryIdList: categoryIdListNow,
@@ -232,36 +203,3 @@ class UpdateClassOrderPhraseAction extends ReduxAction<AppState> {
     return null;
   }
 }
-
-// class UpdateClassificationClassifyingAction extends ReduxAction<AppState> {
-//   @override
-//   Future<AppState?> reduce() async {
-//     //print(state.classifyingState.selectedPosPhraseList);
-//     //print(state.classifyingState.selectedCategoryIdList);
-//     Map<String, Classification> classifications =
-//         state.phraseState.phraseCurrent!.classifications;
-//     // //print(classification);
-//     List<int> posPhraseListNow = state.classifyingState.selectedPosPhraseList!;
-//     posPhraseListNow.sort();
-//     // String phrasePos = phrasePosList.join(',');
-//     List<String> categoryIdListNow =
-//         state.classifyingState.selectedCategoryIdList!;
-//     String newCategoryId = atualCategoryId;
-//     if (classifications.containsKey(phrasePos)) {
-//       newCategoryId = classification[phrasePos]! + ',' + atualCategoryId;
-//     }
-//     //print('phrasePos' + phrasePos);
-//     //print('newCategoryId' + newCategoryId);
-//     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-//     DocumentReference docRef = firebaseFirestore
-//         .collection(PhraseModel.collection)
-//         .doc(state.phraseState.phraseCurrent!.id);
-//     await docRef.update({'classification.$phrasePos': newCategoryId});
-//     return null;
-//   }
-
-//   void after() {
-//     dispatch(ResetClassificationClassifyingAction());
-//     dispatch(NavigateAction.pop());
-//   }
-// }

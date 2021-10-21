@@ -19,7 +19,6 @@ class AppIconData {
   static const public = Icons.public;
   static const learn = Icons.people_alt_outlined;
 
-// usados nos forms
   static const addInCloud = Icons.add;
   static const saveInCloud = Icons.cloud_upload_outlined;
   static const edit = Icons.edit;
@@ -30,17 +29,10 @@ class AppIconData {
   static const delete = Icons.delete_forever_outlined;
   static const check = Icons.rule;
 
-// nao usados
   static const letter = Icons.format_color_text;
   static const smile = Icons.sentiment_satisfied_alt_outlined;
   static const attachFile = Icons.attach_file;
   static const search = Icons.search;
-  // static const people = Icons.people;
-  // static const coordinator = Icons.badge_outlined;
-  // static const teacher = Icons.assignment_ind_outlined;
-  // static const administrator = Icons.manage_accounts_outlined;
 
-  // static const module = Icons.book_outlined;
-  // static const resourse = Icons.local_library_outlined;
   static const situation = Icons.quiz_outlined;
 }

@@ -39,8 +39,6 @@ class UpdateDocCategoryClassificationAction extends ReduxAction<AppState> {
     DocumentReference docRef = firebaseFirestore
         .collection(ClassificationModel.collection)
         .doc(state.classificationState.classificationCurrent!.id);
-    // ClassCategory classCategoryTemp = classCategory.copyWith(
-    //     group: state.classificationState.groupCurrent!.id);
     if (delete) {
       await docRef
           .update({'category.${classCategory.id}': FieldValue.delete()});
@@ -56,15 +54,8 @@ class UpdateDocCategoryClassificationAction extends ReduxAction<AppState> {
 class StreamDocsClassificationAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> StreamDocsResourceAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    // Query<Map<String, dynamic>> collRef;
-    // collRef = firebaseFirestore
-    //     .collection(ClassificationModel.collection)
-    //     ;
 
-    // Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
-    //     collRef.doc('1fgurc4R9nuFrfExP0UI').snapshots();
     var streamDocSnapshot = firebaseFirestore
         .collection(ClassificationModel.collection)
         .doc('PRpWYm0wwqDdmFzBvKJ1');
@@ -85,7 +76,6 @@ class StreamDocsClassificationAction extends ReduxAction<AppState> {
 class ReadDocClassificationAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> ReadDocsPhraseAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     DocumentSnapshot<Map<String, dynamic>> documentReference =
         await firebaseFirestore

@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +10,6 @@ extension ClassByExtension on ClassBy {
   static const names = {
     ClassBy.grupo: 'Classificação por GRUPO.',
     ClassBy.selecao: 'Classificação por SELEÇÃO.',
-    // ClassBy.linha: 'Classificação por LINHA.',
   };
   String get name => names[this]!;
 }
@@ -21,7 +18,6 @@ extension ClassByExtensionIcon on ClassBy {
   static const icons = {
     ClassBy.grupo: Icons.view_array_rounded,
     ClassBy.selecao: Icons.view_headline_rounded,
-    // ClassBy.linha: 'Classificação por LINHA.',
   };
   IconData get icon => icons[this]!;
 }
@@ -90,7 +86,6 @@ List<Widget> buildClassByLine2({
     lineList.add(
       Container(
         alignment: Alignment.topCenter,
-        // width: double.infinity,
         key: ValueKey(classId),
         child: Card(
           elevation: 25,
@@ -135,13 +130,10 @@ List<Widget> buildClassifications2({
         ),
       ),
     );
-    // for (var i = 0; i < phraseList.length; i++) {
-    //   for (var phraseClassItem in phraseClassifications.entries) {
     for (var classId in classOrder) {
       Classification classification = phraseClassifications[classId]!;
 
       List<int> phrasePosList = classification.posPhraseList;
-      // if (i == phrasePosList[0]) {
       String phrase = '';
       for (var pos in phrasePosList) {
         try {
@@ -150,15 +142,6 @@ List<Widget> buildClassifications2({
       }
       List<String> phraseCategoryList = classification.categoryIdList;
       List<String> categoryTitleList = [];
-      // for (var categoryItem in phraseCategoryList) {
-      //   ClassCategory categoryTemp = category.putIfAbsent(
-      //       categoryItem, () => ClassCategory(title: '', group: ''));
-
-      //   if (categoryTemp.title.isNotEmpty &&
-      //       categoryTemp.group == groutItem.key) {
-      //     categoryTitleList.add(categoryTemp.title);
-      //   }
-      // }
       for (var id in phraseCategoryList) {
         if (category2.containsKey(id)) {
           if (category2[id]!.group == group.id) {
@@ -182,9 +165,7 @@ List<Widget> buildClassifications2({
           ),
         );
       }
-      // }
     }
-    // }
   }
   list.add(SizedBox(
     height: 20,
@@ -213,7 +194,6 @@ List<InlineSpan> buildPhrase2({
             : null,
         recognizer: TapGestureRecognizer()
           ..onTap = () {
-            // setState(() {});
             setState();
             onSelectPhrase(wordPos);
           },
@@ -255,97 +235,3 @@ List<InlineSpan> buildPhraseNoSelectable({
 
   return list;
 }
-
-// List<Widget> buildClassificationsHorizontal2({
-//   required BuildContext context,
-//   required Map<String, ClassGroup> group,
-//   required Map<String, ClassCategory> category,
-//   required Map<String, Classification> phraseClassifications,
-//   required List<String> phraseList,
-//   required List<int> selectedPhrasePosList,
-// }) {
-//   List<Widget> list = [];
-
-//   for (var i = 0; i < phraseList.length; i++) {
-//     for (var phraseClassItem in phraseClassifications.entries) {
-//       List<int> phrasePosList = phraseClassItem.value.posPhraseList;
-//       // if (phrasePosList.contains(i)) {
-//       if (i == phrasePosList[0]) {
-//         // print('$i ${phraseClassItem.key} $phrasePosList');
-//         String phrase = '';
-//         for (var pos in phrasePosList) {
-//           try {
-//             phrase = phrase + phraseList[pos] + ' ';
-//           } catch (e) {}
-//         }
-
-//         List<Widget> categoryWidgetList = [];
-//         for (var groutItem in groupSorted.entries) {
-//           List<String> categoryIdList = phraseClassItem.value.categoryIdList;
-//           List<String> categoryTitleList = [];
-//           for (var id in categoryIdList) {
-//             if (category.containsKey(id)) {
-//               if (category[id]!.group == groutItem.key) {
-//                 categoryTitleList.add(category[id]!.title);
-//               }
-//             }
-//           }
-//           if (categoryTitleList.isNotEmpty) {
-//             categoryWidgetList.add(Text(
-//               '* ${groutItem.value.title}:',
-//               style: TextStyle(
-//                 fontSize: 16,
-//                 color: Colors.black,
-//               ),
-//             ));
-//             categoryTitleList.sort();
-//             for (var categoryTitle in categoryTitleList) {
-//               categoryWidgetList.add(Padding(
-//                 padding: const EdgeInsets.only(left: 8.0),
-//                 child: Text(
-//                   '    ~$categoryTitle',
-//                 ),
-//               ));
-//             }
-//           }
-//         }
-//         list.add(
-//           Container(
-//             width: 200,
-//             padding: EdgeInsets.only(left: 10),
-//             // height: double.infinity,
-//             alignment: Alignment.topLeft,
-//             color: listEquals(selectedPhrasePosList, phrasePosList)
-//                 ? Colors.yellow
-//                 : null,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Text(
-//                   '$phrase',
-//                   style: TextStyle(fontSize: 28, color: Colors.black),
-//                 ),
-//                 Expanded(
-//                   child: SingleChildScrollView(
-//                     // scrollDirection: Axis.horizontal,
-//                     child: Column(
-//                       // mainAxisAlignment: MainAxisAlignment.start,
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: categoryWidgetList,
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         );
-//       }
-//     }
-//   }
-
-//   return list;
-// }

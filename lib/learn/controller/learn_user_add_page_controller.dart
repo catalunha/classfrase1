@@ -13,9 +13,6 @@ class LearnUserAddPageConnector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, LearnUserAddPageVm>(
-      // onInit: (store) {
-      //   store.dispatch(SetLearnCurrentLearnAction(id: addOrEditId));
-      // },
       vm: () => LearnUserAddPageFactory(this),
       builder: (context, vm) => LearnUserAddPage(
         formControllerLearnUserAdd: vm.formControllerLearnUserAdd,

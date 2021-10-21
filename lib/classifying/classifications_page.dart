@@ -67,10 +67,8 @@ class ClassificationsPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  //igual ao grupo de morfologia faz agrupamento das classes
                   if (groupData.id == '720c16e8-f119-44b8-82dd-80ade6e2feae')
                     ...buildCategories2(context),
-                  // se for diferente da morfologia faz assim
                   if (groupData.id != '720c16e8-f119-44b8-82dd-80ade6e2feae')
                     ...buildCategories(context),
                   SizedBox(
@@ -90,30 +88,6 @@ class ClassificationsPage extends StatelessWidget {
       ),
     );
   }
-
-  // List<InlineSpan> buildPhrase(context) {
-  //   List<InlineSpan> list = [];
-  //   for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
-  //     if (phraseList[wordPos] != ' ') {
-  //       list.add(TextSpan(
-  //         text: phraseList[wordPos],
-  //         style: selectedPhrasePosList.contains(wordPos)
-  //             ? TextStyle(
-  //                 color: Colors.orange.shade900,
-  //                 decoration: TextDecoration.underline,
-  //                 decorationStyle: TextDecorationStyle.solid,
-  //               )
-  //             : null,
-  //       ));
-  //     } else {
-  //       list.add(TextSpan(
-  //         text: phraseList[wordPos],
-  //       ));
-  //     }
-  //   }
-
-  //   return list;
-  // }
 
   List<Widget> buildCategories2(context) {
     List<Widget> list = [];
@@ -148,7 +122,6 @@ class ClassificationsPage extends StatelessWidget {
                     : null,
                 child: ListTile(
                   title: Text('${category.title}'),
-                  // subtitle: Text('${category.id}'),
                   onTap: () {
                     onSelectCategory(category.id!);
                   },
@@ -192,7 +165,6 @@ class ClassificationsPage extends StatelessWidget {
                     : null,
                 child: ListTile(
                   title: Text('${category.title}'),
-                  // subtitle: Text('${category.id}'),
                   onTap: () {
                     onSelectCategory(category.id!);
                   },

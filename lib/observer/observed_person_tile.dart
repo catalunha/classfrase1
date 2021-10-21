@@ -20,14 +20,9 @@ class ObservedPersonTile extends StatelessWidget {
                 width: 58,
               ),
             ),
-      // tileColor: Colors.black12,
       title: Text(
         phrase.userRef.displayName ?? 'Pessoa sem nome.',
-        // style: AppTextStyles.buttonBoldHeading,
       ),
-      // subtitle: Text(
-      //   'Classificador(a).',
-      // ),
     );
   }
 }

@@ -46,7 +46,7 @@ class GroupPage extends StatelessWidget {
 
     print('+++');
     for (var item in group) {
-      print('${item.id} | ${item.title}');
+      print('${item.title} | ${item.id}');
 
       list.add(
         Container(

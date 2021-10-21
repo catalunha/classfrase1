@@ -9,7 +9,6 @@ import 'learn_model.dart';
 class StreamDocsLearnAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> StreamDocsObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -61,7 +60,6 @@ class SetLearnCurrentLearnAction extends ReduxAction<AppState> {
   });
   @override
   AppState reduce() {
-    //print('--> SetObserverCurrentObserverAction $id');
     LearnModel learnModel = LearnModel(
       '',
       userRef: UserRef.fromMap({
@@ -139,7 +137,6 @@ class SearchingEmailLearnAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    //print('--> ReadDocsPhraseAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var documentReference = await firebaseFirestore
         .collection(UserModel.collection)
@@ -154,8 +151,6 @@ class SearchingEmailLearnAction extends ReduxAction<AppState> {
           .toList();
 
       dispatch(AddLearningUserLearnAction(userModel: userModelList[0]));
-    } else {
-      print('Email não encontrado.');
     }
     return null;
   }
@@ -170,10 +165,7 @@ class AddLearningUserLearnAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     LearnModel learnModel = state.learnState.learnCurrent!;
     bool userCadastrado = learnModel.learning.containsKey(userModel.id);
-    if (userCadastrado) {
-      print('Email já tem na lista');
-    } else {
-      print('Cadastrar pois email não esta em learns');
+    if (!userCadastrado) {
       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       DocumentReference docRef = firebaseFirestore
           .collection(LearnModel.collection)
@@ -182,8 +174,6 @@ class AddLearningUserLearnAction extends ReduxAction<AppState> {
           id: userModel.id,
           photoURL: userModel.photoURL,
           displayName: userModel.displayName);
-      // learnModel.learning.addAll({userModel.id: userRef});
-      // await docRef.update(learnModel.toMap());
       await docRef.update({'learning.${userModel.id}': userRef.toMap()});
     }
 
@@ -249,7 +239,6 @@ class SetNullPhraseLearnAction extends ReduxAction<AppState> {
 class GetDocsPhraseLearnAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    //print('--> StreamDocsObserverAction');
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Query<Map<String, dynamic>> collRef;
     collRef = firebaseFirestore
@@ -282,13 +271,6 @@ class SetPhraseListLearnAction extends ReduxAction<AppState> {
       ),
     );
   }
-
-  // void after() {
-  //   if (state.phraseState.phraseCurrent != null) {
-  //     dispatch(SetPhraseCurrentPhraseAction(
-  //         id: state.phraseState.phraseCurrent!.id));
-  //   }
-  // }
 }
 
 class SetPhraseCurrentLearnAction extends ReduxAction<AppState> {
