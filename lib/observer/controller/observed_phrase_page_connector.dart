@@ -27,7 +27,7 @@ class ObservedPhrasePageConnector extends StatelessWidget {
           phraseList: vm.phraseList,
           selectedPhrasePosList: vm.selectedPhrasePosList,
           onSelectPhrase: vm.onSelectPhrase,
-          group: vm.group,
+          groupList: vm.groupList,
           category: vm.category,
           phraseClassifications: vm.phraseClassifications,
           classOrder: vm.classOrder,
@@ -46,7 +46,7 @@ class ObservedPhrasePageFactory
   ObservedPhrasePageVm fromStore() => ObservedPhrasePageVm(
         phraseList: state.observerState.observerPhraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
-        group: state.classificationState.classificationCurrent!.group,
+        groupList: groupListSorted(),
         category: state.classificationState.classificationCurrent!.category,
         onSelectPhrase: (int phrasePos) {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
@@ -64,13 +64,20 @@ class ObservedPhrasePageFactory
           dispatch(SetNullSelectedPhrasePosClassifyingAction());
         },
       );
+  List<ClassGroup> groupListSorted() {
+    Map<String, ClassGroup> group =
+        state.classificationState.classificationCurrent!.group;
+    List<ClassGroup> groupList = group.entries.map((e) => e.value).toList();
+    groupList.sort((a, b) => a.title.compareTo(b.title));
+    return groupList;
+  }
 }
 
 class ObservedPhrasePageVm extends Vm {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final Function(int) onSelectPhrase;
-  final Map<String, ClassGroup> group;
+  final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
   final List<String> classOrder;
@@ -82,7 +89,7 @@ class ObservedPhrasePageVm extends Vm {
   ObservedPhrasePageVm({
     required this.phraseList,
     required this.selectedPhrasePosList,
-    required this.group,
+    required this.groupList,
     required this.category,
     required this.onSelectPhrase,
     required this.phraseClassifications,
@@ -93,7 +100,7 @@ class ObservedPhrasePageVm extends Vm {
   }) : super(equals: [
           phraseList,
           selectedPhrasePosList,
-          group,
+          groupList,
           category,
           phraseClassifications,
           classOrder,

@@ -29,7 +29,7 @@ class ClassifyingConnector extends StatelessWidget {
         selectedPhrasePosList: vm.selectedPhrasePosList,
         onSelectPhrase: vm.onSelectPhrase,
         onSelectAllPhrase: vm.onSelectAllPhrase,
-        group: vm.group,
+        groupList: vm.groupList,
         category: vm.category,
         phraseClassifications: vm.phraseClassifications,
         classOrder: vm.classOrder,
@@ -48,7 +48,8 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
   ClassifyingVm fromStore() => ClassifyingVm(
         phraseList: state.phraseState.phraseCurrent!.phraseList,
         selectedPhrasePosList: state.classifyingState.selectedPosPhraseList!,
-        group: state.classificationState.classificationCurrent!.group,
+        groupList: groupListSorted(),
+        // group: state.classificationState.classificationCurrent!.group,
         category: state.classificationState.classificationCurrent!.category,
         onSelectPhrase: (int phrasePos) {
           dispatch(SetSelectedPhrasePosClassifyingAction(phrasePos: phrasePos));
@@ -79,6 +80,13 @@ class ClassifyingFactory extends VmFactory<AppState, ClassifyingConnector> {
           dispatch(SetNullSelectedPhrasePosClassifyingAction());
         },
       );
+  List<ClassGroup> groupListSorted() {
+    Map<String, ClassGroup> group =
+        state.classificationState.classificationCurrent!.group;
+    List<ClassGroup> groupList = group.entries.map((e) => e.value).toList();
+    groupList.sort((a, b) => a.title.compareTo(b.title));
+    return groupList;
+  }
 }
 
 class ClassifyingVm extends Vm {
@@ -86,7 +94,7 @@ class ClassifyingVm extends Vm {
   final List<int> selectedPhrasePosList;
   final Function(int) onSelectPhrase;
   final Function(bool?) onSelectAllPhrase;
-  final Map<String, ClassGroup> group;
+  final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
   final List<String> classOrder;
@@ -98,7 +106,7 @@ class ClassifyingVm extends Vm {
   ClassifyingVm({
     required this.phraseList,
     required this.selectedPhrasePosList,
-    required this.group,
+    required this.groupList,
     required this.category,
     required this.onSelectPhrase,
     required this.onSelectAllPhrase,
@@ -110,7 +118,7 @@ class ClassifyingVm extends Vm {
   }) : super(equals: [
           phraseList,
           selectedPhrasePosList,
-          group,
+          groupList,
           category,
           phraseClassifications,
           classOrder,

@@ -23,7 +23,7 @@ class ClassificationsConnector extends StatelessWidget {
         selectedPhrasePosList: vm.selectedPhrasePosList,
         groupId: vm.groupId,
         groupData: vm.groupData,
-        category: vm.category,
+        categoryList: vm.categoryList,
         onSelectCategory: vm.onSelectCategory,
         selectedCategoryIdList: vm.selectedCategoryIdList,
         onSaveClassification: vm.onSaveClassification,
@@ -43,7 +43,7 @@ class ClassificationsFactory
         groupId: widget!.groupId,
         groupData: state
             .classificationState.classificationCurrent!.group[widget!.groupId]!,
-        category: categoryFilter(),
+        categoryList: categoryFilter(),
         onSelectCategory: (String categoryId) {
           dispatch(
               SetSelectedCategoryIdClassifyingAction(categoryId: categoryId));
@@ -57,19 +57,17 @@ class ClassificationsFactory
         },
       );
 
-  categoryFilter() {
-    var categoryTemp = <String, ClassCategory>{};
-    for (var category
-        in state.classificationState.classificationCurrent!.category.entries) {
-      if (category.value.group == widget!.groupId) {
-        categoryTemp.addAll({category.key: category.value});
-      }
-    }
-    Map<String, ClassCategory> categoryTempSorted = SplayTreeMap.from(
-        categoryTemp,
-        (key1, key2) =>
-            categoryTemp[key1]!.title.compareTo(categoryTemp[key2]!.title));
-    return categoryTempSorted;
+  List<ClassCategory> categoryFilter() {
+    Map<String, ClassCategory> category =
+        state.classificationState.classificationCurrent!.category;
+    List<ClassCategory> categoryList =
+        category.entries.map((e) => e.value).toList();
+    List<ClassCategory> categoryFiltered = categoryList
+        .where((element) => element.group == widget!.groupId)
+        .toList();
+    categoryFiltered.sort((a, b) => a.title.compareTo(b.title));
+
+    return categoryFiltered;
   }
 }
 
@@ -78,7 +76,7 @@ class ClassificationsVm extends Vm {
   final List<int> selectedPhrasePosList;
   final String groupId;
   final ClassGroup groupData;
-  final Map<String, ClassCategory> category;
+  final List<ClassCategory> categoryList;
   final Function(String) onSelectCategory;
   final List<String> selectedCategoryIdList;
   final VoidCallback onSaveClassification;
@@ -88,7 +86,7 @@ class ClassificationsVm extends Vm {
     required this.selectedPhrasePosList,
     required this.groupId,
     required this.groupData,
-    required this.category,
+    required this.categoryList,
     required this.onSelectCategory,
     required this.selectedCategoryIdList,
     required this.onSaveClassification,
@@ -98,7 +96,7 @@ class ClassificationsVm extends Vm {
           selectedPhrasePosList,
           groupId,
           groupData,
-          category,
+          categoryList,
           selectedCategoryIdList
         ]);
 }

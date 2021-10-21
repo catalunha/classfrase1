@@ -133,31 +133,30 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
-          //     ? Wrap(
-          //         children: [
-          //           TextButton(
-          //             onPressed: () {
-          //               Navigator.pushNamed(
-          //                 context,
-          //                 '/group',
-          //               );
-          //             },
-          //             child: Text('seeClassificationsDocs'),
-          //           ),
-          //           TextButton(
-          //             onPressed: () {
-          //               Navigator.pushNamed(
-          //                 context,
-          //                 '/users',
-          //               );
-          //             },
-          //             child: Text('seeUsersDocs'),
-          //           ),
-          //         ],
-          //       )
-          //     : Container(),
-
+          uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
+              ? Wrap(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/group',
+                        );
+                      },
+                      child: Text('seeClassificationsDocs'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/users',
+                        );
+                      },
+                      child: Text('seeUsersDocs'),
+                    ),
+                  ],
+                )
+              : Container(),
           Center(child: Text('Como deseja usar o ClassFrase ?')),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

@@ -5,8 +5,7 @@ import 'classification_card.dart';
 import 'controller/classification_model.dart';
 
 class GroupPage extends StatelessWidget {
-  final Map<String, ClassGroup> group; // uuid:group
-
+  final List<ClassGroup> group;
   const GroupPage({
     Key? key,
     required this.group,
@@ -44,19 +43,18 @@ class GroupPage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-    // Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
-    //     (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
+
     print('+++');
-    for (var item in group.entries) {
-      print('${item.value.id} | ${item.value.title}');
+    for (var item in group) {
+      print('${item.id} | ${item.title}');
 
       list.add(
         Container(
-          key: ValueKey(item.value),
+          key: ValueKey(item),
           child: ClassificationCard(
-            id: item.value.id!,
-            title: item.value.title,
-            url: item.value.url,
+            id: item.id!,
+            title: item.title,
+            url: item.url,
             widgetList: [
               IconButton(
                 tooltip: 'Editar este grupo',
@@ -64,7 +62,7 @@ class GroupPage extends StatelessWidget {
                 onPressed: () => Navigator.pushNamed(
                   context,
                   '/group_addedit',
-                  arguments: item.value.id,
+                  arguments: item.id,
                 ),
               ),
               IconButton(
@@ -72,12 +70,12 @@ class GroupPage extends StatelessWidget {
                 icon: Icon(AppIconData.copy),
                 onPressed: () {
                   Future<void> _copyToClipboard() async {
-                    await Clipboard.setData(ClipboardData(text: item.value.id));
+                    await Clipboard.setData(ClipboardData(text: item.id));
                   }
 
                   _copyToClipboard();
                   final snackBar = SnackBar(
-                      content: Text('Ok. O ID: ${item.value.id} foi copiado'));
+                      content: Text('Ok. O ID: ${item.id} foi copiado'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
@@ -88,7 +86,7 @@ class GroupPage extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     '/category',
-                    arguments: item.value.id,
+                    arguments: item.id,
                   );
                 },
               ),

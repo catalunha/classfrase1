@@ -26,7 +26,7 @@ class PdfObserverConnector extends StatelessWidget {
       vm: () => ClassifyingFactory(this),
       builder: (context, vm) => PdfPage(
         phraseList: vm.phraseList,
-        group: vm.group,
+        groupList: vm.groupList,
         category: vm.category,
         phraseClassifications: vm.phraseClassifications,
         classOrder: vm.classOrder,
@@ -42,7 +42,7 @@ class ClassifyingFactory extends VmFactory<AppState, PdfObserverConnector> {
   @override
   ClassifyingVm fromStore() => ClassifyingVm(
         phraseList: state.observerState.observerPhraseCurrent!.phraseList,
-        group: state.classificationState.classificationCurrent!.group,
+        groupList: groupListSorted(),
         category: state.classificationState.classificationCurrent!.category,
         phraseClassifications:
             state.observerState.observerPhraseCurrent!.classifications,
@@ -53,13 +53,20 @@ class ClassifyingFactory extends VmFactory<AppState, PdfObserverConnector> {
         authorPhoto:
             state.observerState.observerPhraseCurrent!.userRef.photoURL ?? '',
       );
+  List<ClassGroup> groupListSorted() {
+    Map<String, ClassGroup> group =
+        state.classificationState.classificationCurrent!.group;
+    List<ClassGroup> groupList = group.entries.map((e) => e.value).toList();
+    groupList.sort((a, b) => a.title.compareTo(b.title));
+    return groupList;
+  }
 }
 
 class ClassifyingVm extends Vm {
   final String authorDisplayName;
   final String authorPhoto;
   final List<String> phraseList;
-  final Map<String, ClassGroup> group;
+  final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
   final List<String> classOrder;
@@ -68,13 +75,13 @@ class ClassifyingVm extends Vm {
     required this.authorDisplayName,
     required this.authorPhoto,
     required this.phraseList,
-    required this.group,
+    required this.groupList,
     required this.category,
     required this.phraseClassifications,
     required this.classOrder,
   }) : super(equals: [
           phraseList,
-          group,
+          groupList,
           category,
           phraseClassifications,
           classOrder,

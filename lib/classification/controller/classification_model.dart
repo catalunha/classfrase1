@@ -48,30 +48,13 @@ class ClassificationModel extends FirestoreModel {
             ClassGroup.fromMap(item.value).copyWith(id: item.key);
       }
     }
-    // Map<String, ClassGroup> groupMapSorted = SplayTreeMap.from(
-    //     groupMapTemp,
-    //     (key1, key2) =>
-    //         groupMapTemp[key1]!.title.compareTo(groupMapTemp[key2]!.title));
-
     var categoryTemp = Map<String, ClassCategory>();
     if (map["category"] is Map && map["category"] != null) {
       for (var item in map["category"].entries) {
-        //print('item: ${item.key}');
-        //print('item: ${item.value}');
         categoryTemp[item.key] =
             ClassCategory.fromMap(item.value).copyWith(id: item.key);
       }
     }
-    // for (var item in categoryTemp.entries) {
-    //   //print('${item.key} - ${item.value.title}');
-    // }
-    // Map<String, ClassCategory> categoryMapSorted = SplayTreeMap.from(
-    //     categoryTemp,
-    //     (key1, key2) =>
-    //         categoryTemp[key1]!.title.compareTo(categoryTemp[key2]!.title));
-    // for (var item in categoryMapSorted.entries) {
-    //   //print('${item.key} - ${item.value.title}');
-    // }
     var temp = ClassificationModel(
       id,
       group: groupMapTemp,

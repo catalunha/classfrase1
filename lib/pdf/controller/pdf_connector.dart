@@ -24,7 +24,7 @@ class PdfConnector extends StatelessWidget {
       vm: () => ClassifyingFactory(this),
       builder: (context, vm) => PdfPage(
         phraseList: vm.phraseList,
-        group: vm.group,
+        groupList: vm.groupList,
         category: vm.category,
         phraseClassifications: vm.phraseClassifications,
         classOrder: vm.classOrder,
@@ -40,7 +40,7 @@ class ClassifyingFactory extends VmFactory<AppState, PdfConnector> {
   @override
   ClassifyingVm fromStore() => ClassifyingVm(
         phraseList: state.phraseState.phraseCurrent!.phraseList,
-        group: state.classificationState.classificationCurrent!.group,
+        groupList: groupListSorted(),
         category: state.classificationState.classificationCurrent!.category,
         phraseClassifications: state.phraseState.phraseCurrent!.classifications,
         classOrder: state.phraseState.phraseCurrent!.classOrder,
@@ -48,13 +48,20 @@ class ClassifyingFactory extends VmFactory<AppState, PdfConnector> {
             state.phraseState.phraseCurrent!.userRef.displayName ?? '',
         authorPhoto: state.phraseState.phraseCurrent!.userRef.photoURL ?? '',
       );
+  List<ClassGroup> groupListSorted() {
+    Map<String, ClassGroup> group =
+        state.classificationState.classificationCurrent!.group;
+    List<ClassGroup> groupList = group.entries.map((e) => e.value).toList();
+    groupList.sort((a, b) => a.title.compareTo(b.title));
+    return groupList;
+  }
 }
 
 class ClassifyingVm extends Vm {
   final String authorDisplayName;
   final String authorPhoto;
   final List<String> phraseList;
-  final Map<String, ClassGroup> group;
+  final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
   final Map<String, Classification> phraseClassifications;
   final List<String> classOrder;
@@ -63,7 +70,7 @@ class ClassifyingVm extends Vm {
     required this.authorDisplayName,
     required this.authorPhoto,
     required this.phraseList,
-    required this.group,
+    required this.groupList,
     required this.category,
     required this.phraseClassifications,
     required this.classOrder,
@@ -71,7 +78,7 @@ class ClassifyingVm extends Vm {
           authorDisplayName,
           authorPhoto,
           phraseList,
-          group,
+          groupList,
           category,
           phraseClassifications,
           classOrder,

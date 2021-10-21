@@ -1,16 +1,16 @@
-import 'dart:collection';
-
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
+
+import 'controller/classification_type.dart';
 
 class ClassificationsPage extends StatelessWidget {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
   final String groupId;
   final ClassGroup groupData;
-  final Map<String, ClassCategory> category;
+  final List<ClassCategory> categoryList;
   final Function(String) onSelectCategory;
   final List<String> selectedCategoryIdList;
   final VoidCallback onSaveClassification;
@@ -22,7 +22,7 @@ class ClassificationsPage extends StatelessWidget {
     required this.selectedPhrasePosList,
     required this.groupId,
     required this.groupData,
-    required this.category,
+    required this.categoryList,
     required this.onSelectCategory,
     required this.selectedCategoryIdList,
     required this.onSaveClassification,
@@ -50,7 +50,11 @@ class ClassificationsPage extends StatelessWidget {
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(fontSize: 28, color: Colors.black),
-                  children: buildPhrase(context),
+                  children: buildPhraseNoSelectable(
+                    context: context,
+                    phraseList: phraseList,
+                    selectedPhrasePosList: selectedPhrasePosList,
+                  ),
                 ),
               ),
             ),
@@ -63,8 +67,10 @@ class ClassificationsPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  //igual ao grupo de morfologia faz agrupamento das classes
                   if (groupData.id == '720c16e8-f119-44b8-82dd-80ade6e2feae')
                     ...buildCategories2(context),
+                  // se for diferente da morfologia faz assim
                   if (groupData.id != '720c16e8-f119-44b8-82dd-80ade6e2feae')
                     ...buildCategories(context),
                   SizedBox(
@@ -85,38 +91,37 @@ class ClassificationsPage extends StatelessWidget {
     );
   }
 
-  List<InlineSpan> buildPhrase(context) {
-    List<InlineSpan> list = [];
-    for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
-      if (phraseList[wordPos] != ' ') {
-        list.add(TextSpan(
-          text: phraseList[wordPos],
-          style: selectedPhrasePosList.contains(wordPos)
-              ? TextStyle(
-                  color: Colors.orange.shade900,
-                  decoration: TextDecoration.underline,
-                  decorationStyle: TextDecorationStyle.solid,
-                )
-              : null,
-        ));
-      } else {
-        list.add(TextSpan(
-          text: phraseList[wordPos],
-        ));
-      }
-    }
+  // List<InlineSpan> buildPhrase(context) {
+  //   List<InlineSpan> list = [];
+  //   for (var wordPos = 0; wordPos < phraseList.length; wordPos++) {
+  //     if (phraseList[wordPos] != ' ') {
+  //       list.add(TextSpan(
+  //         text: phraseList[wordPos],
+  //         style: selectedPhrasePosList.contains(wordPos)
+  //             ? TextStyle(
+  //                 color: Colors.orange.shade900,
+  //                 decoration: TextDecoration.underline,
+  //                 decorationStyle: TextDecorationStyle.solid,
+  //               )
+  //             : null,
+  //       ));
+  //     } else {
+  //       list.add(TextSpan(
+  //         text: phraseList[wordPos],
+  //       ));
+  //     }
+  //   }
 
-    return list;
-  }
+  //   return list;
+  // }
 
   List<Widget> buildCategories2(context) {
     List<Widget> list = [];
     List<Widget> listExpansion = [];
     String setCategory = '';
-    Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
-        (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
-    for (var item in categorySorted.entries) {
-      if (item.value.title.split(' - ').length == 1) {
+
+    for (var category in categoryList) {
+      if (category.title.split(' - ').length == 1) {
         if (list.isNotEmpty) {
           listExpansion.add(
             ExpansionTile(
@@ -131,26 +136,27 @@ class ClassificationsPage extends StatelessWidget {
           setCategory = '';
           list = [];
         }
-        setCategory = item.value.title;
+        setCategory = category.title;
       }
       list.add(
         Row(
           children: [
             Expanded(
               child: Container(
-                color: selectedCategoryIdList.contains(item.key)
+                color: selectedCategoryIdList.contains(category.id)
                     ? Colors.yellow
                     : null,
                 child: ListTile(
-                  title: Text('${item.value.title}'),
+                  title: Text('${category.title}'),
+                  // subtitle: Text('${category.id}'),
                   onTap: () {
-                    onSelectCategory(item.key);
+                    onSelectCategory(category.id!);
                   },
                 ),
               ),
             ),
             AppLink(
-              url: item.value.url,
+              url: category.url,
             ),
           ],
         ),
@@ -175,27 +181,26 @@ class ClassificationsPage extends StatelessWidget {
 
   List<Widget> buildCategories(context) {
     List<Widget> list = [];
-    Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
-        (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
-    for (var item in categorySorted.entries) {
+    for (var category in categoryList) {
       list.add(
         Row(
           children: [
             Expanded(
               child: Container(
-                color: selectedCategoryIdList.contains(item.key)
+                color: selectedCategoryIdList.contains(category.id)
                     ? Colors.yellow
                     : null,
                 child: ListTile(
-                  title: Text('${item.value.title}'),
+                  title: Text('${category.title}'),
+                  // subtitle: Text('${category.id}'),
                   onTap: () {
-                    onSelectCategory(item.key);
+                    onSelectCategory(category.id!);
                   },
                 ),
               ),
             ),
             AppLink(
-              url: item.value.url,
+              url: category.url,
             ),
           ],
         ),

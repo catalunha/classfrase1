@@ -11,7 +11,7 @@ import 'package:printing/printing.dart';
 
 class PdfPage extends StatelessWidget {
   final List<String> phraseList;
-  final Map<String, ClassGroup> group;
+  final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
 
   final Map<String, Classification> phraseClassifications;
@@ -21,7 +21,7 @@ class PdfPage extends StatelessWidget {
   PdfPage({
     Key? key,
     required this.phraseList,
-    required this.group,
+    required this.groupList,
     required this.category,
     required this.phraseClassifications,
     required this.classOrder,
@@ -198,9 +198,6 @@ class PdfPage extends StatelessWidget {
   List<pw.Widget> buildClassByLine(context) {
     List<pw.Widget> lineList = [];
 
-    Map<String, ClassGroup> groupSorted = SplayTreeMap.from(group,
-        (key1, key2) => group[key1]!.title.compareTo(group[key2]!.title));
-
     for (var classId in classOrder) {
       Classification classification = phraseClassifications[classId]!;
       //+++ montando a frase com a seleção
@@ -228,12 +225,12 @@ class PdfPage extends StatelessWidget {
 
       //+++ montando a classificação se houver
       List<pw.Widget> categoryWidgetList = [];
-      for (var groutItem in groupSorted.entries) {
+      for (var group in groupList) {
         List<String> categoryIdList = classification.categoryIdList;
         List<String> categoryTitleList = [];
         for (var id in categoryIdList) {
           if (category.containsKey(id)) {
-            if (category[id]!.group == groutItem.key) {
+            if (category[id]!.group == group.id) {
               categoryTitleList.add(category[id]!.title);
             }
           }
@@ -242,8 +239,7 @@ class PdfPage extends StatelessWidget {
           categoryTitleList.sort();
           categoryWidgetList.add(
             pw.Bullet(
-              text:
-                  '${groutItem.value.title}: ${categoryTitleList.join(" | ")}',
+              text: '${group.title}: ${categoryTitleList.join(" | ")}',
               style: pw.TextStyle(fontSize: 10, color: PdfColors.black),
             ),
           );

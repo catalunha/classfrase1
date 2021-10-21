@@ -11,7 +11,7 @@ import 'controller/classification_type.dart';
 class ClassifyingPage extends StatefulWidget {
   final List<String> phraseList;
   final List<int> selectedPhrasePosList;
-  final Map<String, ClassGroup> group;
+  final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
 
   final Map<String, Classification> phraseClassifications;
@@ -28,7 +28,7 @@ class ClassifyingPage extends StatefulWidget {
     Key? key,
     required this.phraseList,
     required this.selectedPhrasePosList,
-    required this.group,
+    required this.groupList,
     required this.category,
     required this.phraseClassifications,
     required this.onSelectPhrase,
@@ -182,7 +182,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                   // children: buildClassifications(context),
                   children: buildClassifications2(
                     context: context,
-                    group: widget.group,
+                    groupList: widget.groupList,
                     category2: widget.category,
                     phraseClassifications: widget.phraseClassifications,
                     classOrder: widget.classOrder,
@@ -202,7 +202,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                   // children: buildClassByLine(context),
                   children: buildClassByLine2(
                     context: context,
-                    group: widget.group,
+                    groupList: widget.groupList,
                     category: widget.category,
                     phraseClassifications: widget.phraseClassifications,
                     classOrder: widget.classOrder,
@@ -232,19 +232,15 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
 
   List<Widget> buildGroup(context) {
     List<Widget> list = [];
-    Map<String, ClassGroup> sorted = SplayTreeMap.from(
-        widget.group,
-        (key1, key2) =>
-            widget.group[key1]!.title.compareTo(widget.group[key2]!.title));
 
-    for (var item in sorted.entries) {
+    for (var group in widget.groupList) {
       list.add(
         TextButton(
           onPressed: () {
             if (widget.selectedPhrasePosList.isNotEmpty) {
-              widget.onUpdateExistCategoryInPos(item.key);
+              widget.onUpdateExistCategoryInPos(group.id!);
               Navigator.pushNamed(context, '/classifications',
-                  arguments: item.key);
+                  arguments: group.id);
             } else {
               final snackBar = SnackBar(
                 content: const Text('Oops. Selecione um trecho da frase.'),
@@ -261,7 +257,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
-          child: Text('${item.value.title}'),
+          child: Text('${group.title}'),
           style: TextButton.styleFrom(
             textStyle: const TextStyle(fontSize: 18),
           ),

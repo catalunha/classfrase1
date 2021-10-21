@@ -5,7 +5,7 @@ import 'classification_card.dart';
 import 'controller/classification_model.dart';
 
 class CategoryPage extends StatelessWidget {
-  final Map<String, ClassCategory> category;
+  final List<ClassCategory> category;
   final ClassGroup groupCurrent;
   const CategoryPage({
     Key? key,
@@ -51,18 +51,15 @@ class CategoryPage extends StatelessWidget {
 
   List<Widget> buildItens(context) {
     List<Widget> list = [];
-    // Map<String, ClassCategory> categorySorted = SplayTreeMap.from(category,
-    //     (key1, key2) => category[key1]!.title.compareTo(category[key2]!.title));
 
     print('+++ ${groupCurrent.title} +++');
-    for (var item in category.entries) {
-      // if (item.value.group == groupCurrent.id) {
-      print('${item.value.id} | ${item.value.title}');
+    for (var item in category) {
+      print('${item.title} | ${item.id}');
       list.add(
         ClassificationCard(
-          id: item.value.id!,
-          title: item.value.title,
-          url: item.value.url,
+          id: item.id!,
+          title: item.title,
+          url: item.url,
           widgetList: [
             IconButton(
               tooltip: 'Editar esta categoria',
@@ -70,7 +67,7 @@ class CategoryPage extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(
                 context,
                 '/category_addedit',
-                arguments: item.value.id,
+                arguments: item.id,
               ),
             ),
           ],
