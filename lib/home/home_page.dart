@@ -1,3 +1,4 @@
+import 'package:classfrase/widget/icon_button_action.dart';
 import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/phrase/phrase_card.dart';
@@ -31,20 +32,20 @@ class HomePage extends StatelessWidget {
       appBar: appBar(),
       body: Column(
         children: [
-          admin(context),
+          // admin(context),
           Center(child: Text('Como deseja usar o ClassFrase ?')),
           optionsForUse(context),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              myPhrases(),
-              archivedPhrases(context),
+              phraseInClass(),
+              phraseArchived(context),
             ],
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: buildItens(context),
+                children: buildPhraseList(context),
               ),
             ),
           ),
@@ -134,11 +135,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<Widget> popMenuItem(
-      {required BuildContext context,
-      required IconData icon,
-      required String text,
-      required String pushNamed}) {
+  PopupMenuItem<Widget> popMenuItem({
+    required BuildContext context,
+    required IconData icon,
+    required String text,
+    required String pushNamed,
+  }) {
     return PopupMenuItem(
       child: InkWell(
         child: Row(
@@ -158,32 +160,18 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Expanded archivedPhrases(BuildContext context) {
+  Expanded phraseArchived(BuildContext context) {
     return Expanded(
-      flex: 1,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            color: Colors.white,
-            child: IconButton(
-              tooltip: 'Minhas frases arquivadas',
-              icon: Icon(AppIconData.box),
-              onPressed: () {
-                Navigator.pushNamed(context, '/phrase_archived');
-              },
-            ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
-    );
+        flex: 1,
+        child: IconButtonAction(
+          tooltipMsg: 'Minhas frases arquivadas',
+          icon: AppIconData.box,
+          pushNamed: '/phrase_archived',
+          context: context,
+        ));
   }
 
-  Expanded myPhrases() {
+  Expanded phraseInClass() {
     return Expanded(
       flex: 5,
       child: Container(
@@ -242,21 +230,23 @@ class HomePage extends StatelessWidget {
           children: [
             optionButton(
                 context: context,
-                message: 'Para criar uma frase e classificá-la.',
+                tooltipMsg: 'Para criar uma frase e classificá-la.',
                 pushNamed: '/phrase_addedit',
                 icon: AppIconData.phrase,
                 label: 'Criar.'),
             SizedBox(width: 10),
             optionButton(
                 context: context,
-                message: 'Para observar frases em classificação em tempo real.',
+                tooltipMsg:
+                    'Para observar frases em classificação em tempo real.',
                 pushNamed: '/observer_list',
                 icon: AppIconData.eye,
                 label: 'Observar.'),
             SizedBox(width: 10),
             optionButton(
                 context: context,
-                message: 'Para aprender com a classificação de outras pessoas.',
+                tooltipMsg:
+                    'Para aprender com a classificação de outras pessoas.',
                 pushNamed: '/learn',
                 icon: AppIconData.learn,
                 label: 'Aprender.'),
@@ -266,9 +256,9 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Tooltip optionButton({context, message, pushNamed, icon, label}) {
+  Tooltip optionButton({context, tooltipMsg, pushNamed, icon, label}) {
     return Tooltip(
-      message: message,
+      message: tooltipMsg,
       child: Container(
         width: 130,
         child: ElevatedButton.icon(
@@ -284,67 +274,60 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> buildItens(context) {
+  List<Widget> buildPhraseList(context) {
     List<Widget> list = [];
-    phraseList.sort((a, b) => a.phrase.compareTo(b.phrase));
     for (var phrase in phraseList) {
-      list.add(Container(
+      list.add(PhraseCard(
         key: ValueKey(phrase),
-        child: PhraseCard(
-          phrase: phrase,
-          trailing: Wrap(
-            spacing: 5,
-            children: [
-              phrase.observer != null && phrase.observer!.isNotEmpty
-                  ? Tooltip(
-                      message: 'Esta frase esta sendo observada.',
-                      child: Icon(AppIconData.eye))
-                  : Container(
-                      width: 1,
-                    ),
-              phrase.isPublic
-                  ? Tooltip(
-                      message: 'Esta frase é pública.',
-                      child: Icon(AppIconData.public))
-                  : Container(
-                      width: 1,
-                    ),
-            ],
-          ),
-          widgetList: [
-            IconButton(
-              tooltip: 'Classificar esta frase',
-              icon: Icon(AppIconData.letter),
-              onPressed: () async {
-                Navigator.pushNamed(context, '/classifying',
-                    arguments: phrase.id);
-              },
-            ),
-            SizedBox(
-              width: 50,
-            ),
-            IconButton(
-              tooltip: 'Editar esta frase',
-              icon: Icon(AppIconData.edit),
-              onPressed: () async {
-                Navigator.pushNamed(context, '/phrase_addedit',
-                    arguments: phrase.id);
-              },
-            ),
-            SizedBox(
-              width: 50,
-            ),
-            IconButton(
-              tooltip: 'Imprimir a classificação desta frase.',
-              icon: Icon(Icons.print),
-              onPressed: () => Navigator.pushNamed(
-                context,
-                '/pdf',
-                arguments: phrase.id,
-              ),
-            ),
+        phrase: phrase,
+        trailing: Wrap(
+          spacing: 5,
+          children: [
+            phrase.observer != null && phrase.observer!.isNotEmpty
+                ? Tooltip(
+                    message: 'Esta frase esta sendo observada.',
+                    child: Icon(AppIconData.eye))
+                : Container(
+                    width: 1,
+                  ),
+            phrase.isPublic
+                ? Tooltip(
+                    message: 'Esta frase é pública.',
+                    child: Icon(AppIconData.public))
+                : Container(
+                    width: 1,
+                  ),
           ],
         ),
+        widgetList: [
+          IconButtonAction(
+            context: context,
+            tooltipMsg: 'Classificar esta frase',
+            icon: AppIconData.letter,
+            pushNamed: '/classifying',
+            pushNamedArg: phrase.id,
+          ),
+          SizedBox(
+            width: 50,
+          ),
+          IconButtonAction(
+            context: context,
+            tooltipMsg: 'Editar esta frase',
+            icon: AppIconData.edit,
+            pushNamed: '/phrase_addedit',
+            pushNamedArg: phrase.id,
+          ),
+          SizedBox(
+            width: 50,
+          ),
+          IconButtonAction(
+            context: context,
+            tooltipMsg: 'Imprimir a classificação desta frase.',
+            icon: AppIconData.print,
+            pushNamed: '/pdf',
+            pushNamedArg: phrase.id,
+          ),
+        ],
       ));
     }
     if (list.isEmpty) {

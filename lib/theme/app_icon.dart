@@ -18,6 +18,7 @@ class AppIconData {
   static const list = Icons.list_alt;
   static const public = Icons.public;
   static const learn = Icons.people_alt_outlined;
+  static const print = Icons.print;
 
   static const addInCloud = Icons.add;
   static const saveInCloud = Icons.cloud_upload_outlined;

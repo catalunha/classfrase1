@@ -71,6 +71,7 @@ class SetPhraseListPhraseAction extends ReduxAction<AppState> {
         amount++;
       }
     }
+    phraseList.sort((a, b) => a.phrase.compareTo(b.phrase));
     return state.copyWith(
       phraseState: state.phraseState.copyWith(
         phraseList: phraseList,
@@ -110,13 +111,11 @@ class SetPhraseCurrentPhraseAction extends ReduxAction<AppState> {
   AppState reduce() {
     PhraseModel phraseModel = PhraseModel(
       '',
-      userRef: UserRef.fromMap(
-        {
-          'id': state.userState.userCurrent!.id,
-          'photoURL': state.userState.userCurrent!.photoURL,
-          'displayName': state.userState.userCurrent!.displayName
-        },
-      ),
+      userRef: UserRef.fromMap({
+        'id': state.userState.userCurrent!.id,
+        'photoURL': state.userState.userCurrent!.photoURL,
+        'displayName': state.userState.userCurrent!.displayName
+      }),
       phrase: '',
       phraseList: [],
       classOrder: [],
