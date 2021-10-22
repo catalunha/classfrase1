@@ -32,6 +32,7 @@ class Routes {
     '/home': (BuildContext context) => HomePageConnector(),
     '/information': (BuildContext context) => Information(),
     '/coffee': (BuildContext context) => Coffee(),
+    // +++ PDF
     '/pdf': (BuildContext context) => PdfConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
@@ -41,16 +42,19 @@ class Routes {
     '/pdf_learn': (BuildContext context) => PdfLearnConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    // +++ Phrase
     '/phrase_archived': (BuildContext context) => PhraseArchivedPageConnector(),
     '/phrase_addedit': (BuildContext context) => PhraseAddEditConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    // Classifuing
     '/classifying': (BuildContext context) => ClassifyingConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
     '/classifications': (BuildContext context) => ClassificationsConnector(
           groupId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    // Observer
     '/observer_list': (BuildContext context) => ObserverPageConnector(),
     '/observer_phrase': (BuildContext context) => ObserverPhrasePageConnector(
           observerId: ModalRoute.of(context)!.settings.arguments.toString(),
@@ -58,6 +62,7 @@ class Routes {
     '/observed_phrase': (BuildContext context) => ObservedPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    // Learn
     '/learn': (BuildContext context) => LearnPageConnector(),
     '/learning_users': (BuildContext context) => LearningUsersPageConnector(
           learnId: ModalRoute.of(context)!.settings.arguments.toString(),
@@ -69,7 +74,7 @@ class Routes {
     '/learn_phrase': (BuildContext context) => LearnPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
-    '/users': (BuildContext context) => UsersPageConnector(),
+    // Admin
     '/group': (BuildContext context) => GroupPageConnector(),
     '/group_addedit': (BuildContext context) => GroupAddEditPageConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
@@ -80,5 +85,6 @@ class Routes {
     '/category_addedit': (BuildContext context) => CategoryAddEditPageConnector(
           addOrEditId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    '/users': (BuildContext context) => UsersPageConnector(),
   };
 }

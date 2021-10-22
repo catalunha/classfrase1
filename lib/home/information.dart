@@ -23,7 +23,7 @@ Olá,
 
 Este aplicativo nasceu da necessidade de nossa família em estudar as classificações gramaticais de algumas frases.
 
-É gratuito, com certas cotas para amplo uso. Registro em andamento. 
+É gratuito, com certas cotas para amplo uso.
 
 Contudo frases de cunho imoral ou similares terão seus usuários banidos do aplicativo.
 
@@ -38,7 +38,7 @@ Família Catalunha.
             ),
             ListTile(
               title: Text(
-                  'Para um rápido tutorial de como utilizar o ClassFrase 1.0.0, clique aqui.'),
+                  'Para um rápido tutorial de como utilizar o ClassFrase versão 1.3, clique aqui.'),
               leading: Icon(AppIconData.undefined),
               onTap: () async {
                 bool can = await canLaunch(

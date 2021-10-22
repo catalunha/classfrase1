@@ -28,230 +28,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: SafeArea(
-          child: Container(
-            color: AppColors.primary,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Olá, $displayName',
-                  style: AppTextStyles.titleRegular,
-                ),
-                Spacer(),
-                PopupMenuButton(
-                  child: Tooltip(
-                    message:
-                        'Clique aqui para outras opções.\nemail: $email\nid: ${id.substring(0, 3)} uid: ${uid.substring(0, 3)}',
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        photoUrl,
-                        height: 58,
-                        width: 58,
-                      ),
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      PopupMenuItem(
-                        child: InkWell(
-                          child: Row(
-                            children: [
-                              Icon(AppIconData.info),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('Informações'),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, '/information');
-                          },
-                        ),
-                      ),
-                      PopupMenuItem(
-                        child: InkWell(
-                          child: Row(
-                            children: [
-                              Icon(AppIconData.coffee),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('Contribuir'),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, '/coffee');
-                          },
-                        ),
-                      ),
-                      PopupMenuItem(
-                        child: InkWell(
-                          child: Row(
-                            children: [
-                              Icon(AppIconData.exit),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('Sair'),
-                            ],
-                          ),
-                          onTap: () {
-                            signOut();
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ];
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      appBar: appBar(),
       body: Column(
         children: [
-          // uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
-          //     ? Wrap(
-          //         children: [
-          //           TextButton(
-          //             onPressed: () {
-          //               Navigator.pushNamed(
-          //                 context,
-          //                 '/group',
-          //               );
-          //             },
-          //             child: Text('seeClassificationsDocs'),
-          //           ),
-          //           TextButton(
-          //             onPressed: () {
-          //               Navigator.pushNamed(
-          //                 context,
-          //                 '/users',
-          //               );
-          //             },
-          //             child: Text('seeUsersDocs'),
-          //           ),
-          //         ],
-          //       )
-          //     : Container(),
+          admin(context),
           Center(child: Text('Como deseja usar o ClassFrase ?')),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Tooltip(
-                    message: 'Para criar uma frase e classificá-la.',
-                    child: Container(
-                      width: 130,
-                      child: ElevatedButton.icon(
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          '/phrase_addedit',
-                          arguments: '',
-                        ),
-                        icon: Icon(AppIconData.phrase),
-                        label: Text('Criar.'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Tooltip(
-                    message:
-                        'Para observar frases em classificação em tempo real.',
-                    child: Container(
-                      width: 130,
-                      child: ElevatedButton.icon(
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          '/observer_list',
-                        ),
-                        icon: Icon(AppIconData.eye),
-                        label: Text('Observar.'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Tooltip(
-                    message:
-                        'Para aprender com a classificação de outras pessoas.',
-                    child: Container(
-                      width: 130,
-                      child: ElevatedButton.icon(
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          '/learn',
-                        ),
-                        icon: Icon(AppIconData.learn),
-                        label: Text('Aprender.'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          optionsForUse(context),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                flex: 5,
-                child: Container(
-                  height: 30,
-                  color: Colors.black12,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Minhas frases em classificação ',
-                        style: AppTextStyles.trailingBold,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      child: IconButton(
-                        tooltip: 'Minhas frases arquivadas',
-                        icon: Icon(AppIconData.box),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/phrase_archived');
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                ),
-              ),
+              myPhrases(),
+              archivedPhrases(context),
             ],
           ),
           Expanded(
@@ -262,6 +49,237 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  PreferredSize appBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(100),
+      child: SafeArea(
+        child: Container(
+          color: AppColors.primary,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Olá, $displayName',
+                style: AppTextStyles.titleRegular,
+              ),
+              Spacer(),
+              popMenu(),
+              SizedBox(
+                width: 10,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  PopupMenuButton<dynamic> popMenu() {
+    return PopupMenuButton(
+      child: Tooltip(
+        message:
+            'Clique aqui para outras opções.\nemail: $email\nid: ${id.substring(0, 3)} uid: ${uid.substring(0, 3)}',
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(
+            photoUrl,
+            height: 58,
+            width: 58,
+          ),
+        ),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      itemBuilder: (BuildContext context) {
+        return [
+          popMenuItem(
+              context: context,
+              icon: AppIconData.info,
+              text: 'Informações',
+              pushNamed: '/information'),
+          popMenuItem(
+              context: context,
+              icon: AppIconData.coffee,
+              text: 'Contribuir',
+              pushNamed: '/coffee'),
+          popMenuExit(context),
+        ];
+      },
+    );
+  }
+
+  PopupMenuItem<Widget> popMenuExit(BuildContext context) {
+    return PopupMenuItem(
+      child: InkWell(
+        child: Row(
+          children: [
+            Icon(AppIconData.exit),
+            SizedBox(
+              width: 5,
+            ),
+            Text('Sair'),
+          ],
+        ),
+        onTap: () {
+          signOut();
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  PopupMenuItem<Widget> popMenuItem(
+      {required BuildContext context,
+      required IconData icon,
+      required String text,
+      required String pushNamed}) {
+    return PopupMenuItem(
+      child: InkWell(
+        child: Row(
+          children: [
+            Icon(icon),
+            SizedBox(
+              width: 5,
+            ),
+            Text(text),
+          ],
+        ),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, pushNamed);
+        },
+      ),
+    );
+  }
+
+  Expanded archivedPhrases(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            color: Colors.white,
+            child: IconButton(
+              tooltip: 'Minhas frases arquivadas',
+              icon: Icon(AppIconData.box),
+              onPressed: () {
+                Navigator.pushNamed(context, '/phrase_archived');
+              },
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Expanded myPhrases() {
+    return Expanded(
+      flex: 5,
+      child: Container(
+        height: 30,
+        color: Colors.black12,
+        child: Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Minhas frases em classificação ',
+              style: AppTextStyles.trailingBold,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  admin(context) {
+    return uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
+        ? Wrap(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/group',
+                  );
+                },
+                child: Text('seeClassificationsDocs'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/users',
+                  );
+                },
+                child: Text('seeUsersDocs'),
+              ),
+            ],
+          )
+        : Container();
+  }
+
+  optionsForUse(context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            optionButton(
+                context: context,
+                message: 'Para criar uma frase e classificá-la.',
+                pushNamed: '/phrase_addedit',
+                icon: AppIconData.phrase,
+                label: 'Criar.'),
+            SizedBox(width: 10),
+            optionButton(
+                context: context,
+                message: 'Para observar frases em classificação em tempo real.',
+                pushNamed: '/observer_list',
+                icon: AppIconData.eye,
+                label: 'Observar.'),
+            SizedBox(width: 10),
+            optionButton(
+                context: context,
+                message: 'Para aprender com a classificação de outras pessoas.',
+                pushNamed: '/learn',
+                icon: AppIconData.learn,
+                label: 'Aprender.'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Tooltip optionButton({context, message, pushNamed, icon, label}) {
+    return Tooltip(
+      message: message,
+      child: Container(
+        width: 130,
+        child: ElevatedButton.icon(
+          onPressed: () => Navigator.pushNamed(
+            context,
+            pushNamed,
+            arguments: '',
+          ),
+          icon: Icon(AppIconData.phrase),
+          label: Text(label),
+        ),
       ),
     );
   }
@@ -318,12 +336,12 @@ class HomePage extends StatelessWidget {
             ),
             IconButton(
               tooltip: 'Imprimir a classificação desta frase.',
+              icon: Icon(Icons.print),
               onPressed: () => Navigator.pushNamed(
                 context,
                 '/pdf',
                 arguments: phrase.id,
               ),
-              icon: Icon(Icons.print),
             ),
           ],
         ),

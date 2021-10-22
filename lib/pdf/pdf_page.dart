@@ -50,71 +50,17 @@ class PdfPage extends StatelessWidget {
     }
     pdf.addPage(
       pw.MultiPage(
-        theme: pw.ThemeData.withFont(
-          base: font1,
-          bold: font2,
-        ),
-        pageFormat: format.copyWith(
-          width: 21.0 * PdfPageFormat.cm,
-          height: 29.7 * PdfPageFormat.cm,
-          marginTop: 1.0 * PdfPageFormat.cm,
-          marginLeft: 1.0 * PdfPageFormat.cm,
-          marginRight: 1.0 * PdfPageFormat.cm,
-          marginBottom: 1.0 * PdfPageFormat.cm,
-        ),
+        theme: theme(font1, font2),
+        pageFormat: pageFormat(format),
         orientation: pw.PageOrientation.portrait,
         crossAxisAlignment: pw.CrossAxisAlignment.start,
-        footer: (pw.Context context) {
-          return pw.Container(
-              alignment: pw.Alignment.centerRight,
-              margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
-              decoration: const pw.BoxDecoration(
-                  border: pw.Border(
-                      top: pw.BorderSide(width: 1.0, color: PdfColors.black))),
-              child: pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: [
-                    pw.Text(
-                      'ClassFrase (R) 2021. Feito com carinho pela Família Catalunha. Ore por nós, que Deus te abençõe.',
-                      style: pw.TextStyle(fontSize: 10),
-                    ),
-                    pw.Text(
-                      'Pág.: ${context.pageNumber} de ${context.pagesCount}',
-                      style: pw.TextStyle(fontSize: 10),
-                    ),
-                  ]));
-        },
+        footer: (pw.Context context) => footerPage(context),
         build: (pw.Context context) => <pw.Widget>[
-          pw.Header(
-              level: 1,
-              child: pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: <pw.Widget>[
-                    pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Text(authorDisplayName),
-                          pw.Text('Classificador da frase:'),
-                        ]),
-                    pw.Image(
-                      image,
-                      width: 50,
-                      height: 100,
-                    ),
-                  ])),
-          pw.Center(
-            child: pw.Text(
-              phraseList.join(),
-              textAlign: pw.TextAlign.center,
-              style: pw.TextStyle(
-                fontSize: 18,
-                color: PdfColors.black,
-              ),
-            ),
-          ),
-          pw.Header(level: 1, child: pw.Text('Classificações:')),
+          headerClassificator(image),
+          phrase(),
+          header('Classificações:'),
           ...buildClassByLine(context),
-          pw.Header(level: 1, child: pw.Text('Diagramas:')),
+          header('Diagramas:'),
         ],
       ),
     );
@@ -122,11 +68,94 @@ class PdfPage extends StatelessWidget {
     return pdf.save();
   }
 
+  pageFormat(format) {
+    return format.copyWith(
+      width: 21.0 * PdfPageFormat.cm,
+      height: 29.7 * PdfPageFormat.cm,
+      marginTop: 1.0 * PdfPageFormat.cm,
+      marginLeft: 1.0 * PdfPageFormat.cm,
+      marginRight: 1.0 * PdfPageFormat.cm,
+      marginBottom: 1.0 * PdfPageFormat.cm,
+    );
+  }
+
+  footerPage(context) {
+    return pw.Container(
+      alignment: pw.Alignment.centerRight,
+      margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
+      decoration: const pw.BoxDecoration(
+          border: pw.Border(
+              top: pw.BorderSide(width: 1.0, color: PdfColors.black))),
+      child: pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        children: [
+          pw.Text(
+            'ClassFrase (R) 2021. Feito com carinho pela Família Catalunha. Ore por nós, que Deus te abençõe.',
+            style: pw.TextStyle(fontSize: 10),
+          ),
+          pw.Text(
+            'Pág.: ${context.pageNumber} de ${context.pagesCount}',
+            style: pw.TextStyle(fontSize: 10),
+          ),
+        ],
+      ),
+    );
+  }
+
+  header(text) {
+    return pw.Header(
+      level: 1,
+      child: pw.Text(text),
+    );
+  }
+
+  phrase() {
+    return pw.Center(
+      child: pw.Text(
+        phraseList.join(),
+        textAlign: pw.TextAlign.center,
+        style: pw.TextStyle(
+          fontSize: 18,
+          color: PdfColors.black,
+        ),
+      ),
+    );
+  }
+
+  headerClassificator(image) {
+    return pw.Header(
+      level: 1,
+      child: pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        children: <pw.Widget>[
+          pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+            pw.Text(authorDisplayName),
+            pw.Text('Classificador da frase:'),
+          ]),
+          pw.Image(
+            image,
+            width: 50,
+            height: 100,
+          ),
+        ],
+      ),
+    );
+  }
+
+  theme(font1, font2) {
+    return pw.ThemeData.withFont(
+      base: font1,
+      bold: font2,
+    );
+  }
+
   List<pw.Widget> buildClassByLine(context) {
     List<pw.Widget> lineList = [];
 
     for (var classId in classOrder) {
       Classification classification = phraseClassifications[classId]!;
+
+      // +++ Montando frase destacando a seleção
       List<pw.InlineSpan> listSpan = [];
       for (var i = 0; i < phraseList.length; i++) {
         listSpan.add(pw.TextSpan(
@@ -149,6 +178,7 @@ class PdfPage extends StatelessWidget {
         ),
       );
 
+      // +++ Montando classificações desta seleção
       List<pw.Widget> categoryWidgetList = [];
       for (var group in groupList) {
         List<String> categoryIdList = classification.categoryIdList;
@@ -170,6 +200,7 @@ class PdfPage extends StatelessWidget {
           );
         }
       }
+      // Juntando frase e classificações
       lineList.add(pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: <pw.Widget>[
