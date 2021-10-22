@@ -55,8 +55,10 @@ class PdfPage extends StatelessWidget {
           bold: font2,
         ),
         pageFormat: format.copyWith(
+          width: 21.0 * PdfPageFormat.cm,
+          height: 29.7 * PdfPageFormat.cm,
           marginTop: 1.0 * PdfPageFormat.cm,
-          marginLeft: 1.5 * PdfPageFormat.cm,
+          marginLeft: 1.0 * PdfPageFormat.cm,
           marginRight: 1.0 * PdfPageFormat.cm,
           marginBottom: 1.0 * PdfPageFormat.cm,
         ),
@@ -64,42 +66,55 @@ class PdfPage extends StatelessWidget {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         footer: (pw.Context context) {
           return pw.Container(
-            alignment: pw.Alignment.centerRight,
-            margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
-            child: pw.Text(
-              'Feito com carinho pela Família Catalunha. ClassFrase (R) 2021. Ore por nós, que Deus te abençõe. Pág.: ${context.pageNumber} de ${context.pagesCount}',
-              style: pw.TextStyle(fontSize: 10),
-            ),
-          );
+              alignment: pw.Alignment.centerRight,
+              margin: const pw.EdgeInsets.only(top: 1.0 * PdfPageFormat.cm),
+              decoration: const pw.BoxDecoration(
+                  border: pw.Border(
+                      top: pw.BorderSide(width: 1.0, color: PdfColors.black))),
+              child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'ClassFrase (R) 2021. Feito com carinho pela Família Catalunha. Ore por nós, que Deus te abençõe.',
+                      style: pw.TextStyle(fontSize: 10),
+                    ),
+                    pw.Text(
+                      'Pág.: ${context.pageNumber} de ${context.pagesCount}',
+                      style: pw.TextStyle(fontSize: 10),
+                    ),
+                  ]));
         },
         build: (pw.Context context) => <pw.Widget>[
-          pw.Header(level: 1, text: 'Frase:'),
+          pw.Header(
+              level: 1,
+              child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: <pw.Widget>[
+                    pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(authorDisplayName),
+                          pw.Text('Classificador da frase:'),
+                        ]),
+                    pw.Image(
+                      image,
+                      width: 50,
+                      height: 100,
+                    ),
+                  ])),
           pw.Center(
             child: pw.Text(
               phraseList.join(),
+              textAlign: pw.TextAlign.center,
               style: pw.TextStyle(
                 fontSize: 18,
                 color: PdfColors.black,
               ),
             ),
           ),
-          pw.Header(level: 1, text: 'Classificador:'),
-          pw.Row(
-            mainAxisSize: pw.MainAxisSize.min,
-            children: [
-              pw.SizedBox(width: 20),
-              pw.Image(
-                image,
-                width: 50,
-                height: 100,
-              ),
-              pw.SizedBox(width: 20),
-              pw.Text(authorDisplayName),
-            ],
-          ),
-          pw.Header(level: 1, text: 'Classificações:'),
+          pw.Header(level: 1, child: pw.Text('Classificações:')),
           ...buildClassByLine(context),
-          pw.Header(level: 1, text: 'Diagramas:'),
+          pw.Header(level: 1, child: pw.Text('Diagramas:')),
         ],
       ),
     );
@@ -119,6 +134,7 @@ class PdfPage extends StatelessWidget {
           style:
               phraseList[i] != ' ' && classification.posPhraseList.contains(i)
                   ? pw.TextStyle(
+                      fontWeight: pw.FontWeight.bold,
                       color: PdfColors.orange900,
                       decoration: pw.TextDecoration.underline,
                       decorationStyle: pw.TextDecorationStyle.solid,
