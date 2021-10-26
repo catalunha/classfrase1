@@ -30,8 +30,8 @@ class CategoryPageVmFactory extends VmFactory<AppState, CategoryPageConnector> {
   CategoryPageVmFactory(widget) : super(widget);
   @override
   CategoryPageVm fromStore() => CategoryPageVm(
-        category: categoryFilter(),
         groupCurrent: state.classificationState.groupCurrent!,
+        category: categoryFilter(),
       );
   List<ClassCategory> categoryFilter() {
     Map<String, ClassCategory> category =

@@ -38,6 +38,8 @@ class SetObserverListObserverAction extends ReduxAction<AppState> {
   SetObserverListObserverAction({required this.observerList});
   @override
   AppState reduce() {
+    observerList.sort((a, b) => a.id.compareTo(b.id));
+
     return state.copyWith(
       observerState: state.observerState.copyWith(
         observerList: observerList,
@@ -209,6 +211,7 @@ class SetObserverPhraseListObserverAction extends ReduxAction<AppState> {
   SetObserverPhraseListObserverAction({required this.observerPhraseList});
   @override
   AppState reduce() {
+    observerPhraseList.sort((a, b) => a.phrase.compareTo(b.phrase));
     return state.copyWith(
       observerState: state.observerState.copyWith(
         observerPhraseList: observerPhraseList,

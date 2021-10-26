@@ -2,7 +2,7 @@ import 'package:classfrase/widget/input_checkboxDelete.dart';
 import 'package:classfrase/widget/input_title.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/learn_addedit_page_controller.dart';
+import 'controller/learn_addedit_page_connector.dart';
 import 'controller/learn_model.dart';
 
 class LearnAddEditPage extends StatefulWidget {
@@ -37,10 +37,10 @@ class _LearnAddEditPageState extends State<LearnAddEditPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(widget.formControllerLearn.learnModel.id.isEmpty
-                      ? 'Adicionar um grupo'
-                      : 'Editar este grupo'),
+                      ? 'Adicionar um grupo.'
+                      : 'Editar este grupo.'),
                   InputTitle(
-                    label: 'Informe o título deste grupo',
+                    label: 'Título do grupo',
                     required: true,
                     initialValue:
                         widget.formControllerLearn.learnModel.description,

@@ -35,7 +35,7 @@ class PersonTile extends StatelessWidget {
       title: Text(
         displayName ?? 'Pessoa sem nome.',
       ),
-      trailing: trailingIconButton,
+      // trailing: trailingIconButton,
     );
   }
 }

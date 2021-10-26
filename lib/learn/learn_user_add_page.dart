@@ -1,6 +1,6 @@
 import 'package:classfrase/widget/input_title.dart';
 import 'package:flutter/material.dart';
-import 'controller/learn_user_add_page_controller.dart';
+import 'controller/learn_user_add_page_connector.dart';
 
 class LearnUserAddPage extends StatefulWidget {
   final FormControllerLearnUserAdd formControllerLearnUserAdd;

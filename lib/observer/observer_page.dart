@@ -54,7 +54,7 @@ class ObserverPage extends StatelessWidget {
           observer: observer,
           widgetList: [
             IconButton(
-              tooltip: 'Ver lista de pessoas e frases com este ID',
+              tooltip: 'Ver lista de pessoas e frases que observo com este ID',
               icon: Icon(AppIconData.people),
               onPressed: () {
                 Navigator.pushNamed(
@@ -75,7 +75,7 @@ class ObserverPage extends StatelessWidget {
 
                 _copyToClipboard();
                 final snackBar = SnackBar(
-                    content: Text('Ok. O ID: ${observer.id} foi copiado'));
+                    content: Text('Ok. O ID: ${observer.id} foi copiado.'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),

@@ -13,7 +13,9 @@ class PhraseModel extends FirestoreModel {
   List<String> phraseList;
 
   final Map<String, Classification> classifications;
-  List<String> classOrder;
+  final List<String>? allCategoryList;
+
+  final List<String> classOrder;
   final String? font;
   final String? description;
   final String? observer;
@@ -31,6 +33,7 @@ class PhraseModel extends FirestoreModel {
     this.isArchived = false,
     this.isDeleted = false,
     this.isPublic = false,
+    this.allCategoryList,
     this.font,
     this.description,
     this.observer,
@@ -47,6 +50,7 @@ class PhraseModel extends FirestoreModel {
     String? observer,
     bool observerSetNull = false,
     Map<String, Classification>? classifications,
+    List<String>? allCategoryList,
     List<String>? classOrder,
     bool? isDeleted,
   }) {
@@ -60,6 +64,7 @@ class PhraseModel extends FirestoreModel {
       isArchived: isArchived ?? this.isArchived,
       observer: observerSetNull ? null : observer ?? this.observer,
       classifications: classifications ?? this.classifications,
+      allCategoryList: allCategoryList ?? this.allCategoryList,
       classOrder: classOrder ?? this.classOrder,
       isDeleted: isDeleted ?? this.isDeleted,
       isPublic: isPublic ?? this.isPublic,
@@ -147,6 +152,15 @@ class PhraseModel extends FirestoreModel {
       word = '';
     }
     return _phraseList;
+  }
+
+  static List<String> setAllCategoryList(
+      Map<String, Classification> classifications) {
+    List<String> _allCategoryList = [];
+    for (var item in classifications.entries) {
+      _allCategoryList.addAll(item.value.categoryIdList);
+    }
+    return _allCategoryList;
   }
 
   @override

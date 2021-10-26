@@ -33,15 +33,21 @@ class InputTitle extends StatelessWidget {
           Container(
             width: double.infinity,
             alignment: Alignment.topCenter,
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(label),
-              required
-                  ? Text(
-                      ' *',
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : Container(),
-            ]),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    label,
+                    softWrap: true,
+                  ),
+                  required
+                      ? Text(
+                          ' *',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      : Container(),
+                ]),
             color: Colors.black12,
           ),
           TextFormField(

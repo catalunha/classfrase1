@@ -22,8 +22,9 @@ class LearningUsersPageConnector extends StatelessWidget {
       },
       builder: (context, vm) => LearningUsersPage(
         learn: vm.learn,
-        learning: vm.learning,
-        userDelete: vm.userDelete,
+        learningList: vm.learningList,
+        onUserDelete: vm.onUserDelete,
+        onSetUserGetPhrases: vm.onSetUserGetPhrases,
       ),
     );
   }
@@ -35,22 +36,36 @@ class LearningUsersPageVmFactory
   @override
   LearningUsersPageVm fromStore() => LearningUsersPageVm(
         learn: state.learnState.learnCurrent!,
-        learning: state.learnState.learnCurrent!.learning,
-        userDelete: (String userId) {
+        learningList: learningSorted(),
+        onUserDelete: (String userId) {
           dispatch(DeleteLearningUserLearnAction(userId: userId));
         },
+        onSetUserGetPhrases: (String userId) {
+          dispatch(SetUserCurrentLearnAction(id: userId));
+          dispatch(GetDocsPhraseLearnAction());
+        },
       );
+
+  List<UserRef> learningSorted() {
+    Map<String, UserRef> learning = state.learnState.learnCurrent!.learning;
+    List<UserRef> userRefSorted = learning.entries.map((e) => e.value).toList();
+    userRefSorted.sort((a, b) => a.displayName!.compareTo(b.displayName!));
+    return userRefSorted;
+  }
 }
 
 class LearningUsersPageVm extends Vm {
   final LearnModel learn;
-  final Map<String, UserRef> learning;
-  final Function(String) userDelete;
+  final List<UserRef> learningList;
+  final Function(String) onUserDelete;
+  final Function(String) onSetUserGetPhrases;
   LearningUsersPageVm({
     required this.learn,
-    required this.learning,
-    required this.userDelete,
+    required this.learningList,
+    required this.onUserDelete,
+    required this.onSetUserGetPhrases,
   }) : super(equals: [
-          learning,
+          learn,
+          learningList,
         ]);
 }

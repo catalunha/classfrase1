@@ -1,7 +1,7 @@
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/learn_addedit_page_controller.dart';
+import 'controller/learn_addedit_page_connector.dart';
 import 'controller/learn_model.dart';
 import 'learn_card.dart';
 
@@ -53,7 +53,7 @@ class LearnPage extends StatelessWidget {
           learn: learn,
           widgetList: [
             IconButton(
-              tooltip: 'Ver lista de pessoas',
+              tooltip: 'Ver lista de pessoas deste grupo.',
               icon: Icon(AppIconData.people),
               onPressed: () {
                 Navigator.pushNamed(
@@ -64,7 +64,7 @@ class LearnPage extends StatelessWidget {
               },
             ),
             IconButton(
-              tooltip: 'Editar este grupo',
+              tooltip: 'Editar este grupo.',
               icon: Icon(AppIconData.edit),
               onPressed: () {
                 showDialog(

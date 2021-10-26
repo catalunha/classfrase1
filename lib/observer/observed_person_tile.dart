@@ -23,6 +23,9 @@ class ObservedPersonTile extends StatelessWidget {
       title: Text(
         phrase.userRef.displayName ?? 'Pessoa sem nome.',
       ),
+      // subtitle: Text(
+      //   'Classificador da frase.',
+      // ),
     );
   }
 }

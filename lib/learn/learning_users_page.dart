@@ -5,25 +5,27 @@ import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/learn_model.dart';
-import 'controller/learn_user_add_page_controller.dart';
+import 'controller/learn_user_add_page_connector.dart';
 
 class LearningUsersPage extends StatelessWidget {
   final LearnModel learn;
-  final Map<String, UserRef> learning;
-  final Function(String) userDelete;
+  final List<UserRef> learningList;
+  final Function(String) onUserDelete;
+  final Function(String) onSetUserGetPhrases;
 
   const LearningUsersPage({
     Key? key,
-    required this.learning,
-    required this.userDelete,
     required this.learn,
+    required this.onUserDelete,
+    required this.learningList,
+    required this.onSetUserGetPhrases,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pessoas deste grupo'),
+        title: Text('Pessoas do grupo'),
       ),
       body: Column(
         children: [
@@ -61,29 +63,42 @@ class LearningUsersPage extends StatelessWidget {
   List<Widget> buildItens(context) {
     List<Widget> list = [];
 
-    for (var person in learning.entries) {
+    for (var person in learningList) {
       list.add(
         Container(
           key: ValueKey(person),
           child: UsersCard(
-            userRef: person.value,
+            userRef: person,
             widgetList: [
               IconButton(
-                tooltip: 'Ver frases desta pessoa',
+                tooltip: 'Ver frases desta pessoa.',
                 icon: Icon(AppIconData.list),
                 onPressed: () {
+                  onSetUserGetPhrases(person.id);
                   Navigator.pushNamed(context, '/learn_phrase_list',
-                      arguments: person.key);
+                      arguments: person.id);
                 },
               ),
               SizedBox(
                 width: 50,
               ),
               IconButton(
-                tooltip: 'Remover esta pessoa do grupo',
+                tooltip: 'Filtrar frases desta pessoa.',
+                icon: Icon(AppIconData.search),
+                onPressed: () {
+                  onSetUserGetPhrases(person.id);
+                  Navigator.pushNamed(context, '/learn_phrase_filter',
+                      arguments: person.id);
+                },
+              ),
+              SizedBox(
+                width: 50,
+              ),
+              IconButton(
+                tooltip: 'Remover esta pessoa do grupo.',
                 icon: Icon(AppIconData.delete),
                 onPressed: () {
-                  userDelete(person.key);
+                  onUserDelete(person.id);
                 },
               ),
             ],

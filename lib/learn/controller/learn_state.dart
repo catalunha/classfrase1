@@ -9,12 +9,14 @@ class LearnState {
   final LearnModel? learnCurrent;
   final UserRef? userRefCurrent;
   final List<PhraseModel>? phraseList;
+  final List<PhraseModel>? phraseFilteredList;
   final PhraseModel? phraseCurrent;
   LearnState({
     this.learnList,
     this.learnCurrent,
     this.userRefCurrent,
     this.phraseList,
+    this.phraseFilteredList,
     this.phraseCurrent,
   });
   factory LearnState.initialState() => LearnState(
@@ -22,6 +24,7 @@ class LearnState {
         learnCurrent: null,
         userRefCurrent: null,
         phraseList: [],
+        phraseFilteredList: [],
         phraseCurrent: null,
       );
 
@@ -31,6 +34,8 @@ class LearnState {
     UserRef? userRefCurrent,
     bool userRefCurrentSetNull = false,
     List<PhraseModel>? phraseList,
+    List<PhraseModel>? phraseFilteredList,
+    bool phraseFilteredListSetNull = false,
     bool phraseListSetNull = false,
     PhraseModel? phraseCurrent,
     bool phraseCurrentSetNull = false,
@@ -41,6 +46,9 @@ class LearnState {
       userRefCurrent:
           userRefCurrentSetNull ? null : userRefCurrent ?? this.userRefCurrent,
       phraseList: phraseListSetNull ? [] : phraseList ?? this.phraseList,
+      phraseFilteredList: phraseFilteredListSetNull
+          ? []
+          : phraseFilteredList ?? this.phraseFilteredList,
       phraseCurrent:
           phraseCurrentSetNull ? null : phraseCurrent ?? this.phraseCurrent,
     );
@@ -55,6 +63,7 @@ class LearnState {
         other.learnCurrent == learnCurrent &&
         other.userRefCurrent == userRefCurrent &&
         listEquals(other.phraseList, phraseList) &&
+        listEquals(other.phraseFilteredList, phraseFilteredList) &&
         other.phraseCurrent == phraseCurrent;
   }
 
@@ -64,6 +73,7 @@ class LearnState {
         learnCurrent.hashCode ^
         userRefCurrent.hashCode ^
         phraseList.hashCode ^
+        phraseFilteredList.hashCode ^
         phraseCurrent.hashCode;
   }
 }

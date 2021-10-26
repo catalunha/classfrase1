@@ -18,8 +18,8 @@ class LearnPhraseListPageConnector extends StatelessWidget {
     return StoreConnector<AppState, LearnPhraseListPageVm>(
       vm: () => LearnPhraseListPageVmFactory(this),
       onInit: (store) {
-        store.dispatch(SetUserCurrentLearnAction(id: userId));
-        store.dispatch(GetDocsPhraseLearnAction());
+        // store.dispatch(SetUserCurrentLearnAction(id: userId));
+        // store.dispatch(GetDocsPhraseLearnAction());
       },
       builder: (context, vm) => LearnPhraseListPage(
         phraseList: vm.phraseList,
@@ -34,14 +34,13 @@ class LearnPhraseListPageVmFactory
   LearnPhraseListPageVmFactory(widget) : super(widget);
   @override
   LearnPhraseListPageVm fromStore() => LearnPhraseListPageVm(
-        phraseList: state.learnState.phraseList!,
+        phraseList: state.learnState.phraseFilteredList!,
         userRefCurrent: state.learnState.userRefCurrent!,
       );
 }
 
 class LearnPhraseListPageVm extends Vm {
   final UserRef userRefCurrent;
-
   final List<PhraseModel> phraseList;
   LearnPhraseListPageVm({
     required this.phraseList,

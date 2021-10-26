@@ -38,6 +38,8 @@ class SetLearnListLearnAction extends ReduxAction<AppState> {
   SetLearnListLearnAction({required this.learnList});
   @override
   AppState reduce() {
+    learnList.sort((a, b) => a.description.compareTo(b.description));
+
     return state.copyWith(
       learnState: state.learnState.copyWith(
         learnList: learnList,
@@ -265,9 +267,20 @@ class SetPhraseListLearnAction extends ReduxAction<AppState> {
   SetPhraseListLearnAction({required this.phraseList});
   @override
   AppState reduce() {
+    phraseList.sort((a, b) => a.phrase.compareTo(b.phrase));
+    List<PhraseModel> phraseListUpdated = [];
+    for (var phrase in phraseList) {
+      phraseListUpdated.add(
+        phrase.copyWith(
+          allCategoryList:
+              PhraseModel.setAllCategoryList(phrase.classifications),
+        ),
+      );
+    }
     return state.copyWith(
       learnState: state.learnState.copyWith(
-        phraseList: phraseList,
+        phraseList: phraseListUpdated,
+        phraseFilteredList: phraseListUpdated,
       ),
     );
   }
@@ -286,6 +299,26 @@ class SetPhraseCurrentLearnAction extends ReduxAction<AppState> {
     return state.copyWith(
       learnState: state.learnState.copyWith(
         phraseCurrent: phraseModel,
+      ),
+    );
+  }
+}
+
+class FilterByThisCategoryLearnAction extends ReduxAction<AppState> {
+  final String categoryId;
+  FilterByThisCategoryLearnAction({
+    required this.categoryId,
+  });
+  @override
+  AppState reduce() {
+    List<PhraseModel> phraseFilteredList;
+    phraseFilteredList = state.learnState.phraseList!
+        .where((e) => e.allCategoryList!.contains(categoryId))
+        .toList();
+
+    return state.copyWith(
+      learnState: state.learnState.copyWith(
+        phraseFilteredList: phraseFilteredList,
       ),
     );
   }

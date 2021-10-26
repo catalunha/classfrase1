@@ -1,4 +1,3 @@
-import 'package:classfrase/widget/icon_button_action.dart';
 import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/phrase/phrase_card.dart';
@@ -163,11 +162,15 @@ class HomePage extends StatelessWidget {
   Expanded phraseArchived(BuildContext context) {
     return Expanded(
         flex: 1,
-        child: IconButtonAction(
-          tooltipMsg: 'Minhas frases arquivadas',
-          icon: AppIconData.box,
-          pushNamed: '/phrase_archived',
-          context: context,
+        child: IconButton(
+          tooltip: 'Minhas frases arquivadas',
+          icon: Icon(AppIconData.box),
+          onPressed: () async {
+            Navigator.pushNamed(
+              context,
+              '/phrase_archived',
+            );
+          },
         ));
   }
 
@@ -228,47 +231,54 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            optionButton(
-                context: context,
-                tooltipMsg: 'Para criar uma frase e classificá-la.',
-                pushNamed: '/phrase_addedit',
-                icon: AppIconData.phrase,
-                label: 'Criar.'),
+            Tooltip(
+              message: 'Para criar uma frase e classificá-la.',
+              child: Container(
+                width: 130,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    '/phrase_addedit',
+                    arguments: '',
+                  ),
+                  icon: Icon(AppIconData.phrase),
+                  label: Text('Criar.'),
+                ),
+              ),
+            ),
             SizedBox(width: 10),
-            optionButton(
-                context: context,
-                tooltipMsg:
-                    'Para observar frases em classificação em tempo real.',
-                pushNamed: '/observer_list',
-                icon: AppIconData.eye,
-                label: 'Observar.'),
+            Tooltip(
+              message: 'Para observar frases em classificação em tempo real.',
+              child: Container(
+                width: 130,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    '/observer_list',
+                    arguments: '',
+                  ),
+                  icon: Icon(AppIconData.eye),
+                  label: Text('Observar.'),
+                ),
+              ),
+            ),
             SizedBox(width: 10),
-            optionButton(
-                context: context,
-                tooltipMsg:
-                    'Para aprender com a classificação de outras pessoas.',
-                pushNamed: '/learn',
-                icon: AppIconData.learn,
-                label: 'Aprender.'),
+            Tooltip(
+              message: 'Para aprender com a classificação de outras pessoas.',
+              child: Container(
+                width: 130,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    '/learn',
+                    arguments: '',
+                  ),
+                  icon: Icon(AppIconData.learn),
+                  label: Text('Aprender.'),
+                ),
+              ),
+            ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Tooltip optionButton({context, tooltipMsg, pushNamed, icon, label}) {
-    return Tooltip(
-      message: tooltipMsg,
-      child: Container(
-        width: 130,
-        child: ElevatedButton.icon(
-          onPressed: () => Navigator.pushNamed(
-            context,
-            pushNamed,
-            arguments: '',
-          ),
-          icon: Icon(AppIconData.phrase),
-          label: Text(label),
         ),
       ),
     );
@@ -300,32 +310,44 @@ class HomePage extends StatelessWidget {
           ],
         ),
         widgetList: [
-          IconButtonAction(
-            context: context,
-            tooltipMsg: 'Classificar esta frase',
-            icon: AppIconData.letter,
-            pushNamed: '/classifying',
-            pushNamedArg: phrase.id,
+          IconButton(
+            tooltip: 'Classificar esta frase',
+            icon: Icon(AppIconData.letter),
+            onPressed: () async {
+              Navigator.pushNamed(
+                context,
+                '/classifying',
+                arguments: phrase.id,
+              );
+            },
           ),
           SizedBox(
             width: 50,
           ),
-          IconButtonAction(
-            context: context,
-            tooltipMsg: 'Editar esta frase',
-            icon: AppIconData.edit,
-            pushNamed: '/phrase_addedit',
-            pushNamedArg: phrase.id,
+          IconButton(
+            tooltip: 'Editar esta frase',
+            icon: Icon(AppIconData.edit),
+            onPressed: () async {
+              Navigator.pushNamed(
+                context,
+                '/phrase_addedit',
+                arguments: phrase.id,
+              );
+            },
           ),
           SizedBox(
             width: 50,
           ),
-          IconButtonAction(
-            context: context,
-            tooltipMsg: 'Imprimir a classificação desta frase.',
-            icon: AppIconData.print,
-            pushNamed: '/pdf',
-            pushNamedArg: phrase.id,
+          IconButton(
+            tooltip: 'Imprimir a classificação desta frase.',
+            icon: Icon(AppIconData.print),
+            onPressed: () async {
+              Navigator.pushNamed(
+                context,
+                '/pdf',
+                arguments: phrase.id,
+              );
+            },
           ),
         ],
       ));

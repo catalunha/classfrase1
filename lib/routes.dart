@@ -9,9 +9,10 @@ import 'classification/controller/group_page_controller.dart';
 import 'classifying/controller/classifications_connector.dart';
 import 'classifying/controller/classifying_connector.dart';
 import 'learn/controller/learn_page_connector.dart';
-import 'learn/controller/learn_phrase_list_page_controller.dart';
-import 'learn/controller/learn_phrase_page_controller.dart';
-import 'learn/controller/learning_users_page_controller.dart';
+import 'learn/controller/learn_phrase_filter_connector.dart';
+import 'learn/controller/learn_phrase_list_page_connector.dart';
+import 'learn/controller/learn_phrase_page_connector.dart';
+import 'learn/controller/learning_users_page_connector.dart';
 import 'home/coffee.dart';
 import 'home/controller/home_page_connector.dart';
 import 'home/information.dart';
@@ -71,9 +72,14 @@ class Routes {
         LearnPhraseListPageConnector(
           userId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+    '/learn_phrase_filter': (BuildContext context) =>
+        LearnPhraseFilterConnector(
+          userId: ModalRoute.of(context)!.settings.arguments.toString(),
+        ),
     '/learn_phrase': (BuildContext context) => LearnPhrasePageConnector(
           phraseId: ModalRoute.of(context)!.settings.arguments.toString(),
         ),
+
     // Admin
     '/group': (BuildContext context) => GroupPageConnector(),
     '/group_addedit': (BuildContext context) => GroupAddEditPageConnector(

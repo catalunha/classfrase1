@@ -55,16 +55,6 @@ class ObserverPhrasePage extends StatelessWidget {
               width: 50,
             ),
             IconButton(
-              tooltip: 'Remover esta frase de minhas observações.',
-              icon: Icon(AppIconData.delete),
-              onPressed: () {
-                setNullObserverFieldPhrase(phrase.id);
-              },
-            ),
-            SizedBox(
-              width: 50,
-            ),
-            IconButton(
               tooltip: 'Imprimir a classificação desta frase.',
               onPressed: () => Navigator.pushNamed(
                 context,
@@ -72,6 +62,16 @@ class ObserverPhrasePage extends StatelessWidget {
                 arguments: phrase.id,
               ),
               icon: Icon(Icons.print),
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            IconButton(
+              tooltip: 'Remover esta frase de minhas observações.',
+              icon: Icon(AppIconData.delete),
+              onPressed: () {
+                setNullObserverFieldPhrase(phrase.id);
+              },
             ),
           ],
         ),

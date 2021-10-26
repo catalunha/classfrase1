@@ -20,7 +20,7 @@ class LearnPhraseCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            tileColor: Colors.black12,
+            tileColor: Colors.yellow,
             title: Text(
               phraseModel.phrase,
               style: AppTextStyles.buttonBoldHeading,

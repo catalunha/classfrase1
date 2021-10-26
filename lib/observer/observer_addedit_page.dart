@@ -37,10 +37,10 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(widget.formControllerObserver.observerModel.id.isEmpty
-                    ? 'Cadastrar um ID de observador'
-                    : 'Editar este ID de observador'),
+                    ? 'Cadastrar um ID de observador.'
+                    : 'Editar este ID de observador.'),
                 InputTitle(
-                  label: 'Informe um título para o ID (Identificador)',
+                  label: 'Título do ID (IDentificador) de observador',
                   required: true,
                   initialValue:
                       widget.formControllerObserver.observerModel.description,
@@ -52,7 +52,7 @@ class _ObserverAddEditPageState extends State<ObserverAddEditPage> {
                 formControllerObserver.observerModel.id.isEmpty
                     ? Container()
                     : InputCheckBoxDelete(
-                        title: 'Apagar esta frase',
+                        title: 'Apagar este ID (IDentificador)',
                         subtitle: 'Remover permanentemente',
                         value: widget
                             .formControllerObserver.observerModel.isDeleted,

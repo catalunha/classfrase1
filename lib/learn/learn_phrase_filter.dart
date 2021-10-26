@@ -1,75 +1,61 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
-import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 
-import 'controller/classification_type.dart';
+class LearnPhraseFilter extends StatelessWidget {
+  final List<ClassGroup> groupList;
+  final String? groupId;
 
-class ClassificationsPage extends StatelessWidget {
-  final List<String> phraseList;
-  final List<int> selectedPhrasePosList;
-  final String groupId;
-  final ClassGroup groupData;
+  final Function(String) onSetGroup;
   final List<ClassCategory> categoryList;
-  final Function(String) onSelectCategory;
-  final List<String> selectedCategoryIdList;
-  final VoidCallback onSaveClassification;
-  final VoidCallback onSetNullSelectedCategoryIdOld;
+  final List<PhraseModel> phraseList;
+  final Function(String) onFilterByThisCategory;
 
-  const ClassificationsPage({
+  const LearnPhraseFilter({
     Key? key,
-    required this.phraseList,
-    required this.selectedPhrasePosList,
-    required this.groupId,
-    required this.groupData,
+    required this.groupList,
+    required this.onSetGroup,
     required this.categoryList,
-    required this.onSelectCategory,
-    required this.selectedCategoryIdList,
-    required this.onSaveClassification,
-    required this.onSetNullSelectedCategoryIdOld,
+    this.groupId,
+    required this.phraseList,
+    required this.onFilterByThisCategory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            onSetNullSelectedCategoryIdOld();
-            Navigator.pop(context);
-          },
-        ),
-        title: Text('Opções para ${groupData.title}'),
+        title: Text('Escolha o filtro'),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(fontSize: 28, color: Colors.black),
-                  children: buildPhraseNoSelectable(
-                    context: context,
-                    phraseList: phraseList,
-                    selectedPhrasePosList: selectedPhrasePosList,
-                  ),
-                ),
-              ),
-            ),
-          ),
           Container(
             color: Colors.black12,
-            child: Text('clique para escolher uma ou mais opções.'),
+            child: Center(
+              child: Text('Clique num grupo para mostrar suas classificações.'),
+            ),
           ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: buildGroup(context),
+            ),
+          ),
+          groupId == null
+              ? Container()
+              : Container(
+                  color: Colors.black12,
+                  child: Text('clique na classificação desejada.'),
+                ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  if (groupData.id == '720c16e8-f119-44b8-82dd-80ade6e2feae')
+                  if (groupId == '720c16e8-f119-44b8-82dd-80ade6e2feae')
                     ...buildCategoriesListNotExpanded(context),
-                  if (groupData.id != '720c16e8-f119-44b8-82dd-80ade6e2feae')
+                  if (groupId != '720c16e8-f119-44b8-82dd-80ade6e2feae')
                     ...buildCategoriesListExpanded(context),
                   SizedBox(
                     height: 60,
@@ -80,13 +66,26 @@ class ClassificationsPage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(AppIconData.saveInCloud),
-        onPressed: () {
-          onSaveClassification();
-        },
-      ),
     );
+  }
+
+  List<Widget> buildGroup(context) {
+    List<Widget> list = [];
+
+    for (var group in groupList) {
+      list.add(
+        TextButton(
+          onPressed: () {
+            onSetGroup(group.id!);
+          },
+          child: Text('${group.title}'),
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 18),
+          ),
+        ),
+      );
+    }
+    return list;
   }
 
   List<Widget> buildCategoriesListNotExpanded(context) {
@@ -112,19 +111,26 @@ class ClassificationsPage extends StatelessWidget {
         }
         setCategory = category.title;
       }
+      bool containThisCategory = false;
+      for (var phrase in phraseList) {
+        if (phrase.allCategoryList!.contains(category.id)) {
+          containThisCategory = true;
+          break;
+        }
+      }
       list.add(
         Row(
           children: [
             Expanded(
               child: Container(
-                color: selectedCategoryIdList.contains(category.id)
-                    ? Colors.yellow
-                    : null,
+                color: containThisCategory ? Colors.yellow : null,
                 child: ListTile(
                   title: Text('${category.title}'),
-                  onTap: () {
-                    onSelectCategory(category.id!);
-                  },
+                  onTap: containThisCategory
+                      ? () {
+                          onFilterByThisCategory(category.id!);
+                        }
+                      : null,
                 ),
               ),
             ),
@@ -155,19 +161,28 @@ class ClassificationsPage extends StatelessWidget {
   List<Widget> buildCategoriesListExpanded(context) {
     List<Widget> list = [];
     for (var category in categoryList) {
+      bool containThisCategory = false;
+      for (var phrase in phraseList) {
+        if (phrase.allCategoryList!.contains(category.id)) {
+          containThisCategory = true;
+          break;
+        }
+      }
       list.add(
         Row(
           children: [
             Expanded(
               child: Container(
-                color: selectedCategoryIdList.contains(category.id)
-                    ? Colors.yellow
-                    : null,
+                color: containThisCategory ? Colors.yellow : null,
                 child: ListTile(
                   title: Text('${category.title}'),
-                  onTap: () {
-                    onSelectCategory(category.id!);
-                  },
+                  onTap: containThisCategory
+                      ? () {
+                          onFilterByThisCategory(category.id!);
+                          Navigator.pushNamed(context, '/learn_phrase_list',
+                              arguments: '');
+                        }
+                      : null,
                 ),
               ),
             ),
