@@ -11,7 +11,7 @@ class Dados {
   }
 }
 
-map_list() {
+maplist() {
   Map<String, Dados> map = {};
   map['b'] = Dados(nome: 'bb');
   map['a'] = Dados(nome: 'aa');

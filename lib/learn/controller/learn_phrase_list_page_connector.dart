@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../app_state.dart';
 import '../learn_phrase_list_page.dart';
-import 'learn_action.dart';
 
 class LearnPhraseListPageConnector extends StatelessWidget {
   final String userId;
