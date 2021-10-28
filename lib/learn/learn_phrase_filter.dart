@@ -47,7 +47,7 @@ class LearnPhraseFilter extends StatelessWidget {
               ? Container()
               : Container(
                   color: Colors.black12,
-                  child: Text('clique na classificação desejada.'),
+                  child: Text('Clique na classificação desejada.'),
                 ),
           Expanded(
             child: SingleChildScrollView(
@@ -129,6 +129,8 @@ class LearnPhraseFilter extends StatelessWidget {
                   onTap: containThisCategory
                       ? () {
                           onFilterByThisCategory(category.id!);
+                          Navigator.pushNamed(context, '/learn_phrase_list',
+                              arguments: '');
                         }
                       : null,
                 ),

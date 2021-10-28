@@ -29,17 +29,18 @@ List<Widget> buildClassByLine2({
   required Map<String, Classification> phraseClassifications,
   required List<String> classOrder,
   required List<String> phraseList,
+  Function(int)? onSelectPhrase,
 }) {
   List<Widget> lineList = [];
 
   for (var classId in classOrder) {
     Classification classification = phraseClassifications[classId]!;
-
+    List<int> posPhraseList = classification.posPhraseList;
     List<InlineSpan> listSpan = [];
     for (var i = 0; i < phraseList.length; i++) {
       listSpan.add(TextSpan(
         text: phraseList[i],
-        style: phraseList[i] != ' ' && classification.posPhraseList.contains(i)
+        style: phraseList[i] != ' ' && posPhraseList.contains(i)
             ? TextStyle(
                 color: Colors.orange.shade900,
                 decoration: TextDecoration.underline,
@@ -95,8 +96,17 @@ List<Widget> buildClassByLine2({
               children: [
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [richText],
+                  child: GestureDetector(
+                    onTap: onSelectPhrase != null
+                        ? () {
+                            for (var index in posPhraseList) {
+                              onSelectPhrase(index);
+                            }
+                          }
+                        : null,
+                    child: Row(
+                      children: [richText],
+                    ),
                   ),
                 ),
                 ...categoryWidgetList,
@@ -118,6 +128,7 @@ List<Widget> buildClassifications2({
   required List<String> classOrder,
   required List<String> phraseList,
   required List<int> selectedPhrasePosList,
+  Function(int)? onSelectPhrase,
 }) {
   List<Widget> list = [];
   for (var group in groupList) {
@@ -161,6 +172,13 @@ List<Widget> buildClassifications2({
             child: ListTile(
               title: Text('$phrase'),
               subtitle: Text('$category'),
+              onTap: onSelectPhrase != null
+                  ? () {
+                      for (var index in phrasePosList) {
+                        onSelectPhrase(index);
+                      }
+                    }
+                  : null,
             ),
           ),
         );
