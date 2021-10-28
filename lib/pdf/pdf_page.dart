@@ -13,6 +13,7 @@ class PdfPage extends StatelessWidget {
 
   final Map<String, Classification> phraseClassifications;
   final List<String> classOrder;
+  final String phraseFont;
   final String authorDisplayName;
   final String authorPhoto;
   PdfPage({
@@ -24,6 +25,7 @@ class PdfPage extends StatelessWidget {
     required this.classOrder,
     required this.authorDisplayName,
     required this.authorPhoto,
+    this.phraseFont = '',
   }) : super(key: key);
 
   @override
@@ -58,6 +60,10 @@ class PdfPage extends StatelessWidget {
         build: (pw.Context context) => <pw.Widget>[
           headerClassificator(image),
           phrase(),
+          pw.Text(
+            'Fonte: $phraseFont',
+            style: pw.TextStyle(fontSize: 10),
+          ),
           header('Classificações:'),
           ...buildClassByLine(context),
           header('Diagramas:'),

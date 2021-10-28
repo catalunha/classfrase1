@@ -28,6 +28,7 @@ class PdfLearnConnector extends StatelessWidget {
         category: vm.category,
         phraseClassifications: vm.phraseClassifications,
         classOrder: vm.classOrder,
+        phraseFont: vm.phraseFont,
         authorDisplayName: vm.authorDisplayName,
         authorPhoto: vm.authorPhoto,
       ),
@@ -47,6 +48,7 @@ class ClassifyingFactory extends VmFactory<AppState, PdfLearnConnector> {
         authorDisplayName:
             state.learnState.phraseCurrent!.userRef.displayName ?? '',
         authorPhoto: state.learnState.phraseCurrent!.userRef.photoURL ?? '',
+        phraseFont: state.learnState.phraseCurrent!.font ?? '',
       );
   List<ClassGroup> groupListSorted() {
     Map<String, ClassGroup> group =
@@ -60,6 +62,8 @@ class ClassifyingFactory extends VmFactory<AppState, PdfLearnConnector> {
 class ClassifyingVm extends Vm {
   final String authorDisplayName;
   final String authorPhoto;
+  final String phraseFont;
+
   final List<String> phraseList;
   final List<ClassGroup> groupList;
   final Map<String, ClassCategory> category;
@@ -69,6 +73,7 @@ class ClassifyingVm extends Vm {
   ClassifyingVm({
     required this.authorDisplayName,
     required this.authorPhoto,
+    required this.phraseFont,
     required this.phraseList,
     required this.groupList,
     required this.category,
@@ -77,6 +82,7 @@ class ClassifyingVm extends Vm {
   }) : super(equals: [
           authorDisplayName,
           authorPhoto,
+          phraseFont,
           phraseList,
           groupList,
           category,
