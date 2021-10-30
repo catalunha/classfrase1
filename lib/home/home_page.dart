@@ -1,9 +1,11 @@
+import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/phrase/phrase_card.dart';
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   final String photoUrl;
@@ -321,8 +323,42 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            width: 50,
+          // SizedBox(
+          //   width: 50,
+          // ),
+
+          // SizedBox(
+          //   width: 50,
+          // ),
+          IconButton(
+            tooltip: 'Imprimir a classificação desta frase.',
+            icon: Icon(AppIconData.print),
+            onPressed: () async {
+              Navigator.pushNamed(
+                context,
+                '/pdf',
+                arguments: phrase.id,
+              );
+            },
+          ),
+          AppLink(
+            url: phrase.diagramUrl,
+            icon: AppIconData.diagram,
+            tooltipMsg: 'Ver diagrama desta frase',
+          ),
+          IconButton(
+            tooltip: 'Copiar a frase para área de transferência.',
+            icon: Icon(AppIconData.copy),
+            onPressed: () {
+              Future<void> _copyToClipboard() async {
+                await Clipboard.setData(ClipboardData(text: phrase.phrase));
+              }
+
+              _copyToClipboard();
+              final snackBar =
+                  SnackBar(content: Text('Ok. A frase foi copiada.'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
           ),
           IconButton(
             tooltip: 'Editar esta frase',
@@ -331,20 +367,6 @@ class HomePage extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 '/phrase_addedit',
-                arguments: phrase.id,
-              );
-            },
-          ),
-          SizedBox(
-            width: 50,
-          ),
-          IconButton(
-            tooltip: 'Imprimir a classificação desta frase.',
-            icon: Icon(AppIconData.print),
-            onPressed: () async {
-              Navigator.pushNamed(
-                context,
-                '/pdf',
                 arguments: phrase.id,
               );
             },

@@ -31,6 +31,8 @@ class PdfObserverConnector extends StatelessWidget {
         phraseFont: vm.phraseFont,
         authorDisplayName: vm.authorDisplayName,
         authorPhoto: vm.authorPhoto,
+        pdfFileName: vm.pdfFileName,
+        diagramUrl: vm.diagramUrl,
       ),
     );
   }
@@ -52,6 +54,8 @@ class ClassifyingFactory extends VmFactory<AppState, PdfObserverConnector> {
         authorPhoto:
             state.observerState.observerPhraseCurrent!.userRef.photoURL ?? '',
         phraseFont: state.observerState.observerPhraseCurrent!.font ?? '',
+        pdfFileName: state.observerState.observerPhraseCurrent!.id,
+        diagramUrl: state.observerState.observerPhraseCurrent!.diagramUrl ?? '',
       );
   List<ClassGroup> groupListSorted() {
     Map<String, ClassGroup> group =
@@ -66,6 +70,8 @@ class ClassifyingVm extends Vm {
   final String authorDisplayName;
   final String authorPhoto;
   final String phraseFont;
+  final String pdfFileName;
+  final String diagramUrl;
 
   final List<String> phraseList;
   final List<ClassGroup> groupList;
@@ -77,6 +83,8 @@ class ClassifyingVm extends Vm {
     required this.authorDisplayName,
     required this.authorPhoto,
     required this.phraseFont,
+    required this.pdfFileName,
+    required this.diagramUrl,
     required this.phraseList,
     required this.groupList,
     required this.category,
@@ -86,6 +94,7 @@ class ClassifyingVm extends Vm {
           phraseList,
           groupList,
           phraseFont,
+          pdfFileName,
           category,
           phraseClassifications,
           classOrder,

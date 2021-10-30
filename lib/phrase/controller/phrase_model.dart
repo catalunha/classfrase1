@@ -17,7 +17,7 @@ class PhraseModel extends FirestoreModel {
 
   final List<String> classOrder;
   final String? font;
-  final String? description;
+  final String? diagramUrl;
   final String? observer;
 
   final bool isArchived;
@@ -35,7 +35,7 @@ class PhraseModel extends FirestoreModel {
     this.isPublic = false,
     this.allCategoryList,
     this.font,
-    this.description,
+    this.diagramUrl,
     this.observer,
   }) : super(id);
 
@@ -60,7 +60,7 @@ class PhraseModel extends FirestoreModel {
       phrase: phrase ?? this.phrase,
       phraseList: phraseList ?? this.phraseList,
       font: font ?? this.font,
-      description: description ?? this.description,
+      diagramUrl: description ?? this.diagramUrl,
       isArchived: isArchived ?? this.isArchived,
       observer: observerSetNull ? null : observer ?? this.observer,
       classifications: classifications ?? this.classifications,
@@ -86,7 +86,7 @@ class PhraseModel extends FirestoreModel {
     data['isDeleted'] = isDeleted;
     data['isPublic'] = isPublic;
     if (font != null) data['font'] = font;
-    if (description != null) data['description'] = description;
+    if (diagramUrl != null) data['diagramUrl'] = diagramUrl;
     data['observer'] = observer;
     return data;
   }
@@ -121,7 +121,7 @@ class PhraseModel extends FirestoreModel {
       isDeleted: map['isDeleted'],
       isPublic: map['isPublic'] ?? false,
       font: map['font'],
-      description: map['description'],
+      diagramUrl: map['diagramUrl'],
       observer: map['observer'],
     );
     return temp;
@@ -165,7 +165,7 @@ class PhraseModel extends FirestoreModel {
 
   @override
   String toString() {
-    return 'PhraseModel( phrase: $phrase, font: $font, description: $description, isArchived: $isArchived, observer: $observer,  isDeleted: $isDeleted)';
+    return 'PhraseModel( phrase: $phrase, font: $font, description: $diagramUrl, isArchived: $isArchived, observer: $observer,  isDeleted: $isDeleted)';
   }
 
   @override
@@ -177,7 +177,7 @@ class PhraseModel extends FirestoreModel {
         other.phrase == phrase &&
         other.phraseList == phraseList &&
         other.font == font &&
-        other.description == description &&
+        other.diagramUrl == diagramUrl &&
         other.isArchived == isArchived &&
         other.isPublic == isPublic &&
         other.classOrder == classOrder &&
@@ -192,7 +192,7 @@ class PhraseModel extends FirestoreModel {
         phrase.hashCode ^
         phraseList.hashCode ^
         font.hashCode ^
-        description.hashCode ^
+        diagramUrl.hashCode ^
         isArchived.hashCode ^
         isPublic.hashCode ^
         observer.hashCode ^

@@ -1,7 +1,9 @@
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/user/controller/user_model.dart';
+import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'learn_phrase_card.dart';
 import 'person_tile.dart';
@@ -57,9 +59,9 @@ class LearnPhraseListPage extends StatelessWidget {
                     arguments: phrase.id);
               },
             ),
-            SizedBox(
-              width: 50,
-            ),
+            // SizedBox(
+            //   width: 50,
+            // ),
             IconButton(
               tooltip: 'Imprimir a classificação desta frase.',
               onPressed: () => Navigator.pushNamed(
@@ -68,6 +70,25 @@ class LearnPhraseListPage extends StatelessWidget {
                 arguments: phrase.id,
               ),
               icon: Icon(Icons.print),
+            ),
+            AppLink(
+              url: phrase.diagramUrl,
+              icon: AppIconData.diagram,
+              tooltipMsg: 'Ver diagrama desta frase',
+            ),
+            IconButton(
+              tooltip: 'Copiar a frase para área de transferência.',
+              icon: Icon(AppIconData.copy),
+              onPressed: () {
+                Future<void> _copyToClipboard() async {
+                  await Clipboard.setData(ClipboardData(text: phrase.phrase));
+                }
+
+                _copyToClipboard();
+                final snackBar =
+                    SnackBar(content: Text('Ok. A frase foi copiada.'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
             ),
           ],
         ),

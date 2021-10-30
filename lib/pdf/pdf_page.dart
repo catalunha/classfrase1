@@ -16,6 +16,9 @@ class PdfPage extends StatelessWidget {
   final String phraseFont;
   final String authorDisplayName;
   final String authorPhoto;
+  final String pdfFileName;
+  final String diagramUrl;
+
   PdfPage({
     Key? key,
     required this.phraseList,
@@ -26,6 +29,8 @@ class PdfPage extends StatelessWidget {
     required this.authorDisplayName,
     required this.authorPhoto,
     this.phraseFont = '',
+    required this.pdfFileName,
+    required this.diagramUrl,
   }) : super(key: key);
 
   @override
@@ -33,6 +38,7 @@ class PdfPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('ClassFrase em PDF')),
       body: PdfPreview(
+        pdfFileName: pdfFileName,
         build: (format) => _generatePdf(format, 'ClassFrase em PDF'),
       ),
     );
@@ -66,7 +72,17 @@ class PdfPage extends StatelessWidget {
           ),
           header('Classificações:'),
           ...buildClassByLine(context),
-          header('Diagramas:'),
+          header('Diagrama:'),
+          pw.Row(children: [
+            pw.Text(
+              'PDF desta classificação: $pdfFileName.pdf  |  ',
+              style: pw.TextStyle(fontSize: 10),
+            ),
+            pw.Text('Diagrama online: '),
+            diagramUrl.isNotEmpty
+                ? _UrlText('clique aqui.', diagramUrl)
+                : pw.Text('não disponível.'),
+          ])
         ],
       ),
     );
@@ -215,5 +231,26 @@ class PdfPage extends StatelessWidget {
           ]));
     }
     return lineList;
+  }
+}
+
+class _UrlText extends pw.StatelessWidget {
+  _UrlText(this.text, this.url);
+
+  final String text;
+  final String url;
+
+  @override
+  pw.Widget build(pw.Context context) {
+    return pw.UrlLink(
+      destination: url,
+      child: pw.Text(
+        text,
+        // style: const pw.TextStyle(
+        //   decoration: pw.TextDecoration.underline,
+        //   color: PdfColors.blue,
+        // ),
+      ),
+    );
   }
 }

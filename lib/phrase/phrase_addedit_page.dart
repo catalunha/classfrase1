@@ -76,8 +76,8 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                   },
                 ),
                 InputTitle(
-                  label: 'Descrição desta frase',
-                  initialValue: widget.formController.phraseModel.description,
+                  label: 'Link para o diagrama online desta frase',
+                  initialValue: widget.formController.phraseModel.diagramUrl,
                   onChanged: (value) {
                     widget.formController.onChange(description: value);
                   },

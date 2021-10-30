@@ -20,7 +20,7 @@ class PhraseCard extends StatelessWidget {
       elevation: 10,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ListTile(
             tileColor: Colors.yellowAccent,
