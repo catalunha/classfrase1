@@ -23,7 +23,7 @@ Este projeto nasceu da necessidade de nossa família em estudar as classificaç�
 
 Muitas pessoas tem nos ajudado, e temos recebido muitas sugestões de aperfeiçoamento. Somos muito gratos a todos.
 
-Se você deseja nos ajudar a manter este proejto pois temos custos com hospedagem do aplicativo, Métricas de Armazenamento/Acessos, Serviços em tempo real, etc. Ou mesmo ampliá-lo melhorando as cotas e métricas de banco de dados e acesso, buscando consultores, programadores, designers, etc.
+Se você deseja nos ajudar a manter este projeto pois temos custos com hospedagem do aplicativo, Métricas de Armazenamento/Acessos, Serviços em tempo real, etc. Ou mesmo ampliá-lo melhorando as cotas e métricas de banco de dados e acesso, buscando consultores, programadores, designers, etc.
 
 Considere contribuir com QUALQUER quantia para este PIX de CPF: 91302315315
 

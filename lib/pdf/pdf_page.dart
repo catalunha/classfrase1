@@ -73,16 +73,17 @@ class PdfPage extends StatelessWidget {
           header('Classificações:'),
           ...buildClassByLine(context),
           header('Diagrama:'),
-          pw.Row(children: [
-            pw.Text(
-              'PDF desta classificação: $pdfFileName.pdf  |  ',
-              style: pw.TextStyle(fontSize: 10),
-            ),
-            pw.Text('Diagrama online: '),
-            diagramUrl.isNotEmpty
-                ? _UrlText('clique aqui.', diagramUrl)
-                : pw.Text('não disponível.'),
-          ])
+          diagramUrl.isNotEmpty
+              ? pw.Row(
+                  children: [
+                    pw.Text(
+                      'Para ver o diagrama online, ',
+                      style: pw.TextStyle(fontSize: 10),
+                    ),
+                    _UrlText('clique aqui.', diagramUrl),
+                  ],
+                )
+              : pw.Text(''),
         ],
       ),
     );
@@ -246,10 +247,10 @@ class _UrlText extends pw.StatelessWidget {
       destination: url,
       child: pw.Text(
         text,
-        // style: const pw.TextStyle(
-        //   decoration: pw.TextDecoration.underline,
-        //   color: PdfColors.blue,
-        // ),
+        style: const pw.TextStyle(
+            // decoration: pw.TextDecoration.underline,
+            // color: PdfColors.blue,
+            fontSize: 10),
       ),
     );
   }
