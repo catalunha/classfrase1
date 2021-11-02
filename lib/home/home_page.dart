@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
       preferredSize: Size.fromHeight(100),
       child: SafeArea(
         child: Container(
-          color: AppColors.primary,
+          // color: AppColors.primary,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -181,7 +181,7 @@ class HomePage extends StatelessWidget {
       flex: 5,
       child: Container(
         height: 30,
-        color: Colors.black12,
+        // color: Colors.black12,
         child: Row(
           children: [
             SizedBox(

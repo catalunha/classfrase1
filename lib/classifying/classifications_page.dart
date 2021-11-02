@@ -49,7 +49,10 @@ class ClassificationsPage extends StatelessWidget {
             child: Center(
               child: RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 28, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 28,
+                    // color: Colors.black,
+                  ),
                   children: buildPhraseNoSelectable(
                     context: context,
                     phraseList: phraseList,
@@ -60,7 +63,7 @@ class ClassificationsPage extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.black12,
+            // color: Colors.black12,
             child: Text('clique para escolher uma ou mais opções.'),
           ),
           Expanded(
@@ -117,9 +120,9 @@ class ClassificationsPage extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                color: selectedCategoryIdList.contains(category.id)
-                    ? Colors.yellow
-                    : null,
+                // color: selectedCategoryIdList.contains(category.id)
+                //     ? Colors.yellow
+                //     : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: () {
@@ -160,9 +163,9 @@ class ClassificationsPage extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                color: selectedCategoryIdList.contains(category.id)
-                    ? Colors.yellow
-                    : null,
+                // color: selectedCategoryIdList.contains(category.id)
+                //     ? Colors.yellow
+                //     : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: () {

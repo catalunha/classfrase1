@@ -32,7 +32,7 @@ class LearnPhraseFilter extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            color: Colors.black12,
+            // color: Colors.black12,
             child: Center(
               child: Text('Clique num grupo para mostrar suas classificações.'),
             ),
@@ -46,7 +46,7 @@ class LearnPhraseFilter extends StatelessWidget {
           groupId == null
               ? Container()
               : Container(
-                  color: Colors.black12,
+                  // color: Colors.black12,
                   child: Text('Clique na classificação desejada.'),
                 ),
           Expanded(
@@ -98,7 +98,7 @@ class LearnPhraseFilter extends StatelessWidget {
         if (list.isNotEmpty) {
           listExpansion.add(
             ExpansionTile(
-              backgroundColor: Colors.black12,
+              // backgroundColor: Colors.black12,
               title: Text(
                 setCategory,
                 style: TextStyle(fontSize: 24),
@@ -123,7 +123,7 @@ class LearnPhraseFilter extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                color: containThisCategory ? Colors.yellow : null,
+                // color: containThisCategory ? Colors.yellow : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: containThisCategory
@@ -146,7 +146,7 @@ class LearnPhraseFilter extends StatelessWidget {
     if (list.isNotEmpty) {
       listExpansion.add(
         ExpansionTile(
-          backgroundColor: Colors.black12,
+          // backgroundColor: Colors.black12,
           title: Text(
             setCategory,
             style: TextStyle(fontSize: 24),
@@ -175,7 +175,7 @@ class LearnPhraseFilter extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                color: containThisCategory ? Colors.yellow : null,
+                // color: containThisCategory ? Colors.yellow : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: containThisCategory

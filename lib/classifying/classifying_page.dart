@@ -65,7 +65,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             children: [
               Expanded(
                 child: Container(
-                  color: Colors.black12,
+                  // color: Colors.black12,
                   child: Center(
                     child: Text('Selecione partes da frase.'),
                   ),
@@ -118,7 +118,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             ),
           ),
           Container(
-            color: Colors.black12,
+            // color: Colors.black12,
             child: Center(
               child: Text('Clique num grupo para escolher uma classificação.'),
             ),
@@ -136,21 +136,21 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      color: Colors.black12,
+                      // color: Colors.black12,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: Colors.black12,
+                      // color: Colors.black12,
                       child: Center(
                           child: Column(
-                        children: [
-                          Text(ClassBy.selecao.name),
-                          Text('Você pode reordenar esta lista.',
-                              style: TextStyle(fontSize: 12))
-                        ],
-                      ))),
+                    children: [
+                      Text(ClassBy.selecao.name),
+                      Text('Você pode reordenar esta lista.',
+                          style: TextStyle(fontSize: 12))
+                    ],
+                  ))),
                 ),
               IconButton(
                 tooltip: ClassBy.selecao.name,

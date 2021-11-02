@@ -21,7 +21,10 @@ class RequiredInForm extends StatelessWidget {
               Text('Campos com '),
               Text(
                 ' * ',
-                style: TextStyle(color: Colors.red, fontSize: 16),
+                style: TextStyle(
+                  // color: Colors.red,
+                  fontSize: 16,
+                ),
               ),
               Text(' tem preenchimento obrigatório.'),
             ],

@@ -21,7 +21,7 @@ class ObserverCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            tileColor: Colors.black12,
+            // tileColor: Colors.black12,
             title: Text(
               observer.id,
               style: AppTextStyles.buttonBoldHeading,

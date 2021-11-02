@@ -249,7 +249,7 @@ class _UrlText extends pw.StatelessWidget {
         text,
         style: const pw.TextStyle(
             // decoration: pw.TextDecoration.underline,
-            // color: PdfColors.blue,
+            color: PdfColors.blue,
             fontSize: 10),
       ),
     );

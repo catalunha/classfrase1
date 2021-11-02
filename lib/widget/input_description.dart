@@ -37,11 +37,11 @@ class InputDescription extends StatelessWidget {
               required
                   ? Text(
                       ' *',
-                      style: TextStyle(color: Colors.red),
+                      // style: TextStyle(color: Colors.red),
                     )
                   : Container(),
             ]),
-            color: Colors.black12,
+            // color: Colors.black12,
           ),
           TextFormField(
             controller: controller,
@@ -60,13 +60,13 @@ class InputDescription extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Icon(
                       icon,
-                      color: AppColors.primary,
+                      // color: AppColors.primary,
                     ),
                   ),
                   Container(
                     width: 1,
                     height: 48,
-                    color: AppColors.stroke,
+                    // color: AppColors.stroke,
                   ),
                 ],
               ),

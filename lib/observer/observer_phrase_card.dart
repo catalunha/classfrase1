@@ -22,7 +22,7 @@ class ObserverPhraseCard extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            color: Colors.yellow,
+            // color: Colors.yellow,
             child: Text(
               phrase.phrase,
               textAlign: TextAlign.center,

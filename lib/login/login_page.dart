@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      // backgroundColor: AppColors.background,
       body: Container(
         width: size.width,
         height: size.height,
@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
             Container(
               width: size.width,
               height: size.height * 0.4,
-              color: AppColors.primary,
+              // color: AppColors.primary,
             ),
             Center(
               child: Column(

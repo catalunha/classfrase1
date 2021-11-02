@@ -24,7 +24,7 @@ class InputCheckBoxDelete extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.topCenter,
           child: Text(title),
-          color: Colors.black12,
+          // color: Colors.black12,
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -33,24 +33,24 @@ class InputCheckBoxDelete extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Icon(
                 AppIconData.delete,
-                color: AppColors.delete,
+                // color: AppColors.delete,
               ),
             ),
             Container(
               width: 1,
               height: 48,
-              color: AppColors.stroke,
+              // color: AppColors.stroke,
             ),
             Expanded(
               child: CheckboxListTile(
-                activeColor: AppColors.delete,
-                selectedTileColor: AppColors.delete,
+                // activeColor: AppColors.delete,
+                // selectedTileColor: AppColors.delete,
                 selected: value!,
                 controlAffinity: ListTileControlAffinity.leading,
                 title: value!
                     ? Text(
                         subtitle,
-                        style: TextStyle(color: AppColors.stroke),
+                        // style: TextStyle(color: AppColors.stroke),
                       )
                     : Text(subtitle),
                 onChanged: onChanged,

@@ -21,7 +21,7 @@ class LearnCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            tileColor: Colors.black12,
+            // tileColor: Colors.black12,
             title: Text(
               learn.description,
               style: AppTextStyles.buttonBoldHeading,

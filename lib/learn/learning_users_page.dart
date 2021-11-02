@@ -33,7 +33,7 @@ class LearningUsersPage extends StatelessWidget {
             alignment: Alignment.center,
             padding: EdgeInsets.all(10),
             width: double.infinity,
-            color: Colors.black12,
+            // color: Colors.black12,
             child: Text(
               learn.description,
               style: AppTextStyles.buttonBoldHeading,

@@ -35,10 +35,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         scrollBehavior: MyCustomScrollBehavior(),
         title: 'ClassFrase',
-        theme: ThemeData(
-          primaryColor: AppColors.primary,
-          primarySwatch: AppColors.swatch,
-        ),
+        // theme: ThemeData.dark(),
+        // theme: ThemeData(
+        //   // primaryColor: Colors.blue,
+        //   primarySwatch: Colors.orange,
+        // ),
         navigatorKey: navigatorKey,
         routes: Routes.routes,
         initialRoute: '/',

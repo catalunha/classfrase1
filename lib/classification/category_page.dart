@@ -25,7 +25,7 @@ class CategoryPage extends StatelessWidget {
             id: groupCurrent.id!,
             title: groupCurrent.title,
             url: groupCurrent.url,
-            color: Colors.yellowAccent,
+            // color: Colors.yellowAccent,
           ),
           Expanded(
             child: SingleChildScrollView(

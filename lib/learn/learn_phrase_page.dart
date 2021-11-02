@@ -60,7 +60,10 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
             child: Center(
               child: RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 28, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 28,
+                    // color: Colors.black,
+                  ),
                   children: buildPhraseNoSelectable(
                     context: context,
                     phraseList: widget.phraseList,
@@ -80,13 +83,13 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      color: Colors.black12,
+                      // color: Colors.black12,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: Colors.black12,
+                      // color: Colors.black12,
                       child: Center(child: Text(ClassBy.selecao.name))),
                 ),
               IconButton(

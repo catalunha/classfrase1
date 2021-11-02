@@ -15,9 +15,14 @@ class GoogleLoginButton extends StatelessWidget {
         height: 60,
         width: 320,
         decoration: BoxDecoration(
-            color: AppColors.shape,
-            borderRadius: BorderRadius.circular(5),
-            border: Border.fromBorderSide(BorderSide(color: AppColors.stroke))),
+          // color: AppColors.shape,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.fromBorderSide(
+            BorderSide(
+                // color: AppColors.stroke,
+                ),
+          ),
+        ),
         child: Row(
           children: [
             Expanded(flex: 1, child: Image.asset(AppImages.google)),

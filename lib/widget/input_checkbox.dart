@@ -27,7 +27,7 @@ class InputCheckBox extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.topCenter,
           child: Text(title),
-          color: Colors.black12,
+          // color: Colors.black12,
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -36,13 +36,13 @@ class InputCheckBox extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Icon(
                 icon,
-                color: AppColors.primary,
+                // color: AppColors.primary,
               ),
             ),
             Container(
               width: 1,
               height: 48,
-              color: AppColors.stroke,
+              // color: AppColors.stroke,
             ),
             Expanded(
               child: CheckboxListTile(

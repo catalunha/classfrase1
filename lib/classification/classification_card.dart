@@ -27,7 +27,7 @@ class ClassificationCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            tileColor: color,
+            // tileColor: color,
             title: Text(
               title,
               style: AppTextStyles.trailingBold,

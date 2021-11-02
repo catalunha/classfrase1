@@ -42,7 +42,7 @@ List<Widget> buildClassByLine2({
         text: phraseList[i],
         style: phraseList[i] != ' ' && posPhraseList.contains(i)
             ? TextStyle(
-                color: Colors.orange.shade900,
+                // color: Colors.orange.shade900,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -72,7 +72,7 @@ List<Widget> buildClassByLine2({
           '* ${group.title} *',
           style: TextStyle(
             fontSize: 16,
-            color: Colors.black,
+            // color: Colors.black,
           ),
         ));
         categoryTitleList.sort();
@@ -135,7 +135,7 @@ List<Widget> buildClassifications2({
     list.add(
       Container(
         width: double.infinity,
-        color: Colors.black12,
+        // color: Colors.black12,
         child: Center(
           child: Text('${group.title}'),
         ),
@@ -166,9 +166,9 @@ List<Widget> buildClassifications2({
       if (category.isNotEmpty) {
         list.add(
           Container(
-            color: listEquals(selectedPhrasePosList, phrasePosList)
-                ? Colors.yellow
-                : null,
+            // color: listEquals(selectedPhrasePosList, phrasePosList)
+            //     ? Colors.yellow
+            //     : null,
             child: ListTile(
               title: Text('$phrase'),
               subtitle: Text('$category'),
@@ -205,7 +205,7 @@ List<InlineSpan> buildPhrase2({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                color: Colors.orange.shade900,
+                // color: Colors.orange.shade900,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -238,7 +238,7 @@ List<InlineSpan> buildPhraseNoSelectable({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                color: Colors.orange.shade900,
+                // color: Colors.orange.shade900,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
