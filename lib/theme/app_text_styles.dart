@@ -34,52 +34,52 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     // color: AppColors.heading,
   );
-  static final trailingBold = GoogleFonts.lexendDeca(
+  static final trailingBold = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w900,
     // color: AppColors.heading,
   );
-  static final buttonPrimary = GoogleFonts.inter(
+  static final buttonPrimary = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w400,
     // color: AppColors.primary,
   );
-  static final buttonHeading = GoogleFonts.inter(
+  static final buttonHeading = TextStyle(
     fontSize: 15,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.bold,
     // color: AppColors.heading,
   );
-  static final buttonGrey = GoogleFonts.inter(
+  static final buttonGrey = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w400,
     // color: AppColors.grey,
   );
-  static final buttonBackground = GoogleFonts.inter(
+  static final buttonBackground = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w400,
     // color: AppColors.background,
   );
-  static final buttonBoldPrimary = GoogleFonts.inter(
+  static final buttonBoldPrimary = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     // color: AppColors.primary,
   );
-  static final buttonBoldHeading = GoogleFonts.inter(
+  static final buttonBoldHeading = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     // color: AppColors.heading,
   );
-  static final buttonBoldGrey = GoogleFonts.inter(
+  static final buttonBoldGrey = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     // color: AppColors.grey,
   );
-  static final buttonBoldBackground = GoogleFonts.inter(
+  static final buttonBoldBackground = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     // color: AppColors.background,
   );
-  static final input = GoogleFonts.inter(
+  static final input = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w400,
     // color: AppColors.input,

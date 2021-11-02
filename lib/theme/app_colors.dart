@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  Color a = Colors.purple;
   // static final primary = ThemeData.dark().primaryColor;
   // static final swatch = ThemeData.dark();
   // static final grey = Color(0xFF585666);

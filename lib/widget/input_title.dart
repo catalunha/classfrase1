@@ -48,8 +48,39 @@ class InputTitle extends StatelessWidget {
                         )
                       : Container(),
                 ]),
-            // color: Colors.black12,
+            color: Colors.black87,
           ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(
+                  icon,
+                  // color: AppColors.primary,
+                ),
+              ),
+              Container(
+                width: 1,
+                height: 48,
+                // color: AppColors.stroke,
+              ),
+              Expanded(
+                child: TextFormField(
+                  controller: controller,
+                  initialValue: initialValue,
+                  validator: validator,
+                  onChanged: onChanged,
+                  style: AppTextStyles.input,
+                  decoration: InputDecoration(
+                    labelStyle: AppTextStyles.input,
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ],
+          ),
+/*
           TextFormField(
             controller: controller,
             initialValue: initialValue,
@@ -67,20 +98,21 @@ class InputTitle extends StatelessWidget {
                       message: messageTooltip,
                       child: Icon(
                         icon,
-                        // color: AppColors.primary,
+                        // color: Colors.orange,
                       ),
                     ),
                   ),
                   Container(
                     width: 1,
                     height: 48,
-                    // color: AppColors.stroke,
+                    // color: Colors.orange.shade100,
                   ),
                 ],
               ),
               border: InputBorder.none,
             ),
           ),
+          */
         ],
       ),
     );
