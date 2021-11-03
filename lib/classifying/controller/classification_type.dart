@@ -1,5 +1,6 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ List<Widget> buildClassByLine2({
         text: phraseList[i],
         style: phraseList[i] != ' ' && posPhraseList.contains(i)
             ? TextStyle(
-                // color: Colors.orange.shade900,
+                color: MyTheme.highlightWord,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -51,7 +52,7 @@ List<Widget> buildClassByLine2({
     }
     RichText richText = RichText(
       text: TextSpan(
-        style: TextStyle(fontSize: 28, color: Colors.black),
+        style: TextStyle(fontSize: 22, color: Colors.black),
         children: listSpan,
       ),
     );
@@ -135,7 +136,7 @@ List<Widget> buildClassifications2({
     list.add(
       Container(
         width: double.infinity,
-        // color: Colors.black12,
+        color: MyTheme.backgroundTitle,
         child: Center(
           child: Text('${group.title}'),
         ),
@@ -205,7 +206,7 @@ List<InlineSpan> buildPhrase2({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                // color: Colors.orange.shade900,
+                color: MyTheme.highlightWord,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -238,7 +239,7 @@ List<InlineSpan> buildPhraseNoSelectable({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                // color: Colors.orange.shade900,
+                color: MyTheme.highlightWord,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )

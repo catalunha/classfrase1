@@ -1,4 +1,5 @@
 import 'package:classfrase/classifying/controller/classification_type.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -56,24 +57,36 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 28,
-                    // color: Colors.black,
-                  ),
-                  children: buildPhraseNoSelectable(
-                    context: context,
-                    phraseList: widget.phraseList,
-                    selectedPhrasePosList: widget.selectedPhrasePosList,
-                  ),
-                ),
+          Container(
+            width: double.infinity,
+            color: MyTheme.backgroundPhrase,
+            child: Text(
+              widget.phraseList.join(),
+              textAlign: TextAlign.center,
+              // style: AppTextStyles.trailingBold,
+              style: TextStyle(
+                fontSize: 22,
               ),
             ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.all(10),
+          //   child: Center(
+          //     child: RichText(
+          //       text: TextSpan(
+          //         style: TextStyle(
+          //           fontSize: 28,
+          //           color: Colors.black,
+          //         ),
+          //         children: buildPhraseNoSelectable(
+          //           context: context,
+          //           phraseList: widget.phraseList,
+          //           selectedPhrasePosList: widget.selectedPhrasePosList,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           ObservedPersonTile(
             phrase: widget.observerPhraseCurrent,
           ),
@@ -83,13 +96,13 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      // color: Colors.black12,
+                      color: MyTheme.backgroundTitle,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      // color: Colors.black12,
+                      color: MyTheme.backgroundTitle,
                       child: Center(child: Text(ClassBy.selecao.name))),
                 ),
               IconButton(

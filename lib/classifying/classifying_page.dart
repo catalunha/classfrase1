@@ -1,3 +1,4 @@
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             children: [
               Expanded(
                 child: Container(
-                  // color: Colors.black12,
+                  color: MyTheme.backgroundTitle,
                   child: Center(
                     child: Text('Selecione partes da frase.'),
                   ),
@@ -105,7 +106,10 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             child: Center(
               child: RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 28, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: MyTheme.onBackgroundColor,
+                  ),
                   children: buildPhrase2(
                     context: context,
                     phraseList: widget.phraseList,
@@ -118,7 +122,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             ),
           ),
           Container(
-            // color: Colors.black12,
+            color: MyTheme.backgroundTitle,
             child: Center(
               child: Text('Clique num grupo para escolher uma classificação.'),
             ),
@@ -142,15 +146,15 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      // color: Colors.black12,
+                      color: MyTheme.backgroundTitle,
                       child: Center(
                           child: Column(
-                    children: [
-                      Text(ClassBy.selecao.name),
-                      Text('Você pode reordenar esta lista.',
-                          style: TextStyle(fontSize: 12))
-                    ],
-                  ))),
+                        children: [
+                          Text(ClassBy.selecao.name),
+                          Text('Você pode reordenar esta lista.',
+                              style: TextStyle(fontSize: 12))
+                        ],
+                      ))),
                 ),
               IconButton(
                 tooltip: ClassBy.selecao.name,

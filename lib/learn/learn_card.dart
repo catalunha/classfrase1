@@ -1,4 +1,5 @@
 import 'package:classfrase/theme/app_text_styles.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/learn_model.dart';
@@ -26,6 +27,10 @@ class LearnCard extends StatelessWidget {
               learn.description,
               style: AppTextStyles.buttonBoldHeading,
             ),
+          ),
+          Container(
+            height: 1,
+            color: MyTheme.backgroundTitle,
           ),
           Wrap(
             children: widgetList ?? [],

@@ -1,3 +1,4 @@
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
@@ -6,6 +7,7 @@ import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
 import 'package:flutter/services.dart';
+import 'package:themed/themed.dart';
 
 class HomePage extends StatelessWidget {
   final String photoUrl;
@@ -30,10 +32,32 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      appBar: AppBar(
+        title: Text(
+          'Olá, $displayName',
+          // style: AppTextStyles.titleRegular,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (Themed.ifCurrentThemeIs(myThemeDark))
+                Themed.clearCurrentTheme();
+              else
+                Themed.currentTheme = myThemeDark;
+              print('change theme: ${MyTheme.primaryColor}');
+              // Themed.currentTheme =
+              //     Themed.ifCurrentThemeIs(myThemeOrange) ? null : myThemeOrange;
+            },
+            icon: Icon(Icons.nightlight_round),
+          ),
+          popMenu(),
+        ],
+      ),
+      // appBar: appBar(),
       body: Column(
         children: [
           // admin(context),
+
           Center(child: Text('Como deseja usar o ClassFrase ?')),
           optionsForUse(context),
           Row(
@@ -72,6 +96,18 @@ class HomePage extends StatelessWidget {
                 style: AppTextStyles.titleRegular,
               ),
               Spacer(),
+              IconButton(
+                onPressed: () {
+                  if (Themed.ifCurrentThemeIs(myThemeDark))
+                    Themed.clearCurrentTheme();
+                  else
+                    Themed.currentTheme = myThemeDark;
+                  // Themed.currentTheme =
+                  //     Themed.ifCurrentThemeIs(myThemeDark) ? null : myThemeDark;
+                },
+                icon: Icon(Icons.nightlight_round),
+              ),
+              // Spacer(),
               popMenu(),
               SizedBox(
                 width: 10,
@@ -181,7 +217,7 @@ class HomePage extends StatelessWidget {
       flex: 5,
       child: Container(
         height: 30,
-        // color: Colors.black12,
+        color: MyTheme.backgroundTitle,
         child: Row(
           children: [
             SizedBox(

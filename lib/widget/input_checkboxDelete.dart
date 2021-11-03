@@ -1,5 +1,6 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class InputCheckBoxDelete extends StatelessWidget {
@@ -24,7 +25,7 @@ class InputCheckBoxDelete extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.topCenter,
           child: Text(title),
-          // color: Colors.black12,
+          color: MyTheme.backgroundTitle,
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -33,13 +34,13 @@ class InputCheckBoxDelete extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Icon(
                 AppIconData.delete,
-                // color: AppColors.delete,
+                color: MyTheme.iconAddOrEdit,
               ),
             ),
             Container(
               width: 1,
               height: 48,
-              // color: AppColors.stroke,
+              color: MyTheme.backgroundTitle,
             ),
             Expanded(
               child: CheckboxListTile(

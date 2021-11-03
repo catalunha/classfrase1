@@ -1,6 +1,7 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class InputDescription extends StatelessWidget {
@@ -41,7 +42,7 @@ class InputDescription extends StatelessWidget {
                     )
                   : Container(),
             ]),
-            color: Colors.black87,
+            color: MyTheme.backgroundTitle,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -50,13 +51,16 @@ class InputDescription extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   icon,
-                  // color: AppColors.primary,
+                  color: MyTheme.iconAddOrEdit,
                 ),
               ),
               Container(
                 width: 1,
                 height: 48,
-                // color: AppColors.stroke,
+                color: MyTheme.backgroundTitle,
+              ),
+              SizedBox(
+                width: 10,
               ),
               Expanded(
                 child: TextFormField(

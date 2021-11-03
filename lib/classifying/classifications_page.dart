@@ -1,5 +1,6 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class ClassificationsPage extends StatelessWidget {
                 text: TextSpan(
                   style: TextStyle(
                     fontSize: 28,
-                    // color: Colors.black,
+                    color: MyTheme.onBackgroundColor,
                   ),
                   children: buildPhraseNoSelectable(
                     context: context,
@@ -63,7 +64,7 @@ class ClassificationsPage extends StatelessWidget {
             ),
           ),
           Container(
-            // color: Colors.black12,
+            color: MyTheme.backgroundTitle,
             child: Text('clique para escolher uma ou mais opções.'),
           ),
           Expanded(
@@ -120,9 +121,9 @@ class ClassificationsPage extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                // color: selectedCategoryIdList.contains(category.id)
-                //     ? Colors.yellow
-                //     : null,
+                color: selectedCategoryIdList.contains(category.id)
+                    ? MyTheme.backgroundSelected
+                    : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: () {
@@ -163,9 +164,9 @@ class ClassificationsPage extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                // color: selectedCategoryIdList.contains(category.id)
-                //     ? Colors.yellow
-                //     : null,
+                color: selectedCategoryIdList.contains(category.id)
+                    ? MyTheme.backgroundSelected
+                    : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: () {

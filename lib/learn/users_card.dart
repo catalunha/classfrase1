@@ -1,4 +1,5 @@
 import 'package:classfrase/learn/person_tile.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:classfrase/user/controller/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,10 @@ class UsersCard extends StatelessWidget {
           PersonTile(
             displayName: userRef.displayName,
             photoURL: userRef.photoURL,
+          ),
+          Container(
+            height: 1,
+            color: MyTheme.backgroundTitle,
           ),
           Wrap(
             children: widgetList ?? [],

@@ -1,4 +1,5 @@
 import 'package:classfrase/theme/app_text_styles.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/observer_model.dart';
@@ -21,7 +22,7 @@ class ObserverCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            // tileColor: Colors.black12,
+            // tileColor: MyTheme.backgroundPhrase,
             title: Text(
               observer.id,
               style: AppTextStyles.buttonBoldHeading,
@@ -29,6 +30,10 @@ class ObserverCard extends StatelessWidget {
             subtitle: Text(
               observer.description,
             ),
+          ),
+          Container(
+            height: 1,
+            color: MyTheme.backgroundTitle,
           ),
           Wrap(
             children: widgetList ?? [],

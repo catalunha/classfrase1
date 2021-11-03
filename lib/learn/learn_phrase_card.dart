@@ -1,5 +1,6 @@
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
+import 'package:classfrase/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class LearnPhraseCard extends StatelessWidget {
@@ -20,10 +21,12 @@ class LearnPhraseCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            // tileColor: Colors.yellow,
+            tileColor: MyTheme.backgroundPhrase,
             title: Text(
               phraseModel.phrase,
-              style: AppTextStyles.buttonBoldHeading,
+              // style: AppTextStyles.bu1ttonBoldHeading,
+
+              style: AppTextStyles.trailingBold,
             ),
             subtitle: Text(
               phraseModel.font ?? 'Sem fonte.',
