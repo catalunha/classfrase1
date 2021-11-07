@@ -1,5 +1,5 @@
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/learn_model.dart';
@@ -25,12 +25,12 @@ class LearnCard extends StatelessWidget {
             // tileColor: Colors.black12,
             title: Text(
               learn.description,
-              style: AppTextStyles.buttonBoldHeading,
+              // style: AppTextStyles.buttonBoldHeading,
             ),
           ),
           Container(
             height: 1,
-            color: MyTheme.backgroundTitle,
+            color: ThemeApp.backgroundText,
           ),
           Wrap(
             children: widgetList ?? [],

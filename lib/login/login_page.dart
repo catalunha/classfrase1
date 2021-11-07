@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Text(
                       'Bem vindo ao ClassFrase.',
-                      style: AppTextStyles.titleRegular,
+                      // style: AppTextStyles.titleRegular,
                       textAlign: TextAlign.center,
                     ),
                   ),

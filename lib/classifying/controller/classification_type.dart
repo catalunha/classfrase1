@@ -1,6 +1,6 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ List<Widget> buildClassByLine2({
         text: phraseList[i],
         style: phraseList[i] != ' ' && posPhraseList.contains(i)
             ? TextStyle(
-                color: MyTheme.highlightWord,
+                color: ThemeApp.highlightWord,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -136,7 +136,7 @@ List<Widget> buildClassifications2({
     list.add(
       Container(
         width: double.infinity,
-        color: MyTheme.backgroundTitle,
+        color: ThemeApp.backgroundText,
         child: Center(
           child: Text('${group.title}'),
         ),
@@ -206,7 +206,7 @@ List<InlineSpan> buildPhrase2({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                color: MyTheme.highlightWord,
+                color: ThemeApp.highlightWord,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -239,7 +239,7 @@ List<InlineSpan> buildPhraseNoSelectable({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                color: MyTheme.highlightWord,
+                color: ThemeApp.highlightWord,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )

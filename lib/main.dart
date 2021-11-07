@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -20,33 +20,6 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-// class CustomColors {
-//   static const Color lightPurple = Color(0xFFBB86FA);
-//   static const Color purple = Color(0xFF6002EE);
-//   static const Color deepPurple = Color(0xFF3900B1);
-//   static const Color grey = Color(0xFF848484);
-//   static const Color darkGrey = Color(0xFF222222);
-//   static const Color black = Color(0xFF141414);
-// }
-
-// ThemeData example() {
-//   final base = ThemeData(brightness: Brightness.dark);
-//   final mainColor = Colors.orange;
-//   return base.copyWith(
-//     // primaryIconTheme: IconThemeData(color: Colors.orange),
-//     iconTheme: IconThemeData(color: mainColor),
-//     // cardColor: Color.lerp(mainColor, Colors.white, 0.2),
-//     // cardTheme: base.cardTheme.copyWith(
-//     //   color: Color.lerp(mainColor, Colors.black, 0.1),
-//     //   margin: EdgeInsets.all(20.0),
-//     //   elevation: 0.0,
-//     //   shape: BeveledRectangleBorder(
-//     //       borderRadius: BorderRadius.circular(14.0),
-//     //       side: BorderSide(color: Colors.white24, width: 1)),
-//     // ),
-//   );
-// }
-
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -61,90 +34,126 @@ class MyApp extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Themed(
-        defaultTheme: myThemeOrange,
+        defaultTheme: orange,
+        currentTheme: orange,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           scrollBehavior: MyCustomScrollBehavior(),
           title: 'ClassFrase',
-          theme: ThemeData(
-            primaryColor: MyTheme.primaryColor,
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(primary: MyTheme.primaryColor),
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                primary: Colors.white,
-              ),
-            ),
-            // elevatedButtonTheme: ElevatedButtonThemeData(
-            //   style: ElevatedButton.styleFrom(
-            //     primary: MyTheme.primaryColor,
-            //     onPrimary: MyTheme.onPrimaryColor,
-            //     onSurface: MyTheme.onSurfaceColor,
-            //   ),
-            // ),
-            dividerColor: Colors.white54,
-            // buttonTheme: ButtonThemeData(
-            //   buttonColor: MyTheme.primaryColor,
-            // ),
-            // buttonTheme: ButtonThemeData(
-            //   buttonColor: MyTheme.primaryColor, //  <-- dark color
-            //   textTheme: ButtonTextTheme
-            //       .primary, //  <-- this auto selects the right color
-            // ),
-            // textButtonTheme: TextButtonThemeData(style: ButtonStyle.(backgroundColor:  MyTheme.onPrimaryColor,)),
-            scaffoldBackgroundColor: MyTheme.scaffoldBackgroundColor,
-            appBarTheme: AppBarTheme(
-              color: MyTheme.primaryColor,
-              foregroundColor: MyTheme.onPrimaryColor,
-              // toolbarTextStyle: TextStyle(
-              //   color: MyTheme.onPrimaryColor,
-              // ),
-              // titleTextStyle: TextStyle(
-              //   color: MyTheme.onPrimaryColor,
-              // ),
-            ),
-            // textTheme: ThemeData.dark().textTheme,
+          navigatorKey: navigatorKey,
+          routes: Routes.routes,
+          initialRoute: '/',
+          theme: ThemeDataApp().changed,
+        ),
+      ),
+    );
+  }
+}
+
+
+/*
+theme: ThemeData(
             // colorScheme: ColorScheme.fromSwatch(
             //         // primarySwatch: Colors.blue,
             //         )
             //     .copyWith(
-            //   primary: MyTheme.primaryColor,
-            //   onPrimary: MyTheme.onPrimaryColor,
-            //   secondary: MyTheme.secondaryColor,
-            //   onSecondary: MyTheme.onSecondaryColor,
-            //   onBackground: MyTheme.onBackgroundColor,
-            //   onSurface: MyTheme.onSurfaceColor,
+            //   primary: ThemeApp.primary,
+            //   onPrimary: ThemeApp.onPrimary,
+            //   secondary: ThemeApp.secondary,
+            //   onSecondary: ThemeApp.onSecondary,
+            //   onBackground: ThemeApp.onBackground,
+            //   onSurface: ThemeApp.onSurface,
             // ),
-            // textTheme: TextTheme(),
-            // // primaryColorLight: MyTheme.primaryColor,
-            // // primaryColorDark: MyTheme.secondaryColor,
-            // appBarTheme: AppBarTheme(
-            //   //color: MyTheme.primaryColor,
-            //   backgroundColor: MyTheme.primaryColor,
-            //   toolbarTextStyle: TextStyle(
-            //     color: MyTheme.onPrimaryColor,
-            //   ),
-            //   titleTextStyle: TextStyle(
-            //     color: MyTheme.onPrimaryColor,
-            //   ),
-            // ),
-            // floatingActionButtonTheme:
-            //     FloatingActionButtonThemeData(backgroundColor: MyTheme.floatingActionButtonColor),
-            // colorScheme: ColorScheme.fromSwatch(
-            //   // primarySwatch: MyTheme.color1,
-            //   primaryColorDark: MyTheme.color1,
-            //   // accentColor: accentColor,
-            //   cardColor: MyTheme.color1,
-            //   backgroundColor: MyTheme.color1,
-            //   // errorColor: errorColor,
-            //   // brightness: _brightness,
-            // ),
-            // primarySwatch: MyTheme.primarySwatch,
-            // elevatedButtonTheme: ElevatedButtonThemeData(
-            //   style: ElevatedButton.styleFrom(primary: MyTheme.floatingActionButtonColor),
-            // ),
+            primaryColor: ThemeApp.primary,
+            scaffoldBackgroundColorColor: ThemeApp.scaffoldBackgroundColor,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: ThemeApp.primary,
+              foregroundColor: ThemeApp.onPrimary,
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  primary: ThemeApp.primary, onPrimary: ThemeApp.onPrimary),
+            ),
           ),
+          // theme: ThemeData(
+          //   primaryColor: ThemeApp.primaryColor,
+          //   elevatedButtonTheme: ElevatedButtonThemeData(
+          //     style: ElevatedButton.styleFrom(primary: ThemeApp.primaryColor),
+          //   ),
+          //   textButtonTheme: TextButtonThemeData(
+          //     style: TextButton.styleFrom(
+          //       primary: Colors.white,
+          //     ),
+          //   ),
+          //   // elevatedButtonTheme: ElevatedButtonThemeData(
+          //   //   style: ElevatedButton.styleFrom(
+          //   //     primary: ThemeApp.primaryColor,
+          //   //     onPrimary: ThemeApp.onPrimaryColor,
+          //   //     onSurface: ThemeApp.onSurfaceColor,
+          //   //   ),
+          //   // ),
+          //   dividerColor: Colors.white54,
+          //   // buttonTheme: ButtonThemeData(
+          //   //   buttonColor: ThemeApp.primaryColor,
+          //   // ),
+          //   // buttonTheme: ButtonThemeData(
+          //   //   buttonColor: ThemeApp.primaryColor, //  <-- dark color
+          //   //   textTheme: ButtonTextTheme
+          //   //       .primary, //  <-- this auto selects the right color
+          //   // ),
+          //   // textButtonTheme: TextButtonThemeData(style: ButtonStyle.(backgroundColor:  ThemeApp.onPrimaryColor,)),
+          //   scaffoldBackgroundColorColor: ThemeApp.scaffoldBackgroundColorColor,
+          //   appBarTheme: AppBarTheme(
+          //     color: ThemeApp.primaryColor,
+          //     foregroundColor: ThemeApp.onPrimaryColor,
+          //     // toolbarTextStyle: TextStyle(
+          //     //   color: ThemeApp.onPrimaryColor,
+          //     // ),
+          //     // titleTextStyle: TextStyle(
+          //     //   color: ThemeApp.onPrimaryColor,
+          //     // ),
+          //   ),
+          //   // textTheme: ThemeData.dark().textTheme,
+          //   // colorScheme: ColorScheme.fromSwatch(
+          //   //         // primarySwatch: Colors.blue,
+          //   //         )
+          //   //     .copyWith(
+          //   //   primary: ThemeApp.primaryColor,
+          //   //   onPrimary: ThemeApp.onPrimaryColor,
+          //   //   secondary: ThemeApp.secondaryColor,
+          //   //   onSecondary: ThemeApp.onSecondaryColor,
+          //   //   onBackground: ThemeApp.onBackgroundColor,
+          //   //   onSurface: ThemeApp.onSurfaceColor,
+          //   // ),
+          //   // textTheme: TextTheme(),
+          //   // // primaryColorLight: ThemeApp.primaryColor,
+          //   // // primaryColorDark: ThemeApp.secondaryColor,
+          //   // appBarTheme: AppBarTheme(
+          //   //   //color: ThemeApp.primaryColor,
+          //   //   backgroundColor: ThemeApp.primaryColor,
+          //   //   toolbarTextStyle: TextStyle(
+          //   //     color: ThemeApp.onPrimaryColor,
+          //   //   ),
+          //   //   titleTextStyle: TextStyle(
+          //   //     color: ThemeApp.onPrimaryColor,
+          //   //   ),
+          //   // ),
+          //   // floatingActionButtonTheme:
+          //   //     FloatingActionButtonThemeData(backgroundColor: ThemeApp.floatingActionButtonColor),
+          //   // colorScheme: ColorScheme.fromSwatch(
+          //   //   // primarySwatch: ThemeApp.color1,
+          //   //   primaryColorDark: ThemeApp.color1,
+          //   //   // accentColor: accentColor,
+          //   //   cardColor: ThemeApp.color1,
+          //   //   backgroundColor: ThemeApp.color1,
+          //   //   // errorColor: errorColor,
+          //   //   // brightness: _brightness,
+          //   // ),
+          //   // primarySwatch: ThemeApp.primarySwatch,
+          //   // elevatedButtonTheme: ElevatedButtonThemeData(
+          //   //   style: ElevatedButton.styleFrom(primary: ThemeApp.floatingActionButtonColor),
+          //   // ),
+          // ),
           // theme: ThemeData.dark(),
           // theme: ThemeData.light(),
           // theme: example(),
@@ -173,7 +182,7 @@ class MyApp extends StatelessWidget {
           // theme: ThemeData(
           //   //2
           //   primaryColor: CustomColors.purple,
-          //   scaffoldBackgroundColor: Colors.white,
+          //   scaffoldBackgroundColorColor: Colors.white,
           //   fontFamily: 'Montserrat', //3
           //   buttonTheme: ButtonThemeData(
           //     // 4
@@ -184,7 +193,7 @@ class MyApp extends StatelessWidget {
           // ),
           // theme: ThemeData(
           //     primaryColor: Colors.grey,
-          //     scaffoldBackgroundColor: Colors.black,
+          //     scaffoldBackgroundColorColor: Colors.black,
           //     fontFamily: 'Montserrat',
           //     textTheme: ThemeData.dark().textTheme,
           //     buttonTheme: ButtonThemeData(
@@ -192,11 +201,5 @@ class MyApp extends StatelessWidget {
           //           borderRadius: BorderRadius.circular(18.0)),
           //       buttonColor: Colors.purple,
           //     )),
-          navigatorKey: navigatorKey,
-          routes: Routes.routes,
-          initialRoute: '/',
-        ),
-      ),
-    );
-  }
-}
+
+*/

@@ -20,7 +20,10 @@ class TextDescription extends StatelessWidget {
           text: TextSpan(
             style: DefaultTextStyle.of(context).style,
             children: [
-              TextSpan(text: firstWord, style: AppTextStyles.captionBoldBody),
+              TextSpan(
+                text: firstWord,
+                // style: AppTextStyles.captionBoldBody
+              ),
               TextSpan(
                 text: text,
               )

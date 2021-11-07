@@ -1,5 +1,5 @@
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/observer_model.dart';
@@ -22,10 +22,10 @@ class ObserverCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            // tileColor: MyTheme.backgroundPhrase,
+            // tileColor: ThemeApp.backgroundPhrase,
             title: Text(
               observer.id,
-              style: AppTextStyles.buttonBoldHeading,
+              // style: AppTextStyles.buttonBoldHeading,
             ),
             subtitle: Text(
               observer.description,
@@ -33,7 +33,7 @@ class ObserverCard extends StatelessWidget {
           ),
           Container(
             height: 1,
-            color: MyTheme.backgroundTitle,
+            color: ThemeApp.backgroundText,
           ),
           Wrap(
             children: widgetList ?? [],

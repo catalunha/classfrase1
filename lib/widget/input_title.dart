@@ -1,7 +1,7 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 class InputTitle extends StatelessWidget {
@@ -49,7 +49,7 @@ class InputTitle extends StatelessWidget {
                         )
                       : Container(),
                 ]),
-            color: MyTheme.backgroundTitle,
+            color: ThemeApp.backgroundText,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -58,13 +58,13 @@ class InputTitle extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   icon,
-                  color: MyTheme.iconAddOrEdit,
+                  color: ThemeApp.icon01Color,
                 ),
               ),
               Container(
                 width: 1,
                 height: 48,
-                color: MyTheme.backgroundTitle,
+                color: ThemeApp.backgroundText,
               ),
               SizedBox(
                 width: 15,
@@ -75,9 +75,9 @@ class InputTitle extends StatelessWidget {
                   initialValue: initialValue,
                   validator: validator,
                   onChanged: onChanged,
-                  style: AppTextStyles.input,
+                  // style: AppTextStyles.input,
                   decoration: InputDecoration(
-                    labelStyle: AppTextStyles.input,
+                    // label// style: AppTextStyles.input,
                     border: InputBorder.none,
                   ),
                 ),
@@ -90,9 +90,9 @@ class InputTitle extends StatelessWidget {
             initialValue: initialValue,
             validator: validator,
             onChanged: onChanged,
-            style: AppTextStyles.input,
+            // style: AppTextStyles.input,
             decoration: InputDecoration(
-              labelStyle: AppTextStyles.input,
+              label// style: AppTextStyles.input,
               icon: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

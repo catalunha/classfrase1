@@ -1,7 +1,7 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 class InputDescription extends StatelessWidget {
@@ -42,7 +42,7 @@ class InputDescription extends StatelessWidget {
                     )
                   : Container(),
             ]),
-            color: MyTheme.backgroundTitle,
+            color: ThemeApp.backgroundText,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -51,13 +51,13 @@ class InputDescription extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   icon,
-                  color: MyTheme.iconAddOrEdit,
+                  color: ThemeApp.icon01Color,
                 ),
               ),
               Container(
                 width: 1,
                 height: 48,
-                color: MyTheme.backgroundTitle,
+                color: ThemeApp.backgroundText,
               ),
               SizedBox(
                 width: 10,
@@ -68,11 +68,11 @@ class InputDescription extends StatelessWidget {
                   initialValue: initialValue,
                   validator: validator,
                   onChanged: onChanged,
-                  style: AppTextStyles.input,
+                  // style: AppTextStyles.input,
                   keyboardType: TextInputType.multiline,
                   maxLines: 5,
                   decoration: InputDecoration(
-                    labelStyle: AppTextStyles.input,
+                    // labelStyle: AppTextStyles.input,
                     border: InputBorder.none,
                   ),
                 ),
@@ -84,11 +84,11 @@ class InputDescription extends StatelessWidget {
           //   initialValue: initialValue,
           //   validator: validator,
           //   onChanged: onChanged,
-          //   style: AppTextStyles.input,
+          //   // style: AppTextStyles.input,
           //   keyboardType: TextInputType.multiline,
           //   maxLines: 5,
           //   decoration: InputDecoration(
-          //     labelStyle: AppTextStyles.input,
+          //     label// style: AppTextStyles.input,
           //     icon: Row(
           //       mainAxisSize: MainAxisSize.min,
           //       children: [

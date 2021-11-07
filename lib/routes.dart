@@ -8,6 +8,7 @@ import 'classification/controller/group_addedit_page_controller.dart';
 import 'classification/controller/group_page_controller.dart';
 import 'classifying/controller/classifications_connector.dart';
 import 'classifying/controller/classifying_connector.dart';
+import 'home/home_page.dart';
 import 'learn/controller/learn_page_connector.dart';
 import 'learn/controller/learn_phrase_filter_connector.dart';
 import 'learn/controller/learn_phrase_list_page_connector.dart';

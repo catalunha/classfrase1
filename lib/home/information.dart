@@ -33,7 +33,7 @@ Com carinho,
 
 Família Catalunha.
       ''',
-                style: AppTextStyles.titleRegular,
+                // style: AppTextStyles.titleRegular,
               ),
             ),
             ListTile(

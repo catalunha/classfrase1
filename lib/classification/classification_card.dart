@@ -30,7 +30,7 @@ class ClassificationCard extends StatelessWidget {
             // tileColor: color,
             title: Text(
               title,
-              style: AppTextStyles.trailingBold,
+              // style: AppTextStyles.trailingBold,
             ),
             subtitle: Text(
               id,

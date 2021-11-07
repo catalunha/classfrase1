@@ -36,7 +36,7 @@ class LearningUsersPage extends StatelessWidget {
             // color: Colors.black12,
             child: Text(
               learn.description,
-              style: AppTextStyles.buttonBoldHeading,
+              // style: AppTextStyles.buttonBoldHeading,
             ),
           ),
           Expanded(

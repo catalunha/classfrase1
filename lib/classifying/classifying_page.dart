@@ -1,4 +1,4 @@
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +66,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             children: [
               Expanded(
                 child: Container(
-                  color: MyTheme.backgroundTitle,
+                  color: ThemeApp.backgroundText,
                   child: Center(
                     child: Text('Selecione partes da frase.'),
                   ),
@@ -108,7 +108,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                 text: TextSpan(
                   style: TextStyle(
                     fontSize: 28,
-                    color: MyTheme.onBackgroundColor,
+                    color: ThemeApp.onBackground,
                   ),
                   children: buildPhrase2(
                     context: context,
@@ -122,7 +122,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             ),
           ),
           Container(
-            color: MyTheme.backgroundTitle,
+            color: ThemeApp.backgroundText,
             child: Center(
               child: Text('Clique num grupo para escolher uma classificação.'),
             ),
@@ -140,13 +140,13 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      // color: Colors.black12,
+                      color: ThemeApp.backgroundText,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: MyTheme.backgroundTitle,
+                      color: ThemeApp.backgroundText,
                       child: Center(
                           child: Column(
                         children: [

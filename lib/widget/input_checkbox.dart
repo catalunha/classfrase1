@@ -1,6 +1,6 @@
 import 'package:classfrase/theme/app_colors.dart';
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 class InputCheckBox extends StatelessWidget {
@@ -28,7 +28,7 @@ class InputCheckBox extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.topCenter,
           child: Text(title),
-          color: MyTheme.backgroundTitle,
+          color: ThemeApp.backgroundText,
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -38,13 +38,13 @@ class InputCheckBox extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Icon(
                 icon,
-                color: MyTheme.iconAddOrEdit,
+                color: ThemeApp.icon01Color,
               ),
             ),
             Container(
               width: 1,
               height: 48,
-              color: MyTheme.backgroundTitle,
+              color: ThemeApp.backgroundText,
             ),
             Expanded(
               child: CheckboxListTile(

@@ -1,4 +1,4 @@
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
@@ -9,7 +9,7 @@ import 'package:classfrase/theme/app_text_styles.dart';
 import 'package:flutter/services.dart';
 import 'package:themed/themed.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String photoUrl;
   final String displayName;
   final String email;
@@ -17,7 +17,6 @@ class HomePage extends StatelessWidget {
   final String id;
   final VoidCallback signOut;
   final List<PhraseModel> phraseList;
-
   const HomePage({
     Key? key,
     required this.photoUrl,
@@ -30,34 +29,25 @@ class HomePage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Olá, $displayName',
-          // style: AppTextStyles.titleRegular,
+          'Olá, ${widget.displayName}',
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              if (Themed.ifCurrentThemeIs(myThemeDark))
-                Themed.clearCurrentTheme();
-              else
-                Themed.currentTheme = myThemeDark;
-              print('change theme: ${MyTheme.primaryColor}');
-              // Themed.currentTheme =
-              //     Themed.ifCurrentThemeIs(myThemeOrange) ? null : myThemeOrange;
-            },
-            icon: Icon(Icons.nightlight_round),
-          ),
+          changeTheme(),
           popMenu(),
         ],
       ),
-      // appBar: appBar(),
       body: Column(
         children: [
           // admin(context),
-
           Center(child: Text('Como deseja usar o ClassFrase ?')),
           optionsForUse(context),
           Row(
@@ -79,6 +69,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  IconButton changeTheme() {
+    return IconButton(
+      onPressed: () {
+        if (Themed.ifCurrentThemeIs(dark))
+          Themed.clearCurrentTheme();
+        else
+          Themed.currentTheme = dark;
+        print('change theme: ${ThemeApp.primary}');
+        // Themed.currentTheme =
+        //     Themed.ifCurrentThemeIs(orange) ? null : orange;
+      },
+      icon: Icon(Icons.nightlight_round),
+    );
+  }
+
   PreferredSize appBar() {
     return PreferredSize(
       preferredSize: Size.fromHeight(100),
@@ -92,21 +97,11 @@ class HomePage extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                'Olá, $displayName',
-                style: AppTextStyles.titleRegular,
+                'Olá, ${widget.displayName}',
+                // style: AppTextStyles.titleRegular,
               ),
               Spacer(),
-              IconButton(
-                onPressed: () {
-                  if (Themed.ifCurrentThemeIs(myThemeDark))
-                    Themed.clearCurrentTheme();
-                  else
-                    Themed.currentTheme = myThemeDark;
-                  // Themed.currentTheme =
-                  //     Themed.ifCurrentThemeIs(myThemeDark) ? null : myThemeDark;
-                },
-                icon: Icon(Icons.nightlight_round),
-              ),
+              changeTheme(),
               // Spacer(),
               popMenu(),
               SizedBox(
@@ -123,11 +118,11 @@ class HomePage extends StatelessWidget {
     return PopupMenuButton(
       child: Tooltip(
         message:
-            'Clique aqui para outras opções.\nemail: $email\nid: ${id.substring(0, 3)} uid: ${uid.substring(0, 3)}',
+            'Clique aqui para outras opções.\nemail: ${widget.email}\nid: ${widget.id.substring(0, 3)} uid: ${widget.uid.substring(0, 3)}',
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Image.network(
-            photoUrl,
+            widget.photoUrl,
             height: 58,
             width: 58,
           ),
@@ -165,7 +160,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
         onTap: () {
-          signOut();
+          widget.signOut();
           Navigator.pop(context);
         },
       ),
@@ -217,7 +212,7 @@ class HomePage extends StatelessWidget {
       flex: 5,
       child: Container(
         height: 30,
-        color: MyTheme.backgroundTitle,
+        color: ThemeApp.backgroundText,
         child: Row(
           children: [
             SizedBox(
@@ -225,7 +220,7 @@ class HomePage extends StatelessWidget {
             ),
             Text(
               'Minhas frases em classificação ',
-              style: AppTextStyles.trailingBold,
+              // // style: AppTextStyles.trailingBold,
             ),
           ],
         ),
@@ -234,7 +229,7 @@ class HomePage extends StatelessWidget {
   }
 
   admin(context) {
-    return uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
+    return widget.uid == '4P3NEIkWqng0t5aal0fae5RdYHj1'
         ? Wrap(
             children: [
               TextButton(
@@ -324,7 +319,7 @@ class HomePage extends StatelessWidget {
 
   List<Widget> buildPhraseList(context) {
     List<Widget> list = [];
-    for (var phrase in phraseList) {
+    for (var phrase in widget.phraseList) {
       list.add(PhraseCard(
         key: ValueKey(phrase),
         phrase: phrase,

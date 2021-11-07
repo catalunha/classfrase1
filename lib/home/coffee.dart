@@ -31,7 +31,7 @@ E já somos gratos pelo carinho,
 
 Família Catalunha.
       ''',
-                style: AppTextStyles.titleRegular,
+                // style: AppTextStyles.titleRegular,
               ),
             ),
           ],

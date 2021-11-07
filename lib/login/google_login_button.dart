@@ -31,7 +31,7 @@ class GoogleLoginButton extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Entre com sua conta Google',
-                  style: AppTextStyles.buttonBoldGrey,
+                  // style: AppTextStyles.buttonBoldGrey,
                 ),
               ),
             )

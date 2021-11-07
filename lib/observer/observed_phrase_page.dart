@@ -1,5 +1,5 @@
 import 'package:classfrase/classifying/controller/classification_type.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -59,11 +59,11 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
         children: [
           Container(
             width: double.infinity,
-            color: MyTheme.backgroundPhrase,
+            color: ThemeApp.backgroundPhrase,
             child: Text(
               widget.phraseList.join(),
               textAlign: TextAlign.center,
-              // style: AppTextStyles.trailingBold,
+              // // style: AppTextStyles.trailingBold,
               style: TextStyle(
                 fontSize: 22,
               ),
@@ -96,13 +96,13 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      color: MyTheme.backgroundTitle,
+                      color: ThemeApp.backgroundText,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: MyTheme.backgroundTitle,
+                      color: ThemeApp.backgroundText,
                       child: Center(child: Text(ClassBy.selecao.name))),
                 ),
               IconButton(

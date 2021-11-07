@@ -1,6 +1,6 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +52,7 @@ class ClassificationsPage extends StatelessWidget {
                 text: TextSpan(
                   style: TextStyle(
                     fontSize: 28,
-                    color: MyTheme.onBackgroundColor,
+                    color: ThemeApp.onBackground,
                   ),
                   children: buildPhraseNoSelectable(
                     context: context,
@@ -64,7 +64,7 @@ class ClassificationsPage extends StatelessWidget {
             ),
           ),
           Container(
-            color: MyTheme.backgroundTitle,
+            color: ThemeApp.backgroundText,
             child: Text('clique para escolher uma ou mais opções.'),
           ),
           Expanded(
@@ -122,7 +122,7 @@ class ClassificationsPage extends StatelessWidget {
             Expanded(
               child: Container(
                 color: selectedCategoryIdList.contains(category.id)
-                    ? MyTheme.backgroundSelected
+                    ? ThemeApp.backgroundSelected
                     : null,
                 child: ListTile(
                   title: Text('${category.title}'),
@@ -165,7 +165,7 @@ class ClassificationsPage extends StatelessWidget {
             Expanded(
               child: Container(
                 color: selectedCategoryIdList.contains(category.id)
-                    ? MyTheme.backgroundSelected
+                    ? ThemeApp.backgroundSelected
                     : null,
                 child: ListTile(
                   title: Text('${category.title}'),

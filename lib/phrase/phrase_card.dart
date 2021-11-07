@@ -1,5 +1,5 @@
 import 'package:classfrase/theme/app_text_styles.dart';
-import 'package:classfrase/theme/app_themes.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 import 'controller/phrase_model.dart';
@@ -24,10 +24,12 @@ class PhraseCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ListTile(
-            tileColor: MyTheme.backgroundPhrase,
+            tileColor: ThemeApp.backgroundPhrase,
             title: Text(
               phrase.phrase,
-              style: AppTextStyles.trailingBold,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             trailing: trailing,
           ),
