@@ -66,15 +66,21 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             children: [
               Expanded(
                 child: Container(
-                  color: ThemeApp.backgroundText,
+                  color: ThemeApp.backgroundLight,
                   child: Center(
-                    child: Text('Selecione partes da frase.'),
+                    child: Text(
+                      'Selecione partes da frase.',
+                      style: TextStyle(color: ThemeApp.onBackgroundLight),
+                    ),
                   ),
                 ),
               ),
               IconButton(
                 tooltip: 'ou clique aqui para selecionar a frase toda.',
-                icon: Icon(Icons.check_circle_outline),
+                icon: Icon(
+                  Icons.check_circle_outline,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     widget.onSelectAllPhrase(true);
@@ -83,7 +89,10 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
               IconButton(
                 tooltip: 'ou clique aqui para limpar toda seleção.',
-                icon: Icon(Icons.highlight_off),
+                icon: Icon(
+                  Icons.highlight_off,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     widget.onSelectAllPhrase(false);
@@ -92,7 +101,10 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
               IconButton(
                 tooltip: 'ou clique aqui para inverter seleção.',
-                icon: Icon(Icons.change_circle_outlined),
+                icon: Icon(
+                  Icons.change_circle_outlined,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     widget.onSelectAllPhrase(null);
@@ -108,7 +120,7 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
                 text: TextSpan(
                   style: TextStyle(
                     fontSize: 28,
-                    color: ThemeApp.onBackground,
+                    color: ThemeApp.onBackgroundDark,
                   ),
                   children: buildPhrase2(
                     context: context,
@@ -122,9 +134,12 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
             ),
           ),
           Container(
-            color: ThemeApp.backgroundText,
+            color: ThemeApp.backgroundLight,
             child: Center(
-              child: Text('Clique num grupo para escolher uma classificação.'),
+              child: Text(
+                'Clique num grupo para escolher uma classificação.',
+                style: TextStyle(color: ThemeApp.onBackgroundLight),
+              ),
             ),
           ),
           SingleChildScrollView(
@@ -140,25 +155,33 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      color: ThemeApp.backgroundText,
+                      color: ThemeApp.backgroundLight,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: ThemeApp.backgroundText,
+                      color: ThemeApp.backgroundLight,
                       child: Center(
                           child: Column(
                         children: [
-                          Text(ClassBy.selecao.name),
+                          Text(
+                            ClassBy.selecao.name,
+                            style: TextStyle(color: ThemeApp.onBackgroundLight),
+                          ),
                           Text('Você pode reordenar esta lista.',
-                              style: TextStyle(fontSize: 12))
+                              style: TextStyle(
+                                  color: ThemeApp.onBackgroundLight,
+                                  fontSize: 12))
                         ],
                       ))),
                 ),
               IconButton(
                 tooltip: ClassBy.selecao.name,
-                icon: Icon(ClassBy.selecao.icon),
+                icon: Icon(
+                  ClassBy.selecao.icon,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     classBy = ClassBy.selecao;
@@ -167,7 +190,10 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ),
               IconButton(
                 tooltip: ClassBy.grupo.name,
-                icon: Icon(ClassBy.grupo.icon),
+                icon: Icon(
+                  ClassBy.grupo.icon,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     classBy = ClassBy.grupo;
@@ -248,10 +274,20 @@ class _ClassifyingPageState extends State<ClassifyingPage> {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
-          child: Text('${group.title}'),
-          style: TextButton.styleFrom(
-            textStyle: const TextStyle(fontSize: 18),
+          child: Text(
+            '${group.title}',
+            style: const TextStyle(
+              fontSize: 18,
+              color: ThemeApp.onBackgroundDark,
+            ),
           ),
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(
+              fontSize: 18,
+              color: ThemeApp.onBackgroundDark,
+            ),
+          ),
+          // style:ButtonStyle(backgroundColor: MaterialStateProperty<Color>)
         ),
       );
     }

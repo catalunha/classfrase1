@@ -58,7 +58,7 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
         children: [
           Container(
             width: double.infinity,
-            color: ThemeApp.backgroundPhrase,
+            color: ThemeApp.surfaceLight,
             child: Text(
               widget.phraseList.join(),
               textAlign: TextAlign.center,
@@ -96,13 +96,13 @@ class _LearnPhrasePageState extends State<LearnPhrasePage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      color: ThemeApp.backgroundText,
+                      color: ThemeApp.backgroundLight,
                       child: Center(child: Text(ClassBy.grupo.name))),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: ThemeApp.backgroundText,
+                      color: ThemeApp.backgroundLight,
                       child: Center(child: Text(ClassBy.selecao.name))),
                 ),
               IconButton(

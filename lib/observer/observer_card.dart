@@ -22,7 +22,7 @@ class ObserverCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            // tileColor: ThemeApp.backgroundPhrase,
+            // tileColor: ThemeApp.surfaceLight,
             title: Text(
               observer.id,
               // style: AppTextStyles.buttonBoldHeading,
@@ -33,7 +33,7 @@ class ObserverCard extends StatelessWidget {
           ),
           Container(
             height: 1,
-            color: ThemeApp.backgroundText,
+            color: ThemeApp.backgroundLight,
           ),
           Wrap(
             children: widgetList ?? [],

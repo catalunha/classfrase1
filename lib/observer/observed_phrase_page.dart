@@ -59,7 +59,7 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
         children: [
           Container(
             width: double.infinity,
-            color: ThemeApp.backgroundPhrase,
+            color: ThemeApp.surfaceLight,
             child: Text(
               widget.phraseList.join(),
               textAlign: TextAlign.center,
@@ -96,18 +96,33 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
               if (classBy == ClassBy.grupo)
                 Expanded(
                   child: Container(
-                      color: ThemeApp.backgroundText,
-                      child: Center(child: Text(ClassBy.grupo.name))),
+                    color: ThemeApp.backgroundLight,
+                    child: Center(
+                      child: Text(
+                        ClassBy.grupo.name,
+                        style: TextStyle(color: ThemeApp.onBackgroundLight),
+                      ),
+                    ),
+                  ),
                 ),
               if (classBy == ClassBy.selecao)
                 Expanded(
                   child: Container(
-                      color: ThemeApp.backgroundText,
-                      child: Center(child: Text(ClassBy.selecao.name))),
+                    color: ThemeApp.backgroundLight,
+                    child: Center(
+                      child: Text(
+                        ClassBy.selecao.name,
+                        style: TextStyle(color: ThemeApp.onBackgroundLight),
+                      ),
+                    ),
+                  ),
                 ),
               IconButton(
                 tooltip: ClassBy.selecao.name,
-                icon: Icon(ClassBy.selecao.icon),
+                icon: Icon(
+                  ClassBy.selecao.icon,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     classBy = ClassBy.selecao;
@@ -116,7 +131,10 @@ class _ObservedPhrasePageState extends State<ObservedPhrasePage> {
               ),
               IconButton(
                 tooltip: ClassBy.grupo.name,
-                icon: Icon(ClassBy.grupo.icon),
+                icon: Icon(
+                  ClassBy.grupo.icon,
+                  color: ThemeApp.onBackgroundLight,
+                ),
                 onPressed: () {
                   setState(() {
                     classBy = ClassBy.grupo;

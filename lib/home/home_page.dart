@@ -36,9 +36,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ThemeApp.background,
       appBar: AppBar(
+        backgroundColor: ThemeApp.primary,
+        foregroundColor: ThemeApp.onPrimary,
         title: Text(
           'Olá, ${widget.displayName}',
+          style: TextStyle(color: ThemeApp.onPrimary),
         ),
         actions: [
           changeTheme(),
@@ -47,8 +51,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          // admin(context),
-          Center(child: Text('Como deseja usar o ClassFrase ?')),
+          admin(context),
+          Center(
+            child: Text(
+              'Como deseja usar o ClassFrase ?',
+              style: TextStyle(color: ThemeApp.onBackground),
+            ),
+          ),
           optionsForUse(context),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -72,47 +81,48 @@ class _HomePageState extends State<HomePage> {
   IconButton changeTheme() {
     return IconButton(
       onPressed: () {
-        if (Themed.ifCurrentThemeIs(dark))
+        if (Themed.ifCurrentThemeIs(dark)) {
           Themed.clearCurrentTheme();
-        else
-          Themed.currentTheme = dark;
-        print('change theme: ${ThemeApp.primary}');
-        // Themed.currentTheme =
-        //     Themed.ifCurrentThemeIs(orange) ? null : orange;
+          print('change theme para orange');
+        } else {
+          // Themed.currentTheme = dark;
+          print('change theme para dark');
+        }
+        setState(() {});
       },
       icon: Icon(Icons.nightlight_round),
     );
   }
 
-  PreferredSize appBar() {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(100),
-      child: SafeArea(
-        child: Container(
-          // color: AppColors.primary,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                'Olá, ${widget.displayName}',
-                // style: AppTextStyles.titleRegular,
-              ),
-              Spacer(),
-              changeTheme(),
-              // Spacer(),
-              popMenu(),
-              SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // PreferredSize appBar() {
+  //   return PreferredSize(
+  //     preferredSize: Size.fromHeight(100),
+  //     child: SafeArea(
+  //       child: Container(
+  //         // color: AppColors.primary,
+  //         child: Row(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             SizedBox(
+  //               width: 10,
+  //             ),
+  //             Text(
+  //               'Olá, ${widget.displayName}',
+  //               // style: AppTextStyles.titleRegular,
+  //             ),
+  //             Spacer(),
+  //             changeTheme(),
+  //             // Spacer(),
+  //             popMenu(),
+  //             SizedBox(
+  //               width: 10,
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   PopupMenuButton<dynamic> popMenu() {
     return PopupMenuButton(
@@ -198,6 +208,7 @@ class _HomePageState extends State<HomePage> {
         child: IconButton(
           tooltip: 'Minhas frases arquivadas',
           icon: Icon(AppIconData.box),
+          color: ThemeApp.onBackground,
           onPressed: () async {
             Navigator.pushNamed(
               context,
@@ -212,7 +223,7 @@ class _HomePageState extends State<HomePage> {
       flex: 5,
       child: Container(
         height: 30,
-        color: ThemeApp.backgroundText,
+        color: ThemeApp.backgroundLight,
         child: Row(
           children: [
             SizedBox(
@@ -220,7 +231,8 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               'Minhas frases em classificação ',
-              // // style: AppTextStyles.trailingBold,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ],
         ),

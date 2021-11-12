@@ -1,5 +1,6 @@
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -98,7 +99,10 @@ class ObserverPhrasePage extends StatelessWidget {
     }
     if (list.isEmpty) {
       list.add(ListTile(
-        leading: Icon(AppIconData.smile),
+        leading: Icon(
+          AppIconData.smile,
+          color: ThemeApp.onBackgroundDark,
+        ),
         title: Text('Ops. Ainda não há frase para ser observada.'),
       ));
     }

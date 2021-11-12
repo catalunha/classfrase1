@@ -30,7 +30,7 @@ class LearnCard extends StatelessWidget {
           ),
           Container(
             height: 1,
-            color: ThemeApp.backgroundText,
+            color: ThemeApp.backgroundLight,
           ),
           Wrap(
             children: widgetList ?? [],

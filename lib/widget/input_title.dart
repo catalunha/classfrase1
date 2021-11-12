@@ -41,15 +41,16 @@ class InputTitle extends StatelessWidget {
                   Text(
                     label,
                     softWrap: true,
+                    style: TextStyle(color: ThemeApp.onBackground),
                   ),
                   required
                       ? Text(
                           ' *',
-                          // style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: ThemeApp.error),
                         )
                       : Container(),
                 ]),
-            color: ThemeApp.backgroundText,
+            color: ThemeApp.backgroundLight,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -58,19 +59,20 @@ class InputTitle extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   icon,
-                  color: ThemeApp.icon01Color,
+                  color: ThemeApp.secondary,
                 ),
               ),
               Container(
                 width: 1,
                 height: 48,
-                color: ThemeApp.backgroundText,
+                color: ThemeApp.backgroundLight,
               ),
               SizedBox(
                 width: 15,
               ),
               Expanded(
                 child: TextFormField(
+                  style: TextStyle(color: ThemeApp.onBackground),
                   controller: controller,
                   initialValue: initialValue,
                   validator: validator,

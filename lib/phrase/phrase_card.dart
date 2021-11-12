@@ -24,10 +24,18 @@ class PhraseCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ListTile(
-            tileColor: ThemeApp.backgroundPhrase,
+            tileColor: ThemeApp.surfaceLight,
             title: Text(
               phrase.phrase,
               style: TextStyle(
+                color: ThemeApp.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              phrase.font ?? '',
+              style: TextStyle(
+                color: ThemeApp.onSurfaceLight,
                 fontWeight: FontWeight.bold,
               ),
             ),

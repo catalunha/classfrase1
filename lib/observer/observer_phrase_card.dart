@@ -23,7 +23,7 @@ class ObserverPhraseCard extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            color: ThemeApp.backgroundPhrase,
+            color: ThemeApp.surfaceLight,
             child: Text(
               phrase.phrase,
               textAlign: TextAlign.center,
@@ -37,7 +37,7 @@ class ObserverPhraseCard extends StatelessWidget {
           ),
           Container(
             height: 1,
-            color: ThemeApp.backgroundText,
+            color: ThemeApp.backgroundLight,
           ),
           Wrap(
             children: widgetList ?? [],

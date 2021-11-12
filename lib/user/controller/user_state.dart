@@ -17,10 +17,8 @@ enum StatusFirebaseAuth {
 
 class UserState {
   final User? userFirebaseAuth;
-
   final UserModel? userCurrent;
   final StatusFirebaseAuth statusFirebaseAuth;
-
   final StatusFirestoreUser statusFirestoreUser;
 
   UserState({

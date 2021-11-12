@@ -37,13 +37,13 @@ class MyApp extends StatelessWidget {
         defaultTheme: orange,
         currentTheme: orange,
         child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          scrollBehavior: MyCustomScrollBehavior(),
           title: 'ClassFrase',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeDataApp().changed,
+          scrollBehavior: MyCustomScrollBehavior(),
           navigatorKey: navigatorKey,
           routes: Routes.routes,
           initialRoute: '/',
-          theme: ThemeDataApp().changed,
         ),
       ),
     );

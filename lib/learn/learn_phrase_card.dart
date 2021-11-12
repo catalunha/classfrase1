@@ -21,7 +21,7 @@ class LearnPhraseCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            tileColor: ThemeApp.backgroundPhrase,
+            tileColor: ThemeApp.surfaceLight,
             title: Text(
               phraseModel.phrase,
               // // style: AppTextStyles.bu1ttonBoldHeading,
@@ -30,6 +30,7 @@ class LearnPhraseCard extends StatelessWidget {
             ),
             subtitle: Text(
               phraseModel.font ?? 'Sem fonte.',
+              style: TextStyle(color: ThemeApp.onSurfaceLight),
             ),
           ),
           Wrap(

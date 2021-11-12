@@ -61,15 +61,14 @@ class _PhraseAddEditPageState extends State<PhraseAddEditPage> {
                     widget.formController.onChange(phrase: value);
                   },
                 ),
-                formController.phraseModel.id.isEmpty
-                    ? Container()
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Observação: Se o texto da frase for modificada, toda sua classificação gramatical será perdida.',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Observação: Se a frase for modificada, após qualquer classificação, toda sua classificação será perdida.',
+                    style: TextStyle(color: ThemeApp.onBackground),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 InputTitle(
                   label: 'Fonte desta frase',
                   initialValue: widget.formController.phraseModel.font,

@@ -52,7 +52,7 @@ class ClassificationsPage extends StatelessWidget {
                 text: TextSpan(
                   style: TextStyle(
                     fontSize: 28,
-                    color: ThemeApp.onBackground,
+                    color: ThemeApp.onBackgroundDark,
                   ),
                   children: buildPhraseNoSelectable(
                     context: context,
@@ -64,7 +64,9 @@ class ClassificationsPage extends StatelessWidget {
             ),
           ),
           Container(
-            color: ThemeApp.backgroundText,
+            width: double.infinity,
+            color: ThemeApp.backgroundLight,
+            alignment: Alignment.center,
             child: Text('clique para escolher uma ou mais opções.'),
           ),
           Expanded(
@@ -103,7 +105,7 @@ class ClassificationsPage extends StatelessWidget {
         if (list.isNotEmpty) {
           listExpansion.add(
             ExpansionTile(
-              backgroundColor: Colors.black12,
+              backgroundColor: ThemeApp.surfaceLight,
               title: Text(
                 setCategory,
                 style: TextStyle(fontSize: 24),
@@ -122,10 +124,15 @@ class ClassificationsPage extends StatelessWidget {
             Expanded(
               child: Container(
                 color: selectedCategoryIdList.contains(category.id)
-                    ? ThemeApp.backgroundSelected
+                    ? ThemeApp.errorLight
                     : null,
                 child: ListTile(
-                  title: Text('${category.title}'),
+                  title: Text(
+                    '${category.title}',
+                    style: selectedCategoryIdList.contains(category.id)
+                        ? TextStyle(color: ThemeApp.onError)
+                        : null,
+                  ),
                   onTap: () {
                     onSelectCategory(category.id!);
                   },
@@ -165,10 +172,15 @@ class ClassificationsPage extends StatelessWidget {
             Expanded(
               child: Container(
                 color: selectedCategoryIdList.contains(category.id)
-                    ? ThemeApp.backgroundSelected
+                    ? ThemeApp.errorLight
                     : null,
                 child: ListTile(
-                  title: Text('${category.title}'),
+                  title: Text(
+                    '${category.title}',
+                    style: selectedCategoryIdList.contains(category.id)
+                        ? TextStyle(color: ThemeApp.onError)
+                        : null,
+                  ),
                   onTap: () {
                     onSelectCategory(category.id!);
                   },

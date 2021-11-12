@@ -34,15 +34,18 @@ class InputDescription extends StatelessWidget {
             width: double.infinity,
             alignment: Alignment.topCenter,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(label),
+              Text(
+                label,
+                style: TextStyle(color: ThemeApp.onBackground),
+              ),
               required
                   ? Text(
                       ' *',
-                      // style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: ThemeApp.error),
                     )
                   : Container(),
             ]),
-            color: ThemeApp.backgroundText,
+            color: ThemeApp.backgroundLight,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -51,19 +54,20 @@ class InputDescription extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Icon(
                   icon,
-                  color: ThemeApp.icon01Color,
+                  color: ThemeApp.secondary,
                 ),
               ),
               Container(
                 width: 1,
                 height: 48,
-                color: ThemeApp.backgroundText,
+                color: ThemeApp.backgroundLight,
               ),
               SizedBox(
                 width: 10,
               ),
               Expanded(
                 child: TextFormField(
+                  style: TextStyle(color: ThemeApp.onBackground),
                   controller: controller,
                   initialValue: initialValue,
                   validator: validator,

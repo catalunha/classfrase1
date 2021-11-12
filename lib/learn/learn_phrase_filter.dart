@@ -1,5 +1,6 @@
 import 'package:classfrase/classification/controller/classification_model.dart';
 import 'package:classfrase/phrase/controller/phrase_model.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:classfrase/widget/app_link.dart';
 import 'package:flutter/material.dart';
 
@@ -123,7 +124,7 @@ class LearnPhraseFilter extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                // color: containThisCategory ? Colors.yellow : null,
+                color: containThisCategory ? ThemeApp.backgroundLight : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: containThisCategory
@@ -175,7 +176,7 @@ class LearnPhraseFilter extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                // color: containThisCategory ? Colors.yellow : null,
+                color: containThisCategory ? ThemeApp.backgroundLight : null,
                 child: ListTile(
                   title: Text('${category.title}'),
                   onTap: containThisCategory

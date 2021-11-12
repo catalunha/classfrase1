@@ -42,8 +42,8 @@ class CheckLoginAction extends ReduxAction<AppState> {
         dispatch(ChangeStatusFirebaseAuthLoginAction(
             statusFirebaseAuth: StatusFirebaseAuth.unAuthenticated));
       } else {
-        dispatch(ChangeUserLoginAction(userFirebaseAuth: user));
-        dispatch(ChangeStatusFirebaseAuthLoginAction(
+        await dispatch(ChangeUserLoginAction(userFirebaseAuth: user));
+        await dispatch(ChangeStatusFirebaseAuthLoginAction(
             statusFirebaseAuth: StatusFirebaseAuth.authenticated));
 
         await dispatch(GetDocGoogleAccountUserAction(uid: user.uid));

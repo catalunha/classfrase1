@@ -4,9 +4,12 @@ A new Flutter project.
 
 # Web
 
-flutter build web --web-renderer html
+flutter build web --web-renderer canvaskit
 firebase deploy --only hosting:classfrase
 
+
+
+flutter build web --web-renderer html
 **aa**
 *aa*
 

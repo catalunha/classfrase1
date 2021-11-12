@@ -43,7 +43,7 @@ List<Widget> buildClassByLine2({
         text: phraseList[i],
         style: phraseList[i] != ' ' && posPhraseList.contains(i)
             ? TextStyle(
-                color: ThemeApp.highlightWord,
+                color: ThemeApp.secondary,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -136,7 +136,7 @@ List<Widget> buildClassifications2({
     list.add(
       Container(
         width: double.infinity,
-        color: ThemeApp.backgroundText,
+        color: ThemeApp.backgroundLight,
         child: Center(
           child: Text('${group.title}'),
         ),
@@ -206,7 +206,7 @@ List<InlineSpan> buildPhrase2({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                color: ThemeApp.highlightWord,
+                color: ThemeApp.secondary,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )
@@ -239,7 +239,7 @@ List<InlineSpan> buildPhraseNoSelectable({
         text: phraseList[wordPos],
         style: selectedPhrasePosList.contains(wordPos)
             ? TextStyle(
-                color: ThemeApp.highlightWord,
+                color: ThemeApp.secondary,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.solid,
               )

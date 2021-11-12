@@ -1,5 +1,6 @@
 import 'package:classfrase/phrase/controller/phrase_model.dart';
 import 'package:classfrase/theme/app_icon.dart';
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 class ObservedPersonTile extends StatelessWidget {
@@ -22,6 +23,7 @@ class ObservedPersonTile extends StatelessWidget {
             ),
       title: Text(
         phrase.userRef.displayName ?? 'Pessoa sem nome.',
+        style: TextStyle(color: ThemeApp.onBackgroundLight),
       ),
       // subtitle: Text(
       //   'Classificador da frase.',

@@ -1,3 +1,4 @@
+import 'package:classfrase/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 
 class RequiredInForm extends StatelessWidget {
@@ -18,18 +19,29 @@ class RequiredInForm extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('Campos com '),
+              Text(
+                'Campos com ',
+                style: TextStyle(
+                  color: ThemeApp.onBackgroundLight,
+                ),
+              ),
               Text(
                 ' * ',
                 style: TextStyle(
-                  // color: Colors.red,
+                  color: ThemeApp.error,
                   fontSize: 16,
                 ),
               ),
-              Text(' tem preenchimento obrigatório.'),
+              Text(' tem preenchimento obrigatório.',
+                  style: TextStyle(
+                    color: ThemeApp.onBackgroundLight,
+                  )),
             ],
           ),
-          Text(message),
+          Text(message,
+              style: TextStyle(
+                color: ThemeApp.onBackgroundLight,
+              )),
           SizedBox(
             height: sizedBoxHeight,
           ),
