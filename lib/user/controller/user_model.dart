@@ -18,7 +18,7 @@ class UserModel extends FirestoreModel {
     this.displayName,
     this.photoURL,
     required this.isActive,
-    this.publicPhraseQuota = 7,
+    this.publicPhraseQuota = 14,
   }) : super(id);
 
   UserModel copyWith({
@@ -48,7 +48,7 @@ class UserModel extends FirestoreModel {
       uid: map['uid'],
       photoURL: map['photoURL'],
       isActive: map['isActive'],
-      publicPhraseQuota: map['publicPhraseQuota'] ?? 7,
+      publicPhraseQuota: map['publicPhraseQuota'] ?? 14,
     );
   }
 

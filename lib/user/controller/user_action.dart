@@ -130,7 +130,7 @@ class CreateDocWithGoogleAccountUserAction extends ReduxAction<AppState> {
     googleUser['photoURL'] = state.userState.userFirebaseAuth!.photoURL;
     googleUser['email'] = state.userState.userFirebaseAuth!.email;
     googleUser['isActive'] = true;
-    googleUser['publicPhraseQuota'] = 7;
+    googleUser['publicPhraseQuota'] = 14;
     await docRef.add(googleUser).then((value) async {
       await dispatch(ReadDocUserUserAction(id: value.id));
     });

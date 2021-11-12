@@ -47,8 +47,8 @@ class UsersPage extends StatelessWidget {
       list.add(
         ListTile(
           title: Text('${user.displayName}'),
-          subtitle:
-              Text('email: ${user.email}\nid: ${user.id}\nuid: ${user.uid}'),
+          subtitle: Text(
+              'email: ${user.email}\nid: ${user.id}\nuid: ${user.uid}\ncota: ${user.publicPhraseQuota}'),
           leading: user.photoURL == null
               ? Icon(AppIconData.undefined)
               : ClipRRect(
