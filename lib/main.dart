@@ -1,21 +1,12 @@
-import 'package:async_redux/async_redux.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import 'app_state.dart';
-import 'routes.dart';
-import 'theme/app_colors.dart';
-
-late Store<AppState> store;
-final navigatorKey = GlobalKey<NavigatorState>();
+import 'package:flutter/gestures.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+import 'package:classfrase/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  store = Store<AppState>(initialState: AppState.initialState());
-  NavigateAction.setNavigatorKey(navigatorKey);
   runApp(MyApp());
 }
 
@@ -28,21 +19,21 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-      store: store,
-      child: MaterialApp(
-        scrollBehavior: MyCustomScrollBehavior(),
-        title: 'ClassFrase',
-        theme: ThemeData(
-          primaryColor: AppColors.primary,
-          primarySwatch: AppColors.swatch,
-        ),
-        navigatorKey: navigatorKey,
-        routes: Routes.routes,
-        initialRoute: '/',
-      ),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      scrollBehavior: MyCustomScrollBehavior(),
+      title: 'ClassFrase',
+      // theme: appThemeDataDark,
+      // darkTheme: appThemeDataDark,
+      // themeMode: ThemeMode.system,
+      getPages: RoutesPages.pageList,
+      initialRoute: '/',
+      // locale: const Locale('pt', 'BR'),
+      // translationsKeys: AppTranslations.translations,
     );
   }
 }

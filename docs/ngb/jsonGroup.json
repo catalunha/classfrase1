@@ -1,0 +1,37 @@
+[
+    {
+        "id": "9c530272-5cf6-4db1-89ab-3ad6f0e2fc0a",
+        "title": "Estilística",
+        "description": "",
+        "filter": null,
+        "url": null
+    },
+    {
+        "id": "d4751a32-5bb1-4673-9451-0026281af9b3",
+        "title": "Fonética",
+        "description": "",
+        "filter": null,
+        "url": null
+    },
+    {
+        "id": "720c16e8-f119-44b8-82dd-80ade6e2feae",
+        "title": "Morfologia",
+        "description": "",
+        "filter": null,
+        "url": null
+    },
+    {
+        "id": "17e4650e-d054-4ace-8608-fd988c898723",
+        "title": "Semântica",
+        "description": "",
+        "filter": null,
+        "url": null
+    },
+    {
+        "id": "fcb86ff1-859e-465b-8b9c-2ee88ebe84cc",
+        "title": "Sintaxe",
+        "description": "",
+        "filter": null,
+        "url": null
+    }
+]

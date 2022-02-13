@@ -1,0 +1,28 @@
+Anacoluto || 601dc42d-4043-4a11-a82e-53be13fdf230
+Antítese || 3736bc90-9641-4744-b9de-5be5d52ca74e
+Apóstrofe || 7922c2ab-8cea-4905-adba-e4c32075d67c
+Catacrese || 5a471cda-8773-4dd6-8237-10a27b79d316
+Elipse || ff62bd86-9a78-4ee6-9d12-f3ff37a73374
+Eufemismo || a04839a4-4808-4ef1-b585-ca8e133ab879
+Gradação || 3305c3a0-a225-493d-be2c-0bba27881800
+Hipérbole || a8357e3f-0ea6-42f6-aae8-0532fd00a4b5
+Inversão || 42601a71-9f8c-45c2-9df8-3d6416989c1a
+Ironia || 8ce17357-8c1b-4ecb-a777-7e797c4ff812
+Metáfora || acf2733f-9733-4382-a42a-aa80b443bf92
+Metonímia || 989da1ee-3d14-4ae8-b77a-c170c167406e
+Onomatopeia || b761d197-286f-4e28-9c97-96614854d88e
+Paradoxo || fc20add9-6635-4884-9f56-1de053cc9037
+Perífrase || 125851a3-5099-4161-8ce3-c24a32cf99b1
+Personificação || 1123eea2-9069-41b9-9462-07c5497d32c3
+Pleonasmo || 37c75264-c234-434f-873f-8e4f51f70c79
+Polissíndeto || e1a1a9d9-e77e-45e2-897f-7dd4ebfdb399
+Repetição || 1c4617c3-1ccf-46c8-8b8c-28566d370e51
+Reticência || 658d04c5-7164-4f9d-9d97-fbf1be68c574
+Retificação || 72b224f2-b9dd-4cef-8f4e-bd6a5ee852e8
+Silepse - Gênero || 695383a7-7ff6-45a8-aad9-70a1f3c1f0b3
+Silepse - Número || 56f48d4a-3b23-4ad8-9586-df4fc74a7b1a
+Silepse - Pessoa || 149bf39b-e924-4e0c-a314-09745998068c
+Silepse || 909574e9-38b3-423e-af4b-8ee66e58ebab
+Símile || b04c6a6b-2646-4874-b88a-f27b88f35f2d
+Sinédoque || 749be49d-1067-441e-b958-b87af7544916
+Sinestesia || 66c32c78-f813-4efd-b80a-c521fb72f349

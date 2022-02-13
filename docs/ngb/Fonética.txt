@@ -1,0 +1,59 @@
+Acento - Principal | Tonicidade |
+Acento - Secundário | Tonicidade |
+Arrizotônico ||
+Consoante - Alveolar | Quanto ao ponto de articulação |
+Consoante - Bilabial | Quanto ao ponto de articulação |
+Consoante - Constritiva - Fricativa | Quanto ao modo de articulação |
+Consoante - Constritiva - Lateral | Quanto ao modo de articulação |
+Consoante - Constritiva - Vibrante | Quanto ao modo de articulação |
+Consoante - Labiodental | Quanto ao ponto de articulação |
+Consoante - Linguodental | Quanto ao ponto de articulação |
+Consoante - Nasal | Quanto ao papel das cavidades bucal e nasal |
+Consoante - Oclusiva | Quanto ao modo de articulação |
+Consoante - Oral | Quanto ao papel das cavidades bucal e nasal |
+Consoante - Palatal | Quanto ao ponto de articulação |
+Consoante - Sonoras | Quanto ao papel das cordas vocais |
+Consoante - Surdas | Quanto ao papel das cordas vocais |
+Consoante - Velar | Quanto ao ponto de articulação |
+Dígrafo || a6577e45-db9d-49a1-a1a1-a1383ae32da2
+Dissílaba | Classificam-se os vocábulos, quanto ao número de sílabas| 464f958f-4fca-45aa-abe3-4a768ba40a81
+Ditongo - Crescente ||
+Ditongo - Decrescente ||
+Ditongo - Nasal  ||
+Ditongo - Oral ||
+Ditongo || eed86476-cfee-4245-a57a-581bb0cc3c68
+Fonemas - Consoante | Pode ser |
+Fonemas - Semivogal | Pode ser |
+Fonemas - Vogal | Pode ser |
+Fonética - Descritiva | Pode ser |
+Fonética - Histórica | Pode ser |
+Fonética - Sintática | Pode ser |
+Hiato || 30a885c2-41aa-49a2-83e8-f4f0d6671e39
+Monossílaba - Átono | Classificam-se os vocábulos, quanto ao número de sílabas|
+Monossílaba - Tônico | Classificam-se os vocábulos, quanto ao número de sílabas|
+Monossílaba | Classificam-se os vocábulos, quanto ao número de sílabas| aecccc91-5b15-4b8d-bd22-a066bf6cc303
+Ortoepia ||
+Oxítona | Quanto ao acento tônico | 05a5c7d4-125e-4fe9-9d5c-e0d17b25ab15
+Paroxítona | Quanto ao acento tônico | 1fc8f584-fa09-48db-b3d1-9a3474e9bd6a
+Polissílaba | Classificam-se os vocábulos, quanto ao número de sílabas| 26478e85-1188-494b-940b-e4a8f5627568
+Proparoxítona | Quanto ao acento tônico | f5418421-bfab-4c8d-ae45-7b3cd6f69130
+Prosódia ||
+Rizotônico ||
+Sílaba - Átona - Postônica ||
+Sílaba - Átona - Pretônica ||
+Sílaba - Subtônica ||
+Sílaba - Tônica ||
+Trissílaba | Classificam-se os vocábulos, quanto ao número de sílabas| 21e963a5-14a4-442c-aabc-74897d39ad20
+Tritongo - Nasal ||
+Tritongo - Oral ||
+Tritongo || a89ea74b-1f16-45e4-a21f-babe5012042e
+Vogal - Abertas | Quanto ao timbre |
+Vogal - Anteriores | Quanto à zona de articulação |
+Vogal - Átonas | Quanto à intensidade |
+Vogal - Fechadas | Quanto ao timbre |
+Vogal - Médias | Quanto à zona de articulação |
+Vogal - Nasal | Quanto ao papel das cavidades bucal e nasal |
+Vogal - Oral | Quanto ao papel das cavidades bucal e nasal |
+Vogal - Posteriores | Quanto à zona de articulação |
+Vogal - Reduzidas | Quanto ao timbre |
+Vogal - Tônicas | Quanto à intensidade |

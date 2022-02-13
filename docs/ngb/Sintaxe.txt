@@ -1,0 +1,76 @@
+Oração - Subordinada - Adverbial - Comparativa |*| ec747100-e9f4-4649-984c-7d3c667ff585
+Período: Misto |*| c4075ab7-173e-4bce-9ca9-3915225c071e
+Adjunto adnominal | Termo acessórios da oração. | 78d81b79-1200-4af0-9e03-11744b36d6b9
+Adjunto adverbial | Termo acessórios da oração. | c5be7b34-557b-4641-b818-e6b7e3da612a
+Agente da passiva | Termo integrante da oração. | 369af9a8-e664-4c67-8983-273ef90f24b3
+Anacoluto | Figuras de sintaxe |
+Aposto | Termo acessórios da oração. | 12f45f49-ab2b-4001-96b3-1df97a58cf0e
+Colocação | Quanto a divisão da sintaxe |
+Complemento nominal | Termo integrante da oração | f8d31996-c274-418c-bf31-a289671293ce
+Concordância - Nominal | Quanto a divisão da sintaxe |
+Concordância - Verbal | Quanto a divisão da sintaxe |
+Concordância | Quanto a divisão da sintaxe |
+Elipse | Figuras de sintaxe |
+Objeto direto | Termo integrante da oração. Complemento verbal. | aa72c6c1-9b99-404f-8010-2a24e6648fbf
+Objeto indireto | Termo integrante da oração. Complemento verbal. | 8dbfedfa-81c9-45d1-9105-1314cafeb520
+Oração - Absoluta ||
+Oração - Coordenada - Assindética ||
+Oração - Coordenada - Sindética - Aditiva || 9d34c9de-b1e8-4ee8-9dde-9c9344ff11ae
+Oração - Coordenada - Sindética - Adversativa || cf6b8c36-1ef3-4a78-b373-983c01153b80
+Oração - Coordenada - Sindética - Alternativa || de70388f-018b-4653-b940-8f79565aeab3
+Oração - Coordenada - Sindética - Conclusiva || fe130382-4cbb-4dd4-942c-8084cb3b878c
+Oração - Coordenada - Sindética - Explicativa || 4cdffabf-164f-4179-9ff2-a59ea5a18d77
+Oração - Coordenada - Sindética ||
+Oração - Coordenada || 8d0cd110-295d-49e9-933c-72049eec7234
+Oração - Principal || 03397d46-c80c-4f55-898d-e65e1516d536
+Oração - Subordinada - Adjetiva - Explicativa || 8a98a6e3-f42e-411b-806f-ec8a9121d4ee
+Oração - Subordinada - Adjetiva - Restritiva || 6730a283-ca5f-4be9-a926-805a0b61a939
+Oração - Subordinada - Adjetiva || 5d6ece70-a90d-4a8c-85d7-a28764064ed8
+Oração - Subordinada - Adverbial - Causal || 653292eb-04f9-470e-8786-138aa0b2ae47
+Oração - Subordinada - Adverbial || 7ea047b8-c526-4643-bdf5-f842a59f4934
+Oração - Subordinada - Concessiva || b63b01c9-2e10-46f9-8e23-aec69cf08dc1
+Oração - Subordinada - Condicional || 93acbb55-ba44-4954-9ee7-916eb1be0757
+Oração - Subordinada - Conformativa || ac7c6349-c19a-4be2-b11a-0e3bc29eff63
+Oração - Subordinada - Consecutiva || 487ffbcb-1dd5-4b20-8d8b-9d8ad0dd00d9
+Oração - Subordinada - Final || b4627f91-c5c1-45b8-8886-3be5c0c120f3
+Oração - Subordinada - Proporcional || 0e5412f5-b67d-4480-835b-3cdc768b26eb
+Oração - Subordinada - Substantiva - Apositiva || 4ade8bd5-b89e-46d9-8ddc-1d6655335f06
+Oração - Subordinada - Substantiva - Completiva nominal || 791b0eba-27aa-4834-912b-5a6957f6693d
+Oração - Subordinada - Substantiva - Objetiva Direta || b0d2680f-9295-456b-8c69-b907f7992e99
+Oração - Subordinada - Substantiva - Objetiva Indireta || c04b518d-c4d6-49cc-a4cd-ba582bae6878
+Oração - Subordinada - Substantiva - Predicativa || b5e66283-bc60-4968-8004-544a21d54f18
+Oração - Subordinada - Substantiva - Subjetiva || ce2b79d2-bb87-4bcc-b000-df6179339ec3
+Oração - Subordinada - Substantiva || 473e4a6d-6002-462d-bc45-9a9f31e42f27
+Oração - Subordinada - Temporal  || 3828d31b-f1a2-4670-8bfa-c23fd077d17f
+Oração - Subordinada || 996d49fa-a140-4727-be81-3ec943b2d64e
+Oração || 186c16c4-93e1-4d18-8fd5-ffee98456f26
+Período: Composto - Coordenação | Composição do periodo | bb3d73bc-ce41-4a12-805f-8f6de20c12af
+Período: Composto - Subordinação | Composição do periodo | d91b6e0c-3508-4f42-8500-e239ad20cd89
+Período: Composto | Tipo de período |
+Período: Simples | Tipo de período | 439c1acb-c89d-4dc8-a01b-8fef360b0174
+Pleonasmo | Figuras de sintaxe |
+Predicado - Nominal | Termo essencial da oração. Subclassificações do predicado | 24fc181f-f1eb-420c-aca8-a75b723d3cec
+Predicado - Verbal | Termo essencial da oração. Subclassificações do predicado | 65130387-aa6b-4b65-af25-a4460826605b
+Predicado - Verbo-nominal | Termo essencial da oração. Subclassificações do predicado | 5959061f-16a3-4c65-ab51-b10b1b3e4e37
+Predicado | Termo essencial da oração | 89eb1b1e-9212-4bf7-bc8a-731f9cd6c25b
+Predicativo do objeto | Termo essencial da oração. | 176a0464-22fa-4094-8dc3-036d0cc8b753
+Predicativo do sujeito |Termo essencial da oração. | 059ab63e-f1a9-4470-8c25-1e27b3722373
+Regência - Nominal | Quanto a divisão da sintaxe |
+Regência - Verbal | Quanto a divisão da sintaxe |
+Regência | Quanto a divisão da sintaxe |
+Silepse | Figuras de sintaxe |
+Sujeito - Composto | Termo essencial da oração. Subclassificações do sujeito |
+Sujeito - Indeterminado | Termo essencial da oração. Subclassificações do sujeito |
+Sujeito - Oração sem sujeito | Termo essencial da oração. Subclassificações do sujeito |
+Sujeito - Simples | Termo essencial da oração. Subclassificações do sujeito |
+Sujeito | Termo essencial da oração. | 96345139-cb63-4853-ab1a-d1ec908a9ffb
+Tipo: Declarativa (.) |*| 03912922-993a-4f72-b4fa-4e737d31399d
+Tipo: Exclamativa (!) |*| e9ed10cc-7383-4061-b9fd-5df170893abc
+Tipo: Imperativa (.!) |*| 82988873-b90b-4284-9632-1146974760a0
+Tipo: Interrogativa (?) |*| a4eab314-97a7-429f-8b67-b9ce05b96d8e
+Verbo de ligação | Termo essencial da oração. Predicação verbal. |
+Verbo intransitivo | Termo essencial da oração. Predicação verbal. |
+Verbo transitivo - Direto | Termo essencial da oração. Predicação verbal. |
+Verbo transitivo - Indireto | Termo essencial da oração. Predicação verbal. |
+Verbo transitivo | Termo essencial da oração. Predicação verbal. |
+Vocativo || 057fa48e-d31f-49e3-862e-66832e05d982

@@ -1,0 +1,26 @@
+# Estrutura da classificação gramatical
+Title | Description | uuid 
+
+
+# Morfologia
+Com * indicam que item cadastrado mas nao tem na ngb
+
+Na NGB rela isto:
+Flexão do numeral: em gênero: masculino e feminino; em número: singular e plural.
+
+XI – 1. Palavra.
+2. Vocábulo.
+3.Sincretismo. Sincrético.
+4. Forma variante.
+5. Conetivo.
+
+
+# Sintaxe
+Nota: Na colocação dos pronomes oblíquos, adotem-se as denominações de próclise, mesóclise
+e ênclise.
+
+como classificação da oração no item periodo
+II – Do período:
+1. Tipos de período: simples e composto.
+2. Composição do período: coordenação e subordinação.
+3. Classificação das orações:
