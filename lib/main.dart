@@ -1,3 +1,4 @@
+import 'package:classfrase/view/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,11 +28,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       scrollBehavior: MyCustomScrollBehavior(),
       title: 'ClassFrase',
-      // theme: appThemeDataDark,
+      theme: appThemeDataOrange,
       // darkTheme: appThemeDataDark,
       // themeMode: ThemeMode.system,
-      getPages: RoutesPages.pageList,
-      initialRoute: '/',
+      getPages: Routes.pageList,
+      initialRoute: Routes.splash,
       // locale: const Locale('pt', 'BR'),
       // translationsKeys: AppTranslations.translations,
     );

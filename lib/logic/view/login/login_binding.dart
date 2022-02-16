@@ -1,4 +1,4 @@
-import 'package:classfrase/controller/login/login_controller.dart';
+import 'package:classfrase/logic/view/login/login_controller.dart';
 import 'package:get/get.dart';
 
 class LoginBinding implements Bindings {

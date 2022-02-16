@@ -1,27 +1,29 @@
-import 'package:classfrase/controller/home/home_binding.dart';
-import 'package:classfrase/controller/login/login_binding.dart';
-import 'package:classfrase/controller/login/login_controller.dart';
-import 'package:classfrase/controller/splash/splash_bindinng.dart';
-import 'package:classfrase/controller/splash/splash_controller.dart';
+import 'package:classfrase/logic/auth/auth_bindinng.dart';
+import 'package:classfrase/logic/view/home/home_binding.dart';
+import 'package:classfrase/logic/view/login/login_binding.dart';
 import 'package:classfrase/view/home/home_page.dart';
 import 'package:classfrase/view/login/login_page.dart';
 import 'package:classfrase/view/splash/splash_page.dart';
 import 'package:get/get.dart';
 
-class RoutesPages {
+class Routes {
+  static const splash = '/';
+  static const login = '/login';
+  static const home = '/home';
+
   static final pageList = [
     GetPage(
-      name: '/',
-      binding: SplashBinding(),
+      name: Routes.splash,
+      binding: AuthBinding(),
       page: () => SplashPage(Get.find()),
     ),
     GetPage(
-      name: '/login',
+      name: Routes.login,
       binding: LoginBinding(),
       page: () => LoginPage(Get.find()),
     ),
     GetPage(
-      name: '/home',
+      name: Routes.home,
       binding: HomeBinding(),
       page: () => HomePage(Get.find()),
     ),

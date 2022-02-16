@@ -1,4 +1,4 @@
-import 'package:classfrase/controller/home/home_controller.dart';
+import 'package:classfrase/logic/view/home/home_controller.dart';
 import 'package:get/get.dart';
 
 class HomeBinding implements Bindings {

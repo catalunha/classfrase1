@@ -89,7 +89,7 @@ class Text2JsonClassifications {
 
   void writeTextCategory() {
     String pathFileName = '$path/txtCategory.txt';
-    if (File(path).existsSync()) File(path).deleteSync();
+    if (File(path).existsSync()) File(pathFileName).deleteSync();
 
     var fileOpen = File(path).openWrite(mode: FileMode.append);
     for (var group in _ngbGroupList) {
