@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:classfrase/routes.dart';
+import 'package:classfrase/app/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

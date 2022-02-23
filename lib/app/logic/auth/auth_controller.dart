@@ -1,6 +1,6 @@
 import 'package:classfrase/data/service/auth_service.dart';
 import 'package:classfrase/logic/service/user_controller.dart';
-import 'package:classfrase/routes.dart';
+import 'package:classfrase/app/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';

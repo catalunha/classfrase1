@@ -1,14 +1,11 @@
-# classfrase
-
-A new Flutter project.
 
 # Web
 
 flutter build web --web-renderer html
 firebase deploy --only hosting:classfrase
 
-**aa**
-*aa*
+# estrutura
+https://github.com/salkuadrat/f/tree/master/starter_getx/lib
 
 
 # use npm
