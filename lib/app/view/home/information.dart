@@ -1,5 +1,5 @@
-import 'package:classfrase/view/theme/app_icon.dart';
-import 'package:classfrase/view/theme/app_text_styles.dart';
+import 'package:classfrase/app/view/config/app_icon.dart';
+import 'package:classfrase/app/view/config/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,12 +1,13 @@
-import 'package:classfrase/logic/auth/auth_controller.dart';
-import 'package:classfrase/view/theme/app_colors.dart';
-import 'package:classfrase/view/theme/app_images.dart';
-import 'package:classfrase/view/theme/app_text_styles.dart';
+import 'package:classfrase/app/data/assets/app_images.dart';
+import 'package:classfrase/app/logic/view/login/login_controller.dart';
+import 'package:classfrase/app/view/config/app_colors.dart';
+import 'package:classfrase/app/view/config/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  final AuthController _controller;
-  const LoginPage(this._controller, {Key? key}) : super(key: key);
+  final LoginController _controller = Get.find();
+  LoginPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

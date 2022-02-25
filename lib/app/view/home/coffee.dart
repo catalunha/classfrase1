@@ -1,4 +1,4 @@
-import 'package:classfrase/view/theme/app_text_styles.dart';
+import 'package:classfrase/app/view/config/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class Coffee extends StatelessWidget {

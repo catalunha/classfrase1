@@ -1,20 +1,15 @@
-import 'package:classfrase/logic/auth/auth_controller.dart';
-import 'package:classfrase/logic/service/user_controller.dart';
-import 'package:classfrase/logic/view/home/home_controller.dart';
-import 'package:classfrase/view/home/coffee.dart';
-import 'package:classfrase/view/home/information.dart';
-import 'package:classfrase/view/theme/app_colors.dart';
-import 'package:classfrase/view/theme/app_icon.dart';
-import 'package:classfrase/view/theme/app_text_styles.dart';
+import 'package:classfrase/app/logic/view/home/home_controller.dart';
+import 'package:classfrase/app/view/config/app_colors.dart';
+import 'package:classfrase/app/view/config/app_icon.dart';
+import 'package:classfrase/app/view/config/app_text_styles.dart';
+import 'package:classfrase/app/view/home/coffee.dart';
+import 'package:classfrase/app/view/home/information.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  final authController = Get.find<AuthController>();
-  final userController = Get.find<UserController>();
-
-  final HomeController _controller;
-  HomePage(this._controller, {Key? key}) : super(key: key);
+  final HomeController _controller = Get.find();
+  HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +36,7 @@ class HomePage extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                'Olá, ${userController.userModel.displayName}',
+                'Olá, ${_controller.userModel.displayName}',
                 style: AppTextStyles.titleRegular,
               ),
               Spacer(),
@@ -64,7 +59,7 @@ class HomePage extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
           // child: const Icon(Icons.ac_unit),
           child: Image.network(
-            '${userController.userModel.photoURL}',
+            '${_controller.userModel.photoURL}',
             height: 58,
             width: 58,
           ),
@@ -97,7 +92,7 @@ class HomePage extends StatelessWidget {
             child: TextButton.icon(
               label: const Text('Exit'),
               onPressed: () {
-                authController.signOut();
+                _controller.signOut();
               },
               icon: const Icon(AppIconData.exit),
             ),

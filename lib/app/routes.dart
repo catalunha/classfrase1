@@ -1,31 +1,31 @@
-import 'package:classfrase/logic/auth/auth_bindinng.dart';
-import 'package:classfrase/logic/view/home/home_binding.dart';
-import 'package:classfrase/logic/view/login/login_binding.dart';
-import 'package:classfrase/view/home/home_page.dart';
-import 'package:classfrase/view/login/login_page.dart';
-import 'package:classfrase/view/splash/splash_page.dart';
+import 'package:classfrase/app/logic/service/auth/auth_bindinng.dart';
+import 'package:classfrase/app/logic/view/home/home_binding.dart';
+import 'package:classfrase/app/logic/view/login/login_binding.dart';
+import 'package:classfrase/app/view/auth/auth_page.dart';
+import 'package:classfrase/app/view/home/home_page.dart';
+import 'package:classfrase/app/view/login/login_page.dart';
 import 'package:get/get.dart';
 
 class Routes {
-  static const splash = '/';
+  static const auth = '/';
   static const login = '/login';
   static const home = '/home';
 
   static final pageList = [
     GetPage(
-      name: Routes.splash,
+      name: Routes.auth,
       binding: AuthBinding(),
-      page: () => SplashPage(Get.find()),
+      page: () => AuthPage(),
     ),
     GetPage(
       name: Routes.login,
       binding: LoginBinding(),
-      page: () => LoginPage(Get.find()),
+      page: () => LoginPage(),
     ),
     GetPage(
       name: Routes.home,
       binding: HomeBinding(),
-      page: () => HomePage(Get.find()),
+      page: () => HomePage(),
     ),
   ];
 }

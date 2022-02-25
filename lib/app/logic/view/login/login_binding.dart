@@ -1,9 +1,10 @@
-import 'package:classfrase/logic/view/login/login_controller.dart';
+import 'package:classfrase/app/logic/view/login/login_controller.dart';
 import 'package:get/get.dart';
 
 class LoginBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LoginController>(() => LoginController());
+    Get.lazyPut<LoginController>(
+        () => LoginController(authService: Get.find()));
   }
 }

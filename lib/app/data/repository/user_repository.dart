@@ -1,59 +1,34 @@
-import 'package:classfrase/data/model/user_model.dart';
+import 'package:classfrase/app/data/exceptions/user_exceptions.dart';
+import 'package:classfrase/app/data/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class UserRepository extends GetxController {
   final FirebaseFirestore _firebaseFirestoreInstance =
       FirebaseFirestore.instance;
-  UserRepository();
 
-  Future<List<UserModel>> getAll() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await _firebaseFirestoreInstance
-            .collection(UserModel.collection)
-            .where('accessType', arrayContains: 'student')
-            .where('isActive', isEqualTo: true)
-            .get();
-    List<UserModel> userModelList = <UserModel>[];
-    userModelList = querySnapshot.docs
-        .map(
-          (queryDocumentSnapshot) => UserModel.fromMap(
-            queryDocumentSnapshot.data(),
-          ),
-        )
-        .toList();
-    return userModelList;
-  }
-
-  Future<Map<String, dynamic>?> getByUid(String uid) async {
+  Future<UserModel> getByUid(String uid) async {
     var querySnapshot = await _firebaseFirestoreInstance
         .collection(UserModel.collection)
         .where('uid', isEqualTo: uid)
         .get();
-    Future.delayed(Duration(seconds: 2), () => print('Esperando 2s...'));
-
-    var documentListMapIdData = querySnapshot.docs
-        .map((queryDocumentSnapshot) =>
-            {queryDocumentSnapshot.id: queryDocumentSnapshot.data()})
-        .toList();
-    if (documentListMapIdData.isEmpty) {
-      return null;
-    } else {
-      Map<String, Map<String, dynamic>> documentMapIdData =
-          documentListMapIdData.first;
-      // String documentId = documentMapIdData.keys.first;
-      Map<String, dynamic> documentData = documentMapIdData.values.first;
-
-      return documentData;
+    if (querySnapshot.docChanges.isEmpty || querySnapshot.size == 0) {
+      throw UserNotFoundException();
     }
+    if (querySnapshot.size > 1) {
+      throw UserMoreThanOneException();
+    }
+    UserModel userModel =
+        UserModel.fromMap(querySnapshot.docChanges.first.doc.data()!);
+
+    return userModel;
   }
 
-  Future<Map<String, dynamic>> create(Map<String, dynamic> data) async {
+  Future<void> create(Map<String, dynamic> data) async {
     CollectionReference docRef =
         _firebaseFirestoreInstance.collection(UserModel.collection);
     String idNew = docRef.doc().id;
     data['id'] = idNew;
     await docRef.doc(idNew).set(data);
-    return data;
   }
 }
