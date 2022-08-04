@@ -224,12 +224,15 @@ class PdfPage extends StatelessWidget {
         }
       }
       // Juntando frase e classificações
-      lineList.add(pw.Column(
+      lineList.add(
+        pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: <pw.Widget>[
             richText,
             ...categoryWidgetList,
-          ]));
+          ],
+        ),
+      );
     }
     return lineList;
   }
